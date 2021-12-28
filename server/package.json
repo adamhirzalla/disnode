@@ -1,0 +1,25 @@
+{
+  "name": "disnode-server",
+  "version": "1.0.0",
+  "description": "LHL Final Project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "local": "./node_modules/.bin/nodemon",
+    "reset": "psql -U development -d scheduler_development < ./src/db/schema/create.sql && psql -U development -d scheduler_development < ./src/db/schema/development.sql",
+    "test": "jest",
+    "trace": "node --trace-warnings index",
+    "test:server": "NODE_ENV=test npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamhirzalla/disnode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamhirzalla/disnode/issues"
+  },
+  "homepage": "https://github.com/adamhirzalla/disnode#readme"
+}
