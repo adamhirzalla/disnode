@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "local": "./node_modules/.bin/nodemon",
-    "reset": "psql -U development -d scheduler_development < ./src/db/schema/create.sql && psql -U development -d scheduler_development < ./src/db/schema/development.sql",
+    "db:reset": "PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/create.sql && psql -U labber -d disnode < ./src/db/schema/seed.sql",
     "test": "jest",
     "trace": "node --trace-warnings index",
     "test:server": "NODE_ENV=test npm start"
@@ -24,10 +24,16 @@
   "homepage": "https://github.com/adamhirzalla/disnode#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chalk": "^4.1.2",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
+    "helmet": "^4.6.0",
+    "http-error": "^0.0.6",
     "morgan": "^1.10.0",
-    "pg": "^8.7.1"
+    "pg": "^8.7.1",
+    "socket.io": "^4.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
