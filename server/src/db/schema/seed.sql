@@ -1,13 +1,13 @@
 INSERT INTO users 
 (full_name, display_name, username, email, password, avatar, bio, created_at, is_active) 
-VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', 'password', 'https://proofmart.com/wp-content/uploads/2021/06/1-1.png', 'This is Eavan', '2021-12-28T23:21:50.702Z', true),
-('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', 'password', 'https://proofmart.com/wp-content/uploads/2021/06/7web.png', 'This is Jonathan', '2021-12-28T23:22:08.022Z', true),
-('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', 'password', 'https://proofmart.com/wp-content/uploads/2021/06/3-web-1.png', 'This is Adam', '2021-12-28T23:22:15.072Z', false);
+VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/1-1.png', 'This is Eavan', '2021-12-28T23:21:50.702Z', true),
+('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/7web.png', 'This is Jonathan', '2021-12-28T23:22:08.022Z', true),
+('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/3-web-1.png', 'This is Adam', '2021-12-28T23:22:15.072Z', false);
 
 INSERT INTO users 
 (full_name, display_name, username, email, password, bio, created_at, is_active)
 VALUES 
-('Amy Hilton', 'Amy', 'amy555', 'amy555@gmail.com', 'password',  'This is Amy', '2021-12-28T23:22:15.072Z', false);
+('Amy Hilton', 'Amy', 'amy555', 'amy555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq',  'This is Amy', '2021-12-28T23:22:15.072Z', false);
 
 INSERT INTO icons (name, path)
 VALUES
