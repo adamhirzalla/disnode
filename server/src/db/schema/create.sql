@@ -95,6 +95,7 @@ CREATE TABLE messages (
 CREATE TABLE views (
   "id" SERIAL PRIMARY KEY,
   "message_id" INT REFERENCES messages(id) ON DELETE CASCADE,
+  "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "viewed_at" TIMESTAMP DEFAULT NOW()
 );
 
@@ -113,7 +114,8 @@ CREATE TABLE requests (
 CREATE TABLE connections (
   "id" SERIAL PRIMARY KEY,
   "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
-  "icon_id" INT REFERENCES icons(id) ON DELETE CASCADE
+  "icon_id" INT REFERENCES icons(id) ON DELETE CASCADE,
+  "url" VARCHAR(255)
 );
 
 CREATE TABLE server_tags (
