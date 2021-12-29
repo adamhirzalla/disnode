@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index",
     "local": "./node_modules/.bin/nodemon",
-    "db:reset": "PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/create.sql && psql -U labber -d disnode < ./src/db/schema/seed.sql",
+    "db:reset": "PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/create.sql && PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/seed.sql",
     "test": "jest",
     "trace": "node --trace-warnings index",
     "test:server": "NODE_ENV=test npm start"
