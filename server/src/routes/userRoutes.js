@@ -1,35 +1,28 @@
-require("dotenv").config();
+// require('crypto').randomBytes(64).toString('hex')
 
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { promise } = require("bcrypt/promises");
-const jwt = require("jsonwebtoken");
 const Users = require("../db/queries/users");
-
-// Generate Token
-const generateAccessToken = username => {
-  return jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "30m",
-  });
-};
-
-// Generate Refresh Token
-const generateRefreshToken = username => {
-  return jwt.sign({ username }, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: "5d",
-  });
-};
+const createError = require("http-errors");
+const {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyAccessToken,
+  verifyRefreshToken,
+} = require("../middleware/auth");
 
 // Test route
-router.get("/", (req, res) => {
-  Users.test().then(result => res.json(result));
+router.get("/", verifyAccessToken, (req, res, next) => {
+  console.log(req.headers["authorization"]);
+  res.send("11");
+  // Users.test().then(result => res.json(result));
 });
 
 // Register a new user
 router.post("/register", (req, res, next) => {
   const { full_name, display_name, username, email, password } = req.body;
   if (!full_name || !email || !password) {
-    return res.status(400).send("full name, email and password are required");
+    return next(createError(400, "full name, email and password are required"));
   }
   // Hash password
   bcrypt
@@ -45,13 +38,12 @@ router.post("/register", (req, res, next) => {
     })
     .then(result => {
       if (!result.length) {
-        next({
-          status: 500,
-          message: "Unexpected error occured - failed to create user",
-        });
+        return next(
+          createError(500, "Unexpected error occured - failed to create user")
+        );
       }
       // User register successfully, set JWT and send
-      const accessToken = generateRefreshToken(result[0].username);
+      const accessToken = generateAccessToken(result[0].username);
       const refreshToken = generateRefreshToken(result[0].username);
       const fullName = result[0].full_name;
       const displayName = result[0].display_name;
@@ -64,10 +56,7 @@ router.post("/register", (req, res, next) => {
     })
     .catch(err => {
       if (err.code === "23505") {
-        return next({
-          status: 400,
-          message: "User with this email already exists",
-        });
+        return next(createError(400, "User with this email already exists"));
       }
     });
 });
@@ -76,16 +65,13 @@ router.post("/register", (req, res, next) => {
 router.post("/login", (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    return next({ status: 400, message: "email, password are required" });
+    return next(createError(400, "email, password are required"));
   }
 
   Users.findUserByUsername(username)
     .then(result => {
       if (!result) {
-        return Promise.reject({
-          status: 400,
-          message: "username does not exist",
-        });
+        return Promise.reject(createError(401, "Invaild username or password"));
       }
 
       // If user exist, verify password
@@ -95,7 +81,8 @@ router.post("/login", (req, res, next) => {
       ]);
     })
     .then(([validate, result]) => {
-      if (!validate) next({ status: 400, message: "Invaild password" });
+      if (!validate)
+        return next(createError(401, "Invaild username or password"));
 
       // Valid login - set JWT and send
       const token = generateAccessToken(result.username);
