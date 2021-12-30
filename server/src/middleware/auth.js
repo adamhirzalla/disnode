@@ -13,7 +13,7 @@ const auth = (req, res, next) => {
   }
 };
 
-// Middle ware for verify Refresh Token
+// middleware for verify Refresh Token
 const authRef = (req, res, next) => {
   const { refreshToken } = req.body;
   if (!refreshToken) return res.status(401).send("Unauthorizaed request");
