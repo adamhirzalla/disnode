@@ -2,7 +2,8 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const Users = require("../db/queries/users");
 const jwt = require("jsonwebtoken");
-
+const { authRef } = require("../middleware/auth");
+const { generateAccess, generateRefresh } = require("../helpers/authHelpers");
 // Register a new user
 router.post("/register", async (req, res) => {
   const { full_name, display_name, username, email, password } = req.body;
@@ -20,16 +21,9 @@ router.post("/register", async (req, res) => {
       password: hash,
     });
     // User register successfully, set JWT and send
-    const accessToken = jwt.sign({ id: user.id }, process.env.JWT_ACCESS_KEY, {
-      expiresIn: "10m",
-    });
-    const refreshToken = jwt.sign(
-      { id: user.id },
-      process.env.JWT_REFRESH_KEY,
-      {
-        expiresIn: "5d",
-      }
-    );
+    const accessToken = generateAccess(user.id);
+    const refreshToken = generateRefresh(user.id);
+
     res.json({
       accessToken,
       refreshToken,
@@ -38,7 +32,7 @@ router.post("/register", async (req, res) => {
     if (e.code === "23505") {
       return res.status(400).send("Bad Request: Username/email already exists");
     }
-    return res.status(500).send("Internal Server Error: Failed to Register");
+    return res.status(500).send("Internal Server Error");
   }
 });
 
@@ -61,12 +55,8 @@ router.post("/login", async (req, res) => {
     }
     const { id, full_name: fullName } = user;
     // Valid login - set JWT and send
-    const accessToken = jwt.sign({ id }, process.env.JWT_ACCESS_KEY, {
-      expiresIn: "10m",
-    });
-    const refreshToken = jwt.sign({ id }, process.env.JWT_REFRESH_KEY, {
-      expiresIn: "5d",
-    });
+    const accessToken = generateAccess(id);
+    const refreshToken = generateRefresh(id);
     res.status(200).send({
       accessToken,
       refreshToken,
@@ -75,6 +65,16 @@ router.post("/login", async (req, res) => {
   } catch (e) {
     res.status(500).send("Internal Server Error: Failed to Login");
   }
+});
+
+router.post("/logout", (req, res, next) => {});
+
+// Refresh Token
+router.post("/token", authRef, (req, res, next) => {
+  const id = req.user.id;
+  const accessToken = generateAccess(id);
+  const refreshToken = generateRefresh(id);
+  res.send({ accessToken, refreshToken });
 });
 
 module.exports = router;
