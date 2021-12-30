@@ -1,0 +1,30 @@
+### Test Route
+GET http://localhost:8001/api/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwODMzOTAxLCJleHAiOjE2NDA4MzQ1MDF9.AVs6ZcEWtCa0RvWj5zE9G5Y1RC7Ef7zYrjg-EbMTQ-4
+
+### Test users table
+GET http://localhost:8001/api/test
+
+
+### Register Route
+POST http://localhost:8001/api/register
+Content-Type: application/json
+
+{ "full_name": "Ted Mosby", "display_name": "Tedy", "username": "ted555", "email": "ted.mosby@gmail.com", "password": "password" }
+
+### Login Route
+POST http://localhost:8001/api/login
+Content-Type: application/json
+
+{ "username": "eavan555", "password": "password" }
+
+### Refresh Token
+POST http://localhost:8001/api/token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwODMzNzkyLCJleHAiOjE2NDEyNjU3OTJ9.eFdz1vpGbia94MemG69HU8q4XYP9x5G4wXwf1E3aKwY"
+}
+
+### Reset DB
+GET http://localhost:8001/api/debug/reset_db
