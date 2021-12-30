@@ -8,36 +8,40 @@ const test = () => {
   FROM users;
   `
     )
-    .then(res => res.rows);
+    .then((res) => res.rows);
 };
 
-const register = user => {
-  const { full_name, display_name, username, email, hash } = user;
+const register = (data) => {
+  const { full_name, display_name, username, email, password } = data;
 
-  return db
-    .query(
-      `
+  const query = `
   INSERT INTO users 
   (full_name, display_name, username, email, password)
   VALUES ($1, $2, $3, $4, $5)
-  RETURNING username, full_name, display_name;
-  `,
-      [full_name, display_name, username, email, hash]
-    )
-    .then(res => res.rows);
+  RETURNING *;
+  `;
+  const params = [full_name, display_name, username, email, password];
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const findUserByUsername = username => {
-  return db
-    .query(
-      `
+const byUsername = (username) => {
+  const query = `
   SELECT *
   FROM users
   WHERE username = $1
-  `,
-      [username]
-    )
-    .then(res => res.rows[0]);
+  `;
+  const params = [username];
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-module.exports = { test, register, findUserByUsername };
+const byId = (id) => {
+  const query = `
+  SELECT *
+  FROM users
+  WHERE id = $1
+  `;
+  const params = [id];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
+module.exports = { test, register, byUsername, byId };
