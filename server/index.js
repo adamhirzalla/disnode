@@ -26,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 // Import Route Handlers
 const debugRoutes = require("./src/routes/debugRoutes");
 const userRoutes = require("./src/routes/userRoutes");
+const authRoutes = require("./src/routes/authRoutes");
 // const auth = require("./src/middleware/auth");
 
 // Enable debug routes on non-prod environments
@@ -36,6 +37,7 @@ if (ENV !== "production") {
 
 // Add routes
 app.use("/api", userRoutes);
+app.use("/api", authRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
