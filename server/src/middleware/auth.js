@@ -16,12 +16,13 @@ const auth = (req, res, next) => {
 // middleware for verify Refresh Token
 const authRef = (req, res, next) => {
   const { refreshToken } = req.body;
-  if (!refreshToken) return res.status(401).send("Unauthorizaed request");
+  if (!refreshToken)
+    return res.status(401).send("Unauthorized: No Token Provided");
   try {
     req.user = jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY);
     next();
   } catch (e) {
-    return res.status(403).send("Permission is required");
+    return res.status(401).send("Unauthorized: Invalid Token");
   }
 };
 
