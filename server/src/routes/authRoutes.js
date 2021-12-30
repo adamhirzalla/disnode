@@ -3,13 +3,17 @@ const bcrypt = require("bcrypt");
 const Users = require("../db/queries/users");
 const jwt = require("jsonwebtoken");
 const { authRef } = require("../middleware/auth");
-const { generateAccess, generateRefresh } = require("../helpers/authHelpers");
+const {
+  generateAccess,
+  generateRefresh,
+  validateLogin,
+  validateRegister,
+} = require("../helpers/authHelpers");
 // Register a new user
 router.post("/register", async (req, res) => {
+  const { error } = validateRegister(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
   const { full_name, display_name, username, email, password } = req.body;
-  if (!full_name || !display_name || !username || !email || !password) {
-    return res.status(500).send("Bad Request: Missing required fields");
-  }
   try {
     // Hash password
     const hash = await bcrypt.hash(password, 10);
@@ -38,12 +42,9 @@ router.post("/register", async (req, res) => {
 
 // Log a user in
 router.post("/login", async (req, res) => {
+  const { error } = validateLogin(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
   const { username, password } = req.body;
-  if (!username || !password) {
-    return res
-      .status(400)
-      .send("Bad Request: Username and password are required");
-  }
   const user = await Users.byUsername(username);
   try {
     if (!user) {
@@ -70,7 +71,7 @@ router.post("/login", async (req, res) => {
 router.post("/logout", (req, res, next) => {});
 
 // Refresh Token
-router.post("/token", authRef, (req, res, next) => {
+router.post("/token", authRef, (req, res) => {
   const id = req.user.id;
   const accessToken = generateAccess(id);
   const refreshToken = generateRefresh(id);
