@@ -1,35 +1,20 @@
-const JWT = require("jsonwebtoken");
-const createError = require("http-errors");
+const jwt = require("jsonwebtoken");
 
-module.exports = {
-  // Generate Token
-  generateAccessToken: (username, next) => {
-    return JWT.sign({ username }, process.env.ACCESS_TOKEN_SECRET, {
-      expiresIn: "10s",
-    });
-  },
-
-  // Generate Refresh Token
-  generateRefreshToken: (username, next) => {
-    return JWT.sign({ username }, process.env.REFRESH_TOKEN_SECRET, {
-      expiresIn: "5d",
-    });
-  },
-
-  // Verify Access Token
-  verifyAccessToken: (req, res, next) => {
-    if (!req.headers["authorization"]) return next(createError.Unauthorized());
-    const authHeader = req.headers["authorization"];
+const auth = function (req, res, next) {
+  try {
+    // Try to verify/decode the JWT, and append to res.locals if successful
+    // TODO: change headers to use custom header + get rid of having to split
+    const authHeader = req.headers.authorization;
     const bearerToken = authHeader.split(" ");
     const token = bearerToken[1];
-    JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-      if (err) {
-        const message =
-          err.name === "JsonWebTokenError" ? "Unauthorized" : err.message;
-        return next(createError.Unauthorized(message));
-      }
-      req.user = user;
-      next();
-    });
-  },
+    if (!token) {
+      return res.status(401).send("Unauthorized: No Token Provided");
+    }
+    req.user = jwt.verify(token, process.env.JWT_ACCESS_KEY);
+    next();
+  } catch (e) {
+    return res.status(401).send("Unauthorized: Invalid Token");
+  }
 };
+
+module.exports = auth;
