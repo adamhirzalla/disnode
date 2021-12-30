@@ -1,14 +1,8 @@
 const db = require("../index");
 
 const test = () => {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM users;
-  `
-    )
-    .then((res) => res.rows);
+  const query = `SELECT * FROM users;`;
+  return db.query(query).then((res) => res.rows);
 };
 
 const register = (data) => {

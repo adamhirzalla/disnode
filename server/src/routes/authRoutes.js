@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const Users = require("../db/queries/users");
-const jwt = require("jsonwebtoken");
 const { authRef } = require("../middleware/auth");
 const {
   generateAccess,
@@ -9,6 +8,7 @@ const {
   validateLogin,
   validateRegister,
 } = require("../helpers/authHelpers");
+
 // Register a new user
 router.post("/register", async (req, res) => {
   const { error } = validateRegister(req.body);
@@ -45,8 +45,8 @@ router.post("/login", async (req, res) => {
   const { error } = validateLogin(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const { username, password } = req.body;
-  const user = await Users.byUsername(username);
   try {
+    const user = await Users.byUsername(username);
     if (!user) {
       return res.status(400).send("Bad Request: Username does not exist");
     }
