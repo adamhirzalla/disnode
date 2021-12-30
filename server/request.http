@@ -3,7 +3,7 @@ GET http://localhost:8001/api/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwODMzOTAxLCJleHAiOjE2NDA4MzQ1MDF9.AVs6ZcEWtCa0RvWj5zE9G5Y1RC7Ef7zYrjg-EbMTQ-4
 
 ### Test users table
-GET http://localhost:8001/api/test
+GET http://localhost:8001/api/users
 
 
 ### Register Route
