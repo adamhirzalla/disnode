@@ -11,8 +11,8 @@ const {
 
 // Register a new user
 router.post("/register", async (req, res) => {
-  // const { error } = validateRegister(req.body);
-  // if (error) return res.status(400).send(error.details[0].message);
+  const { error } = validateRegister(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
   const { full_name, display_name, username, email, password } = req.body;
   try {
     // Hash password
@@ -54,10 +54,9 @@ router.post("/login", async (req, res) => {
     if (!verified) {
       return res.status(401).send("Unauthorized: Invalid username or password");
     }
-    const { id, full_name: fullName } = user;
     // Valid login - set JWT and send
-    const accessToken = generateAccess(id);
-    const refreshToken = generateRefresh(id);
+    const accessToken = generateAccess(user.id);
+    const refreshToken = generateRefresh(user.id);
     res.status(200).send({
       tokens: { accessToken, refreshToken },
       user: { ...user, password: "" },
@@ -67,10 +66,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/logout", (req, res, next) => {});
-
 // Refresh Token
-router.post("/token", authRef, (req, res) => {
+router.get("/token", authRef, (req, res) => {
   const id = req.user.id;
   const accessToken = generateAccess(id);
   const refreshToken = generateRefresh(id);
