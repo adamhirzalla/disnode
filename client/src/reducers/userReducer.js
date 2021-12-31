@@ -9,7 +9,7 @@ import {
 import { initialState } from "../contexts/AuthContext";
 
 export default function userReducer(state, action) {
-  const { user, activeUsers, tokens, error } = action;
+  const { user, activeUsers, tokens } = action;
   switch (action.type) {
     case SET_LOADING:
       return {

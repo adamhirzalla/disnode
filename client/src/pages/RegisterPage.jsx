@@ -2,20 +2,22 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { register } from "../network/authApi";
-import { SET_TOKENS } from "../utils/constants";
+
+const initialInput = {
+  full_name: "",
+  display_name: "",
+  username: "",
+  email: "",
+  password: "",
+  repeat_password: "",
+};
 
 const RegisterPage = () => {
   const navigate = useNavigate();
-  const { state, dispatch } = useContext(AuthContext);
-  const [input, setInput] = useState({
-    full_name: "",
-    display_name: "",
-    username: "",
-    email: "",
-    password: "",
-    repeat_password: "",
-  });
+  const { state } = useContext(AuthContext);
+  const [input, setInput] = useState(initialInput);
 
+  // If user is logged in, redirect to home
   useEffect(() => {
     if (state.authenticated) navigate("/");
   }, []);
@@ -24,7 +26,9 @@ const RegisterPage = () => {
     e.preventDefault();
 
     const success = await register(input);
-    if (success) navigate("/");
+    if (!success) return;
+    alert("Registration successful, please login");
+    navigate("/login");
   };
 
   return (
@@ -102,7 +106,7 @@ const RegisterPage = () => {
         <button type="sumbit">Register</button>
       </form>
       <br />
-      <button type="button" onClick={() => setInput((prev) => {})}>
+      <button type="button" onClick={() => setInput((prev) => initialInput)}>
         Clear
       </button>
     </div>
