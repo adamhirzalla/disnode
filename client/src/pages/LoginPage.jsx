@@ -9,6 +9,8 @@ const LoginPage = () => {
   const [input, setInput] = useState({ username: "", password: "" });
 
   const navigate = useNavigate();
+
+  // If tokens exist, send a user to home
   useEffect(() => {
     if (state.authenticated) navigate("/");
   }, []);

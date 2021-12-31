@@ -29,8 +29,8 @@ router.post("/register", async (req, res) => {
     const refreshToken = generateRefresh(user.id);
 
     res.json({
-      accessToken,
-      refreshToken,
+      tokens: { accessToken, refreshToken },
+      user: { ...user, password: "" },
     });
   } catch (e) {
     if (e.code === "23505") {

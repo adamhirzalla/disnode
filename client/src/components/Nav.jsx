@@ -4,6 +4,7 @@ import AuthContext from "../contexts/AuthContext";
 
 const Nav = () => {
   const { user, authTokens } = useContext(AuthContext);
+
   return (
     <div>
       {!authTokens ? (
