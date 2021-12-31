@@ -1,106 +1,108 @@
-import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
+import { register } from "../network/authApi";
+import { SET_TOKENS } from "../utils/constants";
 
 const RegisterPage = () => {
-  const initialUserInfo = {
-    fullName: "",
-    displayName: "",
+  const navigate = useNavigate();
+  const { state, dispatch } = useContext(AuthContext);
+  const [input, setInput] = useState({
+    full_name: "",
+    display_name: "",
     username: "",
     email: "",
     password: "",
     repeat_password: "",
-  };
-  const [userInfo, setUserInfo] = useState(initialUserInfo);
-  const { fullName, displayName, username, email, password, repeat_password } =
-    userInfo;
+  });
 
-  const register = (e) => {
+  useEffect(() => {
+    if (state.authenticated) navigate("/");
+  }, []);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(username);
-    axios
-      .post("/api/register", {
-        full_name: fullName,
-        display_name: displayName,
-        username,
-        email,
-        password,
-        repeat_password,
-      })
-      .then((res) =>
-        localStorage.setItem("authTokens", JSON.stringify(res.data))
-      );
-  };
 
-  const onChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    switch (name) {
-      case "full_name":
-        return setUserInfo((prev) => ({ ...prev, fullName: value }));
-      case "display_name":
-        return setUserInfo((prev) => ({ ...prev, displayName: value }));
-      case "username":
-        return setUserInfo((prev) => ({ ...prev, username: value }));
-      case "email":
-        return setUserInfo((prev) => ({ ...prev, email: value }));
-      case "password":
-        return setUserInfo((prev) => ({ ...prev, password: value }));
-      case "confirm_password":
-        return setUserInfo((prev) => ({ ...prev, repeat_password: value }));
-      default:
-        return "this input name doesn't exist";
-    }
+    const success = await register(input);
+    if (success) navigate("/");
   };
 
   return (
     <div>
       <br />
       <p>Full Name | Display Name </p>
-      <form onSubmit={register}>
+      <form onSubmit={handleRegister}>
         <input
           type="text"
           name="full_name"
           placeholder="full name"
-          value={fullName}
-          onChange={onChange}></input>
+          value={input.full_name}
+          onChange={(e) =>
+            setInput((prev) => ({
+              ...prev,
+              full_name: e.target.value,
+            }))
+          }
+        ></input>
         <input
           type="text"
           name="display_name"
           placeholder="display name"
-          value={displayName}
-          onChange={onChange}></input>
+          value={input.display_name}
+          onChange={(e) =>
+            setInput((prev) => ({
+              ...prev,
+              display_name: e.target.value,
+            }))
+          }
+        ></input>
         <p> Username | Email</p>
         <input
           type="text"
           name="username"
           placeholder="username"
-          value={username}
-          onChange={onChange}></input>
+          value={input.username}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, username: e.target.value }))
+          }
+        ></input>
         <input
           type="email"
           name="email"
           placeholder="email@example.com"
-          value={email}
-          onChange={onChange}></input>
+          value={input.email}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, email: e.target.value }))
+          }
+        ></input>
         <p> Password </p>
         <input
           type="password"
           name="password"
           placeholder="password"
-          value={password}
-          onChange={onChange}></input>
+          value={input.password}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, password: e.target.value }))
+          }
+        ></input>
         <p> Confirm Password </p>
         <input
           type="password"
           name="confirm_password"
           placeholder="confirm password"
-          value={repeat_password}
-          onChange={onChange}></input>
+          value={input.confirm_password}
+          onChange={(e) =>
+            setInput((prev) => ({
+              ...prev,
+              repeat_password: e.target.value,
+            }))
+          }
+        ></input>
         <br />
         <button type="sumbit">Register</button>
       </form>
       <br />
-      <button type="button" onClick={() => setUserInfo(initialUserInfo)}>
+      <button type="button" onClick={() => setInput((prev) => {})}>
         Clear
       </button>
     </div>

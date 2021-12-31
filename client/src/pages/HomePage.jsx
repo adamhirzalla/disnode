@@ -1,15 +1,19 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
+import { logout } from "../network/authApi";
 
 const HomePage = () => {
-  const { user, authTokens, logoutUser } = useContext(AuthContext);
+  const { state, dispatch } = useContext(AuthContext);
 
+  const handleLogout = () => {
+    logout(dispatch);
+  };
   return (
     <>
-      {authTokens ? (
+      {state.authenticated ? (
         <div>
-          Welcome {user.full_name}
-          <button type="button" onClick={logoutUser}>
+          Welcome {state.user.full_name}
+          <button type="button" onClick={handleLogout}>
             Logout
           </button>
         </div>
