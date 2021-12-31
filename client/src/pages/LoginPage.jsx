@@ -6,8 +6,9 @@ const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { loginUser, authTokens } = useContext(AuthContext);
-
   const navigate = useNavigate();
+
+  // If tokens exist, send a user to home
   useEffect(() => {
     if (authTokens) navigate("/");
   }, []);

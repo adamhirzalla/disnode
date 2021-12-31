@@ -1,35 +1,27 @@
-import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
+
+const initialUserInfo = {
+  fullName: "",
+  displayName: "",
+  username: "",
+  email: "",
+  password: "",
+  repeat_password: "",
+};
 
 const RegisterPage = () => {
-  const initialUserInfo = {
-    fullName: "",
-    displayName: "",
-    username: "",
-    email: "",
-    password: "",
-    repeat_password: "",
-  };
   const [userInfo, setUserInfo] = useState(initialUserInfo);
   const { fullName, displayName, username, email, password, repeat_password } =
     userInfo;
+  const { registerUser, authTokens } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const register = (e) => {
-    e.preventDefault();
-    console.log(username);
-    axios
-      .post("/api/register", {
-        full_name: fullName,
-        display_name: displayName,
-        username,
-        email,
-        password,
-        repeat_password,
-      })
-      .then((res) =>
-        localStorage.setItem("authTokens", JSON.stringify(res.data))
-      );
-  };
+  // If tokens exist, send a user to home
+  useEffect(() => {
+    if (authTokens) navigate("/");
+  }, []);
 
   const onChange = (e) => {
     const name = e.target.name;
@@ -56,7 +48,7 @@ const RegisterPage = () => {
     <div>
       <br />
       <p>Full Name | Display Name </p>
-      <form onSubmit={register}>
+      <form onSubmit={registerUser}>
         <input
           type="text"
           name="full_name"
