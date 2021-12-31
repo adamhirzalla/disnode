@@ -11,8 +11,8 @@ const {
 
 // Register a new user
 router.post("/register", async (req, res) => {
-  const { error } = validateRegister(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+  // const { error } = validateRegister(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
   const { full_name, display_name, username, email, password } = req.body;
   try {
     // Hash password
@@ -59,9 +59,8 @@ router.post("/login", async (req, res) => {
     const accessToken = generateAccess(id);
     const refreshToken = generateRefresh(id);
     res.status(200).send({
-      accessToken,
-      refreshToken,
-      fullName,
+      tokens: { accessToken, refreshToken },
+      user: { ...user, password: "" },
     });
   } catch (e) {
     res.status(500).send("Internal Server Error: Failed to Login");
