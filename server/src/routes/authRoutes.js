@@ -54,14 +54,12 @@ router.post("/login", async (req, res) => {
     if (!verified) {
       return res.status(401).send("Unauthorized: Invalid username or password");
     }
-    const { id, full_name: fullName } = user;
     // Valid login - set JWT and send
-    const accessToken = generateAccess(id);
-    const refreshToken = generateRefresh(id);
+    const accessToken = generateAccess(user.id);
+    const refreshToken = generateRefresh(user.id);
     res.status(200).send({
-      accessToken,
-      refreshToken,
-      fullName,
+      tokens: { accessToken, refreshToken },
+      user: { ...user, password: "" },
     });
   } catch (e) {
     res.status(500).send("Internal Server Error: Failed to Login");
