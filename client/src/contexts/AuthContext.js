@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useReducer } from "react";
-import userReducer from "../reducers/application";
+import userReducer from "../reducers/userReducer";
 import { isAuth, updateTokens } from "../network/authApi";
 
 const AuthContext = createContext();
