@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import userReducer from "../reducers/userReducer";
 import { isAuth, updateTokens } from "../network/authApi";
 
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
       state.authenticated && updateTokens(dispatch, state.tokens.refreshToken);
     }, 1000 * 60 * 60 * 23);
     return () => clearInterval(tokenInterval);
-  }, [state.authenticated]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

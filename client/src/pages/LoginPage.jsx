@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { login as login } from "../network/authApi";
+import { login } from "../network/authApi";
 import { SET_USER } from "../utils/constants";
 import AuthContext from "../contexts/AuthContext";
 
@@ -10,10 +10,10 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
 
-  // If tokens exist, send a user to home
+  // If user is logged in, redirect to home
   useEffect(() => {
     if (state.authenticated) navigate("/");
-  }, []);
+  }, [state.authenticated]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
