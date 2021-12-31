@@ -10,7 +10,7 @@ router.get("/me", auth, async (req, res) => {
   try {
     const user = await Users.byId(userId);
     const clientUser = { ...user, password: "" };
-    res.status(200).send(clientUser);
+    res.status(200).json(clientUser);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

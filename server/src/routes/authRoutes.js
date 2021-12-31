@@ -13,8 +13,17 @@ const {
 router.post("/register", async (req, res) => {
   // const { error } = validateRegister(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
-  const { full_name, display_name, username, email, password } = req.body;
+  const {
+    full_name,
+    display_name,
+    username,
+    email,
+    password,
+    repeat_password,
+  } = req.body;
   try {
+    if (password !== repeat_password)
+      return res.status(400).send("password doesn't match");
     // Hash password
     const hash = await bcrypt.hash(password, 10);
     const user = await Users.register({
@@ -29,8 +38,8 @@ router.post("/register", async (req, res) => {
     const refreshToken = generateRefresh(user.id);
 
     res.json({
-      accessToken,
-      refreshToken,
+      tokens: { accessToken, refreshToken },
+      user: { ...user, password: "" },
     });
   } catch (e) {
     if (e.code === "23505") {
@@ -54,11 +63,10 @@ router.post("/login", async (req, res) => {
     if (!verified) {
       return res.status(401).send("Unauthorized: Invalid username or password");
     }
-    const { id, full_name: fullName } = user;
     // Valid login - set JWT and send
-    const accessToken = generateAccess(id);
-    const refreshToken = generateRefresh(id);
-    res.status(200).send({
+    const accessToken = generateAccess(user.id);
+    const refreshToken = generateRefresh(user.id);
+    res.status(200).json({
       tokens: { accessToken, refreshToken },
       user: { ...user, password: "" },
     });
@@ -66,8 +74,6 @@ router.post("/login", async (req, res) => {
     res.status(500).send("Internal Server Error: Failed to Login");
   }
 });
-
-router.post("/logout", (req, res, next) => {});
 
 // Refresh Token
 router.post("/token", authRef, (req, res) => {
