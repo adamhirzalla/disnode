@@ -6,7 +6,7 @@ const refreshKey = process.env.JWT_REFRESH_KEY;
 
 const generateAccess = (id) => {
   return jwt.sign({ id }, accessKey, {
-    expiresIn: "30m",
+    expiresIn: "5s",
   });
 };
 
