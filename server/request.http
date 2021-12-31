@@ -1,30 +1,27 @@
-### Test Route
-GET http://localhost:8001/api/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwOTE0MDA4LCJleHAiOjE2NDA5MTU4MDh9.i1b-YZVz8LWN80iTO4tuEXcMpjPcVn-hJ-FIkTp6h3w
-
-### Test users table
+### All users
 GET http://localhost:8001/api/users
 
+### Test token
+POST  http://localhost:8001/api/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQwODQ3NTM2LCJleHAiOjE2NDA4NDkzMzZ9.KWN44qfpa4k8mw3vZzGRQrIZWy-GldueX9JnDSJFHQk
+
+### Test refresh token
+POST http://localhost:8001/api/token
+Content-Type: application/json
+
+{ "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQwODQ3NDUzLCJleHAiOjE2NDA5MzM4NTN9.jbx6_0FIkgospDdar8BEsxOdyytxNqY7sIlINRReeTM" }
 
 ### Register Route
 POST http://localhost:8001/api/register
 Content-Type: application/json
 
-{ "full_name": "Ted Mosby", "display_name": "Tedy", "username": "ted555", "email": "ted.mosby@gmail.com", "password": "password" }
+{ "full_name": "Ted Mosby", "display_name": "Tedy", "username": "ted555", "email": "ted.mosby@gmail.com", "password": "password", "repeat_password": "password" }
 
 ### Login Route
 POST http://localhost:8001/api/login
 Content-Type: application/json
 
-{ "username": "eavan555", "password": "password" }
-
-### Refresh Token
-POST http://localhost:8001/api/token
-Content-Type: application/json
-
-{
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQwODMzNzkyLCJleHAiOjE2NDEyNjU3OTJ9.eFdz1vpGbia94MemG69HU8q4XYP9x5G4wXwf1E3aKwY"
-}
+{ "username": "hjonsu555", "password": "password"}
 
 ### Reset DB
 GET http://localhost:8001/api/debug/reset_db
