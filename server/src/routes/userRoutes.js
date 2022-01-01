@@ -9,8 +9,7 @@ router.get("/me", auth, async (req, res) => {
   const userId = req.user.id;
   try {
     const user = await Users.byId(userId);
-    const clientUser = { ...user, password: "" };
-    res.status(200).send(clientUser);
+    res.status(200).send({ ...user, password: "" });
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
