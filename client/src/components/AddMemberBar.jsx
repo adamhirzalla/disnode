@@ -7,12 +7,27 @@ import Button from "@mui/material/Button";
 
 const style = {
   width: "400px",
+  borderRadius: 5,
+  backgroundColor: "inherit",
+  color: "black",
 };
 
 export default function AddMemberBar(props) {
   return (
-    <Box sx={style}>
-      <AppBar position="static">
+    <Box>
+      <AppBar sx={style} position="static">
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {props.name}
+          </Typography>
+          <Button color="inherit">{props.icon}</Button>
+        </Toolbar>
+        <Toolbar>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {props.name}
+          </Typography>
+          <Button color="inherit">{props.icon}</Button>
+        </Toolbar>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {props.name}
