@@ -1,13 +1,13 @@
 import "./App.css";
-import ContainedButton from "./components/Button/ContainedButton";
-import AddMemberModal from "./components/AddMembers/AddMemberModal";
-import ServerBar from "./components/Navbar/ServerBar";
+import ContainedButton from "./Button/ContainedButton";
+import AddMemberModal from "./AddMembers/AddMemberModal";
 import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
 import { theme } from "./appTheme";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
-import AddMemberBar from "./components/AddMembers/AddMemberBar";
+import AddMemberBar from "./AddMembers/AddMemberBar";
+import ChannelBar from "./Navbar/ChannelBar";
 
-function App() {
+export default function App() {
   const testArr = [
     { name: "jono", id: 1 },
     { name: "cyn", id: 2 },
@@ -15,12 +15,10 @@ function App() {
     { name: "hyunsu", id: 4 },
   ];
 
-  // const testArr = ["jono", "cyn", "adam", "hyunsu"];
-
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <ServerBar />
+        {/* <ChannelBar /> */}
         <ContainedButton name="Create" />
         <AddMemberModal
           icon={<AddCircleOutlineRoundedIcon fontSize="small" />}
@@ -35,5 +33,3 @@ function App() {
     </StyledEngineProvider>
   );
 }
-
-export default App;
