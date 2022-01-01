@@ -1,13 +1,20 @@
 import "./App.css";
-import ConfirmationModal from "./Modal/ConfirmationModal";
+import ContainedButton from "./Button/ContainedButton";
+import AddMemberModal from "./Modal/AddMemberModal";
 import ServerBar from "./Navbar/ServerBar";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import { theme } from "./appTheme";
+import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 
 function App() {
   return (
-    <div className="App">
-      <ServerBar />
-      <ConfirmationModal />
-    </div>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <ServerBar />
+        <ContainedButton name="Create" />
+        <AddMemberModal icon={<AddCircleOutlineRoundedIcon />} />
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 }
 
