@@ -18,13 +18,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const user = await login(input);
-    if (!user) return;
-    dispatch({
-      type: SET_USER,
-      user,
-    });
-    navigate("/");
+    await login(input);
   };
 
   return (

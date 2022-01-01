@@ -6,6 +6,7 @@ import axios from "axios";
 
 import "./index.css";
 
+// to be used for deployment later on
 if (process.env.REACT_APP_API_BASE_URL) {
   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 }
