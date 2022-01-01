@@ -2,14 +2,12 @@
 GET http://localhost:8001/api/users
 
 ### Test token
-POST  http://localhost:8001/api/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQwODQ3NTM2LCJleHAiOjE2NDA4NDkzMzZ9.KWN44qfpa4k8mw3vZzGRQrIZWy-GldueX9JnDSJFHQk
+GET  http://localhost:8001/api/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQxMDEwMzIzLCJleHAiOjE2NDEwNDYzMjN9.3YHRSDOr_QfhfijbKus6zTAhLtvK3cR5EFkSplOAcoc
 
 ### Test refresh token
-POST http://localhost:8001/api/token
-Content-Type: application/json
-
-{ "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaWF0IjoxNjQwODQ3NDUzLCJleHAiOjE2NDA5MzM4NTN9.jbx6_0FIkgospDdar8BEsxOdyytxNqY7sIlINRReeTM" }
+GET http://localhost:8001/api/token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQxMDEwMjQ1LCJleHAiOjE2NDEwOTY2NDV9.sOeXWoxpb5QmbaPii_ZLiiY_34ercZhPVNqj36_cc40
 
 ### Register Route
 POST http://localhost:8001/api/register
