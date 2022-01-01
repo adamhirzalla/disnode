@@ -70,21 +70,6 @@ export const theme = createTheme({
         },
       },
     },
-    MuiFab: {
-      styleOverrides: {
-        root: {
-          boxShadow: "none! important",
-          "&:hover": {
-            //backgroundColor: "inherit",
-            textDecoration: "underline",
-            backgroundColor: "transparent",
-          },
-          "&:active": {
-            backgroundColor: "transparent",
-          },
-        },
-      },
-    },
     MuiMenuItem: {
       styleOverrides: {
         root: {

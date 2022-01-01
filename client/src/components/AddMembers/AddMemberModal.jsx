@@ -1,26 +1,14 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { modalUseStyles } from "./modalUseStyles";
-import { borderRadius } from "@mui/system";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: 5,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  // p: 4,
-};
+import { addMembersUseStyles } from "./addMembersUseStyles";
 
 export default function AddMemberModal(props) {
-  const classes = modalUseStyles();
-  const [open, setOpen] = React.useState(false);
+  const classes = addMembersUseStyles();
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -39,7 +27,7 @@ export default function AddMemberModal(props) {
         onClose={handleClose}
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box className={classes.root}>
           <Typography id="modal-modal-description">{props.members}</Typography>
         </Box>
       </Modal>
