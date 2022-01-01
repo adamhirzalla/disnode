@@ -59,7 +59,6 @@ router.post("/login", async (req, res) => {
     const refreshToken = generateRefresh(user.id);
     res.status(200).send({
       tokens: { accessToken, refreshToken },
-      user: { ...user, password: "" },
     });
   } catch (e) {
     res.status(500).send("Internal Server Error: Failed to Login");
