@@ -3,6 +3,8 @@ import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 
 const Nav = () => {
+  // TODO: fix this to use correct params from AuthContext (left intentionally)
+  // for testing purposes
   const { user, authTokens } = useContext(AuthContext);
 
   return (
