@@ -24,6 +24,8 @@ export const getUser = async (dispatch, tokens) => {
       type: SET_USER,
       user,
     });
+    const { socket } = await import("../socket/index");
+    console.log("Started a socket:", socket);
   } catch (e) {
     console.log("Failed to retreive user information", e);
   }
@@ -48,9 +50,9 @@ export const updateTokens = async (dispatch, key) => {
 export const login = async (input) => {
   try {
     const res = await axios.post("/api/login", input);
-    const { tokens, user } = res.data;
+    const { tokens } = res.data;
     saveTokens(tokens);
-    return user;
+    window.location.reload();
   } catch (e) {
     alert("Invalid username or password!");
   }

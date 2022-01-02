@@ -2,6 +2,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const http = require("http");
 const helmet = require("helmet");
 const path = require("path");
 const chalk = require("chalk");
@@ -44,9 +45,12 @@ app.use((req, res, next) => {
   next(createError(404));
 });
 
-// Start server
-app.listen(PORT, () => {
+const server = http.createServer(app);
+const io = require("socket.io")(server, { cors: { origin: "*" } });
+require("./src/socket/index")(io);
+
+server.listen(PORT, () => {
   console.log(
-    chalk.cyan(`-> Disnode server running on PORT ${PORT} in ${ENV} mode!`)
+    chalk.cyan(`-> Disnode server listening on PORT ${PORT} in ${ENV} mode!`)
   );
 });
