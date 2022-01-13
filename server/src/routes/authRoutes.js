@@ -17,21 +17,24 @@ router.post("/register", async (req, res) => {
   try {
     // Hash password
     const hash = await bcrypt.hash(password, 10);
-    const user = await Users.register({
+    await Users.register({
       full_name,
       display_name,
       username,
       email,
       password: hash,
     });
+    return res
+      .status(200)
+      .send("Registration sucessful. Please proceed to login");
     // User register successfully, set JWT and send
-    const accessToken = generateAccess(user.id);
-    const refreshToken = generateRefresh(user.id);
+    // const accessToken = generateAccess(user.id);
+    // const refreshToken = generateRefresh(user.id);
 
-    res.json({
-      accessToken,
-      refreshToken,
-    });
+    // res.json({
+    //   tokens: { accessToken, refreshToken },
+    //   user: { ...user, password: "" },
+    // });
   } catch (e) {
     if (e.code === "23505") {
       return res.status(400).send("Bad Request: Username/email already exists");
@@ -54,24 +57,19 @@ router.post("/login", async (req, res) => {
     if (!verified) {
       return res.status(401).send("Unauthorized: Invalid username or password");
     }
-    const { id, full_name: fullName } = user;
     // Valid login - set JWT and send
-    const accessToken = generateAccess(id);
-    const refreshToken = generateRefresh(id);
+    const accessToken = generateAccess(user.id);
+    const refreshToken = generateRefresh(user.id);
     res.status(200).send({
-      accessToken,
-      refreshToken,
-      fullName,
+      tokens: { accessToken, refreshToken },
     });
   } catch (e) {
     res.status(500).send("Internal Server Error: Failed to Login");
   }
 });
 
-router.post("/logout", (req, res, next) => {});
-
 // Refresh Token
-router.post("/token", authRef, (req, res) => {
+router.get("/token", authRef, (req, res) => {
   const id = req.user.id;
   const accessToken = generateAccess(id);
   const refreshToken = generateRefresh(id);
