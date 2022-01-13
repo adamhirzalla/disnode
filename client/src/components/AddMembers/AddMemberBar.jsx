@@ -8,7 +8,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 
 // styles
-import { addMembersUseStyles } from "./addMembersUseStyles";
+import { addMembersUseStyles } from "../styles/addMembersUseStyles";
 
 export default function AddMemberBar(props) {
   const classes = addMembersUseStyles();

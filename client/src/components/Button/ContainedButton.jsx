@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { buttonUseStyles } from "./buttonUseStyles";
+import { buttonUseStyles } from "../styles/buttonUseStyles";
 
 export default function ContainedButton(props) {
   const classes = buttonUseStyles();

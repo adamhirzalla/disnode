@@ -7,9 +7,11 @@ export const addMembersUseStyles = makeStyles((theme) =>
       borderRadius: "8px",
       backgroundColor: "#c4c4c4",
       padding: "10px",
-      height: "150px",
+      maxHeight: "250px",
       overflowY: "scroll",
       overflowX: "hidden",
+      marginTop: "15em",
+      margin: "auto",
     },
     addButton: {
       color: "",

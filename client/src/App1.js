@@ -6,6 +6,7 @@ import { theme } from "./appTheme";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import AddMemberBar from "./AddMembers/AddMemberBar";
 import ChannelBar from "./Navbar/ChannelBar";
+import MemberBar from "./components/Navbar/MemberBar";
 
 export default function App() {
   const testArr = [
@@ -18,7 +19,6 @@ export default function App() {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        {/* <ChannelBar /> */}
         <ContainedButton name="Create" />
         <AddMemberModal
           icon={<AddCircleOutlineRoundedIcon fontSize="small" />}

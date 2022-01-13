@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 
-import { addMembersUseStyles } from "./addMembersUseStyles";
+import { addMembersUseStyles } from "../styles/addMembersUseStyles";
 
 export default function AddMemberModal(props) {
   const classes = addMembersUseStyles();
@@ -22,13 +22,9 @@ export default function AddMemberModal(props) {
       >
         {props.icon}
       </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box className={classes.root}>
-          <Typography id="modal-modal-description">{props.members}</Typography>
+          <Typography>{props.members}</Typography>
         </Box>
       </Modal>
     </div>
