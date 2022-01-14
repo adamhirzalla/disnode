@@ -16,8 +16,10 @@ export default function ContainedButton(props) {
   return (
     <>
       <Button
-        className={classes.test}
-        variant="contained"
+        className={
+          props.variant === "contained" ? classes.contained : classes.text
+        }
+        variant={props.variant}
         onClick={handleEvent}
       >
         {props.name}

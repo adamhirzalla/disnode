@@ -6,6 +6,7 @@ import { theme } from "../themes/appTheme";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import AddMemberBar from "../components/AddMembers/AddMemberBar";
 import ElipsesDropdown from "../components/ElipsesDropDown";
+import NewChannelDialogue from "../components/NewChannelDialogue";
 
 export default function TestPage() {
   const testArr = [
@@ -27,6 +28,9 @@ export default function TestPage() {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <ElipsesDropdown />
+        <NewChannelDialogue
+          icon={<AddCircleOutlineRoundedIcon fontSize="small" />}
+        />
       </ThemeProvider>
     </StyledEngineProvider>
   );
