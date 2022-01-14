@@ -12,6 +12,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 export default function NewServerIcon({ onClick: addServer }) {
   const classes = newServerStyles();
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,6 +20,10 @@ export default function NewServerIcon({ onClick: addServer }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleChange = (e) => {
+    setName((prev) => e.target.value);
   };
 
   return (
@@ -47,6 +52,7 @@ export default function NewServerIcon({ onClick: addServer }) {
             fullWidth
             variant="standard"
             placeholder="Title"
+            onChange={handleChange}
             InputProps={{
               className: classes.root,
             }}
@@ -56,7 +62,7 @@ export default function NewServerIcon({ onClick: addServer }) {
           <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
           <ContainedButton
             variant="contained"
-            onClick={addServer}
+            onClick={() => addServer(name)}
             name="Create"
           />
         </DialogActions>
