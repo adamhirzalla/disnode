@@ -38,10 +38,10 @@ export default function ServerList() {
 
   // experimenting adding server
   const addServer = (name) => {
+    console.log(name);
     setServers((prev) => {
-      return [...prev, Math.random() * 100];
+      return [...prev, name];
     });
-    console.log(servers);
   };
 
   return (
