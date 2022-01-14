@@ -6,7 +6,6 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import TestPage from "./pages/TestPage";
-import Sidevar from "./components/Member/Sidevar";
 
 function App() {
   return (
