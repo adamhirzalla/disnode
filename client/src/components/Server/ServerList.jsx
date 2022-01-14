@@ -9,10 +9,12 @@ import IconButton from "@mui/material/IconButton";
 import NewServerIcon from "./NewServerIcon";
 import { useState } from "react";
 
-const drawerWidth = "122px";
+import { serverListUseStyles } from "../styles/serverListUseStyles";
+
 const mockServers = ["s1", "s2", "s3", "s4"];
 
 export default function ServerList() {
+  const classes = serverListUseStyles();
   const [servers, setServers] = useState(mockServers);
 
   // mock servers
@@ -38,10 +40,10 @@ export default function ServerList() {
 
   // experimenting adding server
   const addServer = (name) => {
+    console.log(name);
     setServers((prev) => {
-      return [...prev, Math.random() * 100];
+      return [...prev, name];
     });
-    console.log(servers);
   };
 
   return (
@@ -51,18 +53,7 @@ export default function ServerList() {
       }}
     >
       <CssBaseline />
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="permanent"
-        anchor="left"
-      >
+      <Drawer className={classes.serverList} variant="permanent" anchor="left">
         <IconButton title="Home" onClick={() => {}}>
           <img alt="Home" src="/images/Disnode-red.png" width="70px" />
         </IconButton>

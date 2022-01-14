@@ -14,7 +14,7 @@ export const newChannelStyles = makeStyles((theme) =>
       color: "#FFFFFF",
       "& .MuiInputBase-root": {
         width: "500px",
-        color: "#FFF", // or black
+        color: "#FFF",
         textAlign: "center",
       },
     },
@@ -25,7 +25,6 @@ export const newChannelStyles = makeStyles((theme) =>
     },
     dialogPaper: {
       display: "flex",
-
       alignItems: "center",
       borderRadius: "2em",
       backgroundColor: "#040B0C",

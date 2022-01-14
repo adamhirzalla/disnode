@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { AuthProvider } from "./contexts/AuthContext";
-import { theme } from "./themes/appTheme";
+import { theme } from "./themes/theme";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
