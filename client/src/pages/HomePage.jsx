@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Nav from "../components/Navbar/Nav";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 
@@ -17,6 +18,7 @@ const HomePage = () => {
   };
   return (
     <div>
+      <Nav />
       Welcome {state.user.full_name}
       <button type="button" onClick={handleLogout}>
         Logout

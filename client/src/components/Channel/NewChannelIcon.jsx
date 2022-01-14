@@ -4,14 +4,13 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import { newChannelStyles } from "../styles/newChannelStyles";
+import ContainedButton from "../Button/ContainedButton";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { NewChannelDialogueUseStyles } from "./styles/NewChannelDialogueUseStyles";
-import ContainedButton from "./Button/ContainedButton";
-
-export default function NewChannelDialogue(props) {
-  const classes = NewChannelDialogueUseStyles();
+export default function NewChannelIcon(props) {
+  const classes = newChannelStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -30,14 +29,13 @@ export default function NewChannelDialogue(props) {
         disableFocusRipple
         onClick={handleClickOpen}
       >
-        {props.icon}
+        <AddCircleIcon fontSize="small" />
       </Button>
 
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         open={open}
         onClose={handleClose}
-        fullWidth="true"
       >
         <DialogTitle style={{ fontSize: "1.55em" }}>Create Channel</DialogTitle>
         <DialogContent className={classes.content}>

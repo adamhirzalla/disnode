@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const buttonUseStyles = makeStyles((theme) =>
+export const buttonStyles = makeStyles((theme) =>
   createStyles({
     contained: {
       color: "white",
@@ -10,6 +10,7 @@ export const buttonUseStyles = makeStyles((theme) =>
     text: {
       color: "#4D8F42",
       borderRadius: ".8em",
+      border: "1px solid #4D8F42",
     },
   })
 );

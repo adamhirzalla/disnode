@@ -1,9 +1,9 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const NewChannelDialogueUseStyles = makeStyles((theme) =>
+export const newServerStyles = makeStyles((theme) =>
   createStyles({
     addButton: {
-      color: "",
+      color: "black",
       backgroundColor: "inherit",
       "&:hover": {
         color: "gray",
@@ -27,7 +27,7 @@ export const NewChannelDialogueUseStyles = makeStyles((theme) =>
       display: "flex",
 
       alignItems: "center",
-      borderRadius: "3em",
+      borderRadius: "2em",
       backgroundColor: "#040B0C",
       color: "#FFFFFF",
       textAlign: "center",

@@ -1,12 +1,8 @@
 import React from "react";
-import ContainedButton from "../components/Button/ContainedButton";
-import AddMemberModal from "../components/AddMembers/AddMemberModal";
-import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
-import { theme } from "../themes/appTheme";
-import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
-import AddMemberBar from "../components/AddMembers/AddMemberBar";
 import ElipsesDropdown from "../components/ElipsesDropDown";
-import NewChannelDialogue from "../components/NewChannelDialogue";
+import NewChannelIcon from "../components/Channel/NewChannelIcon";
+import ServerList from "../components/Server/ServerList";
+import ChannelList from "../components/Channel/ChannelList";
 
 export default function TestPage() {
   const testArr = [
@@ -25,13 +21,17 @@ export default function TestPage() {
   ];
 
   return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <ElipsesDropdown />
-        <NewChannelDialogue
-          icon={<AddCircleOutlineRoundedIcon fontSize="small" />}
-        />
-      </ThemeProvider>
-    </StyledEngineProvider>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-end",
+      }}
+    >
+      <ElipsesDropdown />
+      <NewChannelIcon />
+      <ServerList />
+      <ChannelList />
+    </div>
   );
 }
