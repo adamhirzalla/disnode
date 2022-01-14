@@ -26,6 +26,10 @@ export default function NewServerIcon({ onClick: addServer }) {
     setName((prev) => e.target.value);
   };
 
+  const handleAdd = () => {
+    setOpen(false);
+    addServer(name);
+  };
   return (
     <div>
       <Button
@@ -62,7 +66,7 @@ export default function NewServerIcon({ onClick: addServer }) {
           <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
           <ContainedButton
             variant="contained"
-            onClick={() => addServer(name)}
+            onClick={handleAdd}
             name="Create"
           />
         </DialogActions>
