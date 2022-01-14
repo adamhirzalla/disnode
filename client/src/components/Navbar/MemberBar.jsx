@@ -27,7 +27,7 @@ export default function MemberBar({ children }) {
   return (
     <div className={classes.root}>
       {/* app bar */}
-      HI
+
       {/* side drawer */}
       <Drawer
         className={classes.drawer}
@@ -37,14 +37,14 @@ export default function MemberBar({ children }) {
       >
         <div>
           <Typography variant="h5" className={classes.title}>
-            Ninja Notes
+            DISNODE
           </Typography>
         </div>
 
         {/* links/list section */}
       </Drawer>
       {/* main content */}
-      <div className={classes.page}>{children}</div>
+      {/* <div className={classes.page}>{children}</div> */}
     </div>
   );
 }

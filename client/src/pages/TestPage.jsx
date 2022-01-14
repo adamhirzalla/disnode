@@ -5,8 +5,7 @@ import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRou
 import { theme } from "../themes/appTheme";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import AddMemberBar from "../components/AddMembers/AddMemberBar";
-import JoinServerModal from "../components/Modal/JoinServerModal";
-import MemberBar from "../components/Navbar/MemberBar";
+import ElipsesDropdown from "../components/ElipsesDropDown";
 
 export default function TestPage() {
   const testArr = [
@@ -27,20 +26,7 @@ export default function TestPage() {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <MemberBar>
-          <ContainedButton name="Create" />
-        </MemberBar>
-
-        <JoinServerModal />
-        <AddMemberModal
-          icon={<AddCircleOutlineRoundedIcon fontSize="small" />}
-          members={
-            <AddMemberBar
-              icon={<AddCircleOutlineRoundedIcon fontSize="small" />}
-              friends={testArr}
-            />
-          }
-        />
+        <ElipsesDropdown />
       </ThemeProvider>
     </StyledEngineProvider>
   );
