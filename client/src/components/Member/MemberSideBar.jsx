@@ -5,7 +5,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box, IconButton, CssBaseline } from "@mui/material";
 import MemberList from "./MemberList";
 
-const drawerWidth = "500px";
+const drawerWidth = "250px";
 
 const openedMixin = (theme) => ({
   width: drawerWidth,

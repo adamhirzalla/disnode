@@ -9,7 +9,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEllipsisH } from "@fortawesome/free-solid-svg-icons/faEllipsisH";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 
 const mockMembers = [
   {
@@ -145,7 +145,7 @@ export default function MemberList({ open, handleDrawerOpen }) {
             <UserName primary={member.name} open={open} />
             {open && (
               <IconButton sx={{ right: "60px" }}>
-                <FontAwesomeIcon icon={faEllipsisH} />
+                <FontAwesomeIcon icon={faEllipsisV} />
               </IconButton>
             )}
           </StyledBox>
