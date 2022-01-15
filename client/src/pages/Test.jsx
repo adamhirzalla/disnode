@@ -42,7 +42,7 @@ export default function Test() {
       <NewChannelIcon />
       <ServerList socket={socket.current} user={state.user} />
       <ChannelList />
-      <MemberSideBar />
+      <MemberSideBar socket={socket.current} />
     </div>
   );
 }

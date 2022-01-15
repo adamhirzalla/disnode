@@ -5,11 +5,11 @@ const add = (socketId, username) => {
   // BUT make sure you emit online/offline once only for each user
   // regardless of how many devices (sockets) they have open
 
-  // if (onlineUsers.has(username)) {
-  // onlineUsers.get(username).add(socketId);
-  // } else {
-  onlineUsers.set(username, new Set([socketId]));
-  // }
+  if (onlineUsers.has(username)) {
+    onlineUsers.get(username).add(socketId);
+  } else {
+    onlineUsers.set(username, new Set([socketId]));
+  }
 };
 
 const remove = (socketId, username) => {

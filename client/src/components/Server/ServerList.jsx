@@ -16,10 +16,14 @@ export default function ServerList({ socket, user }) {
   const classes = serverListUseStyles();
   const [servers, setServers] = useState(mockServers);
 
+  const broadcastMessage = (msg) => {
+    // socket.emit("broadcast", msg);
+    // sendMessage(msg)
+  };
   // mock servers
   const parsedServers = servers.map((text, index) => (
     <ListItem key={text}>
-      <IconButton title="Add" onClick={() => {}}>
+      <IconButton title="Add" onClick={() => broadcastMessage("gg ez")}>
         {index % 2 === 0 ? (
           <img
             src="https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86"

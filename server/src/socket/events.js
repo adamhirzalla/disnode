@@ -25,11 +25,21 @@ module.exports = (io) => {
       io.to(socketId).emit("scare", `Server says: look behind you ${user}`);
     });
 
-    // Test event (when client sends a message)
-    socket.on("get online", async (socketId) => {
-      console.log(`${socketId} -> ${user} requested to see online members`);
+    // Test event (when client requests online members)
+    socket.on("get online", async () => {
+      const user = await User.byId(socket.userId);
+      console.log(
+        `${socket.id} -> ${user.username} requested to see online members`
+      );
       const online = Online.all();
-      io.to(socketId).emit("online", online);
+      io.to(socket.id).emit("online", online);
     });
+
+    // test
+    // socket.on("broadcast", async (msg) => {
+    //   const user = await User.byId(socket.userId);
+    //   console.log(`${socket.id} -> ${user.username} broadcasted ${msg}`);
+    //   io.emit("message", `${user.username} says ${msg} to everyone`);
+    // });
   });
 };

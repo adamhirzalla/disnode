@@ -8,6 +8,10 @@ module.exports = (socket) => {
     console.log(msg);
   });
 
+  socket.on("message", (msg) => {
+    console.log(msg);
+  });
+
   socket.on("online", (msg) => {
     console.log(msg);
   });
