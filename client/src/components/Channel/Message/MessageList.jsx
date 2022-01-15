@@ -4,9 +4,19 @@ import { useServerListStyles } from "../../styles/useServerListStyles";
 import { green } from "@mui/material/colors";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import MessageListItem from "./MessageListItem";
+import { makeStyles, createStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      color: "green",
+      overflowY: "scroll",
+    },
+  })
+);
 
 export default function MessageList({ children }) {
-  const classes = useServerListStyles();
+  const classes = useStyles();
 
   return (
     <>
@@ -16,8 +26,9 @@ export default function MessageList({ children }) {
           flexDirection: "column",
           alignItems: "center",
           width: "60%",
-          height: "100%",
+          height: "85vh",
           bgcolor: "gray",
+          overflowY: "scroll",
         }}
       >
         <Box
@@ -56,6 +67,7 @@ export default function MessageList({ children }) {
             pt: 0,
             mb: 20,
             mt: 10,
+            width: "80%",
           }}
         >
           <MessageListItem />
@@ -85,8 +97,10 @@ export default function MessageList({ children }) {
               }}
               sx={{
                 width: "100%",
+                color: "white",
                 pl: "10px",
                 pr: "10px",
+                maxHeight: "200px",
               }}
             />
           </Box>
