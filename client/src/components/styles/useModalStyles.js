@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const modalStyles = makeStyles((theme) =>
+export const useModalStyles = makeStyles((theme) =>
   createStyles({
     addButton: {
       color: "",

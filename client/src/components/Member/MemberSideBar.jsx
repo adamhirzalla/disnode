@@ -46,10 +46,11 @@ const Drawer = styled(MuiDrawer, {
       }),
 }));
 
-export default function MemberSideBar() {
+export default function MemberSideBar({ socket }) {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
+    socket.emit("get online");
     setOpen(true);
   };
   const handleDrawerClose = () => {
