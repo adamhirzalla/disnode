@@ -1,51 +1,88 @@
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
-import NewServerIcon from "./NewServerIcon";
-import { useState, useEffect } from "react";
 
-import { serverListUseStyles } from "../styles/serverListUseStyles";
+import { useServerListStyles } from "../styles/useServerListStyles";
+import ServerListItem from "./ServerListItem";
+import NewServerDialog from "./NewServerDialog";
 
-const mockServers = ["s1", "s2", "s3", "s4"];
+const mockState = {
+  servers: {
+    1: {
+      id: 1,
+      title: "Apex",
+      owner: 1,
+      image:
+        "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
+    },
+    2: {
+      id: 2,
+      title: "Val",
+      owner: 3,
+      image:
+        "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
+    },
+  },
+  members: {},
+  channels: {},
+};
 
 export default function ServerList({ socket, user }) {
-  const classes = serverListUseStyles();
-  const [servers, setServers] = useState(mockServers);
+  const classes = useServerListStyles();
+  const [state, setState] = useState(mockState);
+  const [servers, setServers] = useState({});
+
+  const getServers = (state) => {
+    let arr = [];
+    for (const server in state.servers) {
+      arr.push(state.servers[server]);
+    }
+    return arr;
+  };
+
+  // api call to get servers
+  // const gettingServers = () => {
+  //   axios.get("/api/servers").then((res) => {
+  //     if (res.status === 200) {
+  //       setServers(res.data);
+  //     }
+  //   });
+  // };
+
+  // rn this is set to run everytime the page loads but may have to set a dependency
+  // useEffect(() => {
+  //   gettingServers();
+  // }, []);
 
   const broadcastMessage = (msg) => {
     // socket.emit("broadcast", msg);
     // sendMessage(msg)
   };
   // mock servers
-  const parsedServers = servers.map((text, index) => (
-    <ListItem key={text}>
-      <IconButton title="Add" onClick={() => broadcastMessage("gg ez")}>
-        {index % 2 === 0 ? (
-          <img
-            src="https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86"
-            width="70px"
-            alt="Apex"
-          />
-        ) : (
-          <img
-            src="https://preview.redd.it/kzndsge5ver41.png?auto=webp&s=8f12dc8a595c52e9b3df9119d09f9e801ff922e3"
-            width="70px"
-            alt="Valorant"
-          />
-        )}
-      </IconButton>
-    </ListItem>
-  ));
+  const serversEx = getServers(state);
+  const parsedServers = serversEx.map((serverObj) => {
+    return <ServerListItem key={serverObj.id} server={serverObj} />;
+  });
+  // ;
 
   // experimenting adding server
-  const addServer = (name) => {
-    console.log(name);
-    setServers((prev) => {
-      return [...prev, name];
+  const addServer = (title) => {
+    console.log(parsedServers);
+    let image =
+      "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86";
+    setState((prev) => {
+      const id = Math.random() * 100;
+      return {
+        ...prev,
+        servers: {
+          ...prev.servers,
+          [id]: { title, image, id },
+        },
+      };
     });
   };
 
@@ -74,7 +111,7 @@ export default function ServerList({ socket, user }) {
         </Box>
         <Divider />
         <Box ml={"auto"} mr={"auto"}>
-          <NewServerIcon onClick={addServer} />
+          <NewServerDialog onClick={addServer} />
         </Box>
       </Drawer>
     </Box>

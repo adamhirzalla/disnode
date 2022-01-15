@@ -1,10 +1,8 @@
 import * as React from "react";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
+
 import Button from "@mui/material/Button";
 import ConfirmationDialogue from "./ConfirmationDialogue";
-import { IconButton } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function ElipsesDropdown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
