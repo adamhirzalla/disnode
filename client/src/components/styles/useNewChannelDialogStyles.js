@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const newChannelStyles = makeStyles((theme) =>
+export const useNewChannelDialogStyles = makeStyles((theme) =>
   createStyles({
     addButton: {
       color: "black",

@@ -1,15 +1,14 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import NewServerIcon from "./NewServerIcon";
-import { useState } from "react";
 
-import { serverListUseStyles } from "../styles/serverListUseStyles";
+import { useServerListStyles } from "../styles/useServerListStyles";
 import ServerListItem from "./ServerListItem";
+import NewServerDialog from "./NewServerDialog";
 
 const mockState = {
   servers: {
@@ -33,8 +32,9 @@ const mockState = {
 };
 
 export default function ServerList() {
-  const classes = serverListUseStyles();
+  const classes = useServerListStyles();
   const [state, setState] = useState(mockState);
+  const [servers, setServers] = useState({});
 
   const getServers = (state) => {
     let arr = [];
@@ -44,10 +44,23 @@ export default function ServerList() {
     return arr;
   };
 
-  // [{id, title, image, owner},{id, title, image, owner}]
+  // api call to get servers
+  // const gettingServers = () => {
+  //   axios.get("/api/servers").then((res) => {
+  //     if (res.status === 200) {
+  //       setServers(res.data);
+  //     }
+  //   });
+  // };
+
+  // rn this is set to run everytime the page loads but may have to set a dependency
+  // useEffect(() => {
+  //   gettingServers();
+  // }, []);
+
   // mock servers
-  const servers = getServers(state);
-  const parsedServers = servers.map((serverObj) => {
+  const serversEx = getServers(state);
+  const parsedServers = serversEx.map((serverObj) => {
     return <ServerListItem key={serverObj.id} server={serverObj} />;
   });
   // ;
@@ -86,7 +99,7 @@ export default function ServerList() {
         </Box>
         <Divider />
         <Box ml={"auto"} mr={"auto"}>
-          <NewServerIcon onClick={addServer} />
+          <NewServerDialog onClick={addServer} />
         </Box>
       </Drawer>
     </Box>

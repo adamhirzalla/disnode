@@ -1,9 +1,9 @@
 import React from "react";
 import ElipsesDropdown from "../components/ElipsesDropDown";
-import NewChannelIcon from "../components/Channel/NewChannelIcon";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MemberSideBar from "../components/Member/MemberSideBar";
+import NewChannelDialog from "../components/Channel/NewChannelDialog";
 
 export default function TestPage() {
   const testArr = [
@@ -30,7 +30,7 @@ export default function TestPage() {
       }}
     >
       <ElipsesDropdown />
-      <NewChannelIcon />
+      <NewChannelDialog />
       <ServerList />
       <ChannelList />
       <MemberSideBar />
