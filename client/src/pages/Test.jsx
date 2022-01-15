@@ -5,7 +5,7 @@ import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MemberSideBar from "../components/Member/MemberSideBar";
 
-export default function TestPage() {
+export default function Test() {
   const testArr = [
     { name: "jono", id: 1 },
     { name: "cyn", id: 2 },

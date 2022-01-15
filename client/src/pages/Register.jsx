@@ -12,7 +12,7 @@ const initialInput = {
   repeat_password: "",
 };
 
-const RegisterPage = () => {
+const Register = () => {
   const navigate = useNavigate();
   const { state } = useContext(AuthContext);
   const [input, setInput] = useState(initialInput);
@@ -113,4 +113,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default Register;
