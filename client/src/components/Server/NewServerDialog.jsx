@@ -11,6 +11,7 @@ import UploadButton from "./UploadButton";
 import Tags from "./Tags";
 import Avatar from "@mui/material/Avatar";
 import { Alert } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 // styles
 import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
@@ -41,14 +42,14 @@ export default function NewServerDialog({ onClick: addServer }) {
   };
   return (
     <div>
-      <Button
+      <IconButton
         className={classes.addButton}
         disableRipple
         disableFocusRipple
         onClick={handleClickOpen}
       >
         <AddCircleIcon fontSize="large" />
-      </Button>
+      </IconButton>
 
       <Dialog
         classes={{ paper: classes.dialogPaper }}
