@@ -32,7 +32,7 @@ const mockState = {
   channels: {},
 };
 
-export default function ServerList() {
+export default function ServerList({ children }) {
   const classes = serverListUseStyles();
   const [state, setState] = useState(mockState);
 
@@ -70,25 +70,32 @@ export default function ServerList() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
-      <CssBaseline />
-      <Drawer className={classes.serverList} variant="permanent" anchor="left">
-        <IconButton title="Home" onClick={() => {}}>
-          <img alt="Home" src="/images/Disnode-red.png" width="70px" />
-        </IconButton>
-        <Divider />
-        <Box ml={"auto"} mr={"auto"}>
-          <List>{parsedServers}</List>
-        </Box>
-        <Divider />
-        <Box ml={"auto"} mr={"auto"}>
-          <NewServerIcon onClick={addServer} />
-        </Box>
-      </Drawer>
-    </Box>
+    <>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <CssBaseline />
+        <Drawer
+          className={classes.serverList}
+          variant="permanent"
+          anchor="left"
+        >
+          <IconButton title="Home" onClick={() => {}}>
+            <img alt="Home" src="/images/Disnode-red.png" width="70px" />
+          </IconButton>
+          <Divider />
+          <Box ml={"auto"} mr={"auto"}>
+            <List>{parsedServers}</List>
+          </Box>
+          <Divider />
+          <Box ml={"auto"} mr={"auto"}>
+            <NewServerIcon onClick={addServer} />
+          </Box>
+        </Drawer>
+      </Box>
+      {children}
+    </>
   );
 }
