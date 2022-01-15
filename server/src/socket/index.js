@@ -8,9 +8,6 @@ module.exports = (io) => {
     } catch (e) {
       return next(new Error("Unauthorized: Invalid Token"));
     }
-  }).on("connection", (socket) => {
-    /* socket object may be used to send specific messages to the new connected client */
-    console.log("new client connected");
-    socket.emit("connection", null);
   });
+  require("./events")(io);
 };

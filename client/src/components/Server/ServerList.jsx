@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -31,7 +31,7 @@ const mockState = {
   channels: {},
 };
 
-export default function ServerList() {
+export default function ServerList({ socket, user }) {
   const classes = useServerListStyles();
   const [state, setState] = useState(mockState);
   const [servers, setServers] = useState({});
@@ -58,6 +58,10 @@ export default function ServerList() {
   //   gettingServers();
   // }, []);
 
+  const broadcastMessage = (msg) => {
+    // socket.emit("broadcast", msg);
+    // sendMessage(msg)
+  };
   // mock servers
   const serversEx = getServers(state);
   const parsedServers = serversEx.map((serverObj) => {
@@ -82,6 +86,14 @@ export default function ServerList() {
     });
   };
 
+  const handleHomeClick = (socket) => {
+    socket.emit("home click", socket.id, user.display_name);
+  };
+
+  useEffect(() => {
+    socket?.emit("connection", socket.id, user.display_name);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -90,7 +102,7 @@ export default function ServerList() {
     >
       <CssBaseline />
       <Drawer className={classes.serverList} variant="permanent" anchor="left">
-        <IconButton title="Home" onClick={() => {}}>
+        <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
           <img alt="Home" src="/images/Disnode-red.png" width="70px" />
         </IconButton>
         <Divider />
