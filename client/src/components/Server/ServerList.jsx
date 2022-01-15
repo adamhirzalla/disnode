@@ -6,7 +6,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 
-import { serverListUseStyles } from "../styles/serverListUseStyles";
+import { useServerListStyles } from "../styles/useServerListStyles";
 import ServerListItem from "./ServerListItem";
 import NewServerDialog from "./NewServerDialog";
 
@@ -32,7 +32,7 @@ const mockState = {
 };
 
 export default function ServerList() {
-  const classes = serverListUseStyles();
+  const classes = useServerListStyles();
   const [state, setState] = useState(mockState);
   const [servers, setServers] = useState({});
 

@@ -3,9 +3,7 @@ import ElipsesDropdown from "../components/ElipsesDropDown";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MemberSideBar from "../components/Member/MemberSideBar";
-import Tags from "../components/Server/Tags";
-import NewServerDialog from "../components/Server/NewServerDialog";
-import NewChannelIcon from "../components/Channel/NewChannelIcon";
+import NewChannelDialog from "../components/Channel/NewChannelDialog";
 
 export default function TestPage() {
   const testArr = [
@@ -32,7 +30,7 @@ export default function TestPage() {
       }}
     >
       <ElipsesDropdown />
-      <NewChannelIcon />
+      <NewChannelDialog />
       <ServerList />
       <ChannelList />
       <MemberSideBar />

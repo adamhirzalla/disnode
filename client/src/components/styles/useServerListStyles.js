@@ -2,7 +2,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 const drawerWidth = "122px";
 
-export const serverListUseStyles = makeStyles((theme) =>
+export const useServerListStyles = makeStyles((theme) =>
   createStyles({
     serverList: {
       width: drawerWidth,

@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const buttonUseStyles = makeStyles((theme) =>
+export const useButtonStyles = makeStyles((theme) =>
   createStyles({
     contained: {
       color: "white",

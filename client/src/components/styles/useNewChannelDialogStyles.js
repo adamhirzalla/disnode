@@ -1,38 +1,36 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const newServerUseStyles = makeStyles((theme) =>
+export const useNewChannelDialogStyles = makeStyles((theme) =>
   createStyles({
     addButton: {
       color: "black",
-      // backgroundColor: "inherit",
+      backgroundColor: "inherit",
       "&:hover": {
         color: "gray",
-        // backgroundColor: "inherit",
+        backgroundColor: "inherit",
       },
     },
     root: {
-      // color: "#FFFFFF",
+      color: "#FFFFFF",
       "& .MuiInputBase-root": {
         width: "500px",
-        // color: "#FFF", // or black
+        color: "#FFF",
         textAlign: "center",
       },
     },
     content: {
-      // color: "#FFFFFF",
+      color: "#FFFFFF",
       width: "500px",
       paddingBottom: "42px",
     },
     dialogPaper: {
       display: "flex",
-
       alignItems: "center",
       borderRadius: "2em",
-      // backgroundColor: "#040B0C",
-      // color: "#FFFFFF",
+      backgroundColor: "#040B0C",
+      color: "#FFFFFF",
       textAlign: "center",
-      padding: "40px 20px",
-      paddingTop: "25px",
+      padding: "50px 0px",
       flexDirection: "column",
       justifyContent: "space-evenly",
     },

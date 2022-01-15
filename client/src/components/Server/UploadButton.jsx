@@ -7,13 +7,13 @@ import { Button } from "@mui/material";
 // component imports
 
 // styles
-import { buttonUseStyles } from "../styles/buttonUseStyles";
+import { useButtonStyles } from "../styles/useButtonStyles";
 const Input = styled("input")({
   display: "none",
 });
 
 export default function UploadButton() {
-  const classes = buttonUseStyles();
+  const classes = useButtonStyles();
 
   return (
     <label htmlFor="contained-button-file">

@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import CustomButton from "../Button/Button";
+import CustomButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import UploadButton from "./UploadButton";
 import Tags from "./Tags";
@@ -13,10 +13,10 @@ import Avatar from "@mui/material/Avatar";
 import { Alert } from "@mui/material";
 
 // styles
-import { newServerUseStyles } from "../styles/newServerUseStyles";
+import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
 
 export default function NewServerDialog({ onClick: addServer }) {
-  const classes = newServerUseStyles();
+  const classes = useNewServerDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [error, setError] = useState(null);
