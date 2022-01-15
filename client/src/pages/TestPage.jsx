@@ -31,7 +31,6 @@ export default function TestPage() {
         justifyContent: "flex-end",
       }}
     >
-      <Tags />
       <ElipsesDropdown />
       <NewChannelIcon />
       <ServerList />

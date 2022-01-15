@@ -5,15 +5,15 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import ContainedButton from "../Button/ContainedButton";
+import CustomButton from "../Button/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import UploadButton from "./UploadButton";
 import Tags from "./Tags";
 import Avatar from "@mui/material/Avatar";
 import { Alert } from "@mui/material";
 
 // styles
 import { newServerUseStyles } from "../styles/newServerUseStyles";
-import UploadButton from "./UploadButton";
 
 export default function NewServerDialog({ onClick: addServer }) {
   const classes = newServerUseStyles();
@@ -91,12 +91,8 @@ export default function NewServerDialog({ onClick: addServer }) {
           <Tags />
         </DialogContent>
         <DialogActions>
-          <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
-          <ContainedButton
-            variant="contained"
-            onClick={handleAdd}
-            name="Create"
-          />
+          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
+          <CustomButton variant="contained" onClick={handleAdd} name="Create" />
         </DialogActions>
         {error && <Alert severity="error">{error}</Alert>}
       </Dialog>

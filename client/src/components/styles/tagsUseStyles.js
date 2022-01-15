@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const tagUseStyles = makeStyles((theme) =>
+export const tagsUseStyles = makeStyles((theme) =>
   createStyles({
     serverList: {
       flexShrink: 0,

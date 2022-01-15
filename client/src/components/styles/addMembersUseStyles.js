@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const addMembersStyles = makeStyles((theme) =>
+export const addMembersUseStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: "375px",

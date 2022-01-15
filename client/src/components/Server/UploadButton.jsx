@@ -5,16 +5,15 @@ import { styled } from "@mui/material/styles";
 import { Button } from "@mui/material";
 
 // component imports
-import ContainedButton from "../Button/ContainedButton";
 
 // styles
-import { buttonStyles } from "../styles/buttonStyles";
+import { buttonUseStyles } from "../styles/buttonUseStyles";
 const Input = styled("input")({
   display: "none",
 });
 
 export default function UploadButton() {
-  const classes = buttonStyles();
+  const classes = buttonUseStyles();
 
   return (
     <label htmlFor="contained-button-file">

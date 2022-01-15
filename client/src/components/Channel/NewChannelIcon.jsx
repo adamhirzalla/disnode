@@ -5,12 +5,12 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { newChannelStyles } from "../styles/newChannelStyles";
-import ContainedButton from "../Button/ContainedButton";
+import { newChannelUseStyles } from "../styles/newChannelUseStyles";
+import ContainedButton from "../Button/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export default function NewChannelIcon(props) {
-  const classes = newChannelStyles();
+  const classes = newChannelUseStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
