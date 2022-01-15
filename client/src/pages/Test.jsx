@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import ElipsesDropdown from "../components/ElipsesDropDown";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
-import MessageList from "../components/Message/MessageList";
+import MessageList from "../components/Channel/Message/MessageList";
 import MemberList from "../components/Member/MemberList";
 import sio from "../socket/index";
 import AuthContext from "../contexts/AuthContext";

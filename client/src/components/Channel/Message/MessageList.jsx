@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, TextField, Typography, Divider, IconButton } from "@mui/material";
-import { useServerListStyles } from "../styles/useServerListStyles";
+import { useServerListStyles } from "../../styles/useServerListStyles";
 import { green } from "@mui/material/colors";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import MessageListItem from "./MessageListItem";
