@@ -59,18 +59,12 @@ export default function MemberList({ socket }) {
   };
 
   return (
-    <Box sx={{ position: "absolute" }}>
+    <Box sx={{ position: "sticky" }}>
       <CssBaseline />
       <Drawer variant="permanent" anchor="right" open={open}>
         <MemberListItem open={open} handleDrawerOpen={handleDrawerOpen} />
         {open && (
-          <Box
-            sx={{
-              position: "fixed",
-              bottom: 0,
-              right: 250,
-            }}
-          >
+          <Box sx={{ position: "fixed", bottom: 0, right: 250 }}>
             <IconButton onClick={handleDrawerClose}>
               <ChevronRightIcon />
             </IconButton>

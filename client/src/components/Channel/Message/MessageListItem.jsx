@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Box, Avatar, Typography } from "@mui/material";
+import { Box, Avatar, Typography, Grid, List } from "@mui/material";
+import { useMessageListSytle } from "../../styles/useMessageListSytle";
 
 const mockMessages = [
   {
@@ -85,54 +86,38 @@ const mockMessages = [
     id: 4,
     name: "Ted",
     img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
-    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+    msg: "hahahhahaahahhahahhahahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
   },
 ];
 
-export default function MessageListItem() {
-  const parsedMessage = mockMessages.map((user, i) => {
+export default function MessageListItem({ onClick }) {
+  const classes = useMessageListSytle();
+
+  return mockMessages.map((user, i) => {
     return (
-      <Box
-        key={i}
-        sx={{ display: "flex", width: "70%", height: "auto", mt: 2 }}
-      >
-        <Box
-          sx={{
-            width: "10%",
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignContent: "center",
-            mr: 1,
-          }}
-        >
-          <Avatar
-            alt={user.name}
-            src={user.img}
-            sx={{ width: 40, height: 40, ml: 1 }}
-          />
-          <Typography>{user.name}</Typography>
-        </Box>
-        <Box sx={{ ml: 5 }}>
-          <Typography
-            variant="body1"
-            display="block"
-            sx={{
-              height: "auto",
-              wordBreak: "break-word",
-              p: 1,
-              borderRadius: 5,
-              color: "white",
-              bgcolor: "black",
-            }}
-          >
-            {user.msg}
-          </Typography>
-        </Box>
-      </Box>
+      <Grid key={i} container alignItems="center" sx={{ height: 400 }}>
+        <Grid xs={1.2} item sx={{ height: "80%" }}>
+          <Box className={classes.avatar}>
+            <Avatar
+              alt={user.name}
+              src={user.img}
+              sx={{ width: 40, height: 40, mt: 1 }}
+            />
+            <Typography>{user.name}</Typography>
+          </Box>
+        </Grid>
+        <Grid xs={"auto"} item>
+          <List id="chat-windows-messages" sx={{ maxWidth: 700 }}>
+            <Typography
+              className={classes.messages}
+              variant="body1"
+              display="block"
+            >
+              {user.msg}
+            </Typography>
+          </List>
+        </Grid>
+      </Grid>
     );
   });
-
-  return <>{parsedMessage}</>;
 }
