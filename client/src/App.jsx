@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { AuthProvider } from "./contexts/AuthContext";
 import { theme } from "./themes/theme";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import TestPage from "./pages/TestPage";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -15,10 +15,12 @@ function App() {
           <Router>
             <AuthProvider>
               <Routes>
-                <Route element={<HomePage />} path="/" exact="true" />
-                <Route element={<LoginPage />} path="/login" />
-                <Route element={<RegisterPage />} path="/register" />
-                <Route element={<TestPage />} path="/test" />
+                // TODO: refactor to use custom Private/Public Routes instead //
+                https://codesandbox.io/s/react-router-v6-security-gojb0?file=/src/App.js
+                <Route element={<Home />} path="/" exact="true" />
+                <Route element={<Login />} path="/login" />
+                <Route element={<Register />} path="/register" />
+                <Route element={<Test />} path="/test" />
               </Routes>
             </AuthProvider>
           </Router>

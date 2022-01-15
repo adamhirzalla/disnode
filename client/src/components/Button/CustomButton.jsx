@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import { buttonStyles } from "../styles/buttonStyles";
+import { useButtonStyles } from "../styles/useButtonStyles";
 
-export default function ContainedButton(props) {
-  const classes = buttonStyles();
+export default function CustomButton(props) {
+  const classes = useButtonStyles();
   const handleEvent = () => {
     if (props.name === "Submit") {
       // do something here

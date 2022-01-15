@@ -1,12 +1,14 @@
-import React from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import ElipsesDropdown from "../components/ElipsesDropDown";
-import NewChannelIcon from "../components/Channel/NewChannelIcon";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MessageList from "../components/Message/MessageList";
 import MemberList from "../components/Member/MemberList";
+import sio from "../socket/index";
+import AuthContext from "../contexts/AuthContext";
+import NewChannelDialog from "../components/Channel/NewChannelDialog";
 
-export default function TestPage() {
+export default function Test() {
   const testArr = [
     { name: "jono", id: 1 },
     { name: "cyn", id: 2 },
@@ -22,6 +24,13 @@ export default function TestPage() {
     { name: "hyunsu", id: 12 },
   ];
 
+  const socket = useRef();
+  const { state, dispatch } = useContext(AuthContext);
+
+  useEffect(() => {
+    socket.current = sio;
+  }, [socket.current]);
+
   return (
     <div
       style={{
@@ -30,10 +39,11 @@ export default function TestPage() {
     >
       {/* <ElipsesDropdown /> */}
       {/* <NewChannelIcon /> */}
-      <ServerList>
+      {/* <NewChannelDialog /> */}
+      <ServerList socket={socket.current} user={state.user}>
         <ChannelList>
           <MessageList>
-            <MemberList />
+            <MemberList socket={socket.current} />
           </MessageList>
         </ChannelList>
       </ServerList>

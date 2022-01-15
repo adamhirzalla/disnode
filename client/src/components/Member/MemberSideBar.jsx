@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { Box, IconButton, CssBaseline } from "@mui/material";
-import MemberListItem from "./MemberListItem";
+import MemberList from "./MemberList";
 
 const drawerWidth = "250px";
 
@@ -32,7 +32,6 @@ const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   width: drawerWidth,
-  height: "100vh",
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -47,7 +46,7 @@ const Drawer = styled(MuiDrawer, {
       }),
 }));
 
-export default function MemberList({ socket }) {
+export default function MemberSideBar({ socket }) {
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -59,16 +58,16 @@ export default function MemberList({ socket }) {
   };
 
   return (
-    <Box sx={{ position: "absolute" }}>
+    <Box>
       <CssBaseline />
       <Drawer variant="permanent" anchor="right" open={open}>
-        <MemberListItem open={open} handleDrawerOpen={handleDrawerOpen} />
+        <MemberList open={open} handleDrawerOpen={handleDrawerOpen} />
         {open && (
           <Box
             sx={{
               position: "fixed",
+              marginLeft: "10px",
               bottom: 0,
-              right: 250,
             }}
           >
             <IconButton onClick={handleDrawerClose}>

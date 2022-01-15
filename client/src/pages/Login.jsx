@@ -4,7 +4,7 @@ import { login } from "../network/authApi";
 import { SET_USER } from "../utils/constants";
 import AuthContext from "../contexts/AuthContext";
 
-const LoginPage = () => {
+const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
   const [input, setInput] = useState({ username: "", password: "" });
 
@@ -54,4 +54,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;

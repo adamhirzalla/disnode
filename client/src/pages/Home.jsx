@@ -4,7 +4,7 @@ import Nav from "../components/Navbar/Nav";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 
-const HomePage = () => {
+const Home = () => {
   const { state, dispatch } = useContext(AuthContext);
 
   // If user is not logged in, redirect to login
@@ -27,4 +27,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

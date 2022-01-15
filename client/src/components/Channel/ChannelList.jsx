@@ -14,7 +14,7 @@ import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import NewChannelIcon from "./NewChannelIcon";
+import NewChannelDialog from "./NewChannelDialog";
 
 export default function ChannelList({ children }) {
   const [open, setOpen] = React.useState(true);
@@ -86,7 +86,7 @@ export default function ChannelList({ children }) {
             <ListItemText primary="Help" />
           </ListItemButton>
           <Box ml={"90px"} mr={""}>
-            <NewChannelIcon />
+            <NewChannelDialog />
           </Box>
         </List>
       </Box>
