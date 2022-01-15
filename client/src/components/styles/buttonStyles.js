@@ -6,6 +6,9 @@ export const buttonStyles = makeStyles((theme) =>
       color: "white",
       borderRadius: ".8em",
       backgroundColor: "#4D8F42",
+      "&:hover": {
+        backgroundColor: "#5F9157",
+      },
     },
     text: {
       color: "#4D8F42",

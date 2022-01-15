@@ -5,10 +5,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import NewServerIcon from "./NewServerIcon";
 
 import { serverListUseStyles } from "../styles/serverListUseStyles";
 import ServerListItem from "./ServerListItem";
+import NewServerDialog from "./NewServerDialog";
 
 const mockState = {
   servers: {
@@ -99,7 +99,7 @@ export default function ServerList() {
         </Box>
         <Divider />
         <Box ml={"auto"} mr={"auto"}>
-          <NewServerIcon onClick={addServer} />
+          <NewServerDialog onClick={addServer} />
         </Box>
       </Drawer>
     </Box>

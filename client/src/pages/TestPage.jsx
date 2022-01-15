@@ -1,10 +1,11 @@
 import React from "react";
 import ElipsesDropdown from "../components/ElipsesDropDown";
-import NewChannelIcon from "../components/Channel/NewChannelIcon";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MemberSideBar from "../components/Member/MemberSideBar";
-import ToggleTagGroup from "../components/Server/ToggleTagGroup";
+import Tags from "../components/Server/Tags";
+import NewServerDialog from "../components/Server/NewServerDialog";
+import NewChannelIcon from "../components/Channel/NewChannelIcon";
 
 export default function TestPage() {
   const testArr = [
@@ -30,7 +31,7 @@ export default function TestPage() {
         justifyContent: "flex-end",
       }}
     >
-      <ToggleTagGroup />
+      <Tags />
       <ElipsesDropdown />
       <NewChannelIcon />
       <ServerList />

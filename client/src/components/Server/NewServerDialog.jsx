@@ -5,14 +5,21 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { newServerStyles } from "../styles/newServerStyles";
 import ContainedButton from "../Button/ContainedButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Tags from "./Tags";
+import Avatar from "@mui/material/Avatar";
+import { Alert } from "@mui/material";
 
-export default function NewServerIcon({ onClick: addServer }) {
-  const classes = newServerStyles();
+// styles
+import { newServerUseStyles } from "../styles/newServerUseStyles";
+import UploadButton from "./UploadButton";
+
+export default function NewServerDialog({ onClick: addServer }) {
+  const classes = newServerUseStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [error, setError] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,6 +27,7 @@ export default function NewServerIcon({ onClick: addServer }) {
 
   const handleClose = () => {
     setOpen(false);
+    setError(null);
   };
 
   const handleChange = (e) => {
@@ -27,8 +35,9 @@ export default function NewServerIcon({ onClick: addServer }) {
   };
 
   const handleAdd = () => {
-    setOpen(false);
-    addServer(title);
+    // setOpen(false);
+    // addServer(title);
+    setError("Server creation failed. Please try again later.");
   };
   return (
     <div>
@@ -48,9 +57,27 @@ export default function NewServerIcon({ onClick: addServer }) {
       >
         <DialogTitle style={{ fontSize: "1.55em" }}>Create Server</DialogTitle>
         <DialogContent className={classes.content}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "20px",
+            }}
+          >
+            <Avatar
+              style={{
+                width: "62px",
+                height: "62px",
+              }}
+              alt="stock"
+              src="https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86"
+            />
+          </div>
+          <UploadButton />
           <TextField
             autoFocus
-            margin="dense"
+            margin="normal"
+            multiline
             id="title"
             type="text"
             fullWidth
@@ -61,25 +88,7 @@ export default function NewServerIcon({ onClick: addServer }) {
               className: classes.root,
             }}
           />
-          <TextField
-            margin="dense"
-            id="title"
-            type="text"
-            fullWidth
-            variant="standard"
-            placeholder="Title"
-            onChange={handleChange}
-            InputProps={{
-              className: classes.root,
-            }}
-          />
-          <TextField
-            error
-            id="outlined-error-helper-text"
-            label="Error"
-            defaultValue="Hello World"
-            helperText="Incorrect entry."
-          />
+          <Tags />
         </DialogContent>
         <DialogActions>
           <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
@@ -89,6 +98,7 @@ export default function NewServerIcon({ onClick: addServer }) {
             name="Create"
           />
         </DialogActions>
+        {error && <Alert severity="error">{error}</Alert>}
       </Dialog>
     </div>
   );
