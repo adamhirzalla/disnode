@@ -16,7 +16,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import NewChannelDialog from "./NewChannelDialog";
 
-export default function ChannelList() {
+export default function ChannelList({ children }) {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
@@ -24,70 +24,73 @@ export default function ChannelList() {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        ml: "120px",
-        borderLeft: "3px solid gray",
-        borderRight: "2px solid gray",
-        height: "100vh",
-        width: "240px",
-        position: "absolute",
-        top: "0",
-        left: "0",
-        // bgcolor: "gray"
-      }}
-    >
-      <List
-        sx={{ width: "100%", maxWidth: 240 }}
-        component="nav"
-        aria-labelledby="nested-list-subheader"
-        subheader={
-          <ListSubheader component="div" id="nested-list-subheader">
-            Channels
-          </ListSubheader>
-        }
+    <>
+      <Box
+        sx={{
+          posidion: "fixed",
+          display: "flex",
+          borderLeft: "3px solid gray",
+          borderRight: "2px solid gray",
+          height: "100%",
+          width: "240px",
+          top: "0",
+          left: "0",
+          zIndex: 10,
+          bgcolor: "white",
+        }}
       >
-        <ListItemButton>
-          <CssBaseline />
-          <ListItemIcon>
-            <CampaignIcon />
-          </ListItemIcon>
-          <ListItemText primary="Announcements" />
-        </ListItemButton>
-        <ListItemButton onClick={handleClick}>
-          <ListItemIcon>
-            <SportsEsportsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Gaming" />
-          {open ? <ExpandLess /> : <ExpandMore />}
-        </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <LooksTwoIcon />
-              </ListItemIcon>
-              <ListItemText primary="Duos" />
-            </ListItemButton>
-            <ListItemButton sx={{ pl: 4 }}>
-              <ListItemIcon>
-                <Looks3Icon />
-              </ListItemIcon>
-              <ListItemText primary="Trios" />
-            </ListItemButton>
-          </List>
-        </Collapse>
-        <ListItemButton>
-          <ListItemIcon>
-            <HelpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Help" />
-        </ListItemButton>
-        <Box ml={"90px"} mr={""}>
-          <NewChannelDialog />
-        </Box>
-      </List>
-    </Box>
+        <List
+          sx={{ width: "100%", maxWidth: 240 }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Channels
+            </ListSubheader>
+          }
+        >
+          <ListItemButton>
+            <CssBaseline />
+            <ListItemIcon>
+              <CampaignIcon />
+            </ListItemIcon>
+            <ListItemText primary="Announcements" />
+          </ListItemButton>
+          <ListItemButton onClick={handleClick}>
+            <ListItemIcon>
+              <SportsEsportsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Gaming" />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <LooksTwoIcon />
+                </ListItemIcon>
+                <ListItemText primary="Duos" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <Looks3Icon />
+                </ListItemIcon>
+                <ListItemText primary="Trios" />
+              </ListItemButton>
+            </List>
+          </Collapse>
+          <ListItemButton>
+            <ListItemIcon>
+              <HelpIcon />
+            </ListItemIcon>
+            <ListItemText primary="Help" />
+          </ListItemButton>
+          <Box ml={"90px"} mr={""}>
+            <NewChannelDialog />
+          </Box>
+        </List>
+      </Box>
+      {children}
+    </>
   );
 }

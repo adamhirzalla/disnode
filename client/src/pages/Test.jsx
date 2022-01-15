@@ -2,7 +2,8 @@ import { useContext, useEffect, useRef, useState } from "react";
 import ElipsesDropdown from "../components/ElipsesDropDown";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
-import MemberSideBar from "../components/Member/MemberSideBar";
+import MessageList from "../components/Channel/Message/MessageList";
+import MemberList from "../components/Member/MemberList";
 import sio from "../socket/index";
 import AuthContext from "../contexts/AuthContext";
 import NewChannelDialog from "../components/Channel/NewChannelDialog";
@@ -34,15 +35,18 @@ export default function Test() {
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "flex-end",
       }}
     >
-      <ElipsesDropdown />
-      <NewChannelDialog />
-      <ServerList socket={socket.current} user={state.user} />
-      <ChannelList />
-      <MemberSideBar socket={socket.current} />
+      {/* <ElipsesDropdown /> */}
+      {/* <NewChannelIcon /> */}
+      {/* <NewChannelDialog /> */}
+      <ServerList socket={socket.current} user={state.user}>
+        <ChannelList>
+          <MessageList>
+            <MemberList socket={socket.current} />
+          </MessageList>
+        </ChannelList>
+      </ServerList>
     </div>
   );
 }

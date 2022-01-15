@@ -31,7 +31,7 @@ const mockState = {
   channels: {},
 };
 
-export default function ServerList({ socket, user }) {
+export default function ServerList({ socket, user, children }) {
   const classes = useServerListStyles();
   const [state, setState] = useState(mockState);
   const [servers, setServers] = useState({});
@@ -95,25 +95,32 @@ export default function ServerList({ socket, user }) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
-      <CssBaseline />
-      <Drawer className={classes.serverList} variant="permanent" anchor="left">
-        <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
-          <img alt="Home" src="/images/Disnode-red.png" width="70px" />
-        </IconButton>
-        <Divider />
-        <Box ml={"auto"} mr={"auto"}>
-          <List>{parsedServers}</List>
-        </Box>
-        <Divider />
-        <Box ml={"auto"} mr={"auto"}>
-          <NewServerDialog onClick={addServer} />
-        </Box>
-      </Drawer>
-    </Box>
+    <>
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <CssBaseline />
+        <Drawer
+          className={classes.serverList}
+          variant="permanent"
+          anchor="left"
+        >
+          <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
+            <img alt="Home" src="/images/Disnode-red.png" width="70px" />
+          </IconButton>
+          <Divider />
+          <Box ml={"auto"} mr={"auto"}>
+            <List>{parsedServers}</List>
+          </Box>
+          <Divider />
+          <Box ml={"auto"} mr={"auto"}>
+            <NewServerDialog onClick={addServer} />
+          </Box>
+        </Drawer>
+      </Box>
+      {children}
+    </>
   );
 }
