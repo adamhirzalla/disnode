@@ -12,7 +12,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 export default function NewServerIcon({ onClick: addServer }) {
   const classes = newServerStyles();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,12 +23,12 @@ export default function NewServerIcon({ onClick: addServer }) {
   };
 
   const handleChange = (e) => {
-    setName((prev) => e.target.value);
+    setTitle((prev) => e.target.value);
   };
 
   const handleAdd = () => {
     setOpen(false);
-    addServer(name);
+    addServer(title);
   };
   return (
     <div>
@@ -51,7 +51,7 @@ export default function NewServerIcon({ onClick: addServer }) {
           <TextField
             autoFocus
             margin="dense"
-            id="name"
+            id="title"
             type="text"
             fullWidth
             variant="standard"
@@ -60,6 +60,25 @@ export default function NewServerIcon({ onClick: addServer }) {
             InputProps={{
               className: classes.root,
             }}
+          />
+          <TextField
+            margin="dense"
+            id="title"
+            type="text"
+            fullWidth
+            variant="standard"
+            placeholder="Title"
+            onChange={handleChange}
+            InputProps={{
+              className: classes.root,
+            }}
+          />
+          <TextField
+            error
+            id="outlined-error-helper-text"
+            label="Error"
+            defaultValue="Hello World"
+            helperText="Incorrect entry."
           />
         </DialogContent>
         <DialogActions>
@@ -74,3 +93,30 @@ export default function NewServerIcon({ onClick: addServer }) {
     </div>
   );
 }
+
+// // for handling errors
+// const [error, setError] = useState(null);
+// // in the form for creating a server
+// const handleSubmit = () => {
+//   const body = {
+//     title: serverName,
+//     image: imageUrl,
+//     creatorId: creatorId,
+//   };
+
+//   // need to look up syntax for axios post calls
+//   axios.post("/api/servers/create", body).then((res) => {
+//     if (res.status === 200) {
+//       // redirect to the new server home channel (i.e. #general)
+//     } else {
+//       setError('Server creation failed. Please try again later.')
+//     }
+//   });
+// };
+
+// return (
+//   <form></form>
+
+//   // conditionally show the error under the form
+//   {error && <Alert severity="error">{error}</Alert>}
+// )
