@@ -35,9 +35,9 @@ export default function NewServerDialog({ onClick: addServer }) {
   };
 
   const handleAdd = () => {
-    // setOpen(false);
-    // addServer(title);
-    setError("Server creation failed. Please try again later.");
+    setOpen(false);
+    addServer(title);
+    // setError("Server creation failed. Please try again later.");
   };
   return (
     <div>
@@ -113,7 +113,7 @@ export default function NewServerDialog({ onClick: addServer }) {
 //   // need to look up syntax for axios post calls
 //   axios.post("/api/servers/create", body).then((res) => {
 //     if (res.status === 200) {
-//       // redirect to the new server home channel (i.e. #general)
+//       // redirect to the new server (i.e. #general)
 //     } else {
 //       setError('Server creation failed. Please try again later.')
 //     }

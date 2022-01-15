@@ -5,15 +5,15 @@ export const useButtonStyles = makeStyles((theme) =>
     contained: {
       color: "white",
       borderRadius: ".8em",
-      backgroundColor: "#4D8F42",
+      backgroundColor: "#7a211b",
       "&:hover": {
-        backgroundColor: "#5F9157",
+        backgroundColor: "#635c5b",
       },
     },
     text: {
-      color: "#4D8F42",
+      color: "#7a211b",
       borderRadius: ".8em",
-      border: "1px solid #4D8F42",
+      border: "1px solid #7a211b",
     },
   })
 );
