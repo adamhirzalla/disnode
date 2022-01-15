@@ -1,4 +1,3 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,13 +6,13 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
 import NewServerIcon from "./NewServerIcon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { serverListUseStyles } from "../styles/serverListUseStyles";
 
 const mockServers = ["s1", "s2", "s3", "s4"];
 
-export default function ServerList() {
+export default function ServerList({ socket, user }) {
   const classes = serverListUseStyles();
   const [servers, setServers] = useState(mockServers);
 
@@ -46,6 +45,14 @@ export default function ServerList() {
     });
   };
 
+  const handleHomeClick = (socket) => {
+    socket.emit("home click", socket.id, user.display_name);
+  };
+
+  useEffect(() => {
+    socket?.emit("connection", socket.id, user.display_name);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -54,7 +61,7 @@ export default function ServerList() {
     >
       <CssBaseline />
       <Drawer className={classes.serverList} variant="permanent" anchor="left">
-        <IconButton title="Home" onClick={() => {}}>
+        <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
           <img alt="Home" src="/images/Disnode-red.png" width="70px" />
         </IconButton>
         <Divider />

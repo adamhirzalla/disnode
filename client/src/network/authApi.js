@@ -24,8 +24,8 @@ export const getUser = async (dispatch, tokens) => {
       type: SET_USER,
       user,
     });
-    const { socket } = await import("../socket/index");
-    console.log("Started a socket:", socket);
+    // const sio = await import("../socket/index");
+    // console.log("Started a socket:", sio);
   } catch (e) {
     console.log("Failed to retreive user information", e);
   }
