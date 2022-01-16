@@ -31,10 +31,11 @@ export const useMessageListSytle = makeStyles(() =>
     messages: {
       height: "auto",
       wordBreak: "break-word",
-      padding: 10,
-      borderRadius: 20,
+      // padding: 10,
+      borderRadius: 40,
       color: "white",
       backgroundColor: "black",
+      padding: "1em 2em",
     },
 
     form: {
@@ -48,12 +49,12 @@ export const useMessageListSytle = makeStyles(() =>
       marginTop: 20,
     },
     textField: {
-      width: "100%",
+      marginTop: 2,
+      width: "90%",
       maxHeight: 70,
     },
     input: {
       color: "white",
-      overflowY: "scroll",
     },
   })
 );

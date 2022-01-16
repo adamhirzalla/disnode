@@ -5,7 +5,6 @@ import {
   Typography,
   Divider,
   IconButton,
-  FormControl,
   ListItem,
   Container,
 } from "@mui/material";
@@ -22,8 +21,24 @@ export default function MessageList({ children }) {
     app: { messages, channel },
   } = useContext(ServerContext);
 
-  const handleMessageChange = (e) => {
+  const handleChange = (e) => {
     setMessage(e.target.value);
+  };
+
+  // TextField onKeyDown event handler
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
+  // form onSubmit event handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // // update mock message
+    // mockMessage.msg = message;
+    // mockMessages.push(mockMessage);
+    setMessage("");
   };
 
   // const isOwner = (user_id) => {
@@ -33,10 +48,6 @@ export default function MessageList({ children }) {
   //   return "left";
   // };
 
-  // To do: implement send message
-  const handleSendButtonClick = (e) => {
-    console.log(e.target.value);
-  };
   const messageItems = messages.map((message) => {
     return (
       <MessageListItem
@@ -57,7 +68,7 @@ export default function MessageList({ children }) {
 
   return (
     <>
-      <Container disableGutters maxWidth="xl" fixed>
+      <Container disableGutters maxWidth="l" fixed sx={{ width: "100%" }}>
         <ListItem
           alignItems="center"
           sx={{ display: "flex", justifyContent: "center" }}
@@ -80,33 +91,29 @@ export default function MessageList({ children }) {
         <Box className={classes.message}>{messageItems}</Box>
         <Divider />
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <FormControl className={classes.form}>
-            <ListItem>
-              <TextField
-                className={classes.textField}
-                value={message}
-                onChange={handleMessageChange}
-                autoFocus
-                id="name"
-                type="text"
-                row="2"
-                placeholder="Message"
-                multiline
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-              <IconButton
-                aria-label="send"
-                color="primary"
-                onClick={handleSendButtonClick}
-              >
-                <Send />
-              </IconButton>
-            </ListItem>
-          </FormControl>
-        </Box>
+        <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              className={classes.textField}
+              value={message}
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              autoFocus
+              type="text"
+              maxRows="3"
+              variant="standard"
+              placeholder="Message"
+              multiline
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+            <IconButton type="submit" aria-label="send" color="primary">
+              <Send />
+            </IconButton>
+          </form>
+        </ListItem>
+        {children}
       </Container>
     </>
   );
