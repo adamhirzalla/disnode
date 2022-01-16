@@ -1,11 +1,10 @@
-import * as React from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
   Typography,
   Divider,
   IconButton,
-  FormControl,
   ListItem,
   Container,
 } from "@mui/material";
@@ -115,32 +114,47 @@ const mockMessages = [
   },
 ];
 
+const mockMessage = {
+  id: 6,
+  user_id: 7,
+  name: "Lala",
+  img: "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80",
+  msg: "",
+};
+
 export default function MessageList({ children, messages }) {
   const classes = useMessageListSytle();
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
+  // TextField onChange event handler
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
   };
 
-  // To do: implement send message
-  const handleSendButtonClick = (e) => {
-    console.log(e.target.value);
+  // TextField onKeyDown event handler
+  const handleMessageKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
   };
+
+  // form onSubmit event handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // update mock message
+    mockMessage.msg = message;
+    mockMessages.push(mockMessage);
+    setMessage("");
+  };
+
   messages = mockMessages;
-  const messageItems = messages.map((user) => {
-    return (
-      <MessageListItem
-        key={user.id}
-        user={user}
-        onClick={handleSendButtonClick}
-      />
-    );
+  const messageItems = messages.map((user, i) => {
+    return <MessageListItem key={i} user={user} />;
   });
 
   return (
     <>
-      <Container disableGutters maxWidth="xl" fixed>
+      <Container disableGutters maxWidth="l" fixed sx={{ width: "100%" }}>
         <ListItem
           alignItems="center"
           sx={{ display: "flex", justifyContent: "center" }}
@@ -160,34 +174,31 @@ export default function MessageList({ children, messages }) {
         <Divider />
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <FormControl className={classes.form}>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <ListItem>
               <TextField
                 className={classes.textField}
                 value={message}
                 onChange={handleMessageChange}
+                onKeyDown={handleMessageKeyDown}
                 autoFocus
-                id="name"
                 type="text"
-                row="2"
+                maxRows="3"
+                variant="standard"
                 placeholder="Message"
                 multiline
                 InputProps={{
                   className: classes.input,
                 }}
               />
-              <IconButton
-                aria-label="send"
-                color="primary"
-                onClick={handleSendButtonClick}
-              >
+              <IconButton type="submit" aria-label="send" color="primary">
                 <Send />
               </IconButton>
             </ListItem>
-          </FormControl>
+          </form>
         </Box>
+        {children}
       </Container>
-      {children}
     </>
   );
 }
