@@ -4,7 +4,7 @@ const User = require("../db/queries/users");
 module.exports = (io) => {
   io.on("connection", async (socket) => {
     /* socket object may be used to send specific messages to the new connected client */
-    const user = await User.byId(socket.userId);
+    const user = await User.byID(socket.userId);
     Online.add(socket.id, user.username);
     const online = Online.all();
 
@@ -13,7 +13,7 @@ module.exports = (io) => {
     io.emit("connected", `${user.username} connected`);
 
     socket.on("disconnect", async () => {
-      const user = await User.byId(socket.userId);
+      const user = await User.byID(socket.userId);
       console.log(`${user.username} disconnected`);
       io.emit("disconnected", `${user.username} disconnected`);
       Online.remove(socket.id, user.username);
@@ -27,7 +27,7 @@ module.exports = (io) => {
 
     // Test event (when client requests online members)
     socket.on("get online", async () => {
-      const user = await User.byId(socket.userId);
+      const user = await User.byID(socket.userId);
       console.log(
         `${socket.id} -> ${user.username} requested to see online members`
       );
@@ -37,7 +37,7 @@ module.exports = (io) => {
 
     // test
     // socket.on("broadcast", async (msg) => {
-    //   const user = await User.byId(socket.userId);
+    //   const user = await User.byID(socket.userId);
     //   console.log(`${socket.id} -> ${user.username} broadcasted ${msg}`);
     //   io.emit("message", `${user.username} says ${msg} to everyone`);
     // });

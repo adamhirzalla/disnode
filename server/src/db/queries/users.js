@@ -28,7 +28,7 @@ const byUsername = (username) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const byId = (id) => {
+const byID = (id) => {
   const query = `
   SELECT *
   FROM users
@@ -38,4 +38,26 @@ const byId = (id) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-module.exports = { test, register, byUsername, byId };
+const setActive = (id) => {
+  const query = `
+  UPDATE users 
+  SET is_active = 'true'
+  WHERE id = $1
+  RETURNING *
+  `;
+  const params = [id];
+  return db.query(query, params).then((res) => res.rows);
+};
+
+const setInActive = (id) => {
+  const query = `
+  UPDATE users 
+  SET is_active = 'false'
+  WHERE id = $1
+  RETURNING *
+  `;
+  const params = [id];
+  return db.query(query, params).then((res) => res.rows);
+};
+
+module.exports = { test, register, byUsername, byID, setActive, setInActive };
