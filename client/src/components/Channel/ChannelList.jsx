@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -39,7 +39,8 @@ const parsedChannels = mockChannels.map((channel) => {
   );
 });
 
-export default function ChannelList({ children }) {
+export default function ChannelList({ children, channels, setChannel }) {
+  const [open, setOpen] = useState(true);
   const classes = useChannelListStyles();
   return (
     <>
