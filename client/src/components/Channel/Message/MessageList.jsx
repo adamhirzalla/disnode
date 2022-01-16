@@ -1,45 +1,24 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import {
   Box,
-  TextField,
   Typography,
   Divider,
   IconButton,
   ListItem,
   Container,
 } from "@mui/material";
-import { AddCircle, Send } from "@mui/icons-material";
+import { AddCircle } from "@mui/icons-material";
 import MessageListItem from "./MessageListItem";
+import MessageForm from "./MessageForm";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 import ServerContext from "../../../contexts/ServerContext";
 
 export default function MessageList({ children }) {
   const classes = useMessageListSytle();
-  const [message, setMessage] = useState("");
 
   const {
     app: { messages, channel },
   } = useContext(ServerContext);
-
-  const handleChange = (e) => {
-    setMessage(e.target.value);
-  };
-
-  // TextField onKeyDown event handler
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleSubmit(e);
-    }
-  };
-
-  // form onSubmit event handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // // update mock message
-    // mockMessage.msg = message;
-    // mockMessages.push(mockMessage);
-    setMessage("");
-  };
 
   // const isOwner = (user_id) => {
   //   if (user_id === 4) {
@@ -59,8 +38,6 @@ export default function MessageList({ children }) {
         }}
         body={message.body}
         sent_at={message.sent_at}
-        // onClick={handleSendButtonClick}
-        // msg={user.msg}
         // side={isOwner(user.user_id)}
       />
     );
@@ -68,17 +45,14 @@ export default function MessageList({ children }) {
 
   return (
     <>
-      <Container disableGutters maxWidth="l" fixed sx={{ width: "100%" }}>
+      <Container className={classes.root} disableGutters maxWidth="l" fixed>
         <ListItem
+          className={classes.channelList}
           alignItems="center"
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Box className={classes.channel}>
-            <Typography
-              className={classes.typography}
-              component="span"
-              sx={{ width: "auto", pl: 2, pt: 1 }}
-            >
+            <Typography className={classes.typography} component="span">
               # {channel?.title}
             </Typography>
             <IconButton sx={{ mr: 1 }}>
@@ -88,30 +62,13 @@ export default function MessageList({ children }) {
         </ListItem>
         <Divider />
 
+        {/* MessageList Item */}
         <Box className={classes.message}>{messageItems}</Box>
         <Divider />
 
-        <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              className={classes.textField}
-              value={message}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              autoFocus
-              type="text"
-              maxRows="3"
-              variant="standard"
-              placeholder="Message"
-              multiline
-              InputProps={{
-                className: classes.input,
-              }}
-            />
-            <IconButton type="submit" aria-label="send" color="primary">
-              <Send />
-            </IconButton>
-          </form>
+        {/* Message form component */}
+        <ListItem className={classes.listItem}>
+          <MessageForm />
         </ListItem>
         {children}
       </Container>

@@ -1,10 +1,10 @@
 import { useRef, useEffect } from "react";
 import { Box, Avatar, Typography, Grid, List } from "@mui/material";
-import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles";
 import moment from "moment";
 
 export default function MessageListItem(props) {
-  const classes = useMessageListSytle();
+  const classes = useMessageListItemStyles();
   const { sender, body, sent_at } = props;
   const scrollRef = useRef(null);
 
