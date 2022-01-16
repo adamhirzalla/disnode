@@ -2,6 +2,12 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 export const useMessageListSytle = makeStyles(() =>
   createStyles({
+    root: {
+      display: "flex",
+      alignItems: "flex-start",
+      margin: "0.7em 0",
+      height: "auto",
+    },
     channel: {
       width: "90%",
       display: "flex",
@@ -26,7 +32,7 @@ export const useMessageListSytle = makeStyles(() =>
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      marginLeft: 20,
+      padding: "0.5em 0",
     },
     messages: {
       height: "auto",
@@ -40,25 +46,42 @@ export const useMessageListSytle = makeStyles(() =>
 
     form: {
       width: "50vw",
-      height: "auto",
+      height: "100px",
       display: "flex",
       justifyContent: "center",
+      alignItems: "center",
       color: "white",
-      borderRadius: 50,
+      borderRadius: 20,
       backgroundColor: "black",
       marginTop: 20,
     },
     textField: {
       marginTop: 2,
       width: "90%",
-      maxHeight: 70,
+      maxHeight: 100,
     },
     input: {
       color: "white",
     },
   })
 );
+// scrollbarWidth: "50px",
+// "&::-webkit-scrollbar": {
+//   width: "10px",
+// },
+// "&::-webkit-scrollbar-track": {
+//   background: "#f1f1f1",
+// },
 
+// /* Handle */
+// "&::-webkit-scrollbar-thumb": {
+//   background: "#888",
+// },
+
+// /* Handle on hover */
+// "&::-webkit-scrollbar-thumb:hover": {
+//   background: "#555",
+// },
 // headBG: {
 //   backgroundColor: "#e0e0e0",
 // },

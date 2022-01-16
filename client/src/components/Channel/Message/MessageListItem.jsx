@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Box, Avatar, Typography, Grid, List } from "@mui/material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import moment from "moment";
 
 export default function MessageListItem(props) {
   const classes = useMessageListSytle();
@@ -15,12 +16,8 @@ export default function MessageListItem(props) {
   }, []);
 
   return (
-    <Grid
-      container
-      alignItems="center"
-      sx={{ margin: "1em 0", height: "auto" }}
-    >
-      <Grid xs={1.2} item sx={{ height: "auto" }}>
+    <Grid container alignItems="center" className={classes.root}>
+      <Grid xs={1} item sx={{ height: "auto" }}>
         <Box className={classes.avatar}>
           <Avatar
             alt={sender.name}
@@ -38,6 +35,12 @@ export default function MessageListItem(props) {
             display="block"
           >
             {body}
+          </Typography>
+          <Typography
+            title={moment(sent_at).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+            variant="caption"
+          >
+            {moment(sent_at).fromNow()}
           </Typography>
         </List>
       </Grid>
