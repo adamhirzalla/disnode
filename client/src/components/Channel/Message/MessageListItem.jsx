@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { Box, Avatar, Typography, Grid, List } from "@mui/material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 
-export default function MessageListItem({ user, key, side }) {
+export default function MessageListItem({ user, side }) {
   const classes = useMessageListSytle();
   const scrollRef = useRef(null);
 
