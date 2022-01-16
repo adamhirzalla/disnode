@@ -19,7 +19,7 @@ const byID = (serverId, userId) => {
   const serverQuery = db
     .query(
       `
-      SELECT 
+    SELECT 
       id,
       title,
       image AS logo,
