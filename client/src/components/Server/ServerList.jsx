@@ -5,11 +5,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-
-import { useServerListStyles } from "../styles/useServerListStyles";
 import ServerListItem from "./ServerListItem";
 import NewServerDialog from "./NewServerDialog";
 
+//styles
+import { useServerListStyles } from "../styles/useServerListStyles";
+
+//mockdata
 const mockState = {
   servers: {
     1: {
@@ -65,7 +67,15 @@ export default function ServerList({ socket, user, children }) {
   // mock servers
   const serversEx = getServers(state);
   const parsedServers = serversEx.map((serverObj) => {
-    return <ServerListItem key={serverObj.id} server={serverObj} />;
+    return (
+      <ServerListItem
+        key={serverObj.id}
+        currentServer={1}
+        id={serverObj.id}
+        title={serverObj.title}
+        image={serverObj.image}
+      />
+    );
   });
   // ;
 
@@ -94,33 +104,29 @@ export default function ServerList({ socket, user, children }) {
     socket?.emit("connection", socket.id, user.display_name);
   }, []);
 
+  // rendered Components
+
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-        }}
-      >
-        <CssBaseline />
-        <Drawer
-          className={classes.serverList}
-          variant="permanent"
-          anchor="left"
-        >
-          <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
-            <img alt="Home" src="/images/Disnode-red.png" width="70px" />
-          </IconButton>
-          <Divider className={classes.divider} />
-          <Box ml={"auto"} mr={"auto"}>
-            <List>{parsedServers}</List>
-          </Box>
-          <Divider />
-          <Box ml={"auto"} mr={"auto"}>
-            <NewServerDialog onClick={addServer} />
-          </Box>
-        </Drawer>
-        {children}
-      </Box>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
+      <CssBaseline />
+      <Drawer className={classes.serverList} variant="permanent" anchor="left">
+        <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
+          <img alt="Home" src="/images/Disnode-red.png" width="70px" />
+        </IconButton>
+        <Divider className={classes.divider} />
+        <Box ml={"auto"} mr={"auto"}>
+          <List>{parsedServers}</List>
+        </Box>
+        <Divider />
+        <Box ml={"auto"} mr={"auto"}>
+          <NewServerDialog onClick={addServer} />
+        </Box>
+      </Drawer>
+      {children}
+    </Box>
   );
 }

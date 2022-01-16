@@ -5,7 +5,7 @@ import { useState } from "react";
 import classNames from "classnames";
 
 //style
-import { useChannelListStyles } from "../../styles/useChannelListItemStyles";
+import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 
 export default function ChannelListItem({ id, title, channel, setChannel }) {
   const classes = useChannelListStyles();

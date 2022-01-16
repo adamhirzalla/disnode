@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
-import ChannelListItem from "./Message/ChannelListItem";
+import ChannelListItem from "./ChannelListItem";
 
 //style
 import { useChannelListStyles } from "../styles/useChannelListStyles";
