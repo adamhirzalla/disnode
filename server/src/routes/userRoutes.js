@@ -2,15 +2,26 @@
 
 const router = require("express").Router();
 const { auth } = require("../middleware/auth");
-const Users = require("../db/queries/users");
+const User = require("../db/queries/users");
 
 // Testing token
 router.get("/me", auth, async (req, res) => {
   const userId = req.user.id;
   try {
-    const user = await Users.byID(userId);
+    const user = await User.byID(userId);
     delete user.password;
-    res.status(200).send({ ...user });
+    res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.post("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const user = await User.byID(userId);
+    delete user.password;
+    res.status(200).send(user);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
@@ -18,6 +29,6 @@ router.get("/me", auth, async (req, res) => {
 
 // get all users
 router.get("/users", (req, res) => {
-  Users.test().then((result) => res.json(result));
+  User.test().then((result) => res.json(result));
 });
 module.exports = router;
