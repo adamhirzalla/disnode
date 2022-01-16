@@ -3,7 +3,9 @@ const Messages = require("./messages");
 
 const byUser = (userId) => {
   const query = `
-  SELECT servers.id, title 
+  SELECT servers.id, 
+    servers.title, 
+    servers.image AS logo
   FROM servers
   JOIN members ON server_id = servers.id
   JOIN users ON user_id = users.id
@@ -17,9 +19,14 @@ const byID = (serverId, userId) => {
   const serverQuery = db
     .query(
       `
-  SELECT *
-  FROM servers
-  WHERE id = $1
+    SELECT 
+      id,
+      title,
+      image AS logo,
+      creator_id AS owner_id,
+      invite_code
+    FROM servers
+    WHERE id = $1
   `,
       [serverId]
     )
