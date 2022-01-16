@@ -1,9 +1,18 @@
-import * as React from "react";
+import { useRef, useEffect } from "react";
 import { Box, Avatar, Typography, Grid, List } from "@mui/material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 
-export default function MessageListItem({ onClick, user }) {
+export default function MessageListItem({ user }) {
   const classes = useMessageListSytle();
+
+  const scrollRef = useRef(null);
+
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [user]);
 
   return (
     <Grid container alignItems="center" sx={{ height: 400 }}>
@@ -18,7 +27,7 @@ export default function MessageListItem({ onClick, user }) {
         </Box>
       </Grid>
       <Grid xs={"auto"} item>
-        <List id="chat-windows-messages" sx={{ maxWidth: 700 }}>
+        <List ref={scrollRef} sx={{ maxWidth: 700 }}>
           <Typography
             className={classes.messages}
             variant="body1"
