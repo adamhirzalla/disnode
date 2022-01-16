@@ -7,16 +7,26 @@ import classNames from "classnames";
 //style
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 
-export default function ChannelListItem({ id, title, channel, setChannel }) {
+export default function ChannelListItem(props) {
   const classes = useChannelListStyles();
+  const { id, title, channel, setChannel } = props;
 
   const listItemClass = classNames(classes.listItem, {
-    [classes.selected]: id === channel,
+    [classes.selected]: id === channel.id,
   });
+
+  const handleChannelClick = () => {
+    setChannel(id);
+  };
 
   return (
     <>
-      <ListItem className={listItemClass} button key={id} onClick={setChannel}>
+      <ListItem
+        className={listItemClass}
+        button
+        key={id}
+        onClick={handleChannelClick}
+      >
         <ListItemIcon>
           <TagIcon />
         </ListItemIcon>

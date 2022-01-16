@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import userReducer from "../reducers/userReducer";
+import reducer from "../reducers/reducer";
 import { isAuth, updateTokens } from "../network/authApi";
 
 const AuthContext = createContext();
@@ -11,11 +11,10 @@ export const initialState = {
   user: {},
   tokens: null,
   error: null,
-  activeUsers: null,
 };
 
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(userReducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     isAuth(dispatch);
