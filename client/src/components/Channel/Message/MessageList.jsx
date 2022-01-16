@@ -140,7 +140,7 @@ export default function MessageList({ children, messages }) {
 
   return (
     <>
-      <Container disableGutters maxWidth="m" fixed>
+      <Container disableGutters maxWidth="xl" fixed>
         <ListItem
           alignItems="center"
           sx={{ display: "flex", justifyContent: "center" }}
