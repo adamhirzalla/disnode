@@ -12,8 +12,9 @@ export default function ServerListItem({ currentServer, id, title, image }) {
     [classes.selected]: id === currentServer,
   });
   return (
-    <ListItem className={listItemClass} key={id}>
+    <ListItem key={id}>
       <IconButton
+        className={listItemClass}
         title="Add"
         onClick={() => {
           console.log(title);

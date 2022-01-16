@@ -7,11 +7,12 @@ export const useChannelListStyles = makeStyles((theme) =>
       width: "60%",
     },
     listItem: {
-      margin: ".3em 0",
+      "&:hover": {},
+      padding: "1em .5em",
     },
     selected: {
-      margin: ".3em 0",
-      backgroundColor: "green",
+      background: "rgb(182, 185, 181, 0.5)",
     },
+    default: {},
   })
 );
