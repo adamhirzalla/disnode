@@ -48,7 +48,6 @@ export const useMessageListSytle = makeStyles(() =>
     },
     input: {
       color: "white",
-      overflowY: "scroll",
     },
   })
 );
