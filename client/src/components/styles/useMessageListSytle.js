@@ -7,6 +7,11 @@ export const useMessageListSytle = makeStyles(() =>
       display: "flex",
       justifyContent: "space-between",
       borderRadius: 3,
+      height: "3em",
+    },
+    typography: {
+      marginTop: "0em",
+      fontSize: "1.5em",
     },
     message: {
       display: "flex",

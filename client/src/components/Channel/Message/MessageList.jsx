@@ -163,8 +163,12 @@ export default function MessageList({ children, messages }) {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Box className={classes.channel}>
-            <Typography component="span" sx={{ width: "auto", pl: 2, pt: 1 }}>
-              Channel Name : Valolant
+            <Typography
+              className={classes.typography}
+              component="span"
+              sx={{ width: "auto", pl: 2, pt: 1 }}
+            >
+              # Welcome
             </Typography>
             <IconButton sx={{ mr: 1 }}>
               <AddCircle sx={{ color: "black" }} />
@@ -204,43 +208,6 @@ export default function MessageList({ children, messages }) {
           </FormControl>
         </Box>
       </Container>
-      {/* {children} */}
     </>
   );
 }
-
-// <Grid container>
-//       <Grid item xs={12}>
-//         <Typography variant="h5" className="header-message">
-//           Channel Name
-//         </Typography>
-//       </Grid>
-//       <Grid item xs={19}>
-//         <List className={classes.messageArea}>{messageItems}</List>
-//         <Divider />
-//         <Grid container style={{ padding: "20px" }}>
-//           <Grid item xs={11}>
-//             <TextField
-//               className={classes.textField}
-//               value={message}
-//               onChange={handleMessageChange}
-//               autoFocus
-//               id="name"
-//               type="text"
-//               row="2"
-//               placeholder="Message"
-//               multiline
-//               fullWidth
-//               InputProps={{
-//                 className: classes.input,
-//               }}
-//             />
-//           </Grid>
-//           <Grid xs={0.8} align="right">
-//             <Fab color="primary" aria-label="add">
-//               <SendIcon />
-//             </Fab>
-//           </Grid>
-//         </Grid>
-//       </Grid>
-//     </Grid>
