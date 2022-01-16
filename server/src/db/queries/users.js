@@ -1,11 +1,11 @@
 const db = require("../index");
 
-const test = () => {
+const all = () => {
   const query = `SELECT * FROM users;`;
   return db.query(query).then((res) => res.rows);
 };
 
-const register = (data) => {
+const create = (data) => {
   const { full_name, display_name, username, email, password } = data;
 
   const query = `
@@ -60,4 +60,4 @@ const setInActive = (id) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
-module.exports = { test, register, byUsername, byID, setActive, setInActive };
+module.exports = { all, create, byUsername, byID, setActive, setInActive };
