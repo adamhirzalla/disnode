@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const useNewServerDialogStyles = makeStyles((theme) =>
   createStyles({
     addButton: {
-      color: "black",
+      color: "#FFFFFF",
       // backgroundColor: "inherit",
       "&:hover": {
         color: "gray",

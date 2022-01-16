@@ -34,5 +34,6 @@ export const useNewChannelDialogStyles = makeStyles((theme) =>
       flexDirection: "column",
       justifyContent: "space-evenly",
     },
+    dialogTitle: { fontSize: "1.55em" },
   })
 );

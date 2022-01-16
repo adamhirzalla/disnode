@@ -1,17 +1,26 @@
 import React from "react";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
+import classNames from "classnames";
 
-export default function ServerListItem({ server }) {
+// styles
+import { useServerListItemStyles } from "../styles/useServerListItemStyles";
+
+export default function ServerListItem({ currentServer, id, title, image }) {
+  const classes = useServerListItemStyles();
+  const listItemClass = classNames(classes.default, {
+    [classes.selected]: id === currentServer,
+  });
   return (
-    <ListItem>
+    <ListItem key={id}>
       <IconButton
+        className={listItemClass}
         title="Add"
         onClick={() => {
-          console.log(server?.title);
+          console.log(title);
         }}
       >
-        <img src={server.image} width="70px" />
+        <img src={image} width="70px" />
       </IconButton>
     </ListItem>
   );
