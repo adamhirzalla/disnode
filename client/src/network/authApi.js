@@ -1,20 +1,17 @@
 import axios from "axios";
 import {
-  SET_LOADING,
   SET_USER,
   SET_TOKENS,
-  SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
-  SET_ACTIVE_USERS,
   TOKEN_KEY,
 } from "../utils/constants";
 
 export const isAuth = (dispatch) => {
   const tokens = JSON.parse(localStorage.getItem(TOKEN_KEY));
-  tokens ? getUser(dispatch, tokens) : dispatch({ type: SET_UNAUTHENTICATED });
+  tokens ? getMe(dispatch, tokens) : dispatch({ type: SET_UNAUTHENTICATED });
 };
 
-export const getUser = async (dispatch, tokens) => {
+export const getMe = async (dispatch, tokens) => {
   await updateTokens(dispatch, tokens.refreshToken);
 
   try {

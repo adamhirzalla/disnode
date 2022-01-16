@@ -4,6 +4,8 @@ const byChannel = (channelId) => {
   const query = `
   SELECT 
     messages.id,
+    users.display_name AS sender_nickname,
+    users.avatar AS sender_avatar,
     messages.sender_id,
     body,
     sent_at

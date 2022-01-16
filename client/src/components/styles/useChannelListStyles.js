@@ -22,7 +22,12 @@ export const useChannelListStyles = makeStyles((theme) =>
         alignItems: "center",
         flexDirection: "column",
       },
+      "& .MuiDrawer-root": {
+        height: "0",
+        width: "100%",
+      },
     },
-    box: { display: "flex" },
+    box: { display: "flex", width: "100%" },
+    div: { width: "80%" },
   })
 );

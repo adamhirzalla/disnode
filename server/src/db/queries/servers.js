@@ -19,6 +19,7 @@ const byID = (serverId, userId) => {
   const serverQuery = db
     .query(
       `
+<<<<<<< HEAD
   SELECT 
     id,
     title,
@@ -27,6 +28,16 @@ const byID = (serverId, userId) => {
     invite_code
   FROM servers
   WHERE id = $1
+=======
+    SELECT 
+      id,
+      title,
+      image AS logo,
+      creator_id AS owner_id,
+      invite_code
+    FROM servers
+    WHERE id = $1
+>>>>>>> client/serverdata
   `,
       [serverId]
     )

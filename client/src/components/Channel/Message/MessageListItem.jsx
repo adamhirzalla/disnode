@@ -1,33 +1,79 @@
-import * as React from "react";
+import { useRef, useEffect } from "react";
 import { Box, Avatar, Typography, Grid, List } from "@mui/material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 
-export default function MessageListItem({ onClick, user }) {
+export default function MessageListItem(props) {
   const classes = useMessageListSytle();
+  const { sender, body, sent_at } = props;
+  const scrollRef = useRef(null);
+
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView();
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, []);
 
   return (
-    <Grid container alignItems="center" sx={{ height: 400 }}>
-      <Grid xs={1.2} item sx={{ height: "80%" }}>
+    <Grid
+      container
+      alignItems="center"
+      sx={{ margin: "1em 0", height: "auto" }}
+    >
+      <Grid xs={1.2} item sx={{ height: "auto" }}>
         <Box className={classes.avatar}>
           <Avatar
-            alt={user.name}
-            src={user.img}
-            sx={{ width: 40, height: 40, mt: 1 }}
+            alt={sender.name}
+            src={sender.avatar}
+            sx={{ width: 35, height: 35, mt: 1 }}
           />
-          <Typography>{user.name}</Typography>
+          <Typography>{sender.name}</Typography>
         </Box>
       </Grid>
       <Grid xs={"auto"} item>
-        <List id="chat-windows-messages" sx={{ maxWidth: 700 }}>
+        <List ref={scrollRef} sx={{ maxWidth: 700 }}>
           <Typography
             className={classes.messages}
             variant="body1"
             display="block"
           >
-            {user.msg}
+            {body}
           </Typography>
         </List>
       </Grid>
     </Grid>
   );
 }
+
+{
+  /* <Typography
+  className={classes.messages}
+  variant="body1"
+  display="block"
+>
+  {msg}
+</Typography> */
+}
+
+// <Grid container alignItems="center" sx={{ height: 400 }}>
+// <Grid xs={1.2} item sx={{ height: "80%" }}>
+//   <ListItemText
+//     align={side}
+//     primary={
+//       <Box className={classes.avatar}>
+//         <Avatar
+//           alt={name}
+//           src={img}
+//           sx={{ width: 40, height: 40, mt: 1 }}
+//         />
+//         <Typography>{name}</Typography>
+//       </Box>
+//     }
+//   />
+// </Grid>
+// <Grid xs={"auto"} item>
+//   <List id="chat-windows-messages" sx={{ maxWidth: 900 }}>
+//     <ListItemText primary={msg} align={side}></ListItemText>
+//   </List>
+// </Grid>
+// </Grid>
