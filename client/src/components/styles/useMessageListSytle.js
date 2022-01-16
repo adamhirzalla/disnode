@@ -7,6 +7,11 @@ export const useMessageListSytle = makeStyles(() =>
       display: "flex",
       justifyContent: "space-between",
       borderRadius: 3,
+      height: "3em",
+    },
+    typography: {
+      marginTop: "0em",
+      fontSize: "1.5em",
     },
     message: {
       display: "flex",
@@ -51,3 +56,17 @@ export const useMessageListSytle = makeStyles(() =>
     },
   })
 );
+
+// headBG: {
+//   backgroundColor: "#e0e0e0",
+// },
+// borderRight500: {
+//   borderRight: "1px solid #e0e0e0",
+// },
+// messageArea: {
+//   height: "70vh",
+//   overflowY: "auto",
+// },
+// root: {
+//   width: "80vw",
+// },

@@ -109,8 +109,8 @@ const mockMessages = [
     id: 15,
     user_id: 4,
     name: "Ted",
-    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
-    msg: "hahahhahaahahhahahhahahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+    img: "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80",
+    msg: "hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha ",
   },
 ];
 
@@ -147,9 +147,18 @@ export default function MessageList({ children, messages }) {
     setMessage("");
   };
 
+  const isOwner = (user_id) => {
+    if (user_id === 4) {
+      return "right";
+    }
+    return "left";
+  };
+
   messages = mockMessages;
-  const messageItems = messages.map((user, i) => {
-    return <MessageListItem key={i} user={user} />;
+  const messageItems = messages.map((user) => {
+    return (
+      <MessageListItem key={user.id} user={user} side={isOwner(user.user_id)} />
+    );
   });
 
   return (
@@ -160,8 +169,12 @@ export default function MessageList({ children, messages }) {
           sx={{ display: "flex", justifyContent: "center" }}
         >
           <Box className={classes.channel}>
-            <Typography component="span" sx={{ width: "auto", pl: 2, pt: 1 }}>
-              Channel Name : Valolant
+            <Typography
+              className={classes.typography}
+              component="span"
+              sx={{ width: "auto", pl: 2, pt: 1 }}
+            >
+              # Welcome
             </Typography>
             <IconButton sx={{ mr: 1 }}>
               <AddCircle sx={{ color: "black" }} />

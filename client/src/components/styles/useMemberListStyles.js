@@ -2,7 +2,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 const drawerWidth = 240;
 
-export const useChannelListStyles = makeStyles((theme) =>
+export const useMemberListStyles = makeStyles((theme) =>
   createStyles({
     list: {
       paddingTop: "0",
@@ -10,7 +10,12 @@ export const useChannelListStyles = makeStyles((theme) =>
       flexDirection: "column",
       width: "100%",
     },
-
+    default: {
+      "& .MuiDrawer-root": {
+        height: "0vh",
+        width: "100%",
+      },
+    },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
@@ -22,12 +27,7 @@ export const useChannelListStyles = makeStyles((theme) =>
         alignItems: "center",
         flexDirection: "column",
       },
-      "& .MuiDrawer-root": {
-        height: "0",
-        width: "100%",
-      },
     },
     box: { display: "flex", width: "100%" },
-    div: { width: "80%" },
   })
 );
