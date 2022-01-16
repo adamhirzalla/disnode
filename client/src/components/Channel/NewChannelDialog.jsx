@@ -5,9 +5,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import ContainedButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+
+//style
+import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 
 export default function NewChannelDialog(props) {
   const classes = useNewChannelDialogStyles();
