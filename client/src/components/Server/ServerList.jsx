@@ -110,7 +110,7 @@ export default function ServerList({ socket, user, children }) {
           <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
             <img alt="Home" src="/images/Disnode-red.png" width="70px" />
           </IconButton>
-          <Divider />
+          <Divider className={classes.divider} />
           <Box ml={"auto"} mr={"auto"}>
             <List>{parsedServers}</List>
           </Box>
@@ -119,8 +119,8 @@ export default function ServerList({ socket, user, children }) {
             <NewServerDialog onClick={addServer} />
           </Box>
         </Drawer>
+        {children}
       </Box>
-      {children}
     </>
   );
 }

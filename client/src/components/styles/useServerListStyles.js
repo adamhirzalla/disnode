@@ -10,7 +10,13 @@ export const useServerListStyles = makeStyles((theme) =>
       "& .MuiDrawer-paper": {
         width: drawerWidth,
         boxSizing: "border-box",
+        display: "flex",
+        alignItems: "center",
       },
+    },
+    divider: {
+      marginTop: ".6em",
+      width: "60%",
     },
   })
 );
