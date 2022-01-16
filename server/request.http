@@ -23,3 +23,7 @@ Content-Type: application/json
 
 ### Reset DB
 GET http://localhost:8001/api/debug/reset_db
+
+### Get all servers
+POST http://localhost:8001/api/servers/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQyMjkzMTE1LCJleHAiOjE2NDIzNzk1MTV9.4BuhAdd1ZrQNn11Q3WgdBxEi9UKXvEIqpx8Q8GAfm3g

@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
     });
     return res
       .status(200)
-      .send("Registration sucessful. Please proceed to login");
+      .send("Registration successful. Please proceed to login");
     // User register successfully, set JWT and send
     // const accessToken = generateAccess(user.id);
     // const refreshToken = generateRefresh(user.id);

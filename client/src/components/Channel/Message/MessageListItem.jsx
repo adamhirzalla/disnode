@@ -39,14 +39,63 @@ const mockMessages = [
     img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
     msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
   },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
+  {
+    id: 4,
+    name: "Ted",
+    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
+    msg: "hahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+  },
 ];
 
 export default function MessageListItem() {
-  const ei = mockMessages.map((user) => user.name);
-  console.log(ei);
-  const parsedMessage = mockMessages.map((user) => {
+  const parsedMessage = mockMessages.map((user, i) => {
     return (
-      <Box sx={{ display: "flex", width: "70%", height: "auto", mt: 2 }}>
+      <Box
+        key={i}
+        sx={{ display: "flex", width: "70%", height: "auto", mt: 2 }}
+      >
         <Box
           sx={{
             width: "10%",

@@ -8,8 +8,9 @@ const Users = require("../db/queries/users");
 router.get("/me", auth, async (req, res) => {
   const userId = req.user.id;
   try {
-    const user = await Users.byId(userId);
-    res.status(200).send({ ...user, password: "" });
+    const user = await Users.byID(userId);
+    delete user.password;
+    res.status(200).send({ ...user });
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
