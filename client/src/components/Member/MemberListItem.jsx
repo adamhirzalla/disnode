@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useContext } from "react";
 import { styled } from "@mui/material/styles";
 import {
   Box,
@@ -10,52 +10,8 @@ import {
 } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import ServerContext from "../../contexts/ServerContext";
 
-const mockMembers = [
-  {
-    id: 1,
-    role: "Owner",
-    name: "Adam",
-    img: "https://images.unsplash.com/photo-1556103255-4443dbae8e5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGhvdG9ncmFwaGVyfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-    online: true,
-  },
-  {
-    id: 2,
-    role: "Admin",
-    name: "Jonathan",
-    img: "https://static8.depositphotos.com/1008939/939/i/600/depositphotos_9394698-stock-photo-lonely-man.jpg",
-    online: true,
-  },
-  {
-    id: 3,
-    role: "Mod",
-    name: "Hyunsu",
-    img: "https://photolemur.com/uploads/blog/unnamed.jpg",
-    online: false,
-  },
-  {
-    id: 4,
-    role: "Mod",
-    name: "Ted",
-    img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
-    online: false,
-  },
-  {
-    id: 5,
-    role: "User",
-    name: "Jono",
-    img: "https://wl-brightside.cf.tsp.li/resize/728x/jpg/6f5/d79/6c2d4457e7b227254fbc0f51b8.jpg",
-    online: true,
-  },
-  { id: 6, role: "User", name: "Lulu", img: "", online: true },
-  {
-    id: 7,
-    role: "User",
-    name: "Lala",
-    img: "https://images.unsplash.com/photo-1554080353-a576cf803bda?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvdG98ZW58MHx8MHx8&w=1000&q=80",
-    online: false,
-  },
-];
 const UserList = styled(Box)(({ open }) => ({
   width: "100%",
   height: "auto",
@@ -65,10 +21,9 @@ const UserList = styled(Box)(({ open }) => ({
 }));
 
 const Role = styled(Box)(({ open }) => ({
-  width: "100%",
   display: "flex",
-  justifyContent: "start",
-  margin: "8px",
+  justifyContent: "center",
+  padding: "10px 0",
 }));
 
 const UserName = styled(ListItemText)(({ open }) => ({
@@ -124,11 +79,14 @@ const StyledBadge = styled(Badge)(({ theme, open }) => ({
 }));
 
 export default function MemberListItem({ open, handleDrawerOpen }) {
-  const parsedMembers = mockMembers.map((member) => {
+  const {
+    app: { members },
+  } = useContext(ServerContext);
+  const parsedMembers = members.map((member) => {
     return (
       <Box key={member.id}>
         <Role open={open}>
-          <Typography>{member.role}</Typography>
+          <Typography variant="button">{member.role}</Typography>
         </Role>
 
         <UserList onClick={handleDrawerOpen} open={open}>
@@ -137,12 +95,12 @@ export default function MemberListItem({ open, handleDrawerOpen }) {
               overlap="circular"
               open={open}
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              variant={member.online ? "dot" : "standard"}
+              variant={member.is_active ? "dot" : "standard"}
               sx={{ ...(open && { "& .MuiBadge-badge": { right: 43 } }) }}
             >
-              <Avatar alt={member.name} src={member.img} />{" "}
+              <Avatar alt={member.nickname} src={member.avatar} />{" "}
             </StyledBadge>{" "}
-            <UserName primary={member.name} open={open} />
+            <UserName primary={member.nickname} open={open} />
             {open && (
               <IconButton sx={{ right: "60px" }}>
                 <FontAwesomeIcon icon={faEllipsisV} />
