@@ -18,6 +18,7 @@ export default function MessageList({ children }) {
           width: "60%",
           height: "100%",
           bgcolor: "gray",
+          marginLeft: "122px",
         }}
       >
         <Box

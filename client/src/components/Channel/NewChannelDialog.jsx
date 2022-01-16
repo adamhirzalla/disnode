@@ -1,13 +1,15 @@
-import * as React from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import ContainedButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+
+//style
+import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 
 export default function NewChannelDialog(props) {
   const classes = useNewChannelDialogStyles();
@@ -37,7 +39,9 @@ export default function NewChannelDialog(props) {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle style={{ fontSize: "1.55em" }}>Create Channel</DialogTitle>
+        <DialogTitle className={classes.dialogTitle}>
+          Create Channel
+        </DialogTitle>
         <DialogContent className={classes.content}>
           <TextField
             autoFocus
