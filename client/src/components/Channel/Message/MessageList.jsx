@@ -186,30 +186,28 @@ export default function MessageList({ children, messages }) {
         <Box className={classes.message}>{messageItems}</Box>
         <Divider />
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <ListItem sx={{ display: "flex", justifyContent: "center" }}>
           <form className={classes.form} onSubmit={handleSubmit}>
-            <ListItem>
-              <TextField
-                className={classes.textField}
-                value={message}
-                onChange={handleMessageChange}
-                onKeyDown={handleMessageKeyDown}
-                autoFocus
-                type="text"
-                maxRows="3"
-                variant="standard"
-                placeholder="Message"
-                multiline
-                InputProps={{
-                  className: classes.input,
-                }}
-              />
-              <IconButton type="submit" aria-label="send" color="primary">
-                <Send />
-              </IconButton>
-            </ListItem>
+            <TextField
+              className={classes.textField}
+              value={message}
+              onChange={handleMessageChange}
+              onKeyDown={handleMessageKeyDown}
+              autoFocus
+              type="text"
+              maxRows="3"
+              variant="standard"
+              placeholder="Message"
+              multiline
+              InputProps={{
+                className: classes.input,
+              }}
+            />
+            <IconButton type="submit" aria-label="send" color="primary">
+              <Send />
+            </IconButton>
           </form>
-        </Box>
+        </ListItem>
         {children}
       </Container>
     </>
