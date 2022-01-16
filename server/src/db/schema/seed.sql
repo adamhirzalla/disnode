@@ -24,13 +24,9 @@ SELECT tag FROM tags;
 INSERT INTO servers
 (creator_id, title, image, invite_code)
 VALUES
-(3, 'Apex Regends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','Random_string');
-
-INSERT INTO servers
-(creator_id, title, invite_code)
-VALUES
-(2, 'League of Legends', 'Random_string'),
-(1, 'Valorant', 'Random_string');
+(3, 'Apex Legends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','Random_string'),
+(2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','Random_string'),
+(1, 'League of Legends', 'https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86','Random_string');
 
 INSERT INTO channels (creator_id, server_id, title)
 VALUES 
@@ -60,7 +56,10 @@ INSERT INTO messages (sender_id, channel_id, body, sent_at)
 VALUES
 (1, 1, 'Hi guys', '2021-12-28T00:29:11.241Z'),
 (2, 1, 'Whats up', '2021-12-28T23:29:38.909Z'),
-(1, 1, 'Pretty good', '2021-12-29T00:29:57.358Z');
+(3, 2, 'Whats up', '2021-12-28T23:29:38.909Z'),
+(2, 3, 'Whats up', '2021-12-28T23:29:38.909Z'),
+(2, 2, 'Whats up', '2021-12-28T23:29:38.909Z'),
+(1, 3, 'Pretty good', '2021-12-29T00:29:57.358Z');
 
 INSERT INTO messages (sender_id, dm_id, body, sent_at)
 VALUES
