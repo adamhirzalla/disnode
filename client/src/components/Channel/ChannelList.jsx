@@ -50,7 +50,7 @@ export default function ChannelList({ children, channels, setChannel }) {
           <List className={classes.list}>{parsedChannels}</List>
           <NewChannelDialog />
         </Drawer>
-        <div>{children}</div>
+        <div className={classes.div}>{children}</div>
       </Box>
     </>
   );

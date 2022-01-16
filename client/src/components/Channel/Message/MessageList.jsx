@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   Box,
   TextField,
@@ -11,7 +11,14 @@ import {
 } from "@mui/material";
 import { AddCircle, Send } from "@mui/icons-material";
 import MessageListItem from "./MessageListItem";
+import SendIcon from "@mui/icons-material/Send";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import Grid from "@mui/material/Grid";
+import { Avatar } from "@mui/material";
+import { useState } from "react";
+import { List } from "@mui/material";
+import { ListItemText } from "@mui/material";
+import { Fab } from "@mui/material";
 
 const mockMessages = [
   {
@@ -111,16 +118,23 @@ const mockMessages = [
     user_id: 4,
     name: "Ted",
     img: "https://i1.sndcdn.com/artworks-HgiHqHrCBnVFJmok-s39fqQ-t500x500.jpg",
-    msg: "hahahhahaahahhahahhahahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhhahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahahhahaahahhahahhahaahahhahahhahaahahhahahhahaahah",
+    msg: "hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha hhahahha ",
   },
 ];
 
 export default function MessageList({ children, messages }) {
   const classes = useMessageListSytle();
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const handleMessageChange = (e) => {
     setMessage(e.target.value);
+  };
+
+  const isOwner = (user_id) => {
+    if (user_id === 4) {
+      return "right";
+    }
+    return "left";
   };
 
   // To do: implement send message
@@ -132,8 +146,11 @@ export default function MessageList({ children, messages }) {
     return (
       <MessageListItem
         key={user.id}
-        user={user}
+        name={user.name}
+        img={user.image}
         onClick={handleSendButtonClick}
+        msg={user.msg}
+        side={isOwner(user.user_id)}
       />
     );
   });
@@ -187,7 +204,43 @@ export default function MessageList({ children, messages }) {
           </FormControl>
         </Box>
       </Container>
-      {children}
+      {/* {children} */}
     </>
   );
 }
+
+// <Grid container>
+//       <Grid item xs={12}>
+//         <Typography variant="h5" className="header-message">
+//           Channel Name
+//         </Typography>
+//       </Grid>
+//       <Grid item xs={19}>
+//         <List className={classes.messageArea}>{messageItems}</List>
+//         <Divider />
+//         <Grid container style={{ padding: "20px" }}>
+//           <Grid item xs={11}>
+//             <TextField
+//               className={classes.textField}
+//               value={message}
+//               onChange={handleMessageChange}
+//               autoFocus
+//               id="name"
+//               type="text"
+//               row="2"
+//               placeholder="Message"
+//               multiline
+//               fullWidth
+//               InputProps={{
+//                 className: classes.input,
+//               }}
+//             />
+//           </Grid>
+//           <Grid xs={0.8} align="right">
+//             <Fab color="primary" aria-label="add">
+//               <SendIcon />
+//             </Fab>
+//           </Grid>
+//         </Grid>
+//       </Grid>
+//     </Grid>

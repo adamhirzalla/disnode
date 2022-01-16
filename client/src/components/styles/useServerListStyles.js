@@ -14,6 +14,10 @@ export const useServerListStyles = makeStyles((theme) =>
         alignItems: "center",
         backgroundColor: "#040B0C",
       },
+      "& .MuiDrawer-root": {
+        height: "0",
+        width: "100%",
+      },
     },
     divider: {
       marginTop: ".6em",
@@ -21,5 +25,6 @@ export const useServerListStyles = makeStyles((theme) =>
       height: ".15em",
       backgroundColor: "#FFFFFF",
     },
+    box: { display: "flex", width: "100%" },
   })
 );

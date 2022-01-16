@@ -8,6 +8,7 @@ import sio from "../socket/index";
 import AuthContext from "../contexts/AuthContext";
 import NewChannelDialog from "../components/Channel/NewChannelDialog";
 import useServerData from "../hooks/useServerData";
+import { ThemeProvider } from "@mui/styles";
 
 export default function Test() {
   const { app, setServer, setChannel } = useServerData();
@@ -51,9 +52,9 @@ export default function Test() {
       >
         {/* {app.server && ( */}
         <ChannelList channels={app.channels} setChannel={setChannel}>
-          <MessageList messages={app.messages}>
-            <MemberList socket={socket.current} members={app.members} />
-          </MessageList>
+          <MemberList socket={socket.current} members={app.members}>
+            <MessageList messages={app.messages} />
+          </MemberList>
         </ChannelList>
         {/* )} */}
       </ServerList>

@@ -106,11 +106,7 @@ export default function ServerList({
   // rendered Components
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
+    <Box className={classes.box}>
       <CssBaseline />
       <Drawer className={classes.serverList} variant="permanent" anchor="left">
         <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
