@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext, useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,6 +8,7 @@ import ChannelListItem from "./ChannelListItem";
 //style
 import { useChannelListStyles } from "../styles/useChannelListStyles";
 import NewChannelDialog from "./NewChannelDialog";
+import ServerContext from "../../contexts/ServerContext";
 
 const mockChannels = [
   {
@@ -28,19 +29,26 @@ const mockChannels = [
   },
 ];
 
-const parsedChannels = mockChannels.map((channel) => {
-  return (
-    <ChannelListItem
-      key={channel.id}
-      id={channel.id}
-      channel={1}
-      title={channel.title}
-    />
-  );
-});
-
 export default function ChannelList({ children }) {
+  const [open, setOpen] = useState(true);
   const classes = useChannelListStyles();
+
+  const {
+    app: { channels, channel },
+    setChannel,
+  } = useContext(ServerContext);
+
+  const parsedChannels = channels.map((ch) => {
+    return (
+      <ChannelListItem
+        key={ch.id}
+        id={ch.id}
+        title={ch.title}
+        channel={channel}
+        setChannel={setChannel}
+      />
+    );
+  });
   return (
     <>
       <Box className={classes.box}>
@@ -49,7 +57,7 @@ export default function ChannelList({ children }) {
           <List className={classes.list}>{parsedChannels}</List>
           <NewChannelDialog />
         </Drawer>
-        <div>{children}</div>
+        <div className={classes.div}>{children}</div>
       </Box>
     </>
   );

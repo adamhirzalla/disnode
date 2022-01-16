@@ -2,8 +2,10 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Box, IconButton, CssBaseline } from "@mui/material";
 import MemberListItem from "./MemberListItem";
+import { useMemberListStyles } from "../styles/useMemberListStyles";
 
 const drawerWidth = "250px";
 
@@ -28,11 +30,19 @@ const closedMixin = (theme) => ({
   },
 });
 
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   width: drawerWidth,
-  height: "100vh",
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -47,7 +57,8 @@ const Drawer = styled(MuiDrawer, {
       }),
 }));
 
-export default function MemberList({ socket }) {
+export default function MemberList({ socket, children }) {
+  const classes = useMemberListStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -59,24 +70,26 @@ export default function MemberList({ socket }) {
   };
 
   return (
-    <Box sx={{ position: "absolute" }}>
-      <CssBaseline />
-      <Drawer variant="permanent" anchor="right" open={open}>
-        <MemberListItem open={open} handleDrawerOpen={handleDrawerOpen} />
-        {open && (
-          <Box
-            sx={{
-              position: "fixed",
-              bottom: 0,
-              right: 250,
-            }}
-          >
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronRightIcon />
+    <>
+      <Box sx={{ position: "sticky" }}>
+        <CssBaseline />
+        <Drawer variant="permanent" anchor="right" open={open}>
+          <MemberListItem open={open} handleDrawerOpen={handleDrawerOpen} />
+          {/* {open && (
+            <Box sx={{ position: "fixed", bottom: 0, right: 250 }}>
+              <IconButton onClick={open ? handleDrawerClose : handleDrawerOpen}>
+                <ChevronRightIcon />
+              </IconButton>
+            </Box>
+          )} */}
+          <DrawerHeader sx={{ position: "fixed", bottom: 0, right: 0 }}>
+            <IconButton onClick={open ? handleDrawerClose : handleDrawerOpen}>
+              {open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
-          </Box>
-        )}
-      </Drawer>
-    </Box>
+          </DrawerHeader>
+        </Drawer>
+      </Box>
+      {children}
+    </>
   );
 }
