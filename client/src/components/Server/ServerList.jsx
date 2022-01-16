@@ -10,39 +10,41 @@ import { useServerListStyles } from "../styles/useServerListStyles";
 import ServerListItem from "./ServerListItem";
 import NewServerDialog from "./NewServerDialog";
 
-const mockState = {
-  servers: {
-    1: {
-      id: 1,
-      title: "Apex",
-      owner: 1,
-      image:
-        "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
-    },
-    2: {
-      id: 2,
-      title: "Val",
-      owner: 3,
-      image:
-        "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
-    },
+const mockState = [
+  {
+    id: 1,
+    title: "Apex",
+    owner: 1,
+    image:
+      "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
   },
-  members: {},
-  channels: {},
-};
+  {
+    id: 2,
+    title: "Val",
+    owner: 3,
+    image:
+      "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
+  },
+];
 
-export default function ServerList({ socket, user, children }) {
+export default function ServerList({
+  socket,
+  user,
+  children,
+  servers,
+  setServer,
+}) {
   const classes = useServerListStyles();
   const [state, setState] = useState(mockState);
-  const [servers, setServers] = useState({});
+  // const [servers, setServers] = useState({});
 
-  const getServers = (state) => {
-    let arr = [];
-    for (const server in state.servers) {
-      arr.push(state.servers[server]);
-    }
-    return arr;
-  };
+  // const getServers = (state) => {
+  //   let arr = [];
+  //   for (const server in state.servers) {
+  //     arr.push(state.servers[server]);
+  //   }
+  //   return arr;
+  // };
 
   // api call to get servers
   // const gettingServers = () => {
@@ -63,11 +65,19 @@ export default function ServerList({ socket, user, children }) {
     // sendMessage(msg)
   };
   // mock servers
-  const serversEx = getServers(state);
-  const parsedServers = serversEx.map((serverObj) => {
-    return <ServerListItem key={serverObj.id} server={serverObj} />;
+  // const serversEx = getServers(state);
+
+  servers = mockState;
+  const parsedServers = servers.map((serverObj) => {
+    return (
+      <ServerListItem
+        key={serverObj.id}
+        server={serverObj}
+        id={serverObj.id}
+        setServer={setServer}
+      />
+    );
   });
-  // ;
 
   // experimenting adding server
   const addServer = (title) => {

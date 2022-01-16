@@ -16,7 +16,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import NewChannelDialog from "./NewChannelDialog";
 
-export default function ChannelList({ children }) {
+export default function ChannelList({ children, channels, setChannel }) {
   const [open, setOpen] = React.useState(true);
 
   const handleClick = () => {
