@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -8,23 +8,16 @@ import IconButton from "@mui/material/IconButton";
 import ServerListItem from "./ServerListItem";
 import NewServerDialog from "./NewServerDialog";
 import { useServerListStyles } from "../styles/useServerListStyles";
-
-const mockServers = [
-  {
-    id: 1,
-    title: "Apex",
-    logo: "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
-  },
-  {
-    id: 2,
-    title: "Val",
-    logo: "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86",
-  },
-];
+import ServerContext from "../../contexts/ServerContext";
 
 export default function ServerList(props) {
   const classes = useServerListStyles();
-  const { socket, user, children, servers, setServer } = props;
+  const { socket, user, children } = props;
+
+  const {
+    app: { servers },
+    setServer,
+  } = useContext(ServerContext);
 
   const parsedServers = servers.map((server) => {
     return (
@@ -65,11 +58,7 @@ export default function ServerList(props) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-      }}
-    >
+    <Box className={classes.box}>
       <CssBaseline />
       <Drawer className={classes.serverList} variant="permanent" anchor="left">
         <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
