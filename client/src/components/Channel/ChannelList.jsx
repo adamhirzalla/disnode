@@ -7,25 +7,35 @@ import ChannelListItem from "./Message/ChannelListItem";
 
 //style
 import { useChannelListStyles } from "../styles/useChannelListStyles";
+import NewChannelDialog from "./NewChannelDialog";
 
 const mockChannels = [
   {
     id: 1,
-    title: "Duos",
+    title: "Welcome",
   },
   {
     id: 2,
-    title: "Trios",
+    title: "Duos",
   },
   {
     id: 3,
-    title: "Hi",
+    title: "Trios",
+  },
+  {
+    id: 4,
+    title: "LFG",
   },
 ];
 
 const parsedChannels = mockChannels.map((channel) => {
   return (
-    <ChannelListItem key={channel.id} id={channel.id} title={channel.title} />
+    <ChannelListItem
+      key={channel.id}
+      id={channel.id}
+      channel={1}
+      title={channel.title}
+    />
   );
 });
 
@@ -37,6 +47,7 @@ export default function ChannelList({ children }) {
         <CssBaseline />
         <Drawer className={classes.drawer} variant="permanent" anchor="left">
           <List className={classes.list}>{parsedChannels}</List>
+          <NewChannelDialog />
         </Drawer>
         <div>{children}</div>
       </Box>

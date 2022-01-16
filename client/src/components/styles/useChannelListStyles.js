@@ -6,7 +6,11 @@ export const useChannelListStyles = makeStyles((theme) =>
   createStyles({
     list: {
       paddingTop: "0",
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
     },
+
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
@@ -14,6 +18,9 @@ export const useChannelListStyles = makeStyles((theme) =>
         marginLeft: "122px",
         width: drawerWidth,
         boxSizing: "border-box",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
       },
     },
     box: { display: "flex" },

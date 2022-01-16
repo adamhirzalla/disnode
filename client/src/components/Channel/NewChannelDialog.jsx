@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -39,7 +39,9 @@ export default function NewChannelDialog(props) {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle style={{ fontSize: "1.55em" }}>Create Channel</DialogTitle>
+        <DialogTitle className={classes.dialogTitle}>
+          Create Channel
+        </DialogTitle>
         <DialogContent className={classes.content}>
           <TextField
             autoFocus

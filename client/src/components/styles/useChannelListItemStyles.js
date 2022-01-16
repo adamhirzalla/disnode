@@ -9,5 +9,9 @@ export const useChannelListStyles = makeStyles((theme) =>
     listItem: {
       margin: ".3em 0",
     },
+    selected: {
+      margin: ".3em 0",
+      backgroundColor: "green",
+    },
   })
 );
