@@ -6,6 +6,7 @@ import MemberList from "../components/Member/MemberList";
 import sio from "../socket/index";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
+import { Container } from "@mui/material";
 
 export default function Test() {
   // const { app, setServer, setChannel } = useServerData();
@@ -24,22 +25,19 @@ export default function Test() {
         display: "flex",
       }}
     >
-      {/* <ElipsesDropdown /> */}
-      {/* <NewChannelIcon /> */}
-      {/* <NewChannelDialog /> */}
       <ServerList
         servers={app.servers}
         socket={socket.current}
         user={state.user}
         setServer={setServer}
       >
-        {/* {app.server && ( */}
-        <ChannelList>
-          <MessageList>
-            <MemberList socket={socket.current} />
-          </MessageList>
-        </ChannelList>
-        {/* )} */}
+        {app.server && (
+          <ChannelList>
+            <MessageList>
+              <MemberList socket={socket.current} />
+            </MessageList>
+          </ChannelList>
+        )}
       </ServerList>
     </div>
   );
