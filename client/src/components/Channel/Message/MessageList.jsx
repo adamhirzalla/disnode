@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext } from "react";
 import {
   Box,
   Typography,
@@ -17,14 +17,15 @@ export default function MessageList({ children }) {
   const classes = useMessageListSytle();
   const {
     app: { messages, channel },
+    setMessages,
   } = useContext(ServerContext);
 
-  // trigger scroll event handler when scroll is on the top
-  const scrollEventHandler = (e) => {
-    if (!e.target.scrollTop) {
-      console.log("scrolling", e.target.scrollTop);
-    }
-  };
+  // // trigger scroll event handler when scroll is on the top
+  // const scrollEventHandler = (e) => {
+  //   if (!e.target.scrollTop) {
+  //     setMessages();
+  //   }
+  // };
 
   // const isOwner = (user_id) => {
   //   if (user_id === 4) {
@@ -69,7 +70,7 @@ export default function MessageList({ children }) {
         <Divider />
 
         {/* MessageList Item */}
-        <Box onScroll={scrollEventHandler} className={classes.message}>
+        <Box /*onScroll={scrollEventHandler}*/ className={classes.message}>
           {messageItems}
         </Box>
         <Divider />

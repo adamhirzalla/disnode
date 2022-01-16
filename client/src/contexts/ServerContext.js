@@ -1,7 +1,12 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { getServers } from "../network/serverApi";
+import { getServers, getMessages } from "../network/serverApi";
 import reducer from "../reducers/reducer";
-import { SET_CHANNEL, SET_SERVER, SET_SERVERS } from "../utils/constants";
+import {
+  SET_CHANNEL,
+  SET_SERVER,
+  SET_SERVERS,
+  SET_MESSAGES,
+} from "../utils/constants";
 import AuthContext from "./AuthContext";
 
 const ServerContext = createContext();
@@ -53,8 +58,19 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
+  const setMessages = async () => {
+    const oldMessages = await getMessages();
+    console.log(oldMessages);
+    appDispatch({
+      type: SET_MESSAGES,
+      messages: [...oldMessages, ...app.messages],
+    });
+  };
+
   return (
-    <ServerContext.Provider value={{ app, appDispatch, setServer, setChannel }}>
+    <ServerContext.Provider
+      value={{ app, appDispatch, setServer, setChannel, setMessages }}
+    >
       {children}
     </ServerContext.Provider>
   );

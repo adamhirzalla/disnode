@@ -8,6 +8,7 @@ import {
   SET_SERVER,
   SET_SERVERS,
   SET_CHANNEL,
+  SET_MESSAGES,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -81,6 +82,11 @@ export default function reducer(state, action) {
       return {
         ...state,
         active,
+      };
+    case SET_MESSAGES:
+      return {
+        ...state,
+        messages,
       };
     default:
       return { ...state, error: `Unsupported action type: ${action.type}` };
