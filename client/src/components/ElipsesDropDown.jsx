@@ -25,7 +25,7 @@ export default function ElipsesDropdown() {
   return (
     <>
       <ListItemButton
-        disableRipple="true"
+        disableRipple={true}
         className={classes.contained}
         onClick={handleClick}
       >
