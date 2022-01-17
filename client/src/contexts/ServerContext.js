@@ -69,7 +69,7 @@ export const ServerProvider = ({ children }) => {
   // };
 
   const sendMessage = async (body) => {
-    const channel = app.channel;
+    const channel = app.channel.id;
     const newMessage = await setMessage(channel, body);
     appDispatch({
       type: SET_MESSAGE,
