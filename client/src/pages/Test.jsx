@@ -25,12 +25,7 @@ export default function Test() {
         display: "flex",
       }}
     >
-      <ServerList
-        servers={app.servers}
-        socket={socket.current}
-        user={state.user}
-        setServer={setServer}
-      >
+      <ServerList socket={socket.current} user={state.user}>
         {app.server && (
           <ChannelList>
             <MessageList>
