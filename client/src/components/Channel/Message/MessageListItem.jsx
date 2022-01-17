@@ -1,16 +1,12 @@
-import { useRef, useEffect } from "react";
-import { Box, Avatar, Typography, Grid, List } from "@mui/material";
+import { useEffect } from "react";
+import { Box, Avatar, Typography, Grid, List, IconButton } from "@mui/material";
 import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles";
 import moment from "moment";
 
 export default function MessageListItem(props) {
   const classes = useMessageListItemStyles();
-  const { sender, body, sent_at } = props;
-  const scrollRef = useRef(null);
+  const { sender, body, sent_at, scrollRef, scrollToBottom } = props;
 
-  const scrollToBottom = () => {
-    scrollRef.current.scrollIntoView();
-  };
   useEffect(() => {
     scrollToBottom();
   }, []);

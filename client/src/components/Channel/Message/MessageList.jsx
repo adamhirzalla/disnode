@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState, useRef } from "react";
 import {
   Box,
   Typography,
@@ -10,6 +10,7 @@ import {
 import { AddCircle } from "@mui/icons-material";
 import MessageListItem from "./MessageListItem";
 import MessageForm from "./MessageForm";
+import ArrowDownIcon from "@mui/icons-material/ArrowDropDownCircleSharp";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 import ServerContext from "../../../contexts/ServerContext";
 
@@ -19,6 +20,28 @@ export default function MessageList({ children }) {
     app: { messages, channel },
     setMessages,
   } = useContext(ServerContext);
+  const [scroll, setScroll] = useState(false);
+  const scrollRef = useRef(null);
+
+  // navigate to the latest message
+  const scrollToBottom = () => {
+    scrollRef.current.scrollIntoView();
+  };
+
+  // scroll handler - show button
+  const onScrollHandler = (e) => {
+    const scrollLocation = e.target.scrollTop;
+    if (scrollLocation > 1300 || !scrollLocation) {
+      return setScroll(false);
+    }
+    return setScroll(true);
+  };
+
+  // click handler - navigate to bottom
+  const navigateToBottom = () => {
+    scrollToBottom();
+    setScroll(false);
+  };
 
   // // trigger scroll event handler when scroll is on the top
   // const scrollEventHandler = (e) => {
@@ -45,42 +68,50 @@ export default function MessageList({ children }) {
         }}
         body={message.body}
         sent_at={message.sent_at}
+        scrollRef={scrollRef}
+        scrollToBottom={scrollToBottom}
         // side={isOwner(user.user_id)}
       />
     );
   });
 
   return (
-    <>
-      <Container className={classes.root} disableGutters maxWidth="l" fixed>
-        <ListItem
-          className={classes.channelList}
-          alignItems="center"
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          <Box className={classes.channel}>
-            <Typography className={classes.typography} component="span">
-              # {channel?.title}
-            </Typography>
-            <IconButton sx={{ mr: 1 }}>
-              <AddCircle sx={{ color: "black" }} />
-            </IconButton>
-          </Box>
-        </ListItem>
-        <Divider />
-
-        {/* MessageList Item */}
-        <Box /*onScroll={scrollEventHandler}*/ className={classes.message}>
-          {messageItems}
+    <Container className={classes.root} disableGutters maxWidth="l" fixed>
+      <ListItem
+        className={classes.channelList}
+        alignItems="center"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
+        <Box className={classes.channel}>
+          <Typography className={classes.typography} component="span">
+            # {channel?.title}
+          </Typography>
+          <IconButton sx={{ mr: 1 }}>
+            <AddCircle sx={{ color: "black" }} />
+          </IconButton>
         </Box>
-        <Divider />
+      </ListItem>
+      <Divider />
 
-        {/* Message form component */}
-        <ListItem className={classes.listItem}>
-          <MessageForm />
-        </ListItem>
-        {children}
-      </Container>
-    </>
+      {/* MessageList Item */}
+      <Box
+        onScroll={onScrollHandler}
+        /*onScroll={scrollEventHandler}*/ className={classes.message}
+      >
+        {scroll && (
+          <IconButton onClick={navigateToBottom} className={classes.scrollIcon}>
+            <ArrowDownIcon fontSize="large" />
+          </IconButton>
+        )}
+        {messageItems}
+      </Box>
+      <Divider />
+
+      {/* Message form component */}
+      <ListItem className={classes.listItem}>
+        <MessageForm />
+      </ListItem>
+      {children}
+    </Container>
   );
 }

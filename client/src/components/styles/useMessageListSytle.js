@@ -30,6 +30,14 @@ export const useMessageListSytle = makeStyles(() =>
       borderRadius: 10,
     },
 
+    scrollIcon: {
+      position: "fixed",
+      top: 120,
+      right: 160,
+      color: "#7a211b",
+      zIndex: 50,
+    },
+
     // MessageForm style
     listItem: {
       display: "flex",
