@@ -16,13 +16,13 @@ VALUES
 ('Blizzard', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Steam_2016_logo_black.svg/1920px-Steam_2016_logo_black.svg.png');
 
 WITH tags(tag) AS (
-  VALUES ('games'), ('online'), ('mmo'), ('FPS')
+  VALUES ('FPS'), ('MOBA'), ('MMORPG'), ('RTT'), ('RPG'), ('Indie'), ('RTS')
 )
 INSERT INTO tags (name)
 SELECT tag FROM tags;
 
 INSERT INTO servers
-(creator_id, title, image, invite_code)
+(creator_id, title, logo, invite_code)
 VALUES
 (3, 'Apex Legends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','Random_string'),
 (2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','Random_string'),
@@ -117,4 +117,4 @@ VALUES
 INSERT INTO server_tags
 (server_id, tag_id)
 VALUES
-(1, 1), (1, 2), (2, 3), (2, 1), (3, 4), (3, 1), (3, 2);
+(1, 1), (1, 5), (2, 4), (2, 2), (3, 3), (3, 6), (3, 2);
