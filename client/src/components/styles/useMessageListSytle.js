@@ -27,14 +27,28 @@ export const useMessageListSytle = makeStyles(() =>
       width: "100%",
       height: "75vh",
       overflowY: "scroll",
+      overflowX: "hidden",
       borderRadius: 10,
+
+      "&::-webkit-scrollbar": {
+        width: "0.5em",
+        borderRadius: "20px",
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgb(0,0,0,0.3)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgb(0,0,0,0.4)",
+        outline: "1px solid black",
+        borderRadius: "20px",
+      },
     },
 
     scrollIcon: {
       position: "fixed",
-      top: 120,
-      right: 160,
-      color: "#7a211b",
+      bottom: 230,
+      right: 230,
+      color: "rgb(0,0,0,0.8)",
       zIndex: 50,
     },
 

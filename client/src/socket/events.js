@@ -1,10 +1,13 @@
 module.exports = (socket) => {
-  socket.on("connection", (socket, online) => {
-    console.log(`Socket connected to back-end: ${socket}`);
-    console.log(`Online users: `, online);
+  socket.on("login", (online) => {
+    console.log(`Socket connected to back-end!`);
+    console.log(`Online UserIDs: `, online);
   });
 
   socket.on("scare", (msg) => {
+    console.log(msg);
+  });
+  socket.on("get online", (msg) => {
     console.log(msg);
   });
 
@@ -12,15 +15,13 @@ module.exports = (socket) => {
     console.log(msg);
   });
 
-  socket.on("online", (msg) => {
-    console.log(msg);
+  // when any user connects (global)
+  socket.on("connection", (activeUsers) => {
+    console.log(`user connected:`, activeUsers);
   });
 
-  socket.on("connected", (msg) => {
-    console.log(msg);
-  });
-
-  socket.on("disconnected", (msg) => {
-    console.log(msg);
+  // when any user disconnects (global)
+  socket.on("disconnection", (msg) => {
+    console.log(`user disconnected:`, msg);
   });
 };

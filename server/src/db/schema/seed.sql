@@ -1,7 +1,7 @@
 INSERT INTO users 
 (full_name, display_name, username, email, password, avatar, bio, created_at, is_active) 
-VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/1-1.png', 'This is Eavan', '2021-12-28T23:21:50.702Z', true),
-('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/7web.png', 'This is Jonathan', '2021-12-28T23:22:08.022Z', true),
+VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/1-1.png', 'This is Eavan', '2021-12-28T23:21:50.702Z', false),
+('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/7web.png', 'This is Jonathan', '2021-12-28T23:22:08.022Z', false),
 ('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/3-web-1.png', 'This is Adam', '2021-12-28T23:22:15.072Z', false);
 
 INSERT INTO users 
@@ -16,13 +16,13 @@ VALUES
 ('Blizzard', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Steam_2016_logo_black.svg/1920px-Steam_2016_logo_black.svg.png');
 
 WITH tags(tag) AS (
-  VALUES ('games'), ('online'), ('mmo'), ('FPS')
+  VALUES ('FPS'), ('MOBA'), ('MMORPG'), ('RTT'), ('RPG'), ('Indie'), ('RTS')
 )
 INSERT INTO tags (name)
 SELECT tag FROM tags;
 
 INSERT INTO servers
-(creator_id, title, image, invite_code)
+(creator_id, title, logo, invite_code)
 VALUES
 (3, 'Apex Legends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','Random_string'),
 (2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','Random_string'),
@@ -117,4 +117,4 @@ VALUES
 INSERT INTO server_tags
 (server_id, tag_id)
 VALUES
-(1, 1), (1, 2), (2, 3), (2, 1), (3, 4), (3, 1), (3, 2);
+(1, 1), (1, 5), (2, 4), (2, 2), (3, 3), (3, 6), (3, 2);
