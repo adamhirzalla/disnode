@@ -9,16 +9,17 @@ export const useElipsesDropDownStyles = makeStyles((theme) =>
       "&:hover": {
         backgroundColor: "inherit",
       },
-      left: "4em",
+      left: "1em",
     },
     icon: {
-      // borderRadius: ".8em",
       backgroundColor: "inherit",
       "&:hover": {
-        color: "blue",
+        color: "#4D8F42",
         backgroundColor: "inherit",
       },
-      // marginLeft: "2em",
+    },
+    popover: {
+      marginTop: ".8em",
     },
   })
 );

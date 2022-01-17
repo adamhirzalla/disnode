@@ -10,4 +10,5 @@ export const theme = createTheme({
       },
     },
   },
+  shadows: ["none"],
 });

@@ -7,26 +7,64 @@ import ServerContext from "../contexts/ServerContext";
 import sio from "../socket/index";
 import FriendsList from "../components/Friends/FriendsList";
 import { Box } from "@mui/system";
+import { Typography, Avatar, Icon, IconButton } from "@mui/material";
+import CustomButton from "../components/Button/CustomButton";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import HomeNav from "../components/Navbar/HomeNav";
+
+// styles
+import { useHomePageStyles } from "../components/styles/useHomePageStyles";
 
 const friendList = [
   {
     id: 3,
-    name: "HyunSu Kim",
+    full_name: "HyunSu Kim",
     img: "/images/male-avatar-img.png",
   },
   {
     id: 2,
-    name: "Jonathan Su",
+    full_name: "Jonathan Su",
     img: "/images/male-avatar-img.png",
   },
   {
     id: 1,
-    name: "Adam Hirzalla",
+    full_name: "Adam Hirzalla",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 3,
+    full_name: "HyunSu Kim",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 2,
+    full_name: "Jonathan Su",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 1,
+    full_name: "Adam Hirzalla",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 3,
+    full_name: "HyunSu Kim",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 2,
+    full_name: "Jonathan Su",
+    img: "/images/male-avatar-img.png",
+  },
+  {
+    id: 1,
+    full_name: "Adam Hirzalla",
     img: "/images/male-avatar-img.png",
   },
 ];
 
 export default function Home() {
+  const classes = useHomePageStyles();
   const { state, dispatch } = useContext(AuthContext);
 
   const socket = useRef();
@@ -42,25 +80,19 @@ export default function Home() {
     logout(dispatch);
   };
   return (
-    <div
-      style={{
-        display: "flex",
-      }}
-    >
+    <div className={classes.root}>
       <ServerList
+        className={classes.root}
         servers={app.servers}
         socket={socket.current}
         user={state.user}
         setServer={setServer}
       >
-        <Box>
-          <FriendsList friendList={friendList} />
-        </Box>
-        <Box>
-          Welcome {state.user.full_name}
-          <button type="button" onClick={handleLogout}>
-            Logout
-          </button>
+        <Box sx={{ width: "100%", height: "100%" }}>
+          <HomeNav></HomeNav>
+          <div className={classes.rowTwo}>
+            <FriendsList friendList={friendList} />
+          </div>
         </Box>
       </ServerList>
     </div>

@@ -36,12 +36,13 @@ export default function ElipsesDropdown() {
       </ListItemButton>
 
       <Popover
+        className={classes.popover}
         id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: "bottom",
+          vertical: "top",
           horizontal: "right",
         }}
       >

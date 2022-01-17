@@ -7,7 +7,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import CustomButton from "./Button/CustomButton";
 
+// styles
+import { useConfirmationDialogStyles } from "./styles/useConfirmationDialogStyles";
+
 export default function ConfirmationDialogue({ action, friendName }) {
+  const classes = useConfirmationDialogStyles();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -20,7 +24,11 @@ export default function ConfirmationDialogue({ action, friendName }) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button
+        className={classes.dropDown}
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
         {action}
       </Button>
       <Dialog open={open} onClose={handleClose}>

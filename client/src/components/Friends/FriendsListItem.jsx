@@ -8,18 +8,28 @@ import {
 } from "@mui/material";
 import ElipsesDropdown from "../ElipsesDropDown";
 
+// styles
+import { useFriendsListItemStyles } from "../styles/useFriendListItemStyles";
+
 export default function FriendsListItem({ id, name, img, labelId }) {
+  const classes = useFriendsListItemStyles();
+
   return (
     <ListItem
       key={id}
       secondaryAction={<ElipsesDropdown disableRipple disableFocusRipple />}
       disablePadding
     >
-      <ListItemButton>
+      <ListItemButton className={classes.list}>
         <ListItemAvatar>
-          <Avatar alt={name} src={img} />
+          <Avatar
+            className={classes.avatar}
+            variant="circular"
+            alt={name}
+            src={img}
+          />
         </ListItemAvatar>
-        <ListItemText id={labelId} primary={name} />
+        <ListItemText className={classes.text} id={labelId} primary={name} />
       </ListItemButton>
     </ListItem>
   );

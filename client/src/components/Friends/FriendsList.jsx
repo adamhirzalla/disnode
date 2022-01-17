@@ -1,13 +1,14 @@
 import { React, useState } from "react";
 import { Box } from "@mui/system";
-import { List } from "@mui/material";
+import { AppBar, List, Typography } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
 
 // styles
-import { useFriendsStyles } from "../styles/useFriendsStyles";
+import { useFriendsListStyles } from "../styles/useFriendsListStyles";
+import SearchBar from "./SearchBar";
 
 export default function FriendsList({ friendList }) {
-  const classes = useFriendsStyles();
+  const classes = useFriendsListStyles();
 
   // useState
   const [checked, setChecked] = useState([1]);
@@ -31,7 +32,8 @@ export default function FriendsList({ friendList }) {
     const labelId = `label-${friend.id}`;
     return (
       <FriendsListItem
-        name={friend.name}
+        className={classes.listItem}
+        name={friend.full_name}
         labelId={labelId}
         id={friend.id}
         img={friend.img}
@@ -41,6 +43,7 @@ export default function FriendsList({ friendList }) {
 
   return (
     <Box className={classes.box}>
+      <SearchBar></SearchBar>
       <List className={classes.list}>{parsedFriendList}</List>
     </Box>
   );
