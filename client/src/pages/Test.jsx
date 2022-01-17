@@ -7,30 +7,32 @@ import sio from "../socket/index";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import { Container } from "@mui/material";
+import { getServers } from "../network/serverApi";
 
 export default function Test() {
   // const { app, setServer, setChannel } = useServerData();
 
   const socket = useRef();
   const { state, dispatch } = useContext(AuthContext);
-  const { app, setServer, setChannel } = useContext(ServerContext);
+  const { app, setServers } = useContext(ServerContext);
 
   useEffect(() => {
     socket.current = sio;
   }, [socket.current]);
 
+  useEffect(async () => {
+    if (!state.loading) {
+      const servers = await getServers();
+      setServers(servers);
+    }
+  }, [state.authenticated]);
   return (
     <div
       style={{
         display: "flex",
       }}
     >
-      <ServerList
-        servers={app.servers}
-        socket={socket.current}
-        user={state.user}
-        setServer={setServer}
-      >
+      <ServerList socket={socket.current} user={state.user}>
         {app.server && (
           <ChannelList>
             <MessageList>
