@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS requests CASCADE;
 DROP TABLE IF EXISTS friends CASCADE;
 DROP TABLE IF EXISTS views CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
+DROP TABLE IF EXISTS participants CASCADE;
 DROP TABLE IF EXISTS members CASCADE;
 DROP TABLE IF EXISTS channels CASCADE;
 DROP TABLE IF EXISTS servers CASCADE;
@@ -13,7 +14,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TYPE IF EXISTS roles CASCADE;
 
 CREATE TYPE "roles" AS ENUM (
-  'member',
+  'user',
   'mod',
   'admin',
   'owner'
@@ -49,10 +50,17 @@ CREATE TABLE channels (
   "updated_at" TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE members (
+CREATE TABLE participants (
   "id" SERIAL PRIMARY KEY,
   "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "channel_id" INT REFERENCES channels(id) ON DELETE CASCADE,
+  "joined_at" TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE members (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
+  "server_id" INT REFERENCES servers(id) ON DELETE CASCADE,
   "role" roles,
   "joined_at" TIMESTAMP DEFAULT NOW()
 );

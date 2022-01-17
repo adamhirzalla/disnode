@@ -28,11 +28,11 @@ VALUES
 (2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','CodeFor2'),
 (1, 'League of Legends', 'https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86','CodeFor3');
 
-INSERT INTO channels (creator_id, server_id, title)
+INSERT INTO channels (server_id, title, creator_id)
 VALUES 
-(3, 1, 'Welcome'), (3, 1, 'To'), (2, 1, 'Server 1'),
-(1, 2, 'Welcome'), (1, 2, 'To'), (1, 2, 'Server 2'),
-(2, 3, 'Welcome'), (2, 3, 'To'), (1, 3, 'Server 3');
+(1, 'Welcome', 1), (2, 'Welcome', 2), (3, 'Welcome', 3),
+(1, 'To', 1), (2, 'To', 2), (3, 'To', 3),
+(1, 'Server 1', 1), (2, 'Server 2', 2), (3, 'Server 3', 3);
 
 INSERT INTO channels (creator_id, title)
 VALUES
@@ -40,31 +40,18 @@ VALUES
 (1, 'random'), (1, 'old-friend'), (1, 'side-kick'),
 (2, 'team'), (2, 'work'), (2, 'gamers');
 
-INSERT INTO members (channel_id, user_id, role)
+INSERT INTO participants (channel_id, user_id)
 VALUES
-(1, 3, 'owner'),
-(1, 2, 'admin'),
-(1, 1, 'member'),
-(2, 1, 'owner'),
-(2, 3, 'member'),
-(3, 2, 'owner'),
-(3, 3, 'owner'),
-(4, 3, 'owner'),
-(5, 2, 'owner'),
-(6, 2, 'member'),
-(7, 3, 'member'),
-(8, 2, 'member'),
-(9, 3, 'member'),
-(10, 1, 'member'),
-(11, 4, 'owner'),
-(12, 1, 'owner'),
-(13, 1, 'owner'),
-(14, 2, 'owner'),
-(15, 3, 'owner'),
-(16, 4, 'admin'),
-(17, 1, 'admin'),
-(18, 3, 'admin'),
-(18, 1, 'admin');
+(1, 3), (1, 2), (1, 1), (2, 1), (2, 3), (3, 1),
+(3, 3), (4, 3), (5, 2), (6, 1), (7, 3), (8, 2),
+(9, 3), (10, 1), (11, 4), (12, 1), (13, 1), (14, 2),
+(15, 3), (4, 2), (17, 1), (18, 3), (7, 1);
+
+INSERT INTO members (server_id, user_id, role)
+VALUES
+(1, 1, 'user'), (1, 2, 'admin'), (1, 3, 'owner'),
+(2, 1, 'user'), (2, 2, 'owner'), (2, 3, 'user'), (2, 4, 'admin'),
+(3, 1, 'owner'), (3, 3, 'admin'), (3, 4, 'user');
 
 -- INSERT INTO dms (creator_id, updated_at)
 -- VALUES 
