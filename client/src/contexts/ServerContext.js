@@ -5,6 +5,7 @@ import {
   SET_SERVER,
   SET_SERVERS,
   SET_MESSAGE,
+  SET_NEW_CHANNEL,
 } from "../utils/constants";
 import AuthContext from "./AuthContext";
 
@@ -54,10 +55,19 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setMessage = async (newMessage) => {
+  const setMessage = (newMessage) => {
     appDispatch({
       type: SET_MESSAGE,
       messages: [...app.messages, newMessage],
+    });
+  };
+
+  const addChannel = (newChannel) => {
+    newChannel.messages = [];
+    appDispatch({
+      type: SET_NEW_CHANNEL,
+      channels: [...app.channels, newChannel],
+      channel: newChannel,
     });
   };
 
@@ -70,6 +80,7 @@ export const ServerProvider = ({ children }) => {
         setChannel,
         setMessage,
         setServers,
+        addChannel,
       }}
     >
       {children}

@@ -1,19 +1,25 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { useContext, useState } from "react";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import ContainedButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ServerContext from "../../contexts/ServerContext";
+import { createChannel } from "../../network/channelApi";
 
 //style
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 
-export default function NewChannelDialog(props) {
+export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const { app, addChannel } = useContext(ServerContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -21,6 +27,29 @@ export default function NewChannelDialog(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setTitle("");
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  // key down handler that triggers when user press enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  // submit handler that creates a new channel
+  const handleSubmit = async () => {
+    if (title) {
+      const serverId = app.server.id;
+      const channel = await createChannel(serverId, { title });
+      addChannel(channel);
+      setOpen(false);
+      setTitle("");
+    }
   };
 
   return (
@@ -47,6 +76,9 @@ export default function NewChannelDialog(props) {
             autoFocus
             margin="dense"
             id="name"
+            value={title}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
             type="text"
             fullWidth
             variant="standard"
@@ -60,7 +92,7 @@ export default function NewChannelDialog(props) {
           <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
           <ContainedButton
             variant="contained"
-            onClick={handleClose}
+            onClick={handleSubmit}
             name="Create"
           />
         </DialogActions>
