@@ -65,9 +65,15 @@ export const ServerProvider = ({ children }) => {
   };
 
   const setMessages = (message) => {
+    // set channels with this (for persistance)
+    // const channel = app.channels.filter(channel => {
+    //   channel.id === message.channel_id
+    // })
+    const messages = [...app.messages, message];
     appDispatch({
       type: SET_MESSAGES,
-      messages: [...app.messages, message],
+      messages,
+      // channesl: ,
     });
   };
 
