@@ -1,15 +1,15 @@
 import {
-  SET_LOADING,
   SET_USER,
-  SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED,
-  SET_ACTIVE_USERS,
   SET_TOKENS,
   SET_SERVER,
   SET_SERVERS,
   SET_CHANNEL,
-  SET_MESSAGE,
+  SET_LOADING,
+  SET_MESSAGES,
   SET_NEW_CHANNEL,
+  SET_ACTIVE_USERS,
+  SET_AUTHENTICATED,
+  SET_UNAUTHENTICATED,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -84,7 +84,7 @@ export default function reducer(state, action) {
         ...state,
         active,
       };
-    case SET_MESSAGE:
+    case SET_MESSAGES:
       return {
         ...state,
         messages,

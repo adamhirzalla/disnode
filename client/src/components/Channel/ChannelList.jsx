@@ -1,14 +1,12 @@
-import { useContext, useState } from "react";
 import Box from "@mui/material/Box";
-import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
 import List from "@mui/material/List";
+import Drawer from "@mui/material/Drawer";
+import { useContext, useState } from "react";
 import ChannelListItem from "./ChannelListItem";
-
-//style
-import { useChannelListStyles } from "../styles/useChannelListStyles";
 import NewChannelDialog from "./NewChannelDialog";
+import CssBaseline from "@mui/material/CssBaseline";
 import ServerContext from "../../contexts/ServerContext";
+import { useChannelListStyles } from "../styles/useChannelListStyles";
 
 const mockChannels = [
   {

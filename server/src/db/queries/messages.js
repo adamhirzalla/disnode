@@ -5,9 +5,13 @@ const createInChannel = (data) => {
   const { senderId, body, channelId } = data;
   const query = `
   INSERT INTO messages
-  (sender_id, body, channel_id)
+    (sender_id, body, channel_id)
   VALUES ($1, $2, $3)
-  RETURNING *;
+  RETURNING 
+    id,
+    body,
+    sent_at,
+    sender_id  ;
   `;
   const params = [senderId, body, channelId];
   return db.query(query, params).then((res) => res.rows[0]);

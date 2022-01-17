@@ -1,4 +1,9 @@
 import { useContext, useState } from "react";
+import ContainedButton from "../Button/CustomButton";
+import ServerContext from "../../contexts/ServerContext";
+import { createChannel } from "../../network/channelApi";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import {
   Button,
   TextField,
@@ -7,19 +12,15 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import ContainedButton from "../Button/CustomButton";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ServerContext from "../../contexts/ServerContext";
-import { createChannel } from "../../network/channelApi";
-
-//style
-import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const { app, addChannel } = useContext(ServerContext);
+  const {
+    app: { server },
+    setNewChannel,
+  } = useContext(ServerContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,10 +45,10 @@ export default function NewChannelDialog() {
   // submit handler that creates a new channel
   const handleSubmit = async () => {
     if (title) {
-      const serverId = app.server.id;
-      const channel = await createChannel(serverId, { title });
-      addChannel(channel);
       setOpen(false);
+      const serverId = server.id;
+      const channel = await createChannel(serverId, { title });
+      setNewChannel(channel);
       setTitle("");
     }
   };

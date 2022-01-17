@@ -1,8 +1,8 @@
+const Tag = require("./tags");
 const db = require("../index");
+const Member = require("./members");
 const Message = require("./messages");
 const Channel = require("./channels");
-const Member = require("./members");
-const Tag = require("./tags");
 
 const create = (data) => {
   const { creatorId, title, logo, invite_code } = data;

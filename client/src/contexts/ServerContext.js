@@ -4,7 +4,7 @@ import {
   SET_CHANNEL,
   SET_SERVER,
   SET_SERVERS,
-  SET_MESSAGE,
+  SET_MESSAGES,
   SET_NEW_CHANNEL,
 } from "../utils/constants";
 import AuthContext from "./AuthContext";
@@ -44,6 +44,13 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
+  const setNewServers = (servers) => {
+    appDispatch({
+      type: SET_SERVERS,
+      servers,
+    });
+  };
+
   const setChannel = (channelId) => {
     const [channel] = app.channels.filter(
       (channel) => channel.id === channelId
@@ -55,19 +62,18 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setMessage = (newMessage) => {
+  const setMessages = (message) => {
     appDispatch({
-      type: SET_MESSAGE,
-      messages: [...app.messages, newMessage],
+      type: SET_MESSAGES,
+      messages: [...app.messages, message],
     });
   };
 
-  const addChannel = (newChannel) => {
-    newChannel.messages = [];
+  const setNewChannel = (channel) => {
     appDispatch({
       type: SET_NEW_CHANNEL,
-      channels: [...app.channels, newChannel],
-      channel: newChannel,
+      channels: [...app.channels, channel],
+      channel,
     });
   };
 
@@ -78,9 +84,10 @@ export const ServerProvider = ({ children }) => {
         appDispatch,
         setServer,
         setChannel,
-        setMessage,
+        setMessages,
         setServers,
-        addChannel,
+        setNewChannel,
+        setNewServers,
       }}
     >
       {children}

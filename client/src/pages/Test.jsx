@@ -1,13 +1,12 @@
+import sio from "../socket/index";
+import AuthContext from "../contexts/AuthContext";
+import { getServers } from "../network/serverApi";
 import { useContext, useEffect, useRef } from "react";
+import ServerContext from "../contexts/ServerContext";
+import MemberList from "../components/Member/MemberList";
 import ServerList from "../components/Server/ServerList";
 import ChannelList from "../components/Channel/ChannelList";
 import MessageList from "../components/Channel/Message/MessageList";
-import MemberList from "../components/Member/MemberList";
-import sio from "../socket/index";
-import AuthContext from "../contexts/AuthContext";
-import ServerContext from "../contexts/ServerContext";
-import { Container } from "@mui/material";
-import { getServers } from "../network/serverApi";
 
 export default function Test() {
   // const { app, setServer, setChannel } = useServerData();

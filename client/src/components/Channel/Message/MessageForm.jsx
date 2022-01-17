@@ -1,17 +1,21 @@
+import { Send } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
-import { Send } from "@mui/icons-material";
-import { useMessageListSytle } from "../../styles/useMessageListSytle";
-import ServerContext from "../../../contexts/ServerContext";
+import AuthContext from "../../../contexts/AuthContext";
 import { sendMessage } from "../../../network/messageApi";
+import ServerContext from "../../../contexts/ServerContext";
+import { useMessageListSytle } from "../../styles/useMessageListSytle";
 
 export default function MessageForm() {
   const classes = useMessageListSytle();
   const [input, setInput] = useState("");
   const {
-    setMessage,
+    setMessages,
     app: { channel },
   } = useContext(ServerContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setInput(e.target.value);
@@ -29,9 +33,11 @@ export default function MessageForm() {
     e.preventDefault();
     try {
       const message = await sendMessage(channel.id, { body: input });
-      setMessage(message);
+      message.sender_avatar = user.avatar;
+      message.sender_nickname = user.display_name;
+      setMessages(message);
       setInput((prev) => "");
-    } catch {
+    } catch (e) {
       console.log("Failed to send message");
     }
   };

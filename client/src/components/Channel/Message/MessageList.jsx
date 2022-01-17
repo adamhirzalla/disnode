@@ -1,4 +1,10 @@
+import MessageForm from "./MessageForm";
+import MessageListItem from "./MessageListItem";
+import { AddCircle } from "@mui/icons-material";
 import { useContext, useState, useRef } from "react";
+import ServerContext from "../../../contexts/ServerContext";
+import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import ArrowDownIcon from "@mui/icons-material/ArrowDropDownCircleSharp";
 import {
   Box,
   Typography,
@@ -7,12 +13,6 @@ import {
   ListItem,
   Container,
 } from "@mui/material";
-import { AddCircle } from "@mui/icons-material";
-import MessageListItem from "./MessageListItem";
-import MessageForm from "./MessageForm";
-import ArrowDownIcon from "@mui/icons-material/ArrowDropDownCircleSharp";
-import { useMessageListSytle } from "../../styles/useMessageListSytle";
-import ServerContext from "../../../contexts/ServerContext";
 
 export default function MessageList({ children }) {
   const classes = useMessageListSytle();
@@ -31,10 +31,10 @@ export default function MessageList({ children }) {
   // scroll handler - show button
   const onScrollHandler = (e) => {
     const scrollLocation = e.target.scrollTop;
-    if (scrollLocation > 1300 || !scrollLocation) {
-      return setScroll(false);
+    if (scrollLocation < 1500 && e.target.scrollHeight > 800) {
+      return setScroll(true);
     }
-    return setScroll(true);
+    return setScroll(false);
   };
 
   // click handler - navigate to bottom
