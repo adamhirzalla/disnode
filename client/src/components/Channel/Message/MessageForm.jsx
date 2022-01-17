@@ -27,12 +27,14 @@ export default function MessageForm() {
   // form onSubmit event handler
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const message = await sendMessage(channel.id, { body: input });
-      setMessage(message);
-      setInput((prev) => "");
-    } catch {
-      console.log("Failed to send message");
+    if (input) {
+      try {
+        const message = await sendMessage(channel.id, { body: input });
+        setMessage(message);
+        setInput((prev) => "");
+      } catch {
+        console.log("Failed to send message");
+      }
     }
   };
 
@@ -49,6 +51,7 @@ export default function MessageForm() {
         variant="standard"
         placeholder="Message"
         multiline
+        required
         InputProps={{
           className: classes.input,
         }}
