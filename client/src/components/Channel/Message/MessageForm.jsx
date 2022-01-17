@@ -49,7 +49,7 @@ export default function MessageForm() {
         value={input}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
-        autoFocus
+        // autoFocus
         type="text"
         maxRows="3"
         variant="standard"

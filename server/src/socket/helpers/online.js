@@ -1,23 +1,23 @@
 const onlineUsers = new Map();
 
-const add = (socketId, username) => {
+const add = (socketId, userId) => {
   // TODO: uncomment this for multi-device compatibility
   // BUT make sure you emit online/offline once only for each user
   // regardless of how many devices (sockets) they have open
 
-  if (onlineUsers.has(username)) {
-    onlineUsers.get(username).add(socketId);
+  if (onlineUsers.has(userId)) {
+    onlineUsers.get(userId).add(socketId);
   } else {
-    onlineUsers.set(username, new Set([socketId]));
+    onlineUsers.set(userId, new Set([socketId]));
   }
 };
 
-const remove = (socketId, username) => {
-  if (onlineUsers.has(username)) {
-    let userSocketIds = onlineUsers.get(username);
+const remove = (socketId, userId) => {
+  if (onlineUsers.has(userId)) {
+    let userSocketIds = onlineUsers.get(userId);
     userSocketIds.delete(socketId);
 
-    if (userSocketIds.size === 0) onlineUsers.delete(username);
+    if (userSocketIds.size === 0) onlineUsers.delete(userId);
   }
 };
 

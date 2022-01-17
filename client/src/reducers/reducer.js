@@ -4,6 +4,7 @@ import {
   SET_SERVER,
   SET_SERVERS,
   SET_CHANNEL,
+  SET_MEMBERS,
   SET_LOADING,
   SET_MESSAGES,
   SET_NEW_CHANNEL,
@@ -16,15 +17,14 @@ import { initialState } from "../contexts/AuthContext";
 export default function reducer(state, action) {
   const {
     user,
-    activeUsers,
     tokens,
     server,
     servers,
+    members,
     channel,
     channels,
     messages,
-    members,
-    active,
+    activeUsers,
   } = action;
   switch (action.type) {
     case SET_LOADING:
@@ -79,15 +79,15 @@ export default function reducer(state, action) {
         channel,
         messages,
       };
-    case SET_ACTIVE_USERS:
-      return {
-        ...state,
-        active,
-      };
     case SET_MESSAGES:
       return {
         ...state,
         messages,
+      };
+    case SET_MEMBERS:
+      return {
+        ...state,
+        members,
       };
     case SET_NEW_CHANNEL:
       return {

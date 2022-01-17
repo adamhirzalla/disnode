@@ -2,11 +2,11 @@ import io from "socket.io-client";
 
 const tokens = localStorage.DisnodeTokens;
 const { accessToken } = tokens ? JSON.parse(tokens) : {};
-const sio = io(process.env.REACT_APP_WEBSOCKET_URL, {
+const socket = io(process.env.REACT_APP_WEBSOCKET_URL, {
   auth: {
     accessToken,
   },
 });
-require("./events")(sio);
+require("./events")(socket);
 
-export default sio;
+export default socket;

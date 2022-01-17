@@ -46,10 +46,10 @@ const setActive = (id) => {
   RETURNING *
   `;
   const params = [id];
-  return db.query(query, params).then((res) => res.rows);
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const setInActive = (id) => {
+const setInactive = (id) => {
   const query = `
   UPDATE users 
   SET is_active = 'false'
@@ -57,7 +57,7 @@ const setInActive = (id) => {
   RETURNING *
   `;
   const params = [id];
-  return db.query(query, params).then((res) => res.rows);
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-module.exports = { all, create, byUsername, byID, setActive, setInActive };
+module.exports = { all, create, byUsername, byID, setActive, setInactive };

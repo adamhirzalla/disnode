@@ -1,11 +1,13 @@
 import reducer from "../reducers/reducer";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import {
   SET_CHANNEL,
   SET_SERVER,
+  SET_MEMBERS,
   SET_SERVERS,
   SET_MESSAGES,
   SET_NEW_CHANNEL,
+  SET_ACTIVE_USERS,
 } from "../utils/constants";
 import AuthContext from "./AuthContext";
 
@@ -19,7 +21,7 @@ export const initialState = {
   channels: [],
   messages: [],
   members: [],
-  active: [],
+  activeUsers: [],
 };
 
 export const ServerProvider = ({ children }) => {
@@ -30,8 +32,8 @@ export const ServerProvider = ({ children }) => {
     appDispatch({
       type: SET_SERVER,
       server,
-      channels: server.channels || [],
-      channel: server.channels[0],
+      channels: server?.channels || [],
+      channel: server?.channels[0],
       messages: server?.channels[0]?.messages || [],
       members: server.members,
     });
@@ -63,9 +65,15 @@ export const ServerProvider = ({ children }) => {
   };
 
   const setMessages = (message) => {
+    // set channels with this (for persistance)
+    // const channel = app.channels.filter(channel => {
+    //   channel.id === message.channel_id
+    // })
+    const messages = [...app.messages, message];
     appDispatch({
       type: SET_MESSAGES,
-      messages: [...app.messages, message],
+      messages,
+      // channesl: ,
     });
   };
 
@@ -74,6 +82,20 @@ export const ServerProvider = ({ children }) => {
       type: SET_NEW_CHANNEL,
       channels: [...app.channels, channel],
       channel,
+    });
+  };
+
+  const setActiveUsers = (activeUsers) => {
+    appDispatch({
+      type: SET_ACTIVE_USERS,
+      activeUsers,
+    });
+  };
+
+  const setMembers = (members) => {
+    appDispatch({
+      type: SET_MEMBERS,
+      members,
     });
   };
 
@@ -88,6 +110,8 @@ export const ServerProvider = ({ children }) => {
         setServers,
         setNewChannel,
         setNewServers,
+        setActiveUsers,
+        setMembers,
       }}
     >
       {children}
