@@ -3,10 +3,11 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const useMessageListSytle = makeStyles(() =>
   createStyles({
     root: {
+      width: "100%",
+    },
+    channelList: {
       display: "flex",
-      alignItems: "flex-start",
-      margin: "0.7em 0",
-      height: "auto",
+      justifyContent: "center",
     },
     channel: {
       width: "90%",
@@ -28,22 +29,20 @@ export const useMessageListSytle = makeStyles(() =>
       overflowY: "scroll",
       borderRadius: 10,
     },
-    avatar: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "0.5em 0",
-    },
-    messages: {
-      height: "auto",
-      wordBreak: "break-word",
-      // padding: 10,
-      borderRadius: 40,
-      color: "white",
-      backgroundColor: "black",
-      padding: "1em 2em",
+
+    scrollIcon: {
+      position: "fixed",
+      top: 120,
+      right: 160,
+      color: "#7a211b",
+      zIndex: 50,
     },
 
+    // MessageForm style
+    listItem: {
+      display: "flex",
+      justifyContent: "center",
+    },
     form: {
       width: "50vw",
       height: "100px",

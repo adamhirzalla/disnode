@@ -9,7 +9,6 @@ router.post("/channels/:id/messages", async (req, res) => {
   const senderId = req.user.id;
   const channelId = req.params.id;
   const { body } = req.body;
-
   try {
     const message = await Message.createInChannel({
       senderId,
