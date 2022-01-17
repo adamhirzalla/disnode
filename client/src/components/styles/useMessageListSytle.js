@@ -3,10 +3,11 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const useMessageListSytle = makeStyles(() =>
   createStyles({
     root: {
+      width: "100%",
+    },
+    channelList: {
       display: "flex",
-      alignItems: "flex-start",
-      margin: "0.7em 0",
-      height: "auto",
+      justifyContent: "center",
     },
     channel: {
       width: "90%",
@@ -26,24 +27,36 @@ export const useMessageListSytle = makeStyles(() =>
       width: "100%",
       height: "75vh",
       overflowY: "scroll",
+      overflowX: "hidden",
       borderRadius: 10,
-    },
-    avatar: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "0.5em 0",
-    },
-    messages: {
-      height: "auto",
-      wordBreak: "break-word",
-      // padding: 10,
-      borderRadius: 40,
-      color: "white",
-      backgroundColor: "black",
-      padding: "1em 2em",
+
+      "&::-webkit-scrollbar": {
+        width: "0.5em",
+        borderRadius: "20px",
+      },
+      "&::-webkit-scrollbar-track": {
+        "-webkit-box-shadow": "inset 0 0 6px rgb(0,0,0,0.3)",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "rgb(0,0,0,0.4)",
+        outline: "1px solid black",
+        borderRadius: "20px",
+      },
     },
 
+    scrollIcon: {
+      position: "fixed",
+      bottom: 230,
+      right: 230,
+      color: "rgb(0,0,0,0.8)",
+      zIndex: 50,
+    },
+
+    // MessageForm style
+    listItem: {
+      display: "flex",
+      justifyContent: "center",
+    },
     form: {
       width: "50vw",
       height: "100px",

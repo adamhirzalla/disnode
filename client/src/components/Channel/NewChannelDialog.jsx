@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -5,22 +6,65 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+=======
+import { useContext, useState } from "react";
+import ContainedButton from "../Button/CustomButton";
+import ServerContext from "../../contexts/ServerContext";
+import { createChannel } from "../../network/channelApi";
+>>>>>>> master
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
-//style
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
+<<<<<<< HEAD
 import CustomButton from "../Button/CustomButton";
+=======
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
+>>>>>>> master
 
-export default function NewChannelDialog(props) {
+export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const {
+    app: { server },
+    setNewChannel,
+  } = useContext(ServerContext);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen((prev) => true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen((prev) => false);
+    setTitle((prev) => "");
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  // key down handler that triggers when user press enter
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  // submit handler that creates a new channel
+  const handleSubmit = async () => {
+    if (title) {
+      setOpen((prev) => false);
+      const serverId = server.id;
+      const channel = await createChannel(serverId, { title });
+      setNewChannel(channel);
+      setTitle((prev) => "");
+    }
   };
 
   return (
@@ -47,6 +91,9 @@ export default function NewChannelDialog(props) {
             autoFocus
             margin="dense"
             id="name"
+            value={title}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
             type="text"
             fullWidth
             variant="standard"
@@ -60,7 +107,7 @@ export default function NewChannelDialog(props) {
           <CustomButton variant="text" onClick={handleClose} name="Cancel" />
           <CustomButton
             variant="contained"
-            onClick={handleClose}
+            onClick={handleSubmit}
             name="Create"
           />
         </DialogActions>

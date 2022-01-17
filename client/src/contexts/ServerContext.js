@@ -1,7 +1,14 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { getServers } from "../network/serverApi";
 import reducer from "../reducers/reducer";
-import { SET_CHANNEL, SET_SERVER, SET_SERVERS } from "../utils/constants";
+import { createContext, useContext, useReducer } from "react";
+import {
+  SET_CHANNEL,
+  SET_SERVER,
+  SET_MEMBERS,
+  SET_SERVERS,
+  SET_MESSAGES,
+  SET_NEW_CHANNEL,
+  SET_ACTIVE_USERS,
+} from "../utils/constants";
 import AuthContext from "./AuthContext";
 
 const ServerContext = createContext();
@@ -14,31 +21,35 @@ export const initialState = {
   channels: [],
   messages: [],
   members: [],
-  active: [],
+  activeUsers: [],
 };
 
 export const ServerProvider = ({ children }) => {
   const [app, appDispatch] = useReducer(reducer, initialState);
   const { state } = useContext(AuthContext);
 
-  useEffect(async () => {
-    if (!state.loading) {
-      const servers = await getServers();
-      appDispatch({
-        type: SET_SERVERS,
-        servers,
-      });
-    }
-  }, [state.authenticated]);
-
   const setServer = (server) => {
     appDispatch({
       type: SET_SERVER,
       server,
-      channels: server.channels,
+      channels: server?.channels || [],
       channel: server?.channels[0],
-      messages: server?.channels[0].messages,
+      messages: server?.channels[0]?.messages || [],
       members: server.members,
+    });
+  };
+
+  const setServers = (servers) => {
+    appDispatch({
+      type: SET_SERVERS,
+      servers,
+    });
+  };
+
+  const setNewServers = (servers) => {
+    appDispatch({
+      type: SET_SERVERS,
+      servers,
     });
   };
 
@@ -53,9 +64,66 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
+  const setMessages = (message) => {
+    // set channels with this (for persistance)
+    // const channel = app.channels.filter(channel => {
+    //   channel.id === message.channel_id
+    // })
+    const messages = [...app.messages, message];
+    appDispatch({
+      type: SET_MESSAGES,
+      messages,
+      // channesl: ,
+    });
+  };
+
+  const setNewChannel = (channel) => {
+    appDispatch({
+      type: SET_NEW_CHANNEL,
+      channels: [...app.channels, channel],
+      channel,
+    });
+  };
+
+  const setActiveUsers = (activeUsers) => {
+    appDispatch({
+      type: SET_ACTIVE_USERS,
+      activeUsers,
+    });
+  };
+
+  const setMembers = (members) => {
+    appDispatch({
+      type: SET_MEMBERS,
+      members,
+    });
+  };
+
   return (
-    <ServerContext.Provider value={{ app, appDispatch, setServer, setChannel }}>
+    <ServerContext.Provider
+      value={{
+        app,
+        appDispatch,
+        setServer,
+        setChannel,
+        setMessages,
+        setServers,
+        setNewChannel,
+        setNewServers,
+        setActiveUsers,
+        setMembers,
+      }}
+    >
       {children}
     </ServerContext.Provider>
   );
 };
+
+//  const setMessages = async () => {
+//   const oldMessages = await getMessages();
+//   console.log(oldMessages);
+//   appDispatch({
+//     type: SET_MESSAGES,
+//     messages: [...oldMessages, ...app.messages],
+//   });
+// };

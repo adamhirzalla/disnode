@@ -1,28 +1,44 @@
-import React from "react";
+import { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 
-export default function Tags() {
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+export default function Tags({ setTags }) {
+  const parseTags = (tags) => {
+    setTags(tags.map((tag) => tag.id));
+  };
   return (
     <Autocomplete
       multiple
-      id="tags-standard"
+      id="server-tags"
       options={tags}
-      getOptionLabel={(option) => option.name}
-      // defaultValue={[top100Films[1]]}
+      disableCloseOnSelect
+      getOptionLabel={(tag) => tag.name}
+      onChange={(e, value) => parseTags(value)}
+      renderOption={(props, tag, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {tag.name}
+        </li>
+      )}
+      // style={{ width: "auto" }}
       renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="standard"
-          label="Tags"
-          placeholder="Select Tags!"
-        />
+        <TextField {...params} label="Tags" placeholder="Server Tags" />
       )}
     />
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const tags = [
   {
     id: 1,

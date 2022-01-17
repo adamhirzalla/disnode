@@ -1,28 +1,30 @@
 import {
-  SET_LOADING,
   SET_USER,
-  SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED,
-  SET_ACTIVE_USERS,
   SET_TOKENS,
   SET_SERVER,
   SET_SERVERS,
   SET_CHANNEL,
+  SET_MEMBERS,
+  SET_LOADING,
+  SET_MESSAGES,
+  SET_NEW_CHANNEL,
+  SET_ACTIVE_USERS,
+  SET_AUTHENTICATED,
+  SET_UNAUTHENTICATED,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
 export default function reducer(state, action) {
   const {
     user,
-    activeUsers,
     tokens,
     server,
     servers,
+    members,
     channel,
     channels,
     messages,
-    members,
-    active,
+    activeUsers,
   } = action;
   switch (action.type) {
     case SET_LOADING:
@@ -77,10 +79,22 @@ export default function reducer(state, action) {
         channel,
         messages,
       };
-    case SET_ACTIVE_USERS:
+    case SET_MESSAGES:
       return {
         ...state,
-        active,
+        messages,
+      };
+    case SET_MEMBERS:
+      return {
+        ...state,
+        members,
+      };
+    case SET_NEW_CHANNEL:
+      return {
+        ...state,
+        channels,
+        channel,
+        messages: [],
       };
     default:
       return { ...state, error: `Unsupported action type: ${action.type}` };

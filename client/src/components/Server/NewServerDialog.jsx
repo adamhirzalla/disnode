@@ -20,6 +20,7 @@ export default function NewServerDialog({ onClick: addServer }) {
   const classes = useNewServerDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
 
   const handleClickOpen = () => {
@@ -36,8 +37,9 @@ export default function NewServerDialog({ onClick: addServer }) {
   };
 
   const handleAdd = () => {
+    const logo = "https://i.redd.it/kzndsge5ver41.png";
     setOpen(false);
-    addServer(title);
+    addServer({ title, tags, logo });
     // setError("Server creation failed. Please try again later.");
   };
   return (
@@ -84,7 +86,7 @@ export default function NewServerDialog({ onClick: addServer }) {
               className: classes.root,
             }}
           />
-          <Tags />
+          <Tags setTags={setTags} />
         </DialogContent>
         <DialogActions>
           <CustomButton variant="text" onClick={handleClose} name="Cancel" />

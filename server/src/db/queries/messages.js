@@ -1,5 +1,22 @@
 const db = require("../index");
 
+// TODO: add type as parameter (img/text/code)
+const createInChannel = (data) => {
+  const { senderId, body, channelId } = data;
+  const query = `
+  INSERT INTO messages
+    (sender_id, body, channel_id)
+  VALUES ($1, $2, $3)
+  RETURNING 
+    id,
+    body,
+    sent_at,
+    sender_id  ;
+  `;
+  const params = [senderId, body, channelId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 const byChannel = (channelId) => {
   const query = `
   SELECT 
@@ -18,4 +35,7 @@ const byChannel = (channelId) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
-module.exports = { byChannel };
+module.exports = {
+  createInChannel,
+  byChannel,
+};

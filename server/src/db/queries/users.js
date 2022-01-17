@@ -1,11 +1,11 @@
 const db = require("../index");
 
-const test = () => {
+const all = () => {
   const query = `SELECT * FROM users;`;
   return db.query(query).then((res) => res.rows);
 };
 
-const register = (data) => {
+const create = (data) => {
   const { full_name, display_name, username, email, password } = data;
 
   const query = `
@@ -46,10 +46,10 @@ const setActive = (id) => {
   RETURNING *
   `;
   const params = [id];
-  return db.query(query, params).then((res) => res.rows);
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const setInActive = (id) => {
+const setInactive = (id) => {
   const query = `
   UPDATE users 
   SET is_active = 'false'
@@ -57,7 +57,7 @@ const setInActive = (id) => {
   RETURNING *
   `;
   const params = [id];
-  return db.query(query, params).then((res) => res.rows);
+  return db.query(query, params).then((res) => res.rows[0]);
 };
 
-module.exports = { test, register, byUsername, byID, setActive, setInActive };
+module.exports = { all, create, byUsername, byID, setActive, setInactive };
