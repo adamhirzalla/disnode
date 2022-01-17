@@ -3,14 +3,18 @@ import { IconButton, TextField } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 import ServerContext from "../../../contexts/ServerContext";
+import { sendMessage } from "../../../network/messageApi";
 
 export default function MessageForm() {
   const classes = useMessageListSytle();
-  const [message, setMessage] = useState("");
-  const { sendMessage } = useContext(ServerContext);
+  const [input, setInput] = useState("");
+  const {
+    setMessage,
+    app: { channel },
+  } = useContext(ServerContext);
 
   const handleChange = (e) => {
-    setMessage(e.target.value);
+    setInput(e.target.value);
   };
 
   // TextField onKeyDown event handler
@@ -21,17 +25,22 @@ export default function MessageForm() {
   };
 
   // form onSubmit event handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    sendMessage(message);
-    setMessage("");
+    try {
+      const message = await sendMessage(channel.id, { body: input });
+      setMessage(message);
+      setInput((prev) => "");
+    } catch {
+      console.log("Failed to send message");
+    }
   };
 
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <TextField
         className={classes.textField}
-        value={message}
+        value={input}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         autoFocus

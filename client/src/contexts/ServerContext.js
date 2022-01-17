@@ -1,7 +1,5 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
-import { setMessage } from "../network/messageApi";
-import { getServers, getMessages } from "../network/serverApi";
 import reducer from "../reducers/reducer";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import {
   SET_CHANNEL,
   SET_SERVER,
@@ -27,16 +25,6 @@ export const ServerProvider = ({ children }) => {
   const [app, appDispatch] = useReducer(reducer, initialState);
   const { state } = useContext(AuthContext);
 
-  useEffect(async () => {
-    if (!state.loading) {
-      const servers = await getServers();
-      appDispatch({
-        type: SET_SERVERS,
-        servers,
-      });
-    }
-  }, [state.authenticated]);
-
   const setServer = (server) => {
     appDispatch({
       type: SET_SERVER,
@@ -45,6 +33,13 @@ export const ServerProvider = ({ children }) => {
       channel: server?.channels[0],
       messages: server?.channels[0].messages,
       members: server.members,
+    });
+  };
+
+  const setServers = (servers) => {
+    appDispatch({
+      type: SET_SERVERS,
+      servers,
     });
   };
 
@@ -59,18 +54,7 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  // const setMessages = async () => {
-  //   const oldMessages = await getMessages();
-  //   console.log(oldMessages);
-  //   appDispatch({
-  //     type: SET_MESSAGES,
-  //     messages: [...oldMessages, ...app.messages],
-  //   });
-  // };
-
-  const sendMessage = async (body) => {
-    const channel = app.channel.id;
-    const newMessage = await setMessage(channel, body);
+  const setMessage = async (newMessage) => {
     appDispatch({
       type: SET_MESSAGE,
       messages: [...app.messages, newMessage],
@@ -79,9 +63,25 @@ export const ServerProvider = ({ children }) => {
 
   return (
     <ServerContext.Provider
-      value={{ app, appDispatch, setServer, setChannel, sendMessage }}
+      value={{
+        app,
+        appDispatch,
+        setServer,
+        setChannel,
+        setMessage,
+        setServers,
+      }}
     >
       {children}
     </ServerContext.Provider>
   );
 };
+
+//  const setMessages = async () => {
+//   const oldMessages = await getMessages();
+//   console.log(oldMessages);
+//   appDispatch({
+//     type: SET_MESSAGES,
+//     messages: [...oldMessages, ...app.messages],
+//   });
+// };

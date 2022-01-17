@@ -1,11 +1,14 @@
 import axios from "axios";
 
 // send new message to server
-export const setMessage = async (channel, body) => {
+export const sendMessage = async (channelId, message) => {
   try {
-    const res = await axios.post(`/channels/${channel}/messages`, { body });
-    const message = res.data;
-    return message;
+    const res = await axios.post(
+      `/api/channels/${channelId}/messages`,
+      message
+    );
+    // TODO: remove return (handle render with sockets)
+    return res.data;
   } catch (e) {
     console.log("Failed to retreive message data", e);
   }
