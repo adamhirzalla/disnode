@@ -3,7 +3,7 @@ import axios from "axios";
 // get all of the server user has joined
 export const getServers = async () => {
   try {
-    const res = await axios.post("/api/servers");
+    const res = await axios.get("/api/servers");
     const servers = res.data;
     return servers;
     // const sio = await import("../socket/index");
