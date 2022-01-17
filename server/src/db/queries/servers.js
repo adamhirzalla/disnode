@@ -5,15 +5,15 @@ const Member = require("./members");
 const Tag = require("./tags");
 
 const create = (data) => {
-  const { creatorId, title, image, invite_code } = data;
+  const { creatorId, title, logo, invite_code } = data;
 
   const query = `
   INSERT INTO servers 
-  (creator_id, title, image, invite_code)
+  (creator_id, title, logo, invite_code)
   VALUES ($1, $2, $3, $4)
   RETURNING *;
   `;
-  const params = [creatorId, title, image, invite_code];
+  const params = [creatorId, title, logo, invite_code];
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
@@ -21,7 +21,7 @@ const byUser = (userId) => {
   const query = `
   SELECT servers.id, 
     servers.title, 
-    servers.image AS logo
+    servers.logo
   FROM servers
   JOIN members ON server_id = servers.id
   JOIN users ON user_id = users.id
@@ -38,7 +38,7 @@ const byID = (serverId) => {
   SELECT 
     id,
     title,
-    image AS logo,
+    logo,
     creator_id AS owner_id,
     invite_code
   FROM servers
@@ -70,8 +70,30 @@ const byID = (serverId) => {
     });
 };
 
+const addTags = (tagIds, serverId) => {
+  const tagQueries = tagIds.map((tagId) => {
+    return db
+      .query(
+        `
+      INSERT INTO server_tags 
+      (tag_id, server_id)
+      VALUES ($1, $2)
+      RETURNING (
+        SELECT name FROM tags
+        WHERE tags.id = tag_id
+      );
+  `,
+        [tagId, serverId]
+      )
+      .then((res) => res.rows[0]);
+  });
+
+  return Promise.all(tagQueries);
+};
+
 module.exports = {
   byUser,
   byID,
   create,
+  addTags,
 };

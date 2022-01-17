@@ -35,9 +35,9 @@ export const ServerProvider = ({ children }) => {
     appDispatch({
       type: SET_SERVER,
       server,
-      channels: server.channels,
-      channel: server?.channels[0],
-      messages: server?.channels[0].messages,
+      channels: server.channels || [],
+      channel: server.channels[0],
+      messages: server?.channels[0]?.messages || [],
       members: server.members,
     });
   };

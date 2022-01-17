@@ -9,6 +9,7 @@ import ServerListItem from "./ServerListItem";
 import NewServerDialog from "./NewServerDialog";
 import { useServerListStyles } from "../styles/useServerListStyles";
 import ServerContext from "../../contexts/ServerContext";
+import { createServer, createTags } from "../../network/serverApi";
 
 export default function ServerList(props) {
   const classes = useServerListStyles();
@@ -33,20 +34,10 @@ export default function ServerList(props) {
   });
 
   // experimenting adding server
-  const addServer = (title) => {
-    // console.log(parsedServers);
-    // let image =
-    //   "https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86";
-    // setState((prev) => {
-    //   const id = Math.random() * 100;
-    //   return {
-    //     ...prev,
-    //     servers: {
-    //       ...prev.servers,
-    //       [id]: { title, image, id },
-    //     },
-    //   };
-    // });
+  const addServer = async (input) => {
+    const { title, tags, logo } = input;
+    const server = await createServer(title, logo);
+    await createTags(tags, server.id);
   };
 
   const handleHomeClick = (socket) => {
