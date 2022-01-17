@@ -1,32 +1,32 @@
 INSERT INTO users 
-(full_name, display_name, username, email, password, avatar, bio, created_at, is_active) 
+(full_name, nickname, username, email, password, avatar, status, created_at, is_active) 
 VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/1-1.png', 'This is Eavan', '2021-12-28T23:21:50.702Z', true),
 ('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/7web.png', 'This is Jonathan', '2021-12-28T23:22:08.022Z', true),
 ('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://proofmart.com/wp-content/uploads/2021/06/3-web-1.png', 'This is Adam', '2021-12-28T23:22:15.072Z', false);
 
 INSERT INTO users 
-(full_name, display_name, username, email, password, bio, created_at, is_active)
+(full_name, nickname, username, email, password, status, created_at, is_active)
 VALUES 
 ('Amy Hilton', 'Amy', 'amy555', 'amy555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq',  'This is Amy', '2021-12-28T23:22:15.072Z', false);
 
-INSERT INTO icons (name, path)
+INSERT INTO icons (name, icon_url)
 VALUES
 ('Steam', 'https://www.cleanpng.com/png-steam-mervils-a-vr-adventure-computer-icons-person-4290699/preview.html' ),
 ('Epic games', 'https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg'),
 ('Blizzard', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Steam_2016_logo_black.svg/1920px-Steam_2016_logo_black.svg.png');
 
 WITH tags(tag) AS (
-  VALUES ('games'), ('online'), ('mmo'), ('FPS')
+  VALUES ('Single-Player'), ('Multi-player'), ('MMO'), ('FPS'), ('RPG')
 )
 INSERT INTO tags (name)
 SELECT tag FROM tags;
 
 INSERT INTO servers
-(creator_id, title, image, invite_code)
+(creator_id, title, logo, invite_code)
 VALUES
-(3, 'Apex Legends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','Random_string'),
-(2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','Random_string'),
-(1, 'League of Legends', 'https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86','Random_string');
+(3, 'Apex Legends', 'https://www.citypng.com/public/uploads/preview/-51611829928qpmij8bqdr.png','CodeFor1'),
+(2, 'Valorant', 'https://image.pngaaa.com/480/5028480-middle.png','CodeFor2'),
+(1, 'League of Legends', 'https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86','CodeFor3');
 
 INSERT INTO channels (creator_id, server_id, title)
 VALUES 
@@ -34,23 +34,45 @@ VALUES
 (1, 2, 'Welcome'), (1, 2, 'To'), (1, 2, 'Server 2'),
 (2, 3, 'Welcome'), (2, 3, 'To'), (1, 3, 'Server 3');
 
-INSERT INTO members (server_id, user_id, role)
+INSERT INTO channels (creator_id, title)
+VALUES
+(3, 'bffs'), (3, 'chill-squad'), (3, 'the boys'),
+(1, 'random'), (1, 'old-friend'), (1, 'side-kick'),
+(2, 'team'), (2, 'work'), (2, 'gamers');
+
+INSERT INTO members (channel_id, user_id, role)
 VALUES
 (1, 3, 'owner'),
 (1, 2, 'admin'),
-(1, 1, 'user'),
+(1, 1, 'member'),
 (2, 1, 'owner'),
-(2, 3, 'user'),
+(2, 3, 'member'),
 (3, 2, 'owner'),
-(3, 1, 'admin');
+(3, 3, 'owner'),
+(4, 3, 'owner'),
+(5, 2, 'owner'),
+(6, 2, 'member'),
+(7, 3, 'member'),
+(8, 2, 'member'),
+(9, 3, 'member'),
+(10, 1, 'member'),
+(11, 4, 'owner'),
+(12, 1, 'owner'),
+(13, 1, 'owner'),
+(14, 2, 'owner'),
+(15, 3, 'owner'),
+(16, 4, 'admin'),
+(17, 1, 'admin'),
+(18, 3, 'admin'),
+(18, 1, 'admin');
 
-INSERT INTO dms (creator_id, updated_at)
-VALUES 
-(1, '2021-12-28T22:22:08.022Z'),
-(2, '2021-12-28T22:28:08.022Z');
+-- INSERT INTO dms (creator_id, updated_at)
+-- VALUES 
+-- (1, '2021-12-28T22:22:08.022Z'),
+-- (2, '2021-12-28T22:28:08.022Z');
 
-INSERT INTO participants (dm_id, user_id)
-VALUES(1, 1), (1, 3), (1, 2), (2, 2), (2, 3);
+-- INSERT INTO participants (dm_id, user_id)
+-- VALUES(1, 1), (1, 3), (1, 2), (2, 2), (2, 3);
 
 INSERT INTO messages (sender_id, channel_id, body, sent_at)
 VALUES
@@ -76,12 +98,27 @@ VALUES
 (2, 8, 'Whats up 8!!!', '2021-12-28T23:29:38.909Z'),
 (3, 9, 'Pretty good 9!!!', '2021-12-29T00:29:57.358Z');
 
-INSERT INTO messages (sender_id, dm_id, body, sent_at)
+INSERT INTO messages (sender_id, channel_id, body, sent_at)
 VALUES
-(1, 1, 'Hi Adam', '2021-12-28T23:22:08.022Z'),
-(3, 1, 'Hey Hyunsu', '2021-12-28T23:22:15.072Z'),
-(2, 2, 'Hey Adam', '2021-12-28T23:20:15.072Z'),
-(3, 2, 'Hey Jonathan', '2021-12-28T23:21:15.072Z');
+(2, 10, 'yo', '2021-12-28T23:29:38.909Z'),
+(1, 10, 'hey', '2021-12-28T23:29:38.909Z'),
+(2, 11, 'sup', '2021-12-28T23:29:38.909Z'),
+(3, 11, 'eyy', '2021-12-28T23:29:38.909Z'),
+(3, 12, 'lul', '2021-12-28T23:29:38.909Z'),
+(4, 12, 'lmao', '2021-12-28T23:29:38.909Z'),
+(1, 13, 'kk', '2021-12-28T23:29:38.909Z'),
+(4, 13, 'cya', '2021-12-28T23:29:38.909Z'),
+(4, 14, 'lmao', '2021-12-28T23:29:38.909Z'),
+(1, 15, 'kk', '2021-12-28T23:29:38.909Z'),
+(4, 16, 'cya', '2021-12-28T23:29:38.909Z'),
+(1, 17, 'cya', '2021-12-28T23:29:38.909Z');
+
+-- INSERT INTO messages (sender_id, dm_id, body, sent_at)
+-- VALUES
+-- (1, 1, 'Hi Adam', '2021-12-28T23:22:08.022Z'),
+-- (3, 1, 'Hey Hyunsu', '2021-12-28T23:22:15.072Z'),
+-- (2, 2, 'Hey Adam', '2021-12-28T23:20:15.072Z'),
+-- (3, 2, 'Hey Jonathan', '2021-12-28T23:21:15.072Z');
 
 INSERT INTO views (message_id, user_id, viewed_at)
 VALUES
@@ -104,14 +141,17 @@ INSERT INTO friends (user1_id, user2_id)
 VALUES (1, 3), (2, 3), (4, 1);
 
 INSERT INTO requests (sender_id, receiver_id)
-VALUES (1, 2), (3, 4), (2, 4);
+VALUES (1, 2), (3, 4);
 
-INSERT INTO connections (user_id, icon_id, url)
+INSERT INTO requests (sender_id, receiver_id, pending)
+VALUES (2, 4, false);
+
+INSERT INTO socials (user_id, icon_id, link_url)
 VALUES
 (1, 1, 'https://google.ca'),
 (2, 1, 'https://google.ca'),
 (2, 3, 'https://google.ca'),
-(3, 1, 'https://google.ca'),
+(3, 2, 'https://google.ca'),
 (3, 3, 'https://google.ca');
 
 INSERT INTO server_tags
