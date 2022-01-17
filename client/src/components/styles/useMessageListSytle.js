@@ -56,7 +56,7 @@ export const useMessageListSytle = makeStyles(() =>
     },
     textField: {
       marginTop: 2,
-      width: "90%",
+      width: "85%",
       maxHeight: 100,
     },
     input: {

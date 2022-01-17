@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { IconButton, TextField } from "@mui/material";
+import { IconButton, TextField, Box } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
 import ServerContext from "../../../contexts/ServerContext";
@@ -37,7 +37,7 @@ export default function MessageForm() {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <Box component="form" className={classes.form} onSubmit={handleSubmit}>
       <TextField
         className={classes.textField}
         value={input}
@@ -56,6 +56,6 @@ export default function MessageForm() {
       <IconButton type="submit" aria-label="send" color="primary">
         <Send />
       </IconButton>
-    </form>
+    </Box>
   );
 }
