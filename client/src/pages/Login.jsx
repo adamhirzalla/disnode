@@ -1,12 +1,26 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../network/authApi";
-import { SET_USER } from "../utils/constants";
 import AuthContext from "../contexts/AuthContext";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  FormControl,
+  Grid,
+  InputLabel,
+  Link,
+  TextField,
+  InputBase,
+} from "@mui/material";
+import { styled } from "@mui/styles";
+import { useLoginStyles } from "../components/styles/useLoginStyles";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
   const [input, setInput] = useState({ username: "", password: "" });
+  const classes = useLoginStyles();
 
   const navigate = useNavigate();
 
@@ -17,40 +31,70 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     await login(input);
+    setInput((prev) => ({ ...prev, password: "" }));
   };
 
   return (
-    <div>
-      <br />
-      <br />
-      <form onSubmit={handleLogin}>
-        <span>Username </span>
-        <input
-          type="text"
+    <Container component="main" sx={{ height: "100vh", width: "60vw" }}>
+      <Avatar
+        alt="Disnode"
+        src="/images/Disnode.png"
+        sx={{ width: 60, height: 60 }}
+      ></Avatar>
+      <Box
+        className={classes.TextField}
+        component="form"
+        onSubmit={handleLogin}
+      >
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="username"
+          label="Username"
           name="username"
-          placeholder="username"
+          autoComplete="username"
+          autoFocus
           value={input.username}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, username: e.target.value }))
           }
-        ></input>
-        <br />
-        <br />
-        <span>Password </span>
-        <input
-          type="password"
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
           name="password"
-          placeholder="password"
+          label="Password"
+          type="password"
+          id="password"
+          autoComplete="current-password"
           value={input.password}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, password: e.target.value }))
           }
-        ></input>
-        <button type="submit">Login</button>
-      </form>
-    </div>
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2, borderRadius: 5 }}
+        >
+          Sign In
+        </Button>
+      </Box>
+      <Grid container>
+        <Grid item xs>
+          {" "}
+        </Grid>
+        <Grid item>
+          <Link href="/register" variant="body2">
+            {"Don't have an account? Sign Up"}
+          </Link>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 
