@@ -29,6 +29,6 @@ router.post("/users/:id", async (req, res) => {
 
 // get all users
 router.get("/users", (req, res) => {
-  User.test().then((result) => res.json(result));
+  User.all().then((result) => res.json(result));
 });
 module.exports = router;

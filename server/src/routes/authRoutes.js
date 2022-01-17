@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const Users = require("../db/queries/users");
+const User = require("../db/queries/users");
 const { authRef } = require("../middleware/auth");
 const {
   generateAccess,
@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
   try {
     // Hash password
     const hash = await bcrypt.hash(password, 10);
-    await Users.register({
+    await User.create({
       full_name,
       display_name,
       username,
@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
   const { username, password } = req.body;
   try {
-    const user = await Users.byUsername(username);
+    const user = await User.byUsername(username);
     if (!user) {
       return res.status(400).send("Bad Request: Username does not exist");
     }
