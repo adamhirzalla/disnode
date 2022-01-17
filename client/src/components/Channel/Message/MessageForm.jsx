@@ -58,9 +58,7 @@ export default function MessageForm() {
         placeholder="Message"
         multiline
         required
-        InputProps={{
-          className: classes.input,
-        }}
+        InputProps={{ className: classes.input }}
       />
       <IconButton type="submit" aria-label="send" color="primary">
         <Send />
