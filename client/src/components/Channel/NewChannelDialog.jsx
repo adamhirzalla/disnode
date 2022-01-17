@@ -81,6 +81,7 @@ export default function NewChannelDialog() {
             onKeyDown={handleKeyDown}
             type="text"
             fullWidth
+            required
             variant="standard"
             placeholder="Title"
             InputProps={{
