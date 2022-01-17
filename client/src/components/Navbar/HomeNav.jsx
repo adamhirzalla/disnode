@@ -5,35 +5,23 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ChatIconButton from "../Button/ChatIconButton";
-import classNames from "classnames";
 
 //styles
 import { useHomeNavStyles } from "../styles/useHomeNavStyles";
 
-const settings = ["Profile", "Settings", "Logout"];
-
 const HomeNav = (props) => {
   const classes = useHomeNavStyles();
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
@@ -52,31 +40,22 @@ const HomeNav = (props) => {
           >
             Home
           </Typography>
-
           <Box className={classes.box}>
             <Box className={classes.boxOne}>
-              <Button onClick={null} className={classes.navButton}>
+              <Button key="1" onClick={null} className={classes.navButton}>
                 Profile
               </Button>
-              <Button onClick={null} className={classes.navButton}>
+              <Button key="2" onClick={null} className={classes.navButton}>
                 Settings
               </Button>
               <ChatIconButton
-                key="1"
+                key="3"
                 onClick={null}
                 className={classes.navButton}
               />
             </Box>
           </Box>
-
-          <Box
-            sx={{
-              flexGrow: 0,
-              backgroundColor: "#d40824",
-              borderRadius: "1em",
-              "&:hover": { backgroundColor: "#4D8F42" },
-            }}
-          >
+          <Box className={classes.boxTwo}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
@@ -87,7 +66,7 @@ const HomeNav = (props) => {
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: "45px" }}
+              className={classes.avatarMenu}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{

@@ -23,6 +23,12 @@ export const useHomeNavStyles = makeStyles((theme) =>
       justifyContent: "space-evenly",
       flexDirection: "row",
     },
+    boxTwo: {
+      flexGrow: 0,
+      backgroundColor: "#d40824",
+      borderRadius: "1em",
+      "&:hover": { backgroundColor: "#4D8F42" },
+    },
     typography: {
       mr: 2,
       display: "flex",
@@ -30,6 +36,9 @@ export const useHomeNavStyles = makeStyles((theme) =>
     appBar: {
       backgroundColor: "#01040D",
       height: "4.2em",
+    },
+    avatarMenu: {
+      marginTop: "2.5em",
     },
   })
 );
