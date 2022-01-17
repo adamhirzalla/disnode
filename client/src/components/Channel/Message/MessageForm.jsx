@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IconButton, TextField } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import ServerContext from "../../../contexts/ServerContext";
 
 export default function MessageForm() {
   const classes = useMessageListSytle();
   const [message, setMessage] = useState("");
+  const { sendMessage } = useContext(ServerContext);
 
   const handleChange = (e) => {
     setMessage(e.target.value);
@@ -21,6 +23,7 @@ export default function MessageForm() {
   // form onSubmit event handler
   const handleSubmit = (e) => {
     e.preventDefault();
+    sendMessage(message);
     setMessage("");
   };
 

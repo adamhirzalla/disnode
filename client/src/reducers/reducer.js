@@ -8,7 +8,7 @@ import {
   SET_SERVER,
   SET_SERVERS,
   SET_CHANNEL,
-  SET_MESSAGES,
+  SET_MESSAGE,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -83,7 +83,7 @@ export default function reducer(state, action) {
         ...state,
         active,
       };
-    case SET_MESSAGES:
+    case SET_MESSAGE:
       return {
         ...state,
         messages,

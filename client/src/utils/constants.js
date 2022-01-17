@@ -13,4 +13,4 @@ export const SET_SERVERS = "SET_SERVERS";
 export const SET_SERVER = "SET_SERVER";
 export const SET_CHANNEL = "SET_CHANNEL";
 export const SET_ACTIVE_USERS = "SET_ACTIVE_USERS";
-export const SET_MESSAGES = "SET_MESSAGES";
+export const SET_MESSAGE = "SET_MESSAGE";
