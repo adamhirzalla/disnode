@@ -23,12 +23,12 @@ export default function NewChannelDialog() {
   } = useContext(ServerContext);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen((prev) => true);
   };
 
   const handleClose = () => {
-    setOpen(false);
-    setTitle("");
+    setOpen((prev) => false);
+    setTitle((prev) => "");
   };
 
   const handleChange = (e) => {
@@ -45,11 +45,11 @@ export default function NewChannelDialog() {
   // submit handler that creates a new channel
   const handleSubmit = async () => {
     if (title) {
-      setOpen(false);
+      setOpen((prev) => false);
       const serverId = server.id;
       const channel = await createChannel(serverId, { title });
       setNewChannel(channel);
-      setTitle("");
+      setTitle((prev) => "");
     }
   };
 
