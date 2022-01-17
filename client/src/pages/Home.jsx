@@ -89,7 +89,10 @@ export default function Home() {
         setServer={setServer}
       >
         <Box sx={{ width: "100%", height: "100%" }}>
-          <HomeNav></HomeNav>
+          <HomeNav
+            full_name={state.user.full_name}
+            img="/images/male-avatar-img.png"
+          />
           <div className={classes.rowTwo}>
             <FriendsList friendList={friendList} />
           </div>

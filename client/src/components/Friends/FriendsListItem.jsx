@@ -15,11 +15,7 @@ export default function FriendsListItem({ id, name, img, labelId }) {
   const classes = useFriendsListItemStyles();
 
   return (
-    <ListItem
-      key={id}
-      secondaryAction={<ElipsesDropdown disableRipple disableFocusRipple />}
-      disablePadding
-    >
+    <ListItem key={id} secondaryAction={<ElipsesDropdown />} disablePadding>
       <ListItemButton className={classes.list}>
         <ListItemAvatar>
           <Avatar

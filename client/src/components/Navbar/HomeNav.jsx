@@ -1,28 +1,29 @@
-import * as React from "react";
+import { React, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import ChatBubbleOutline from "@mui/icons-material/ChatBubbleOutline";
+import ChatIconButton from "../Button/ChatIconButton";
+import classNames from "classnames";
 
-const pages = [
-  <IconButton>
-    <ChatBubbleOutline sx={{ color: "#FFF" }} />
-  </IconButton>,
-];
+//styles
+import { useHomeNavStyles } from "../styles/useHomeNavStyles";
+
 const settings = ["Profile", "Settings", "Logout"];
 
 const HomeNav = (props) => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const classes = useHomeNavStyles();
+
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,87 +41,48 @@ const HomeNav = (props) => {
   };
 
   return (
-    <AppBar sx={{ backgroundColor: "#01040D" }} position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <AppBar className={classes.appBar} position="static">
+      <Container maxWidth="x1">
+        <Toolbar>
           <Typography
             variant="h5"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            className={classes.typography}
           >
             Home
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
+          <Box className={classes.box}>
+            <Box className={classes.boxOne}>
+              <Button onClick={null} className={classes.navButton}>
+                Profile
               </Button>
-            ))}
+              <Button onClick={null} className={classes.navButton}>
+                Settings
+              </Button>
+              <ChatIconButton
+                key="1"
+                onClick={null}
+                className={classes.navButton}
+              />
+            </Box>
           </Box>
 
           <Box
             sx={{
               flexGrow: 0,
-              backgroundColor: "#4D8F42",
+              backgroundColor: "#d40824",
               borderRadius: "1em",
+              "&:hover": { backgroundColor: "#4D8F42" },
             }}
           >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar
                   variant="circular"
-                  alt="Jonathan Su"
-                  src="/images/male-avatar-img.png"
+                  alt={props.full_name}
+                  src={props.img}
                 />
               </IconButton>
             </Tooltip>
@@ -140,11 +102,9 @@ const HomeNav = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="1">
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

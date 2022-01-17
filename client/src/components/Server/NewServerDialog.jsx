@@ -42,12 +42,7 @@ export default function NewServerDialog({ onClick: addServer }) {
   };
   return (
     <div>
-      <IconButton
-        className={classes.addButton}
-        disableRipple
-        disableFocusRipple
-        onClick={handleClickOpen}
-      >
+      <IconButton className={classes.addButton} onClick={handleClickOpen}>
         <AddCircleIcon fontSize="large" />
       </IconButton>
 

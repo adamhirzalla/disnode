@@ -58,7 +58,7 @@ export default function SearchBar() {
   const classes = useSearchBarStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar className={classes.appBar} position="static">
+      <Box className={classes.appBar} position="static">
         <Toolbar>
           <Typography
             variant="h6"
@@ -78,7 +78,7 @@ export default function SearchBar() {
             />
           </Search>
         </Toolbar>
-      </AppBar>
+      </Box>
     </Box>
   );
 }

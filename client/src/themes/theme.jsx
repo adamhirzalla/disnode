@@ -2,7 +2,7 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   components: {
-    MuiBox: {
+    MuiAppBar: {
       styleOverrides: {
         root: {
           width: "100%",
@@ -10,5 +10,5 @@ export const theme = createTheme({
       },
     },
   },
-  shadows: ["none"],
+  // shadows: ["none"],
 });

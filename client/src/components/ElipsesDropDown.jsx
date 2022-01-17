@@ -25,12 +25,11 @@ export default function ElipsesDropdown() {
   return (
     <>
       <ListItemButton
+        disableRipple="true"
         className={classes.contained}
         onClick={handleClick}
-        disableRipple
-        disableFocusRipple
       >
-        <IconButton className={classes.icon} disableRipple disableFocusRipple>
+        <IconButton disableRipple className={classes.icon}>
           <FontAwesomeIcon icon={faEllipsisV} />
         </IconButton>
       </ListItemButton>

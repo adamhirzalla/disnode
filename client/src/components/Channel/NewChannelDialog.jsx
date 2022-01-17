@@ -27,8 +27,8 @@ export default function NewChannelDialog(props) {
     <div>
       <Button
         className={classes.addButton}
-        disableRipple
-        disableFocusRipple
+        disableripple="true"
+        disablefocusripple
         onClick={handleClickOpen}
       >
         <AddCircleIcon fontSize="small" />
