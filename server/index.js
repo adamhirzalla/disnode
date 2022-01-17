@@ -30,6 +30,7 @@ const debugRoutes = require("./src/routes/debugRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
 const serverRoutes = require("./src/routes/serverRoutes");
+const channelRoutes = require("./src/routes/channelRoutes");
 
 // Enable debug routes on non-prod environments
 if (ENV !== "production") {
@@ -41,6 +42,7 @@ if (ENV !== "production") {
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", auth, serverRoutes);
+app.use("/api", auth, channelRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
