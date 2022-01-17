@@ -1,5 +1,8 @@
 const db = require("../index");
-const Messages = require("./messages");
+const Message = require("./messages");
+const Channel = require("./channels");
+const Member = require("./members");
+const Tag = require("./tags");
 
 const byUser = (userId) => {
   const query = `
@@ -32,63 +35,18 @@ const byID = (serverId, userId) => {
     )
     .then((res) => res.rows[0]);
 
-  const membersQuery = db
-    .query(
-      `
-  SELECT 
-    members.id,
-    users.id AS user_id,
-    users.display_name AS nickname,
-    members.role,
-    users.avatar,
-    users.is_active
-  FROM members
-  JOIN users ON users.id = user_id
-  JOIN servers ON servers.id = server_id
-  WHERE server_id = $1
-  `,
-      [serverId]
-    )
-    .then((res) => res.rows);
-
-  const tagsQuery = db
-    .query(
-      `
-  SELECT 
-    tags.id,
-    tags.name
-  FROM tags
-  JOIN server_tags ON tags.id = tag_id
-  JOIN servers ON servers.id = server_id
-  WHERE server_id = $1
-  `,
-      [serverId]
-    )
-    .then((res) => res.rows);
-
-  const channelsQuery = db
-    .query(
-      `
-  SELECT 
-    channels.id,
-    channels.title,
-    channels.creator_id
-  FROM channels
-  JOIN users ON users.id = creator_id
-  JOIN servers ON servers.id = server_id
-  WHERE server_id = $1
-  `,
-      [serverId]
-    )
-    .then((res) => res.rows);
-
-  return Promise.all([serverQuery, membersQuery, tagsQuery, channelsQuery])
+  return Promise.all([
+    serverQuery,
+    Member.byServer(serverId),
+    Tag.byServer(serverId),
+    Channel.byServer(serverId),
+  ])
     .then(([server, members, tags, channels]) => {
       return { ...server, members, tags, channels };
     })
     .then((serverData) => {
       const messageQueries = serverData.channels.map((channel) =>
-        Messages.byChannel(channel.id)
+        Message.byChannel(channel.id)
       );
       return Promise.all(messageQueries).then((messages) => {
         serverData.channels.forEach((channel, i) => {
