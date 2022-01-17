@@ -4,6 +4,19 @@ const Channel = require("./channels");
 const Member = require("./members");
 const Tag = require("./tags");
 
+const create = (data) => {
+  const { creatorId, title, image, invite_code } = data;
+
+  const query = `
+  INSERT INTO servers 
+  (creator_id, title, image, invite_code)
+  VALUES ($1, $2, $3, $4)
+  RETURNING *;
+  `;
+  const params = [creatorId, title, image, invite_code];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 const byUser = (userId) => {
   const query = `
   SELECT servers.id, 
@@ -18,7 +31,7 @@ const byUser = (userId) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
-const byID = (serverId, userId) => {
+const byID = (serverId) => {
   const serverQuery = db
     .query(
       `
@@ -60,4 +73,5 @@ const byID = (serverId, userId) => {
 module.exports = {
   byUser,
   byID,
+  create,
 };

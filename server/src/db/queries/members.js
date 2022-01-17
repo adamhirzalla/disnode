@@ -1,5 +1,18 @@
 const db = require("../index");
 
+const create = (data) => {
+  const { serverId, userId, role } = data;
+
+  const query = `
+  INSERT INTO members 
+  (server_id, user_id, role)
+  VALUES ($1, $2, $3)
+  RETURNING *;
+  `;
+  const params = [serverId, userId, role];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 const byServer = (serverId) => {
   const query = `
   SELECT 
@@ -20,4 +33,5 @@ const byServer = (serverId) => {
 
 module.exports = {
   byServer,
+  create,
 };

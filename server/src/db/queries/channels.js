@@ -9,7 +9,7 @@ const create = (data) => {
   VALUES ($1, $2, $3)
   RETURNING *;
   `;
-  const params = [serverId, userId, title];
+  const params = [serverId, title, userId];
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
