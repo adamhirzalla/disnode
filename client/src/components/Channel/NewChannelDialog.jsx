@@ -5,11 +5,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import ContainedButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 //style
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
+import CustomButton from "../Button/CustomButton";
 
 export default function NewChannelDialog(props) {
   const classes = useNewChannelDialogStyles();
@@ -57,8 +57,8 @@ export default function NewChannelDialog(props) {
           />
         </DialogContent>
         <DialogActions>
-          <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
-          <ContainedButton
+          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
+          <CustomButton
             variant="contained"
             onClick={handleClose}
             name="Create"

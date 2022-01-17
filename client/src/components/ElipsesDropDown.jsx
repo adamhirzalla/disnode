@@ -1,11 +1,15 @@
-import * as React from "react";
+import { React, useState } from "react";
 import Popover from "@mui/material/Popover";
-
-import Button from "@mui/material/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import { IconButton, Button, ListItemButton, ListItem } from "@mui/material";
 import ConfirmationDialogue from "./ConfirmationDialogue";
 
+import { useElipsesDropDownStyles } from "./styles/useElipsesDropDownStyles";
+
 export default function ElipsesDropdown() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const classes = useElipsesDropDownStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -16,11 +20,20 @@ export default function ElipsesDropdown() {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const id = open ? "options-popover" : undefined;
 
   return (
-    <div>
-      <Button onClick={handleClick}>Open</Button>
+    <>
+      <ListItemButton
+        className={classes.contained}
+        onClick={handleClick}
+        disableRipple
+        disableFocusRipple
+      >
+        <IconButton className={classes.icon} disableRipple disableFocusRipple>
+          <FontAwesomeIcon icon={faEllipsisV} />
+        </IconButton>
+      </ListItemButton>
 
       <Popover
         id={id}
@@ -29,13 +42,11 @@ export default function ElipsesDropdown() {
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "right",
         }}
       >
-        <ConfirmationDialogue />
-        <ConfirmationDialogue />
-        <ConfirmationDialogue />
+        <ConfirmationDialogue action="Remove Friend" friendName="Jason" />
       </Popover>
-    </div>
+    </>
   );
 }
