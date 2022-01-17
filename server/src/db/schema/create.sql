@@ -49,9 +49,8 @@ CREATE TABLE servers (
   "id" SERIAL PRIMARY KEY,
   "creator_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "title" VARCHAR(255),
-  "image" VARCHAR(255),
-  "invite_code" VARCHAR(255),
-  "avatar" VARCHAR(255)
+  "logo" VARCHAR(255),
+  "invite_code" VARCHAR(255)
 );
 
 CREATE TABLE channels (

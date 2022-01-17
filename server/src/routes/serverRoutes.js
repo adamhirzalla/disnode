@@ -18,13 +18,13 @@ router.get("/servers", async (req, res) => {
 // create a new server
 router.post("/servers", async (req, res) => {
   const creatorId = req.user.id;
-  const { title, image } = req.body;
+  const { title, logo } = req.body;
   const invite_code = uuid.v4();
   try {
     const server = await Server.create({
       creatorId,
       title,
-      image,
+      logo,
       invite_code,
     });
     const member = await Member.create({
@@ -63,6 +63,22 @@ router.post("/servers/:id/channels", async (req, res) => {
   try {
     const channel = await Channel.create({ serverId, userId, title });
     res.status(200).json(channel);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// adding tags to a server
+router.put("/servers/:id/tags", async (req, res) => {
+  // for: error validation
+  // const { error } = validateChannel(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+  const userId = req.user.id;
+  const serverId = req.params.id;
+  const { tags } = req.body;
+  try {
+    await Server.addTags(tags, serverId);
+    res.status(200);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
