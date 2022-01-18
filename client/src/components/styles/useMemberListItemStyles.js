@@ -4,15 +4,20 @@ import { Badge } from "@mui/material";
 
 export const useMemberListItemStyles = makeStyles((theme) =>
   createStyles({
+    member: {
+      width: "100%",
+      height: "auto",
+      textAlign: "center",
+    },
     role: {
       display: "flex",
       justifyContent: "center",
       padding: "10px 0",
     },
-    member: {
+    memberIcon: {
       width: "100%",
-      height: "auto",
-      textAlign: "center",
+      borderRadius: 20,
+      color: "black",
     },
     userBadge: {
       display: "flex",
