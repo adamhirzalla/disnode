@@ -1,7 +1,6 @@
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
-<<<<<<< HEAD
   // components: {
   //   MuiBox: {
   //     styleOverrides: {
@@ -30,16 +29,6 @@ export const darkTheme = createTheme({
   },
   palette: {
     mode: "dark",
-=======
-  components: {
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          width: "100%",
-        },
-      },
-    },
->>>>>>> 079ff3439bfde8bb07c373d7eef09e3f4f4ab759
   },
   // shadows: ["none"],
 });

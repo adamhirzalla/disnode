@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog, DialogActions, DialogTitle, MenuItem } from "@mui/material";
-import ContainedButton from "../Button/CustomButton";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
+import DisButton from "../Button/DisButton";
 
 export default function MemberDialog({ setting, member, setAnchorUser }) {
   const [open, setOpen] = useState(false);
@@ -39,12 +39,8 @@ export default function MemberDialog({ setting, member, setAnchorUser }) {
           <br /> {`Are you sure you want to  ${setting}?`}
         </DialogTitle>
         <DialogActions>
-          <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
-          <ContainedButton
-            variant="contained"
-            onClick={handleConfirm}
-            name="Confirm"
-          />
+          <DisButton type="cancel" onClick={handleClose} name="Cancel" />
+          <DisButton type="submit" onClick={handleConfirm} name="Submit" />
         </DialogActions>
       </Dialog>
     </>

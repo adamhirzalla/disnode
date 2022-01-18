@@ -73,7 +73,6 @@ export default function NewServerDialog(props) {
           <SelectButton setFile={setFile} />
           <DisTextField
             autoFocus
-            multiline
             type="text"
             fullWidth
             variant="outlined"

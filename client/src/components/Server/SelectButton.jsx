@@ -7,14 +7,14 @@ import { Button } from "@mui/material";
 // component imports
 
 // styles
-import { useButtonStyles } from "../styles/useButtonStyles";
+import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 const Input = styled("input")({
   display: "none",
 });
 
 export default function SelectButton(props) {
   const { setFile } = props;
-  const classes = useButtonStyles();
+  const classes = useDisButtonStyles();
 
   const handleChange = (e) => {
     const preview = document.querySelector("#image-preview");

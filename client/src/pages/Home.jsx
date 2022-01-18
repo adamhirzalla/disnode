@@ -4,9 +4,7 @@ import ServerList from "../components/Server/ServerList";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 import ServerContext from "../contexts/ServerContext";
-import sio from "../socket/index";
 import FriendsList from "../components/Friends/FriendsList";
-import { Box } from "@mui/system";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";

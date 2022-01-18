@@ -12,13 +12,13 @@ import {
   TextField,
 } from "@mui/material";
 import { useLoginStyles } from "../components/styles/useLoginStyles";
-import { useButtonStyles } from "../components/styles/useButtonStyles";
+import { useDisButtonStyles } from "../components/styles/useDisButtonStyles";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
   const [input, setInput] = useState({ username: "", password: "" });
   const classes = useLoginStyles();
-  const buttons = useButtonStyles();
+  const buttons = useDisButtonStyles();
 
   const navigate = useNavigate();
 
@@ -77,12 +77,7 @@ const Login = () => {
               setInput((prev) => ({ ...prev, password: e.target.value }))
             }
           />
-          <Button
-            className={buttons.login}
-            type="submit"
-            fullWidth
-            variant="contained"
-          >
+          <Button className={buttons.submit} type="submit" fullWidth>
             Sign In
           </Button>
         </Box>
@@ -97,12 +92,7 @@ const Login = () => {
               variant="body2"
               sx={{ textDecoration: "none" }}
             >
-              <Button
-                className={buttons.login}
-                type="submit"
-                variant="contained"
-                sx={{ ml: 3 }}
-              >
+              <Button className={buttons.submit} type="submit" sx={{ ml: 3 }}>
                 Sign Up
               </Button>
             </Link>
