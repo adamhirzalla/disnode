@@ -15,5 +15,13 @@ export const useButtonStyles = makeStyles((theme) =>
       borderRadius: ".8em",
       border: "1px solid #7a211b",
     },
+    // for login/register
+    login: {
+      marginTop: 20,
+      marginBottom: 20,
+      borderRadius: 20,
+      backgroundColor: "#4D8F42",
+      "&:hover": { backgroundColor: "gray" },
+    },
   })
 );

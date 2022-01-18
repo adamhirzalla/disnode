@@ -1,6 +1,6 @@
 import { Send } from "@mui/icons-material";
 import { useContext, useState } from "react";
-import { IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import AuthContext from "../../../contexts/AuthContext";
 import { sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
@@ -49,7 +49,7 @@ export default function MessageForm() {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <Box component="form" className={classes.form} onSubmit={handleSubmit}>
       <TextField
         className={classes.textField}
         value={input}
@@ -61,13 +61,12 @@ export default function MessageForm() {
         variant="standard"
         placeholder="Message"
         multiline
-        InputProps={{
-          className: classes.input,
-        }}
+        required
+        InputProps={{ className: classes.input }}
       />
       <IconButton type="submit" aria-label="send" color="primary">
         <Send />
       </IconButton>
-    </form>
+    </Box>
   );
 }
