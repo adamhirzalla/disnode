@@ -20,8 +20,6 @@ export const useFriendsListStyles = makeStyles((theme) =>
     appBar: {
       backgroundColor: "inherit",
       color: "black",
-      // display: "flex",
-      // justifyContent: "center",
     },
   })
 );

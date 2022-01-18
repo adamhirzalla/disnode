@@ -99,14 +99,14 @@ export default function Home() {
         user={state.user}
         setServer={setServer}
       >
-        <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
+        <DisBox>
           <div className={classes.rowTwo}>
             <FriendsList friendList={friendList} />
           </div>
           <DisBox type="friendProfileWrapper">
             <FriendProfile user={friendList[1]} />
           </DisBox>
-        </Box>
+        </DisBox>
       </ServerList>
     </DisBox>
   );

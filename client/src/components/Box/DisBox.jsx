@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
   root: { display: "flex", width: "100%", height: "100%" },
   navBox: { display: "flex", width: "100%" },
   friendListBox: {
-    width: "26em",
+    width: "30em",
     display: "flex",
     flexDirection: "column",
   },
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     height: "100%",
     width: "100%",
-    margin: "7em 0em",
+    margin: ".8em 0em",
   },
   friendProfileWrapper: {
     display: "flex",
@@ -38,6 +38,11 @@ const useStyles = makeStyles(() => ({
     flexDirection: "row",
     width: "100%",
     height: "100%",
+  },
+  friendsBar: {
+    backgroundColor: "inherit",
+    color: "black",
+    width: "100%",
   },
 }));
 
@@ -56,6 +61,7 @@ export default function DisBox(props) {
     [classes.displayColumn]: type === "displayColumn",
     [classes.friendProfileWrapper]: type === "friendProfileWrapper",
     [classes.homeWrapper]: type === "homeWrapper",
+    [classes.friendsBar]: type === "friendsBar",
   });
 
   return (

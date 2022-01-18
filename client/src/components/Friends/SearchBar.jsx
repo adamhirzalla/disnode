@@ -8,6 +8,8 @@ import SearchIcon from "@mui/icons-material/Search";
 
 // styles
 import { useSearchBarStyles } from "../styles/useSearchBarStyles";
+import DisBox from "../Box/DisBox";
+import DisTypography from "../Box/DisTypography";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -43,9 +45,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "15ch",
       "&:focus": {
-        width: "20ch",
+        width: "41.5ch",
       },
     },
   },
@@ -55,27 +57,28 @@ export default function SearchBar() {
   const classes = useSearchBarStyles();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Box className={classes.appBar} position="static">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-          >
+      <DisBox component="form" type="friendsBar">
+        <Toolbar
+          sx={{
+            display: "flex",
+            width: "100%",
+            justifyContent: "space-between",
+          }}
+        >
+          <DisTypography variant="h4" noWrap component="div">
             Friends List
-          </Typography>
+          </DisTypography>
           <Search className={classes.search}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Friends"
+              placeholder="Search Friends..."
               inputProps={{ "aria-label": "search" }}
             />
           </Search>
         </Toolbar>
-      </Box>
+      </DisBox>
     </Box>
   );
 }
