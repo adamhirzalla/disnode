@@ -1,4 +1,4 @@
-import socket from "../socket/index";
+import socket from "../utils/socket/index";
 import AuthContext from "../contexts/AuthContext";
 import { getServers } from "../network/serverApi";
 import { useContext, useEffect, useRef } from "react";
@@ -36,13 +36,11 @@ export default function Test() {
 
   useEffect(async () => {
     const members = app.members.map((member) => {
-      console.log(app.activeUsers.includes(member.user_id));
       return {
         ...member,
         is_active: app.activeUsers.includes(member.user_id),
       };
     });
-    console.log("updating members", members);
     setMembers(members);
   }, [app.activeUsers]);
 

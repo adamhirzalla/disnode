@@ -1,17 +1,19 @@
 import { Send } from "@mui/icons-material";
 import { useContext, useState } from "react";
-import { IconButton, TextField } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
 import AuthContext from "../../../contexts/AuthContext";
 import { sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
 import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import { getChannels } from "../../../network/channelApi";
 
 export default function MessageForm() {
   const classes = useMessageListSytle();
   const [input, setInput] = useState("");
   const {
     setMessages,
-    app: { channel },
+    setChannels,
+    app: { channel, server },
   } = useContext(ServerContext);
   const {
     state: { user },
@@ -32,10 +34,14 @@ export default function MessageForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // We query for server channels so that our sent messages
+      // that are handles on client side can persist on channel navigation
       const message = await sendMessage(channel.id, { body: input });
+      const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;
       message.sender_nickname = user.display_name;
       setMessages(message);
+      setChannels(channels);
       setInput((prev) => "");
     } catch (e) {
       console.log("Failed to send message");
@@ -43,7 +49,7 @@ export default function MessageForm() {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit}>
+    <Box component="form" className={classes.form} onSubmit={handleSubmit}>
       <TextField
         className={classes.textField}
         value={input}
@@ -55,13 +61,12 @@ export default function MessageForm() {
         variant="standard"
         placeholder="Message"
         multiline
-        InputProps={{
-          className: classes.input,
-        }}
+        required
+        InputProps={{ className: classes.input }}
       />
       <IconButton type="submit" aria-label="send" color="primary">
         <Send />
       </IconButton>
-    </form>
+    </Box>
   );
 }

@@ -8,12 +8,12 @@ GET http://localhost:8001/api/servers
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyMzg2MDIzLCJleHAiOjE2NDI0NzI0MjN9.LB7TkLU3L2QaCZpTqRMhE2XA6qUqTsl1vSbneyFPpU4
 
 ### single server
-POST http://localhost:8001/api/servers/7
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyMzg2MDIzLCJleHAiOjE2NDI0NzI0MjN9.LB7TkLU3L2QaCZpTqRMhE2XA6qUqTsl1vSbneyFPpU4
+POST http://localhost:8001/api/servers/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNDk1ODE5LCJleHAiOjE2NDI1ODIyMTl9.BvzBYGm1WO_Hzw4kh7-qbqcQ56pttYEAQRon1dQxzWU
 
 ### create a server
 POST http://localhost:8001/api/servers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyMzg2MDIzLCJleHAiOjE2NDI0NzI0MjN9.LB7TkLU3L2QaCZpTqRMhE2XA6qUqTsl1vSbneyFPpU4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNDk1ODE5LCJleHAiOjE2NDI1ODIyMTl9.BvzBYGm1WO_Hzw4kh7-qbqcQ56pttYEAQRon1dQxzWU
 Content-Type: application/json
 
 { "title": "test server", "image": "https://i.redd.it/kzndsge5ver41.png" }

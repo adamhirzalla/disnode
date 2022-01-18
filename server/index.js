@@ -18,14 +18,15 @@ const PORT = process.env.PORT || 8001;
 const app = express();
 
 app.use(cors());
-app.use(helmet());
+// app.use(helmet());
 app.use(morgan("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Import Route Handlers
 const { auth } = require("./src/middleware/auth");
+const uploadRoute = require("./src/routes/upload");
 const debugRoutes = require("./src/routes/debugRoutes");
 const authRoutes = require("./src/routes/authRoutes");
 const userRoutes = require("./src/routes/userRoutes");
@@ -35,10 +36,10 @@ const channelRoutes = require("./src/routes/channelRoutes");
 // Enable debug routes on non-prod environments
 if (ENV !== "production") {
   app.use("/api/debug", debugRoutes);
-  // app.use("/api/debug", auth, debugRoutes);
 }
 
 // Add routes
+app.use("/", uploadRoute);
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", auth, serverRoutes);

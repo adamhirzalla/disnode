@@ -23,9 +23,6 @@ export default function DisTextField(props) {
       type={type}
       variant={variant}
       placeholder={placeholder}
-      InputProps={{
-        className: { textFieldClass },
-      }}
       onChange={onChange}
       {...rest}
     />

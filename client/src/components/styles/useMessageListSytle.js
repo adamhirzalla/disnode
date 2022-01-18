@@ -32,15 +32,15 @@ export const useMessageListSytle = makeStyles(() =>
 
       "&::-webkit-scrollbar": {
         width: "0.5em",
-        borderRadius: "20px",
+        borderRadius: "30px",
       },
       "&::-webkit-scrollbar-track": {
         "-webkit-box-shadow": "inset 0 0 6px rgb(0,0,0,0.3)",
       },
       "&::-webkit-scrollbar-thumb": {
         backgroundColor: "rgb(0,0,0,0.4)",
-        outline: "1px solid black",
-        borderRadius: "20px",
+        // outline: "1px solid black",
+        borderRadius: "30px",
       },
     },
 
@@ -70,7 +70,7 @@ export const useMessageListSytle = makeStyles(() =>
     },
     textField: {
       marginTop: 2,
-      width: "90%",
+      width: "85%",
       maxHeight: 100,
     },
     input: {

@@ -1,12 +1,24 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../network/authApi";
-import { SET_USER } from "../utils/constants";
 import AuthContext from "../contexts/AuthContext";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  TextField,
+} from "@mui/material";
+import { useLoginStyles } from "../components/styles/useLoginStyles";
+import { useDisButtonStyles } from "../components/styles/useDisButtonStyles";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
   const [input, setInput] = useState({ username: "", password: "" });
+  const classes = useLoginStyles();
+  const buttons = useDisButtonStyles();
 
   const navigate = useNavigate();
 
@@ -17,40 +29,77 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     await login(input);
+    setInput((prev) => ({ ...prev, password: "" }));
   };
 
   return (
-    <div>
-      <br />
-      <br />
-      <form onSubmit={handleLogin}>
-        <span>Username </span>
-        <input
-          type="text"
-          name="username"
-          placeholder="username"
-          value={input.username}
-          onChange={(e) =>
-            setInput((prev) => ({ ...prev, username: e.target.value }))
-          }
-        ></input>
-        <br />
-        <br />
-        <span>Password </span>
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          value={input.password}
-          onChange={(e) =>
-            setInput((prev) => ({ ...prev, password: e.target.value }))
-          }
-        ></input>
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Container className={classes.main} component="main">
+      <Box className={classes.section} component="section">
+        <Box className={classes.header}>
+          <Avatar
+            alt="Disnode"
+            src="/images/Disnode.png"
+            sx={{ width: 60, height: 60 }}
+          ></Avatar>
+          <b>Log In</b>
+        </Box>
+        <Box
+          className={classes.TextField}
+          component="form"
+          onSubmit={handleLogin}
+        >
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={input.username}
+            onChange={(e) =>
+              setInput((prev) => ({ ...prev, username: e.target.value }))
+            }
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={input.password}
+            onChange={(e) =>
+              setInput((prev) => ({ ...prev, password: e.target.value }))
+            }
+          />
+          <Button className={buttons.submit} type="submit" fullWidth>
+            Sign In
+          </Button>
+        </Box>
+        <Grid container>
+          <Grid item xs>
+            {" "}
+          </Grid>
+          <Grid item sx={{ fontSize: "large" }}>
+            <b>{"Don't have an account? Sign Up"}</b>
+            <Link
+              href="/register"
+              variant="body2"
+              sx={{ textDecoration: "none" }}
+            >
+              <Button className={buttons.submit} type="submit" sx={{ ml: 3 }}>
+                Sign Up
+              </Button>
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 };
 

@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/adamhirzalla/disnode#readme",
   "dependencies": {
+    "aws-sdk": "^2.1058.0",
     "bcrypt": "^5.0.1",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
@@ -33,6 +34,8 @@
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "multer-s3": "^2.10.0",
     "pg": "^8.7.1",
     "socket.io": "^4.4.0",
     "uuid": "^8.3.2"

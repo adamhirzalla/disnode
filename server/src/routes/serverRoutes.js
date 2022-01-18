@@ -27,12 +27,11 @@ router.post("/servers", async (req, res) => {
       logo,
       invite_code,
     });
-    const member = await Member.create({
+    await Member.create({
       serverId: server.id,
       userId: server.creator_id,
       role: "owner",
     });
-    console.log(member);
     res.status(200).send(server);
   } catch (e) {
     res.status(500).send("Internal Server Error");
@@ -78,7 +77,7 @@ router.put("/servers/:id/tags", async (req, res) => {
   const { tags } = req.body;
   try {
     await Server.addTags(tags, serverId);
-    res.status(200);
+    res.status(200).send("ok");
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

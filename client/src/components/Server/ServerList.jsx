@@ -1,8 +1,9 @@
 import DisBox from "../Box/DisBox";
 import DisImg from "../Image/DisImg";
+import uploadtoS3 from "../../utils/s3";
 import DisDrawer from "../Drawer/DisDrawer";
 import ServerListItem from "./ServerListItem";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
 import DisIconButton from "../Button/DisIconButton";
@@ -37,24 +38,28 @@ export default function ServerList(props) {
     );
   });
 
-  // experimenting adding server
-  const addServer = async (input) => {
-    const { title, tags, logo } = input;
+  const handleCreate = async (input) => {
+    const { title, tags, file } = input;
+    // we get back an array or urls (to support multiple file upload)
+    const formData = new FormData();
+    formData.append("image", file);
+    console.log(formData);
+    const [logo] = await uploadtoS3(formData);
     const { id } = await createServer(title, logo);
+    await createTags(tags, id);
     const servers = await getServers();
     const server = await getServer(id);
     setServers(servers);
     setServer(server);
-    await createTags(tags, server.id);
   };
 
   const handleHomeClick = (socket) => {
     socket.emit("home click", socket.id, user.display_name);
   };
 
-  useEffect(() => {
-    socket?.emit("connection", socket.id, user.display_name);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("connection", socket.id, user.display_name);
+  // }, []);
 
   return (
     <DisBox type="navBox">
@@ -69,7 +74,7 @@ export default function ServerList(props) {
         </Box>
         <DisDivider />
         <Box>
-          <NewServerDialog onClick={addServer} />
+          <NewServerDialog onClick={handleCreate} />
         </Box>
       </DisDrawer>
       {children}

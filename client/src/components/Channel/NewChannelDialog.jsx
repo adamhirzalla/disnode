@@ -6,12 +6,12 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import {
   Button,
-  TextField,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
 } from "@mui/material";
+import DisTextField from "../Inputs/DisTextField";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
@@ -72,16 +72,14 @@ export default function NewChannelDialog() {
           Create Channel
         </DialogTitle>
         <DialogContent className={classes.content}>
-          <TextField
+          <DisTextField
             autoFocus
-            margin="dense"
-            id="name"
-            value={title}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             type="text"
             fullWidth
-            variant="standard"
+            required
+            variant="outlined"
             placeholder="Title"
             InputProps={{
               className: classes.root,

@@ -53,21 +53,9 @@ const byID = (serverId) => {
     Member.byServer(serverId),
     Tag.byServer(serverId),
     Channel.byServer(serverId),
-  ])
-    .then(([server, members, tags, channels]) => {
-      return { ...server, members, tags, channels };
-    })
-    .then((serverData) => {
-      const messageQueries = serverData.channels.map((channel) =>
-        Message.byChannel(channel.id)
-      );
-      return Promise.all(messageQueries).then((messages) => {
-        serverData.channels.forEach((channel, i) => {
-          channel.messages = messages[i];
-        });
-        return serverData;
-      });
-    });
+  ]).then(([server, members, tags, channels]) => {
+    return { ...server, members, tags, channels };
+  });
 };
 
 const addTags = (tagIds, serverId) => {

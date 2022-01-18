@@ -1,9 +1,9 @@
 import Tags from "./Tags";
 import { useState } from "react";
-import { Alert } from "@mui/material";
-import UploadButton from "./UploadButton";
-import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
+import SelectButton from "./SelectButton";
+import Avatar from "@mui/material/Avatar";
+import { Alert } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DisButton from "../Button/DisButton";
 import DisTextField from "../Inputs/DisTextField";
@@ -15,12 +15,14 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 // styles
 import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
 
-export default function NewServerDialog({ onClick: addServer }) {
+export default function NewServerDialog(props) {
+  const { onClick: createServer } = props;
   const classes = useNewServerDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
+  const [file, setFile] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -35,11 +37,9 @@ export default function NewServerDialog({ onClick: addServer }) {
     setTitle((prev) => e.target.value);
   };
 
-  const handleAdd = () => {
-    const logo = "https://i.redd.it/kzndsge5ver41.png";
+  const handleCreate = () => {
     setOpen(false);
-    addServer({ title, tags, logo });
-    // setError("Server creation failed. Please try again later.");
+    createServer({ title, tags, file });
   };
   return (
     <div>
@@ -63,17 +63,16 @@ export default function NewServerDialog({ onClick: addServer }) {
           >
             <Avatar
               style={{
-                width: "62px",
-                height: "62px",
+                width: "85px",
+                height: "85px",
               }}
-              alt="stock"
-              src="https://preview.redd.it/w8cver361nf21.png?auto=webp&s=1b70865c34646124728166d0daa7a113a565fd86"
+              imgProps={{ id: "image-preview" }}
+              src="/images/Disnode-red.png"
             />
           </div>
-          <UploadButton />
+          <SelectButton setFile={setFile} />
           <DisTextField
             autoFocus
-            multiline
             type="text"
             fullWidth
             variant="outlined"
@@ -86,7 +85,7 @@ export default function NewServerDialog({ onClick: addServer }) {
           <DisButton type="cancel" onClick={handleClose}>
             Cancel
           </DisButton>
-          <DisButton type="create" onClick={handleAdd}>
+          <DisButton type="submit" onClick={handleCreate}>
             Create
           </DisButton>
         </DialogActions>

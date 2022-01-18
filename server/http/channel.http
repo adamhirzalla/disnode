@@ -8,3 +8,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 Content-Type: application/json
 
 { "title": "test channel" }
+
+### get channels for a server
+POST http://localhost:8001/api/channels
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyMzg2MDIzLCJleHAiOjE2NDI0NzI0MjN9.LB7TkLU3L2QaCZpTqRMhE2XA6qUqTsl1vSbneyFPpU4
+Content-Type: application/json
+
+{ "serverId": 1 }

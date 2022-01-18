@@ -17,7 +17,7 @@ export const useDisButtonStyles = makeStyles((theme) =>
         backgroundColor: "#635c5b",
       },
     },
-    create: {
+    upload: {
       color: "white",
       borderRadius: ".8em",
       backgroundColor: "#7a211b",

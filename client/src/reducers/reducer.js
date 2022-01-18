@@ -6,6 +6,7 @@ import {
   SET_CHANNEL,
   SET_MEMBERS,
   SET_LOADING,
+  SET_CHANNELS,
   SET_MESSAGES,
   SET_NEW_CHANNEL,
   SET_ACTIVE_USERS,
@@ -78,6 +79,11 @@ export default function reducer(state, action) {
         ...state,
         channel,
         messages,
+      };
+    case SET_CHANNELS:
+      return {
+        ...state,
+        channels,
       };
     case SET_MESSAGES:
       return {
