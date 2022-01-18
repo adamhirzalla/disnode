@@ -21,14 +21,17 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   card: {
-    maxWidth: 500,
+    maxWidth: 600,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    paddingTop: "1em",
-    minWidth: 500,
-    minHeight: 600,
+    paddingTop: "2em",
+    minWidth: 550,
+    minHeight: 650,
     marginTop: "8em",
+    backgroundColor: "#68696b",
+    color: "#FFF",
+    borderRadius: "1em",
   },
   avatar: {
     width: "5em",
@@ -67,7 +70,7 @@ export default function FriendProfile(props) {
           <DisTypography gutterBottom variant="h7" component="div">
             {user.full_name}
           </DisTypography>
-          <DisTypography type="bio" variant="body2" color="text.secondary">
+          <DisTypography type="bio" variant="body1" color="text.secondary">
             {user.bio}
           </DisTypography>
         </CardContent>

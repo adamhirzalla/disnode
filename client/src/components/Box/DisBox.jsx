@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
   root: { display: "flex", width: "100%", height: "100%" },
   navBox: { display: "flex", width: "100%" },
   friendListBox: {
-    width: "30em",
+    width: "31em",
     display: "flex",
     flexDirection: "column",
   },
@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     height: "100%",
     width: "100%",
-    margin: "1em 0em",
+    margin: "2em 3em",
   },
   friendProfileWrapper: {
     display: "flex",
@@ -41,8 +41,11 @@ const useStyles = makeStyles(() => ({
   },
   friendsBar: {
     backgroundColor: "inherit",
-    color: "black",
+    color: "#FFF",
     width: "100%",
+    backgroundColor: "#040B0C",
+    height: "5em",
+    borderRadius: "1em",
   },
 }));
 

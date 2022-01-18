@@ -15,6 +15,7 @@ const useStyles = makeStyles(() => ({
     height: "100%",
     marginTop: "2em",
     textAlign: "center",
+    color: "#FFF",
   },
   userName: {},
 }));

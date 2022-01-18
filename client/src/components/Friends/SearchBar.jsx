@@ -1,15 +1,25 @@
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
 import InputBase from "@mui/material/InputBase";
-
+import DisBox from "../Box/DisBox";
+import DisTypography from "../Box/DisTypography";
 import SearchIcon from "@mui/icons-material/Search";
 
 // styles
-import { useSearchBarStyles } from "../styles/useSearchBarStyles";
-import DisBox from "../Box/DisBox";
-import DisTypography from "../Box/DisTypography";
+const useStyles = makeStyles(() => ({
+  search: {
+    backgroundColor: "inherit",
+    color: "#FFF",
+    borderRadius: ".7em",
+
+    "&:hover": {
+      backgroundColor: "inherit",
+      color: "#FFF",
+    },
+  },
+}));
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -38,8 +48,11 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
+  height: "3em",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
+    height: "3em",
+    fontSize: "1.3em",
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -54,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
-  const classes = useSearchBarStyles();
+  const classes = useStyles();
   return (
     <Box>
       <DisBox component="form" type="friendsBar">

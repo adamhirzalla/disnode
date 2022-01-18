@@ -17,7 +17,7 @@ const friendList = [
   {
     id: 3,
     full_name: "HyunSu Kim",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar2.jpg",
     is_active: true,
     username: "Learth",
     bio: "Hi, we are disnode!",
@@ -25,7 +25,7 @@ const friendList = [
   {
     id: 2,
     full_name: "Jonathan Su",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar.jpg",
     is_active: true,
     username: "smart lad",
     bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
@@ -33,43 +33,43 @@ const friendList = [
   {
     id: 1,
     full_name: "Adam Hirzalla",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar3.jpg",
     is_active: true,
   },
   {
     id: 3,
     full_name: "HyunSu Kim",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar2.jpg",
     is_active: true,
   },
   {
     id: 2,
     full_name: "Jonathan Su",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar.jpg",
     is_active: true,
   },
   {
     id: 1,
     full_name: "Adam Hirzalla",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
     id: 3,
     full_name: "HyunSu Kim",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar2.jpg",
     is_active: false,
   },
   {
     id: 2,
     full_name: "Jonathan Su",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar.jpg",
     is_active: false,
   },
   {
     id: 1,
     full_name: "Adam Hirzalla",
-    img: "/images/male-avatar-img.png",
+    img: "/images/avatar3.jpg",
     is_active: false,
   },
 ];
