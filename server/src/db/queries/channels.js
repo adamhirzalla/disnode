@@ -1,4 +1,5 @@
 const db = require("../index");
+const Message = require("./messages");
 
 const create = (data) => {
   const { serverId, userId, title } = data;
@@ -25,7 +26,20 @@ const byServer = (serverId) => {
   WHERE server_id = $1
   `;
   const params = [serverId];
-  return db.query(query, params).then((res) => res.rows);
+  return db
+    .query(query, params)
+    .then((res) => res.rows)
+    .then((channels) => {
+      const messageQueries = channels.map((channel) =>
+        Message.byChannel(channel.id)
+      );
+      return Promise.all(messageQueries).then((messages) => {
+        channels.forEach((channel, i) => {
+          channel.messages = messages[i];
+        });
+        return channels;
+      });
+    });
 };
 
 module.exports = {

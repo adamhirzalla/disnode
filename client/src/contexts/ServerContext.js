@@ -5,6 +5,7 @@ import {
   SET_SERVER,
   SET_MEMBERS,
   SET_SERVERS,
+  SET_CHANNELS,
   SET_MESSAGES,
   SET_NEW_CHANNEL,
   SET_ACTIVE_USERS,
@@ -28,6 +29,13 @@ export const ServerProvider = ({ children }) => {
   const [app, appDispatch] = useReducer(reducer, initialState);
   const { state } = useContext(AuthContext);
 
+  const setServers = (servers) => {
+    appDispatch({
+      type: SET_SERVERS,
+      servers,
+    });
+  };
+
   const setServer = (server) => {
     appDispatch({
       type: SET_SERVER,
@@ -39,10 +47,10 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setServers = (servers) => {
+  const setChannels = (channels) => {
     appDispatch({
-      type: SET_SERVERS,
-      servers,
+      type: SET_CHANNELS,
+      channels,
     });
   };
 
@@ -65,15 +73,10 @@ export const ServerProvider = ({ children }) => {
   };
 
   const setMessages = (message) => {
-    // set channels with this (for persistance)
-    // const channel = app.channels.filter(channel => {
-    //   channel.id === message.channel_id
-    // })
     const messages = [...app.messages, message];
     appDispatch({
       type: SET_MESSAGES,
       messages,
-      // channesl: ,
     });
   };
 
@@ -103,15 +106,16 @@ export const ServerProvider = ({ children }) => {
     <ServerContext.Provider
       value={{
         app,
-        appDispatch,
         setServer,
         setChannel,
-        setMessages,
         setServers,
+        setMembers,
+        setMessages,
+        setChannels,
+        appDispatch,
         setNewChannel,
         setNewServers,
         setActiveUsers,
-        setMembers,
       }}
     >
       {children}
