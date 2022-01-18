@@ -2,7 +2,7 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 export const useDisDividerStyles = makeStyles((theme) =>
   createStyles({
-    root: { width: "100%" },
+    root: {},
     serverList: {
       marginTop: ".6em",
       width: "60%",

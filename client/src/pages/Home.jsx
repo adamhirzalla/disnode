@@ -98,7 +98,6 @@ export default function Home() {
             <FriendsList friendList={friendList} />
           </div>
         </Box>
-        <DisImg type="home" url="/images/Disnode-red.png" />
       </ServerList>
     </div>
   );

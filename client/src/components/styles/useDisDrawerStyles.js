@@ -7,7 +7,6 @@ export const useDisDrawerStyles = makeStyles((theme) =>
       width: "100%",
       height: "100%",
     },
-
     serverList: {
       width: "122px",
       flexShrink: 0,
