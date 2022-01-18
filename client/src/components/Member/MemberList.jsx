@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -6,6 +6,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Box, IconButton, CssBaseline } from "@mui/material";
 import MemberListItem from "./MemberListItem";
 import { useMemberListStyles } from "../styles/useMemberListStyles";
+import ServerContext from "../../contexts/ServerContext";
 
 const drawerWidth = "250px";
 
@@ -59,7 +60,10 @@ const Drawer = styled(MuiDrawer, {
 
 export default function MemberList({ socket, children }) {
   const classes = useMemberListStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const {
+    app: { members },
+  } = useContext(ServerContext);
 
   const handleDrawerOpen = () => {
     socket.emit("get online");
@@ -69,12 +73,23 @@ export default function MemberList({ socket, children }) {
     setOpen(false);
   };
 
+  const memberList = members.map((member) => {
+    return (
+      <MemberListItem
+        key={member.id}
+        member={member}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+      />
+    );
+  });
+
   return (
     <>
       <Box sx={{ position: "sticky" }}>
         <CssBaseline />
         <Drawer variant="permanent" anchor="right" open={open}>
-          <MemberListItem open={open} handleDrawerOpen={handleDrawerOpen} />
+          {memberList}
           {/* {open && (
             <Box sx={{ position: "fixed", bottom: 0, right: 250 }}>
               <IconButton onClick={open ? handleDrawerClose : handleDrawerOpen}>
