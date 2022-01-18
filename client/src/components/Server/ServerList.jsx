@@ -7,6 +7,7 @@ import DisDrawer from "../Drawer/DisDrawer";
 import DisIconButton from "../Button/DisIconButton";
 import DisDivider from "../../Divider/DisDivider";
 import DisImg from "../Image/DisImg";
+import DisBox from "../Box/DisBox";
 import {
   createServer,
   createTags,
@@ -14,11 +15,7 @@ import {
   getServers,
 } from "../../network/serverApi";
 
-//import styles
-import { useServerListStyles } from "../styles/useServerListStyles";
-
 export default function ServerList(props) {
-  const classes = useServerListStyles();
   const { socket, user, children } = props;
 
   const {
@@ -60,13 +57,13 @@ export default function ServerList(props) {
   }, []);
 
   return (
-    <Box className={classes.box}>
+    <DisBox type="navBox">
       <CssBaseline />
-      <DisDrawer nav variant="permanent" anchor="left">
-        <DisIconButton home onClick={() => handleHomeClick(socket)}>
-          <DisImg alt="Home" src="/images/Disnode-red.png" home />
+      <DisDrawer type="nav" variant="permanent" anchor="left">
+        <DisIconButton type="home" onClick={() => handleHomeClick(socket)}>
+          <DisImg alt="Home" src="/images/Disnode-red.png" type="home" />
         </DisIconButton>
-        <DisDivider home />
+        <DisDivider type="home" />
         <Box>
           <List>{parsedServers}</List>
         </Box>
@@ -76,7 +73,7 @@ export default function ServerList(props) {
         </Box>
       </DisDrawer>
       {children}
-    </Box>
+    </DisBox>
   );
 }
 

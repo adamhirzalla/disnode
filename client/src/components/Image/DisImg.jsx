@@ -6,14 +6,14 @@ import { useDisImgStyles } from "../styles/useDisImgStyles";
 
 export default function DisImg(props) {
   //props destructuring
-  const { home, src, alt, ...rest } = props;
+  const { type, src, alt, ...rest } = props;
 
   //styling
   const classes = useDisImgStyles();
 
   //dynamic class names
   const imgClass = classNames(classes.root, {
-    [classes.home]: home,
+    [classes.home]: type === "home",
   });
 
   return <img alt={alt} src={src} className={imgClass} {...rest} />;

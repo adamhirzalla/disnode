@@ -1,15 +1,15 @@
 import React from "react";
-import { Drawer, IconButton, Divider, Box, List } from "@mui/material";
-import NewServerDialog from "../Server/NewServerDialog";
-import { useDisDrawerStyles } from "../styles/useDisDrawerStyles";
+import { Drawer } from "@mui/material";
 import classNames from "classnames";
 
+import { useDisDrawerStyles } from "../styles/useDisDrawerStyles";
+
 export default function DisDrawer(props) {
-  const { nav, channel, children, ...rest } = props;
+  const { type, children, ...rest } = props;
   const classes = useDisDrawerStyles();
   const drawerClass = classNames(null, {
-    [classes.serverList]: nav,
-    [classes.channelList]: channel,
+    [classes.serverList]: type === "nav",
+    [classes.channelList]: type === "channel",
   });
   return (
     <Drawer className={drawerClass} {...rest}>

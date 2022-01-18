@@ -15,7 +15,7 @@ export default function DisButton(props) {
   //dynamic classname
   const buttonClass = classNames(classes.root, {
     [classes.submit]: type === "submit",
-    [classes.create]: type === "create",
+    [classes.submit]: type === "create",
     [classes.cancel]: type === "cancel",
   });
 
