@@ -11,3 +11,18 @@ export const theme = createTheme({
     },
   },
 });
+
+export const darkTheme = createTheme({
+  // components: {
+  //   MuiBox: {
+  //     styleOverrides: {
+  //       root: {
+  //         width: "100%",
+  //       },
+  //     },
+  //   },
+  // },
+  palette: {
+    mode: "dark",
+  },
+});

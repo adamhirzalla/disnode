@@ -2,17 +2,19 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, StyledEngineProvider } from "@mui/material/styles";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ServerProvider } from "./contexts/ServerContext";
-import { theme } from "./themes/theme";
+import { theme, darkTheme } from "./themes/theme";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Test from "./pages/Test";
+import { useState } from "react";
 
 function App() {
+  const [dark, setDark] = useState(false);
   return (
     <div className="App">
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={dark ? darkTheme : theme}>
           <Router>
             <AuthProvider>
               <ServerProvider>
