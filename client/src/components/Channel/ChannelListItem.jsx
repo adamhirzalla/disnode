@@ -1,5 +1,11 @@
 import React from "react";
-import { ListItemIcon, ListItem, ListItemText, Divider } from "@mui/material";
+import {
+  ListItemIcon,
+  ListItem,
+  ListItemText,
+  Divider,
+  Box,
+} from "@mui/material";
 import TagIcon from "@mui/icons-material/Tag";
 import { useState } from "react";
 import classNames from "classnames";
@@ -20,7 +26,7 @@ export default function ChannelListItem(props) {
   };
 
   return (
-    <>
+    <Box>
       <ListItem
         className={listItemClass}
         button
@@ -33,6 +39,6 @@ export default function ChannelListItem(props) {
         <ListItemText primary={title} />
       </ListItem>
       <Divider />
-    </>
+    </Box>
   );
 }

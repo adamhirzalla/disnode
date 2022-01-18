@@ -82,7 +82,7 @@ export default function MessageList({ children }) {
         alignItems="center"
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <Box className={classes.channel}>
+        <Box style={{ width: "100%" }} className={classes.channel}>
           <Typography className={classes.typography} component="span">
             # {channel?.title}
           </Typography>

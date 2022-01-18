@@ -15,6 +15,7 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
+import uploadtoS3 from "../../utils/s3";
 
 export default function ServerList(props) {
   const classes = useServerListStyles();
@@ -40,23 +41,28 @@ export default function ServerList(props) {
   });
 
   // experimenting adding server
-  const addServer = async (input) => {
-    const { title, tags, logo } = input;
+  const handleCreate = async (input) => {
+    const { title, tags, file } = input;
+    // we get back an array or urls (to support multiple file upload)
+    const formData = new FormData();
+    formData.append("image", file);
+    console.log(formData);
+    const [logo] = await uploadtoS3(formData);
     const { id } = await createServer(title, logo);
+    await createTags(tags, id);
     const servers = await getServers();
     const server = await getServer(id);
     setServers(servers);
     setServer(server);
-    await createTags(tags, server.id);
   };
 
   const handleHomeClick = (socket) => {
     socket.emit("home click", socket.id, user.display_name);
   };
 
-  useEffect(() => {
-    socket?.emit("connection", socket.id, user.display_name);
-  }, []);
+  // useEffect(() => {
+  //   socket?.emit("connection", socket.id, user.display_name);
+  // }, []);
 
   return (
     <Box className={classes.box}>
@@ -71,7 +77,7 @@ export default function ServerList(props) {
         </Box>
         <Divider />
         <Box ml={"auto"} mr={"auto"}>
-          <NewServerDialog onClick={addServer} />
+          <NewServerDialog onClick={handleCreate} />
         </Box>
       </Drawer>
       {children}
