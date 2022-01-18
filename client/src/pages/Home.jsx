@@ -7,15 +7,11 @@ import ServerContext from "../contexts/ServerContext";
 import sio from "../socket/index";
 import FriendsList from "../components/Friends/FriendsList";
 import { Box } from "@mui/system";
-import { Typography, Avatar, Icon, IconButton } from "@mui/material";
-
-import HomeNav from "../components/Navbar/HomeNav";
-import DisButton from "../components/Button/DisButton";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
-import DisImg from "../components/Image/DisImg";
 import FriendProfile from "../components/Friends/FriendProfile";
+import DisBox from "../components/Box/DisBox";
 
 const friendList = [
   {
@@ -23,12 +19,16 @@ const friendList = [
     full_name: "HyunSu Kim",
     img: "/images/male-avatar-img.png",
     is_active: true,
+    username: "Learth",
+    bio: "Hi, we are disnode!",
   },
   {
     id: 2,
     full_name: "Jonathan Su",
     img: "/images/male-avatar-img.png",
     is_active: true,
+    username: "smart lad",
+    bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
   },
   {
     id: 1,
@@ -40,31 +40,37 @@ const friendList = [
     id: 3,
     full_name: "HyunSu Kim",
     img: "/images/male-avatar-img.png",
+    is_active: true,
   },
   {
     id: 2,
     full_name: "Jonathan Su",
     img: "/images/male-avatar-img.png",
+    is_active: true,
   },
   {
     id: 1,
     full_name: "Adam Hirzalla",
     img: "/images/male-avatar-img.png",
+    is_active: false,
   },
   {
     id: 3,
     full_name: "HyunSu Kim",
     img: "/images/male-avatar-img.png",
+    is_active: false,
   },
   {
     id: 2,
     full_name: "Jonathan Su",
     img: "/images/male-avatar-img.png",
+    is_active: false,
   },
   {
     id: 1,
     full_name: "Adam Hirzalla",
     img: "/images/male-avatar-img.png",
+    is_active: false,
   },
 ];
 
@@ -85,7 +91,7 @@ export default function Home() {
     logout(dispatch);
   };
   return (
-    <div className={classes.root}>
+    <DisBox type="homeWrapper">
       <ServerList
         className={classes.root}
         servers={app.servers}
@@ -97,19 +103,11 @@ export default function Home() {
           <div className={classes.rowTwo}>
             <FriendsList friendList={friendList} />
           </div>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "row",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <FriendProfile />
-          </Box>
+          <DisBox type="friendProfileWrapper">
+            <FriendProfile user={friendList[1]} />
+          </DisBox>
         </Box>
       </ServerList>
-    </div>
+    </DisBox>
   );
 }

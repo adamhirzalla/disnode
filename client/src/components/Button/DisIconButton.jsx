@@ -11,6 +11,7 @@ export default function DisIconButton(props) {
 
   const iconClass = classNames(classes.root, {
     [classes.home]: type === "home",
+    [classes.connections]: type === "connections",
   });
 
   return (

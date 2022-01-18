@@ -11,6 +11,34 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
   },
+  connections: {
+    display: "flex",
+    width: "100%",
+    justifyContent: "space-evenly",
+  },
+  displayColumn: {
+    display: "flex",
+    width: "100%",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    marginBottom: "1.5em",
+  },
+  homeWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: "100%",
+    width: "100%",
+    margin: "7em 0em",
+  },
+  friendProfileWrapper: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+    width: "100%",
+    height: "100%",
+  },
 }));
 
 export default function DisBox(props) {
@@ -24,6 +52,10 @@ export default function DisBox(props) {
   const boxClass = classNames(classes.root, {
     [classes.navBox]: type === "navBox",
     [classes.friendListBox]: type === "friendListBox",
+    [classes.connections]: type === "connections",
+    [classes.displayColumn]: type === "displayColumn",
+    [classes.friendProfileWrapper]: type === "friendProfileWrapper",
+    [classes.homeWrapper]: type === "homeWrapper",
   });
 
   return (
