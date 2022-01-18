@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { styled } from "@mui/material/styles";
 import { ChevronRight, ChevronLeft } from "@mui/icons-material";
 import { Box, IconButton, Drawer } from "@mui/material";
 import { useMemberListStyles } from "../styles/useMemberListStyles";
@@ -18,7 +17,7 @@ export default function MemberList({ socket }) {
   });
 
   const handleDrawerOpen = () => {
-    socket.emit("get online");
+    // socket.emit("get online");
     setOpen(true);
   };
   const handleDrawerClose = () => {

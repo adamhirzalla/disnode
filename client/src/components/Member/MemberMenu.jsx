@@ -9,6 +9,7 @@ const settings = ["Add Friend", "Assign Mod", "Assign Admin", "Kick Out"];
 export default function MemberMenu({ member }) {
   const [anchorUser, setAnchorUser] = useState(null);
 
+  // tartget a member that user clicks
   const handleClick = (e) => {
     setAnchorUser(e.currentTarget);
   };
