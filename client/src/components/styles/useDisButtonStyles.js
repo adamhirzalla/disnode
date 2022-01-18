@@ -2,7 +2,13 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 export const useDisButtonStyles = makeStyles((theme) =>
   createStyles({
-    root: { display: "flex", width: "100%", height: "100%" },
+    root: {
+      display: "flex",
+      width: "100%",
+      height: "100%",
+      paddingLeft: "15px",
+      paddingRight: "15px",
+    },
     submit: {
       color: "white",
       borderRadius: ".8em",
@@ -11,7 +17,7 @@ export const useDisButtonStyles = makeStyles((theme) =>
         backgroundColor: "#635c5b",
       },
     },
-    upload: {
+    create: {
       color: "white",
       borderRadius: ".8em",
       backgroundColor: "#7a211b",

@@ -1,4 +1,5 @@
-import { React } from "react";
+import { styled } from "@mui/material/styles";
+import ElipsesDropdown from "../ElipsesDropDown";
 import {
   ListItem,
   ListItemButton,
@@ -7,8 +8,6 @@ import {
   ListItemText,
   Badge,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import ElipsesDropdown from "../ElipsesDropDown";
 
 // styles
 import { useFriendsListItemStyles } from "../styles/useFriendListItemStyles";

@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import UploadButton from "./UploadButton";
 import Tags from "./Tags";
-import Avatar from "@mui/material/Avatar";
+import { useState } from "react";
 import { Alert } from "@mui/material";
+import UploadButton from "./UploadButton";
+import Avatar from "@mui/material/Avatar";
+import Dialog from "@mui/material/Dialog";
 import { IconButton } from "@mui/material";
 import DisButton from "../Button/DisButton";
 import DisTextField from "../Inputs/DisTextField";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 // styles
 import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";

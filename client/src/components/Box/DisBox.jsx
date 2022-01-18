@@ -1,4 +1,3 @@
-import React from "react";
 import { Box } from "@mui/system";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
@@ -59,12 +58,12 @@ export default function DisBox(props) {
   //dynamic classname
   const boxClass = classNames(classes.root, {
     [classes.navBox]: type === "navBox",
-    [classes.friendListBox]: type === "friendListBox",
+    [classes.friendsBar]: type === "friendsBar",
     [classes.connections]: type === "connections",
+    [classes.homeWrapper]: type === "homeWrapper",
+    [classes.friendListBox]: type === "friendListBox",
     [classes.displayColumn]: type === "displayColumn",
     [classes.friendProfileWrapper]: type === "friendProfileWrapper",
-    [classes.homeWrapper]: type === "homeWrapper",
-    [classes.friendsBar]: type === "friendsBar",
   });
 
   return (

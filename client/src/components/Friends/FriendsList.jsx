@@ -1,8 +1,7 @@
-import { React, useState } from "react";
+import DisBox from "../Box/DisBox";
+import SearchBar from "./SearchBar";
 import { List } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
-import SearchBar from "./SearchBar";
-import DisBox from "../Box/DisBox";
 
 // styles
 import { useFriendsListStyles } from "../styles/useFriendsListStyles";

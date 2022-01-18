@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import CustomButton from "../Button/DisButton";
+import DisButton from "../Button/DisButton";
 import ServerContext from "../../contexts/ServerContext";
 import { createChannel } from "../../network/channelApi";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -12,7 +12,6 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
-import DisButton from "../Button/DisButton";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
@@ -59,7 +58,6 @@ export default function NewChannelDialog() {
       <Button
         className={classes.addButton}
         disableRipple={true}
-        disablefocusripple
         onClick={handleClickOpen}
       >
         <AddCircleIcon fontSize="small" />
@@ -91,8 +89,16 @@ export default function NewChannelDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
-          <DisButton variant="contained" onClick={handleSubmit} name="Create" />
+          <DisButton
+            // variant="text "
+            type="cancel"
+            onClick={handleClose}
+          >
+            Cancel
+          </DisButton>
+          <DisButton type="submit" onClick={handleSubmit}>
+            Create
+          </DisButton>
         </DialogActions>
       </Dialog>
     </div>

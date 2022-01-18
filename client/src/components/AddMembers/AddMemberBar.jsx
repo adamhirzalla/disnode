@@ -35,7 +35,6 @@ export default function AddMemberBar(props) {
         <Button
           key={friend.id}
           disableRipple={true}
-          disablefocusripple
           color="inherit"
           onClick={() => addToChat(friend.id)}
         >

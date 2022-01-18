@@ -1,6 +1,5 @@
-import React from "react";
-import ForumIcon from "@mui/icons-material/Forum";
 import { IconButton } from "@mui/material";
+import ForumIcon from "@mui/icons-material/Forum";
 
 export default function ChatIconButton() {
   return (
