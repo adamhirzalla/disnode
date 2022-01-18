@@ -1,8 +1,9 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const useButtonStyles = makeStyles((theme) =>
+export const useDisButtonStyles = makeStyles((theme) =>
   createStyles({
-    contained: {
+    root: { display: "flex", width: "100%", height: "100%" },
+    submit: {
       color: "white",
       borderRadius: ".8em",
       backgroundColor: "#7a211b",
@@ -10,7 +11,15 @@ export const useButtonStyles = makeStyles((theme) =>
         backgroundColor: "#635c5b",
       },
     },
-    text: {
+    upload: {
+      color: "white",
+      borderRadius: ".8em",
+      backgroundColor: "#7a211b",
+      "&:hover": {
+        backgroundColor: "#635c5b",
+      },
+    },
+    cancel: {
       color: "#7a211b",
       borderRadius: ".8em",
       border: "1px solid #7a211b",

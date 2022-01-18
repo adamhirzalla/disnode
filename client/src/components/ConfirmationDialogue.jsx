@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import CustomButton from "./Button/CustomButton";
+import DisButton from "./Button/DisButton";
 
 // styles
 import { useConfirmationDialogStyles } from "./styles/useConfirmationDialogStyles";
@@ -39,12 +39,8 @@ export default function ConfirmationDialogue({ action, friendName }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
-          <CustomButton
-            variant="contained"
-            onClick={handleClose}
-            name="Confirm"
-          />
+          <DisButton variant="text" onClick={handleClose} name="Cancel" />
+          <DisButton variant="contained" onClick={handleClose} name="Confirm" />
         </DialogActions>
       </Dialog>
     </div>

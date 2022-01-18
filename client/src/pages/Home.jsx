@@ -8,9 +8,9 @@ import sio from "../socket/index";
 import FriendsList from "../components/Friends/FriendsList";
 import { Box } from "@mui/system";
 import { Typography, Avatar, Icon, IconButton } from "@mui/material";
-import CustomButton from "../components/Button/CustomButton";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+
 import HomeNav from "../components/Navbar/HomeNav";
+import DisButton from "../components/Button/DisButton";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
@@ -97,6 +97,7 @@ export default function Home() {
             <FriendsList friendList={friendList} />
           </div>
         </Box>
+        <DisButton type="submit">Hello</DisButton>
       </ServerList>
     </div>
   );

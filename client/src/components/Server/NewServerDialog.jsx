@@ -5,13 +5,13 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import CustomButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import UploadButton from "./UploadButton";
 import Tags from "./Tags";
 import Avatar from "@mui/material/Avatar";
 import { Alert } from "@mui/material";
 import { IconButton } from "@mui/material";
+import DisButton from "../Button/DisButton";
 
 // styles
 import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
@@ -89,8 +89,8 @@ export default function NewServerDialog({ onClick: addServer }) {
           <Tags setTags={setTags} />
         </DialogContent>
         <DialogActions>
-          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
-          <CustomButton variant="contained" onClick={handleAdd} name="Create" />
+          <DisButton variant="text" onClick={handleClose} name="Cancel" />
+          <DisButton variant="contained" onClick={handleAdd} name="Create" />
         </DialogActions>
         {error && <Alert severity="error">{error}</Alert>}
       </Dialog>

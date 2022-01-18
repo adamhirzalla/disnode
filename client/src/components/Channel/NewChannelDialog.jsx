@@ -1,22 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-=======
 import { useContext, useState } from "react";
-import ContainedButton from "../Button/CustomButton";
+import CustomButton from "../Button/DisButton";
 import ServerContext from "../../contexts/ServerContext";
 import { createChannel } from "../../network/channelApi";
->>>>>>> master
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
-<<<<<<< HEAD
-import CustomButton from "../Button/CustomButton";
-=======
 import {
   Button,
   TextField,
@@ -25,7 +12,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@mui/material";
->>>>>>> master
+import DisButton from "../Button/DisButton";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
@@ -105,11 +92,7 @@ export default function NewChannelDialog() {
         </DialogContent>
         <DialogActions>
           <CustomButton variant="text" onClick={handleClose} name="Cancel" />
-          <CustomButton
-            variant="contained"
-            onClick={handleSubmit}
-            name="Create"
-          />
+          <DisButton variant="contained" onClick={handleSubmit} name="Create" />
         </DialogActions>
       </Dialog>
     </div>
