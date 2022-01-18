@@ -1,17 +1,16 @@
+import Tags from "./Tags";
 import { useState } from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
+import { Alert } from "@mui/material";
+import UploadButton from "./UploadButton";
+import Avatar from "@mui/material/Avatar";
 import Dialog from "@mui/material/Dialog";
+import { IconButton } from "@mui/material";
+import DisButton from "../Button/DisButton";
+import DisTextField from "../Inputs/DisTextField";
+import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import CustomButton from "../Button/CustomButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import UploadButton from "./UploadButton";
-import Tags from "./Tags";
-import Avatar from "@mui/material/Avatar";
-import { Alert } from "@mui/material";
-import { IconButton } from "@mui/material";
 
 // styles
 import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
@@ -44,12 +43,7 @@ export default function NewServerDialog({ onClick: addServer }) {
   };
   return (
     <div>
-      <IconButton
-        className={classes.addButton}
-        disableRipple
-        disableFocusRipple
-        onClick={handleClickOpen}
-      >
+      <IconButton className={classes.addButton} onClick={handleClickOpen}>
         <AddCircleIcon fontSize="large" />
       </IconButton>
 
@@ -77,25 +71,24 @@ export default function NewServerDialog({ onClick: addServer }) {
             />
           </div>
           <UploadButton />
-          <TextField
+          <DisTextField
             autoFocus
-            margin="normal"
             multiline
-            id="title"
             type="text"
             fullWidth
-            variant="standard"
+            variant="outlined"
             placeholder="Title"
             onChange={handleChange}
-            InputProps={{
-              className: classes.root,
-            }}
           />
           <Tags setTags={setTags} />
         </DialogContent>
         <DialogActions>
-          <CustomButton variant="text" onClick={handleClose} name="Cancel" />
-          <CustomButton variant="contained" onClick={handleAdd} name="Create" />
+          <DisButton type="cancel" onClick={handleClose}>
+            Cancel
+          </DisButton>
+          <DisButton type="create" onClick={handleAdd}>
+            Create
+          </DisButton>
         </DialogActions>
         {error && <Alert severity="error">{error}</Alert>}
       </Dialog>

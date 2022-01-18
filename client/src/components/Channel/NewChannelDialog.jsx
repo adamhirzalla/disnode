@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import ContainedButton from "../Button/CustomButton";
+import DisButton from "../Button/DisButton";
 import ServerContext from "../../contexts/ServerContext";
 import { createChannel } from "../../network/channelApi";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -57,8 +57,7 @@ export default function NewChannelDialog() {
     <div>
       <Button
         className={classes.addButton}
-        disableRipple
-        disableFocusRipple
+        disableRipple={true}
         onClick={handleClickOpen}
       >
         <AddCircleIcon fontSize="small" />
@@ -90,12 +89,16 @@ export default function NewChannelDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <ContainedButton variant="text" onClick={handleClose} name="Cancel" />
-          <ContainedButton
-            variant="contained"
-            onClick={handleSubmit}
-            name="Create"
-          />
+          <DisButton
+            // variant="text "
+            type="cancel"
+            onClick={handleClose}
+          >
+            Cancel
+          </DisButton>
+          <DisButton type="submit" onClick={handleSubmit}>
+            Create
+          </DisButton>
         </DialogActions>
       </Dialog>
     </div>

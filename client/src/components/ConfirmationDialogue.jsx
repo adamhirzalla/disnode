@@ -1,13 +1,18 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import DisButton from "./Button/DisButton";
 
-export default function ConfirmationDialogue() {
-  const [open, setOpen] = React.useState(false);
+// styles
+import { useConfirmationDialogStyles } from "./styles/useConfirmationDialogStyles";
+
+export default function ConfirmationDialogue({ action, friendName }) {
+  const classes = useConfirmationDialogStyles();
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -19,29 +24,23 @@ export default function ConfirmationDialogue() {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
+      <Button
+        className={classes.dropDown}
+        variant="outlined"
+        onClick={handleClickOpen}
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
+        {action}
+      </Button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{"Removing..."}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending
-            anonymous location data to Google, even when no apps are running.
+          <DialogContentText>
+            Are you sure you want to remove {friendName} from your Friends?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
+          <DisButton variant="text" onClick={handleClose} name="Cancel" />
+          <DisButton variant="contained" onClick={handleClose} name="Confirm" />
         </DialogActions>
       </Dialog>
     </div>

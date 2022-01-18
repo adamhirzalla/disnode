@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { Box, Avatar, Typography, Grid, List, IconButton } from "@mui/material";
-import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles";
 import moment from "moment";
+import { useEffect } from "react";
+import { Box, Avatar, Typography, Grid, List } from "@mui/material";
+import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles";
 
 export default function MessageListItem(props) {
   const classes = useMessageListItemStyles();
