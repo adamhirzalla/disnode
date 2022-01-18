@@ -1,10 +1,7 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Avatar, Box } from "@mui/material";
+import { Avatar } from "@mui/material";
 import FriendProfileItems from "./FriendProfileItems";
 import SteamSvg from "../SvgIcons/SteamSvg";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
@@ -31,6 +28,11 @@ const useStyles = makeStyles(() => ({
     paddingTop: "1em",
     minWidth: 500,
     minHeight: 600,
+    marginTop: "8em",
+  },
+  avatar: {
+    width: "5em",
+    height: "5em",
   },
 }));
 
@@ -51,7 +53,7 @@ export default function FriendProfile(props) {
 
   return (
     <Card className={classes.card}>
-      <Avatar alt={user.full_name} src={user.img} />
+      <Avatar alt={user.full_name} src={user.img} className={classes.avatar} />
       <DisBox type="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography

@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchBar() {
   const classes = useSearchBarStyles();
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <DisBox component="form" type="friendsBar">
         <Toolbar
           sx={{

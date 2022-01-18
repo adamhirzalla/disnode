@@ -9,6 +9,7 @@ export const useFriendsListItemStyles = makeStyles((theme) =>
     list: {
       display: "flex",
       justifyContent: "space-evenly",
+      height: "5em",
     },
     text: {
       display: "flex",

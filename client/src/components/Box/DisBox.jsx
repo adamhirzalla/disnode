@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     height: "100%",
     width: "100%",
-    margin: ".8em 0em",
+    margin: "1em 0em",
   },
   friendProfileWrapper: {
     display: "flex",

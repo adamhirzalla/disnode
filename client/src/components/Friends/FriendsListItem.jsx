@@ -58,7 +58,7 @@ export default function FriendsListItem({ id, name, img, labelId, variant }) {
             variant={variant}
             sx={{ "& .MuiBadge-badge": { right: 43 } }}
           >
-            <Avatar alt={name} src={img} />
+            <Avatar alt={name} src={img} className={classes.avatar} />
           </StyledBadge>
         </ListItemAvatar>
         <ListItemText className={classes.text} id={labelId} primary={name} />
