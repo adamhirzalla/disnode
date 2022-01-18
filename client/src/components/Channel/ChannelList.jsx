@@ -8,27 +8,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListStyles";
 
-const mockChannels = [
-  {
-    id: 1,
-    title: "Welcome",
-  },
-  {
-    id: 2,
-    title: "Duos",
-  },
-  {
-    id: 3,
-    title: "Trios",
-  },
-  {
-    id: 4,
-    title: "LFG",
-  },
-];
-
 export default function ChannelList({ children }) {
-  const [open, setOpen] = useState(true);
   const classes = useChannelListStyles();
 
   const {

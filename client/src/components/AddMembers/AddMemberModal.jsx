@@ -16,8 +16,7 @@ export default function AddMemberModal(props) {
     <div>
       <Button
         className={classes.addButton}
-        disableRipple
-        disableFocusRipple
+        disableRipple={true}
         onClick={handleOpen}
       >
         {props.icon}
