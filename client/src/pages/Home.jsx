@@ -15,22 +15,26 @@ import DisButton from "../components/Button/DisButton";
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
 import DisImg from "../components/Image/DisImg";
+import FriendProfile from "../components/Friends/FriendProfile";
 
 const friendList = [
   {
     id: 3,
     full_name: "HyunSu Kim",
     img: "/images/male-avatar-img.png",
+    is_active: true,
   },
   {
     id: 2,
     full_name: "Jonathan Su",
     img: "/images/male-avatar-img.png",
+    is_active: true,
   },
   {
     id: 1,
     full_name: "Adam Hirzalla",
     img: "/images/male-avatar-img.png",
+    is_active: true,
   },
   {
     id: 3,
@@ -89,14 +93,21 @@ export default function Home() {
         user={state.user}
         setServer={setServer}
       >
-        <Box sx={{ width: "100%", height: "100%" }}>
-          <HomeNav
-            full_name={state.user.full_name}
-            img="/images/male-avatar-img.png"
-          />
+        <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
           <div className={classes.rowTwo}>
             <FriendsList friendList={friendList} />
           </div>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "row",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <FriendProfile />
+          </Box>
         </Box>
       </ServerList>
     </div>

@@ -1,31 +1,14 @@
 import { React, useState } from "react";
-import { Box } from "@mui/system";
-import { AppBar, List, Typography } from "@mui/material";
+import { List } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
+import SearchBar from "./SearchBar";
+import DisBox from "../Box/DisBox";
 
 // styles
 import { useFriendsListStyles } from "../styles/useFriendsListStyles";
-import SearchBar from "./SearchBar";
 
 export default function FriendsList({ friendList }) {
   const classes = useFriendsListStyles();
-
-  // useState
-  const [checked, setChecked] = useState([1]);
-
-  // func
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
 
   // parses friends list for friend list items
   const parsedFriendList = friendList.map((friend) => {
@@ -37,14 +20,15 @@ export default function FriendsList({ friendList }) {
         labelId={labelId}
         id={friend.id}
         img={friend.img}
+        variant={friend.is_active ? "dot" : "standard"}
       />
     );
   });
 
   return (
-    <Box className={classes.box}>
+    <DisBox type="friendListBox">
       <SearchBar></SearchBar>
       <List className={classes.list}>{parsedFriendList}</List>
-    </Box>
+    </DisBox>
   );
 }
