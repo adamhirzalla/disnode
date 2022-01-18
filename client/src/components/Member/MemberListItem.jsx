@@ -4,7 +4,7 @@ import {
   ListItemText,
   ListItem,
   Container,
-  IconButton,
+  Box,
 } from "@mui/material";
 import {
   useMemberListItemStyles,
@@ -27,13 +27,8 @@ export default function MemberListItem({ member, open, handleDrawerOpen }) {
       <Typography className={classes.role} variant="button">
         {member.role}
       </Typography>
-      <IconButton className={classes.memberIcon}>
-        <ListItem
-          disableGutters
-          className={memberListClass}
-          open={open}
-          onClick={handleDrawerOpen}
-        >
+      <Box className={classes.memberIcon} onClick={handleDrawerOpen}>
+        <ListItem disableGutters className={memberListClass} open={open}>
           <StyledBadge
             className={badgeClass}
             overlap="circular"
@@ -46,7 +41,7 @@ export default function MemberListItem({ member, open, handleDrawerOpen }) {
           <ListItemText primary={member.nickname} open={open} />
           {open && <MemberMenu member={member} />}
         </ListItem>
-      </IconButton>
+      </Box>
     </Container>
   );
 }

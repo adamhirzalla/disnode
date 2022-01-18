@@ -37,7 +37,7 @@ export default function MemberMenu({ member }) {
           vertical: "top",
           horizontal: "right",
         }}
-        open={anchorUser}
+        open={Boolean(anchorUser)}
         onClose={handleClose}
       >
         {settings.map((setting, i) => (
