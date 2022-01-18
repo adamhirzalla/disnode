@@ -14,6 +14,7 @@ import DisButton from "../components/Button/DisButton";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
+import DisImg from "../components/Image/DisImg";
 
 const friendList = [
   {
@@ -97,7 +98,7 @@ export default function Home() {
             <FriendsList friendList={friendList} />
           </div>
         </Box>
-        <DisButton type="submit">Hello</DisButton>
+        <DisImg type="home" url="/images/Disnode-red.png" />
       </ServerList>
     </div>
   );

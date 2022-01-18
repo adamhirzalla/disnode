@@ -62,7 +62,7 @@ export default function ServerList(props) {
     <Box className={classes.box}>
       <CssBaseline />
       <Drawer className={classes.serverList} variant="permanent" anchor="left">
-        <IconButton title="Home" onClick={() => handleHomeClick(socket)}>
+        <IconButton type="home" onClick={() => handleHomeClick(socket)}>
           <img alt="Home" src="/images/Disnode-red.png" width="70px" />
         </IconButton>
         <Divider className={classes.divider} />
