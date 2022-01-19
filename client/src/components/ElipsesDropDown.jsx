@@ -45,20 +45,15 @@ const useStyles = makeStyles(() => ({
 export default function ElipsesDropdown(props) {
   const classes = useStyles();
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const { name, key } = props;
+  const [anchorElUser, setAnchorElUser] = useState(false);
+  const { friend, setFriend } = props;
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setAnchorElUser(false);
   };
 
   return (
@@ -86,15 +81,16 @@ export default function ElipsesDropdown(props) {
           vertical: "top",
           horizontal: "left",
         }}
-        open={Boolean(anchorElUser)}
+        open={anchorElUser}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem
-          className={classes.menuItem}
-          key={key}
-          onClick={handleCloseNavMenu}
-        >
-          <ConfirmationDialogue action="Remove Friend" friendName={name} />
+        <MenuItem className={classes.menuItem}>
+          <ConfirmationDialogue
+            action="Remove Friend"
+            setFriend={setFriend}
+            friend={friend}
+            setAnchorElUser={setAnchorElUser}
+          />
         </MenuItem>
       </Menu>
     </Box>

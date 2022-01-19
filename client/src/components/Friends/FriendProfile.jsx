@@ -45,7 +45,7 @@ const connectionsIcons = [
 ];
 
 export default function FriendProfile(props) {
-  const { user, children } = props;
+  const { friend, children } = props;
   const classes = useStyles();
 
   const icons = connectionsIcons.map((icon) => {
@@ -54,7 +54,11 @@ export default function FriendProfile(props) {
 
   return (
     <Card className={classes.card}>
-      <Avatar alt={user.full_name} src={user.img} className={classes.avatar} />
+      <Avatar
+        alt={friend.full_name}
+        src={friend.img}
+        className={classes.avatar}
+      />
       <DisBox type="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography
@@ -63,13 +67,13 @@ export default function FriendProfile(props) {
             variant="h5"
             component="div"
           >
-            {user.username}
+            {friend.username}
           </DisTypography>
           <DisTypography gutterBottom variant="h7" component="div">
-            {user.full_name}
+            {friend.full_name}
           </DisTypography>
           <DisTypography type="bio" variant="body1" color="text.secondary">
-            {user.bio}
+            {friend.bio}
           </DisTypography>
         </CardContent>
         <CardActions className={classes.cardAction}>

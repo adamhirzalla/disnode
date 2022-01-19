@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -7,7 +7,7 @@ import { makeStyles } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import FriendProfileDialog from "./FriendProfileDialog";
+import FriendList from "./FriendList";
 
 const drawerWidth = 550;
 
@@ -58,7 +58,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
 export default function FriendsListDrawer(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,7 +116,7 @@ export default function FriendsListDrawer(props) {
           >
             <ChevronLeftIcon />
           </IconButton>
-          <FriendProfileDialog />
+          <FriendList />
         </Box>
       </Drawer>
 

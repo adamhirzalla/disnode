@@ -32,37 +32,37 @@ const friendList = [
     is_active: true,
   },
   {
-    id: 3,
+    id: 4,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
   },
   {
-    id: 2,
+    id: 5,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: true,
   },
   {
-    id: 1,
+    id: 6,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 3,
+    id: 7,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: false,
   },
   {
-    id: 2,
+    id: 8,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: false,
   },
   {
-    id: 1,
+    id: 9,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
@@ -71,51 +71,6 @@ const friendList = [
 
 // styles
 const useStyles = makeStyles(() => ({
-  addButton: {
-    color: "black",
-    backgroundColor: "inherit",
-    "&:hover": {
-      color: "gray",
-      backgroundColor: "inherit",
-    },
-  },
-  root: {
-    color: "#FFFFFF",
-    "& .MuiInputBase-root": {
-      color: "#FFF",
-      textAlign: "center",
-    },
-  },
-  content: {
-    color: "#FFFFFF",
-    padding: "0 0",
-  },
-  dialogPaper: {
-    display: "flex",
-    alignItems: "center",
-    borderRadius: "2em",
-    backgroundColor: "#040B0C",
-    color: "#FFFFFF",
-    textAlign: "center",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-  },
-  dialogTitle: { padding: "0 0", margin: "0 0" },
-  dialog: { padding: "0 0", margin: "0 0" },
-  avatar: {
-    width: "5em",
-    height: "5em",
-  },
-  dialogActions: { flexDirection: "row", justifyContent: "center" },
-  closeDialog: {
-    color: "white",
-    borderRadius: ".8em",
-    backgroundColor: "#7a211b",
-    width: "20%",
-    "&:hover": {
-      background: "rgb(179, 2, 2, 0.5)",
-    },
-  },
   list: {
     width: "100%",
     maxWidth: "360",
@@ -123,10 +78,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function FriendProfileDialog(props) {
+export default function FriendList(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [friend, setFriend] = useState("");
+  const [friend, setFriend] = useState(null);
   const {
     app: { server },
   } = useContext(ServerContext);
@@ -138,27 +93,17 @@ export default function FriendProfileDialog(props) {
 
   const handleClickOpen = () => {
     setOpen((prev) => true);
-    handleFriendClick();
+    // handleFriendClick();
   };
 
   const handleClose = () => {
     setOpen((prev) => false);
-    setFriend((prev) => "");
+    setFriend((prev) => null);
   };
 
   const parsedFriendList = friendList.map((friend) => {
-    const labelId = `label-${friend.id}`;
     return (
-      <FriendsListItem
-        className={classes.listItem}
-        name={friend.full_name}
-        labelId={labelId}
-        id={friend.id}
-        img={friend.img}
-        variant={friend.is_active ? "dot" : "standard"}
-        onClick={handleClickOpen}
-        // setFriend={setFriend}
-      />
+      <FriendsListItem key={friend.id} friend={friend} setFriend={setFriend} />
     );
   });
 
@@ -168,20 +113,6 @@ export default function FriendProfileDialog(props) {
         <SearchBar></SearchBar>
         <List className={classes.list}>{parsedFriendList}</List>
       </DisBox>
-      <Dialog
-        className={classes.dialog}
-        classes={{ paper: classes.dialogPaper }}
-        open={open}
-        onClose={handleClose}
-      >
-        <FriendProfile user={friendList[1]}>
-          <DialogActions className={classes.dialogActions}>
-            <Button className={classes.closeDialog} onClick={handleClose}>
-              close
-            </Button>
-          </DialogActions>
-        </FriendProfile>
-      </Dialog>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { styled } from "@mui/material/styles";
 import ElipsesDropdown from "../ElipsesDropDown";
 import {
@@ -7,8 +8,12 @@ import {
   Avatar,
   ListItemText,
   Badge,
+  Button,
+  Dialog,
+  DialogActions,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import FriendProfile from "./FriendProfile";
 
 // styles
 const useStyles = makeStyles(() => ({
@@ -28,6 +33,47 @@ const useStyles = makeStyles(() => ({
   listItem: {
     "&:hover": {
       borderRadius: ".5em",
+    },
+  },
+  addButton: {
+    color: "black",
+    backgroundColor: "inherit",
+    "&:hover": {
+      color: "gray",
+      backgroundColor: "inherit",
+    },
+  },
+  root: {
+    color: "#FFFFFF",
+    "& .MuiInputBase-root": {
+      color: "#FFF",
+      textAlign: "center",
+    },
+  },
+  content: {
+    color: "#FFFFFF",
+    padding: "0 0",
+  },
+  dialogPaper: {
+    display: "flex",
+    alignItems: "center",
+    borderRadius: "2em",
+    backgroundColor: "#040B0C",
+    color: "#FFFFFF",
+    textAlign: "center",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+  },
+  dialogTitle: { padding: "0 0", margin: "0 0" },
+  dialog: { padding: "0 0", margin: "0 0" },
+  dialogActions: { flexDirection: "row", justifyContent: "center" },
+  closeDialog: {
+    color: "white",
+    borderRadius: ".8em",
+    backgroundColor: "#7a211b",
+    width: "20%",
+    "&:hover": {
+      background: "rgb(179, 2, 2, 0.5)",
     },
   },
 }));
@@ -64,30 +110,29 @@ const StyledBadge = styled(Badge)(({ theme, open }) => ({
   },
 }));
 
-export default function FriendsListItem({
-  id,
-  name,
-  img,
-  labelId,
-  variant,
-  onClick,
-  setFriend,
-}) {
+export default function FriendsListItem({ setFriend, friend }) {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+    setFriend(friend);
+  };
 
   return (
     <ListItem
-      key={id}
       className={classes.listItem}
-      secondaryAction={<ElipsesDropdown name={name} key={id} />}
+      secondaryAction={
+        <ElipsesDropdown friend={friend} setFriend={setFriend} />
+      }
       disablePadding
     >
-      <ListItemButton className={classes.list} onClick={onClick}>
+      <ListItemButton className={classes.list} onClick={handleOpen}>
         <ListItemAvatar>
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant={variant}
+            variant={friend.is_active ? "dot" : "standard"}
             sx={{
               "& .MuiBadge-badge": {
                 right: 10,
@@ -97,11 +142,32 @@ export default function FriendsListItem({
               },
             }}
           >
-            <Avatar alt={name} src={img} className={classes.avatar} />
+            <Avatar
+              alt={friend.name}
+              src={friend.img}
+              className={classes.avatar}
+            />
           </StyledBadge>
         </ListItemAvatar>
-        <ListItemText className={classes.text} id={labelId} primary={name} />
+        <ListItemText className={classes.text} primary={friend.full_name} />
       </ListItemButton>
+      <Dialog
+        className={classes.dialog}
+        classes={{ paper: classes.dialogPaper }}
+        open={open}
+        onClose={() => setOpen(false)}
+      >
+        <FriendProfile friend={friend}>
+          <DialogActions className={classes.dialogActions}>
+            <Button
+              className={classes.closeDialog}
+              onClick={() => setOpen(false)}
+            >
+              close
+            </Button>
+          </DialogActions>
+        </FriendProfile>
+      </Dialog>
     </ListItem>
   );
 }
