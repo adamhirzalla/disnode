@@ -25,22 +25,26 @@ import FriendsListDrawer from "../Friends/FriendsListDrawer";
 const useStyles = makeStyles(() => ({
   navHome: {
     position: "sticky",
-    top: "-8px",
+    top: "0px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
+    height: "78px",
   },
   navCreate: {
     justifyContent: "center",
     position: "sticky",
-    bottom: "48px",
+    bottom: "55px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
+    height: "55px",
   },
   navSearch: {
     justifyContent: "center",
     position: "sticky",
-    bottom: "-5px",
+    bottom: "0px",
     zIndex: 1300,
+    backgroundColor: "#040B0C",
+    height: "55px",
   },
 }));
 
