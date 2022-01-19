@@ -52,11 +52,12 @@ export default function Test() {
     >
       <ServerList socket={sio.current} user={state.user}>
         {app.server && (
-          <ChannelList>
-            <MessageList>
-              <MemberList socket={sio.current} />
-            </MessageList>
-          </ChannelList>
+          <>
+            <ChannelList>
+              <MessageList />
+            </ChannelList>
+            <MemberList socket={sio.current} />
+          </>
         )}
       </ServerList>
     </div>

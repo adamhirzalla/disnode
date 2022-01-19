@@ -27,7 +27,5 @@ export const useChannelListStyles = makeStyles((theme) =>
         width: "100%",
       },
     },
-    box: { display: "flex", width: "100%" },
-    div: { width: "80%" },
   })
 );
