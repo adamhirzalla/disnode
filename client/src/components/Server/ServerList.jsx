@@ -20,25 +20,26 @@ import { HOME } from "../../utils/constants";
 import classNames from "classnames";
 import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 import { makeStyles } from "@mui/styles";
+import FriendsListDrawer from "../Friends/FriendsListDrawer";
 
 const useStyles = makeStyles(() => ({
   navHome: {
     position: "sticky",
-    top: "-15px",
+    top: "-8px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
   },
   navCreate: {
     justifyContent: "center",
     position: "sticky",
-    bottom: "35px",
+    bottom: "48px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
   },
   navSearch: {
     justifyContent: "center",
     position: "sticky",
-    bottom: "-8px",
+    bottom: "-5px",
     zIndex: 1300,
   },
 }));

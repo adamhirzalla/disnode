@@ -9,7 +9,7 @@ export const useDisDividerStyles = makeStyles((theme) =>
       height: ".2em",
       backgroundColor: "#FFFFFF",
       position: "sticky",
-      top: "82px",
+      top: "87px",
       zIndex: 1300,
     },
     botNav: {
@@ -18,7 +18,7 @@ export const useDisDividerStyles = makeStyles((theme) =>
       height: ".2em",
       backgroundColor: "#FFFFFF",
       position: "sticky",
-      bottom: "106px",
+      bottom: "120px",
       zIndex: 1300,
     },
   })

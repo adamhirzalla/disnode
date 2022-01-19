@@ -59,7 +59,7 @@ export default function MessageForm() {
         type="text"
         maxRows="3"
         variant="standard"
-        placeholder="Message"
+        placeholder={`Message #${channel.title}`}
         multiline
         required
         InputProps={{ className: classes.input }}
