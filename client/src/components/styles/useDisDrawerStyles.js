@@ -11,6 +11,7 @@ export const useDisDrawerStyles = makeStyles((theme) =>
       width: "125px",
       flexShrink: 0,
       "& .MuiDrawer-paper": {
+        overflowX: "hidden",
         width: "122px",
         boxSizing: "border-box",
         display: "flex",

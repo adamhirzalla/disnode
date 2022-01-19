@@ -27,6 +27,29 @@ import {
 import { HOME } from "../../utils/constants";
 import classNames from "classnames";
 import { useServerListItemStyles } from "../styles/useServerListItemStyles";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  navHome: {
+    position: "sticky",
+    top: "-15px",
+    zIndex: 1300,
+    backgroundColor: "#040B0C",
+  },
+  navCreate: {
+    justifyContent: "center",
+    position: "sticky",
+    bottom: "35px",
+    zIndex: 1300,
+    backgroundColor: "#040B0C",
+  },
+  navSearch: {
+    justifyContent: "center",
+    position: "sticky",
+    bottom: "-8px",
+    zIndex: 1300,
+  },
+}));
 
 export default function ServerList(props) {
   const { socket, user, children } = props;
@@ -73,6 +96,7 @@ export default function ServerList(props) {
   //   socket?.emit("connection", socket.id, user.display_name);
   // }, []);
   const iconClasses = useDisIconButtonStyles();
+  const classes = useStyles();
   const homeIconClass = classNames(iconClasses.home, {
     [iconClasses.selected]: mode === HOME,
   });
@@ -81,7 +105,12 @@ export default function ServerList(props) {
       {/* <CssBaseline /> */}
       <DisDrawer disStyle="nav" variant="permanent" anchor="left">
         <List>
-          <Tooltip title={"Home"} arrow placement="right">
+          <Tooltip
+            title={"Home"}
+            arrow
+            placement="right"
+            className={classes.navHome}
+          >
             <ListItem>
               <IconButton
                 className={homeIconClass}
@@ -98,16 +127,16 @@ export default function ServerList(props) {
             </ListItem>
           </Tooltip>
 
-          <DisDivider disStyle="home" />
+          <DisDivider disStyle="nav-top" />
           {parsedServers}
 
           {!loading && (
             <>
-              <DisDivider disStyle="home" />
-              <ListItem sx={{ justifyContent: "center" }}>
+              <DisDivider disStyle="nav-bot" />
+              <ListItem className={classes.navCreate}>
                 <NewServerDialog onClick={handleCreate} />
               </ListItem>
-              <ListItem sx={{ justifyContent: "center" }}>
+              <ListItem className={classes.navSearch}>
                 <SearchServerDialog />
               </ListItem>
             </>

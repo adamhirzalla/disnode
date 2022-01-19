@@ -14,7 +14,8 @@ export default function DisDivider(props) {
 
   //dynamic classname
   const dividerClass = classNames(classes.root, {
-    [classes.serverList]: disStyle === "home",
+    [classes.topNav]: disStyle === "nav-top",
+    [classes.botNav]: disStyle === "nav-bot",
   });
 
   return <Divider className={dividerClass} />;
