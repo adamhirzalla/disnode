@@ -69,7 +69,7 @@ export default function ElipsesDropdown(props) {
           vertical: "top",
           horizontal: "left",
         }}
-        open={anchorElUser}
+        open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
         <MenuItem className={classes.menuItem}>
