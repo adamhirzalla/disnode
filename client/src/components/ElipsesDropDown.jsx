@@ -1,52 +1,102 @@
 import { React, useState } from "react";
-import Popover from "@mui/material/Popover";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import { IconButton, Button, ListItemButton, ListItem } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import {
+  IconButton,
+  Menu,
+  Tooltip,
+  Avatar,
+  Button,
+  ListItemButton,
+  ListItem,
+  Box,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import ConfirmationDialogue from "./ConfirmationDialogue";
 
-import { useElipsesDropDownStyles } from "./styles/useElipsesDropDownStyles";
+// styles
+const useStyles = makeStyles(() => ({
+  contained: {
+    listButton: "black",
+    borderRadius: ".8em",
+    backgroundColor: "inherit",
+    "&:hover": {
+      backgroundColor: "inherit",
+    },
+    left: "1em",
+  },
+  icon: {
+    backgroundColor: "inherit",
+    height: "2em",
+    width: "2em",
+    "&:hover": {
+      color: "rgb(204, 180, 180, 1)",
+      backgroundColor: "inherit",
+    },
+  },
+  menuItem: {
+    padding: "0px",
+    margin: "0",
+  },
+}));
 
-export default function ElipsesDropdown() {
-  const classes = useElipsesDropDownStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+export default function ElipsesDropdown(props) {
+  const classes = useStyles();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { name, key } = props;
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
-  const open = Boolean(anchorEl);
-  const id = open ? "options-popover" : undefined;
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   return (
-    <>
-      <ListItemButton
-        disableRipple={true}
-        className={classes.contained}
-        onClick={handleClick}
-      >
-        <IconButton disableRipple className={classes.icon}>
+    <Box sx={{ flexGrow: 0 }}>
+      <Tooltip title="Options">
+        <IconButton
+          className={classes.icon}
+          onClick={handleOpenUserMenu}
+          disableRipple={true}
+          disableFocusRipple
+        >
           <FontAwesomeIcon icon={faEllipsisV} />
         </IconButton>
-      </ListItemButton>
-
-      <Popover
-        className={classes.popover}
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
+      </Tooltip>
+      <Menu
+        sx={{ marginLeft: "1em", mt: "1em", padding: "0px" }}
+        id="menu-appbar"
+        anchorEl={anchorElUser}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
         }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
       >
-        <ConfirmationDialogue action="Remove Friend" friendName="Jason" />
-      </Popover>
-    </>
+        <MenuItem
+          className={classes.menuItem}
+          key={key}
+          onClick={handleCloseNavMenu}
+        >
+          <ConfirmationDialogue action="Remove Friend" friendName={name} />
+        </MenuItem>
+      </Menu>
+    </Box>
   );
 }

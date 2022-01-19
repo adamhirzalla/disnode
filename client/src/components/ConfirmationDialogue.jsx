@@ -5,13 +5,15 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DisButton from "./Button/DisButton";
 
 // styles
 import { useConfirmationDialogStyles } from "./styles/useConfirmationDialogStyles";
+import { useDisButtonStyles } from "./styles/useDisButtonStyles";
 
 export default function ConfirmationDialogue({ action, friendName }) {
   const classes = useConfirmationDialogStyles();
+  const buttonClasses = useDisButtonStyles();
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -39,8 +41,20 @@ export default function ConfirmationDialogue({ action, friendName }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <DisButton variant="text" onClick={handleClose} name="Cancel" />
-          <DisButton variant="contained" onClick={handleClose} name="Confirm" />
+          <Button
+            variant="text"
+            className={buttonClasses.cancel}
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            className={buttonClasses.submit}
+            onClick={handleClose}
+          >
+            Confirm
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

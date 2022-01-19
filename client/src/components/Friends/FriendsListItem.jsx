@@ -25,6 +25,11 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     justifyContent: "center",
   },
+  listItem: {
+    "&:hover": {
+      borderRadius: ".5em",
+    },
+  },
 }));
 
 const StyledBadge = styled(Badge)(({ theme, open }) => ({
@@ -71,7 +76,12 @@ export default function FriendsListItem({
   const classes = useStyles();
 
   return (
-    <ListItem key={id} secondaryAction={<ElipsesDropdown />} disablePadding>
+    <ListItem
+      key={id}
+      className={classes.listItem}
+      secondaryAction={<ElipsesDropdown name={name} key={id} />}
+      disablePadding
+    >
       <ListItemButton className={classes.list} onClick={onClick}>
         <ListItemAvatar>
           <StyledBadge

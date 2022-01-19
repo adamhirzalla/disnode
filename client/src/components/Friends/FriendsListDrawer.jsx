@@ -13,6 +13,10 @@ const drawerWidth = 550;
 
 // styles
 const useStyles = makeStyles(() => ({
+  drawerWrapper: {
+    display: "flex",
+    overflowX: "hidden",
+  },
   friendListWrapper: {
     display: "flex",
     justifyContent: "flex-start",
@@ -21,13 +25,13 @@ const useStyles = makeStyles(() => ({
   },
   friendListOpenIcon: {
     "&:hover": {
-      color: "rgb(99, 55, 62, 0.5)",
+      color: "rgb(204, 180, 180, 1)",
       backgroundColor: "inherit",
     },
   },
   friendListCloseIcon: {
     "&:hover": {
-      color: "rgb(99, 55, 62, 0.5)",
+      color: "rgb(204, 180, 180, 1)",
       backgroundColor: "inherit",
     },
   },
@@ -65,7 +69,7 @@ export default function FriendsListDrawer(props) {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box className={classes.drawerWrapper}>
       <CssBaseline />
       <IconButton
         className={classes.friendListOpenIcon}
@@ -75,7 +79,7 @@ export default function FriendsListDrawer(props) {
         aria-label="open drawer"
         onClick={handleDrawerOpen}
         edge="start"
-        sx={{ mr: 2, ...(open && { display: "none" }) }}
+        sx={{ ml: 2, ...(open && { display: "none" }) }}
       >
         <MenuIcon />
       </IconButton>
