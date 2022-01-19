@@ -49,3 +49,21 @@ export const createTags = async (tags, serverId) => {
     console.log("Failed to create server ", e);
   }
 };
+
+// search server/servers with inviteCode or title
+export const searchServer = async (server) => {
+  return server;
+  const { title, inviteCode } = server;
+  try {
+    if (title) {
+      const res = await axios.get(`api/servers/${title}`);
+      const server = res.data;
+      return server;
+    }
+    const res = await axios.get(`api/servers/${inviteCode}`);
+    const server = res.data;
+    return server;
+  } catch (e) {
+    console.log("Failed to search server ", e);
+  }
+};

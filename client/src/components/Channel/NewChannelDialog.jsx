@@ -45,11 +45,10 @@ export default function NewChannelDialog() {
   // submit handler that creates a new channel
   const handleSubmit = async () => {
     if (title) {
-      setOpen((prev) => false);
       const serverId = server.id;
       const channel = await createChannel(serverId, { title });
       setNewChannel(channel);
-      setTitle((prev) => "");
+      handleClose();
     }
   };
 

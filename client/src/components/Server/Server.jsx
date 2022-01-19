@@ -4,10 +4,11 @@ import MemberList from "../Member/MemberList";
 
 export default function Server(props) {
   return (
-    <ChannelList>
-      <MessageList>
-        <MemberList />
-      </MessageList>
-    </ChannelList>
+    <>
+      <ChannelList>
+        <MessageList />
+      </ChannelList>
+      <MemberList />
+    </>
   );
 }
