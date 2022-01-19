@@ -8,15 +8,7 @@ import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
-import {
-  List,
-  Box,
-  CssBaseline,
-  IconButton,
-  Tooltip,
-  ListItem,
-  Avatar,
-} from "@mui/material";
+import { List, IconButton, Tooltip, ListItem, Avatar } from "@mui/material";
 import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 import {
   createServer,
@@ -26,7 +18,6 @@ import {
 } from "../../network/serverApi";
 import { HOME } from "../../utils/constants";
 import classNames from "classnames";
-import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 
 export default function ServerList(props) {
   const { socket, user, children } = props;

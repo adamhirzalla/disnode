@@ -143,10 +143,8 @@ export default function FriendList(props) {
     setFriend((prev) => null);
   };
 
-  const parsedFriendList = friendList.map((friend) => {
-    return (
-      <FriendsListItem key={friend.id} friend={friend} setFriend={setFriend} />
-    );
+  const parsedFriendList = friendList.map((friend, i) => {
+    return <FriendsListItem key={i} friend={friend} setFriend={setFriend} />;
   });
 
   return (

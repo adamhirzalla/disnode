@@ -10,12 +10,14 @@ export const useDisDrawerStyles = makeStyles((theme) =>
     serverList: {
       width: "125px",
       flexShrink: 0,
+
       "& .MuiDrawer-paper": {
         width: "122px",
         boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         backgroundColor: "#040B0C",
+        overflowX: "hidden",
       },
       "& .MuiDrawer-root": {
         height: "0",

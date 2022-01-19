@@ -3,15 +3,11 @@ import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 // import DisBox from "../components/Box/DisBox";
 import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
+import { Box } from "@mui/system";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
-import FriendList from "./Friends/FriendList";
-
-// styles
-// import { useHomePageStyles } from "./styles/useHomePageStyles";
-import FriendProfile from "./Friends/FriendProfile";
-import DisBox from "./Box/DisBox";
+import { useBoxStyles } from "./styles/useBoxStyles";
 
 const friendList = [
   {
@@ -76,22 +72,20 @@ const friendList = [
 
 export default function Home() {
   const classes = useHomePageStyles();
+  const boxClasses = useBoxStyles();
   const { state, dispatch } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout(dispatch);
   };
   return (
-    <DisBox disStyle="homeWrapper">
-      <DisBox>
+    <Box className={boxClasses.homeWrapper}>
+      <Box className={boxClasses.root}>
         <div className={classes.rowTwo}></div>
         <FriendsListDrawer />
-        {/* <FriendsList friendList={friendList} /> */}
-        <DisBox disStyle="friendProfileWrapper">
-          {/* <FriendProfile user={friendList[1]} /> */}
-        </DisBox>
-      </DisBox>
-    </DisBox>
+        <Box className={boxClasses.friendProfileWrapper}></Box>
+      </Box>
+    </Box>
   );
 }
 

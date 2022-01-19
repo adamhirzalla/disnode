@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FriendList from "./FriendList";
 
-const drawerWidth = 550;
+const drawerWidth = 600;
 
 // styles
 const useStyles = makeStyles(() => ({
@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
   friendListWrapper: {
     display: "flex",
-    justifyContent: "flex-start",
+    justifyContent: "space-evenly",
     height: "100%",
     padding: "1em",
   },
@@ -30,6 +30,11 @@ const useStyles = makeStyles(() => ({
     },
   },
   friendListCloseIcon: {
+    position: "fixed",
+    left: "107px",
+    top: "20px",
+    width: "3em",
+    height: "3em",
     "&:hover": {
       color: "rgb(204, 180, 180, 1)",
       backgroundColor: "inherit",
@@ -102,9 +107,9 @@ export default function FriendsListDrawer(props) {
           component="div"
           sx={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "space-evenly",
             height: "100%",
-            padding: "1em 0em",
+            padding: "1.5em 0em",
           }}
         >
           <IconButton
