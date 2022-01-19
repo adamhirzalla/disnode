@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const useNewServerDialogStyles = makeStyles((theme) =>
+export const useServerDialogStyles = makeStyles((theme) =>
   createStyles({
     root: {
       // color: "#FFFFFF",
@@ -25,19 +25,31 @@ export const useNewServerDialogStyles = makeStyles((theme) =>
       // color: "#FFFFFF",
       width: "500px",
       paddingBottom: "42px",
+      overflowY: "hidden",
     },
     dialogPaper: {
       display: "flex",
-
+      height: "auto",
+      maxHeight: "80%",
       alignItems: "center",
       borderRadius: "2em",
-      // backgroundColor: "#040B0C",
-      // color: "#FFFFFF",
+
       textAlign: "center",
-      padding: "40px 20px",
-      paddingTop: "25px",
+      padding: "40px",
       flexDirection: "column",
       justifyContent: "space-evenly",
+      overflowY: "auto",
+    },
+    serverListpaper: {
+      display: "flex",
+      width: "100%",
+      height: "auto",
+      maxHeight: "50%",
+      minHeight: "50%",
+      borderRadius: "2em",
+      textAlign: "center",
+      padding: "10px",
+      paddingBottom: 0,
     },
   })
 );
