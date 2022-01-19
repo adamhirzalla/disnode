@@ -114,17 +114,16 @@ export const searchServer = async (server) => {
     if (ser.title.toLowerCase() === title.toLowerCase()) data.push(ser);
     if (ser.inviteCode === inviteCode) data.push(ser);
   });
-  console.log("data", data);
   return data;
 
   // try {
   //   const { title, inviteCode } = server;
   //   if (title) {
-  //     const res = await axios.get(`api/servers/${title}`);
+  //     const res = await axios.get(`/api/servers?title=${title}`);
   //     const server = res.data;
   //     return server;
   //   }
-  //   const res = await axios.get(`api/servers/${inviteCode}`);
+  //   const res = await axios.get(`/api/servers?inivite_code=${invite_code}`);
   //   const server = res.data;
   //   return server;
   // } catch (e) {
