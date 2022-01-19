@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useLoginStyles } from "../components/styles/useLoginStyles";
 import { useDisButtonStyles } from "../components/styles/useDisButtonStyles";
+import DisButton from "../components/Button/DisButton";
+import DisTextField from "../components/Inputs/DisTextField";
 
 const Login = () => {
   const { state, dispatch } = useContext(AuthContext);
@@ -39,57 +41,46 @@ const Login = () => {
         <Box className={classes.header}>
           <Avatar
             alt="Disnode"
-            src="/images/Disnode.png"
-            sx={{ width: 60, height: 60 }}
+            src="/images/Disnode-red.png"
+            sx={{ width: 75, height: 75 }}
           ></Avatar>
           <b>Log In</b>
         </Box>
-        <Box
-          className={classes.TextField}
-          component="form"
-          onSubmit={handleLogin}
-        >
-          <TextField
+        <Box component="form" onSubmit={handleLogin}>
+          <DisTextField
             margin="normal"
             required
             fullWidth
-            id="username"
             label="Username"
-            name="username"
-            autoComplete="username"
             autoFocus
             value={input.username}
             onChange={(e) =>
               setInput((prev) => ({ ...prev, username: e.target.value }))
             }
           />
-          <TextField
-            margin="normal"
+          <DisTextField
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
-            id="password"
-            autoComplete="current-password"
             value={input.password}
             onChange={(e) =>
               setInput((prev) => ({ ...prev, password: e.target.value }))
             }
           />
-          <Button className={buttons.submit} type="submit" fullWidth>
+          <DisButton disStyle="submit" type="submit">
             Sign In
-          </Button>
+          </DisButton>
         </Box>
         <Grid container>
-          <Grid item sx={{ fontSize: "large" }}>
-            <b>{"Don't have an account? "}</b>
+          <Grid item sx={{ marginTop: "1em", fontSize: "large" }}>
+            <b>{"Don't have an account?"}</b>
             <Link
               href="/register"
               variant="body2"
               sx={{ textDecoration: "none" }}
             >
-              SIGN UP
+              Sign Up
             </Link>
           </Grid>
         </Grid>

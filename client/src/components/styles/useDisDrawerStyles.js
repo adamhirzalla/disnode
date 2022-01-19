@@ -8,7 +8,7 @@ export const useDisDrawerStyles = makeStyles((theme) =>
       height: "100%",
     },
     serverList: {
-      width: "122px",
+      width: "125px",
       flexShrink: 0,
       "& .MuiDrawer-paper": {
         width: "122px",

@@ -43,31 +43,32 @@ const useStyles = makeStyles(() => ({
     color: "#FFF",
     width: "100%",
     backgroundColor: "#040B0C",
-    height: "5em",
+    height: "4em",
     borderRadius: "1em",
+    marginBottom: "1em",
   },
 }));
 
 export default function DisBox(props) {
   //props destructure
-  const { type, children, component, ...rest } = props;
+  const { disStyle, children, ...rest } = props;
 
   //styles
   const classes = useStyles();
 
   //dynamic classname
   const boxClass = classNames(classes.root, {
-    [classes.navBox]: type === "navBox",
-    [classes.friendsBar]: type === "friendsBar",
-    [classes.connections]: type === "connections",
-    [classes.homeWrapper]: type === "homeWrapper",
-    [classes.friendListBox]: type === "friendListBox",
-    [classes.displayColumn]: type === "displayColumn",
-    [classes.friendProfileWrapper]: type === "friendProfileWrapper",
+    [classes.navBox]: disStyle === "navBox",
+    [classes.friendsBar]: disStyle === "friendsBar",
+    [classes.connections]: disStyle === "connections",
+    [classes.homeWrapper]: disStyle === "homeWrapper",
+    [classes.friendListBox]: disStyle === "friendListBox",
+    [classes.displayColumn]: disStyle === "displayColumn",
+    [classes.friendProfileWrapper]: disStyle === "friendProfileWrapper",
   });
 
   return (
-    <Box component={component} className={boxClass} {...rest}>
+    <Box className={boxClass} {...rest}>
       {children}
     </Box>
   );

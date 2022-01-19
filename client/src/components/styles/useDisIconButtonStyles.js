@@ -3,7 +3,11 @@ import { makeStyles, createStyles } from "@mui/styles";
 export const useDisIconButtonStyles = makeStyles((theme) =>
   createStyles({
     root: {},
-    home: { marginTop: ".5em", width: "70px", height: "70px" },
+    home: { opacity: "0.5" },
     connections: { width: "50px", height: "50px" },
+    selected: {
+      // background: "rgb(182, 185, 181, 0.5)",
+      opacity: "1",
+    },
   })
 );

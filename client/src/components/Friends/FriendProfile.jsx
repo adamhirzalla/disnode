@@ -6,8 +6,8 @@ import DisTypography from "../Box/DisTypography";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
-import FriendProfileItems from "./FriendProfileItems";
-import { Avatar, CardActions, CardContent } from "@mui/material";
+import { Avatar, CardActions, CardContent, IconButton } from "@mui/material";
+import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 
 const useStyles = makeStyles(() => ({
   cardAction: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "2em",
     minWidth: 550,
     minHeight: 650,
-    marginTop: "8em",
+    // marginTop: "8em",
     backgroundColor: "#68696b",
     color: "#FFF",
     borderRadius: "1em",
@@ -45,36 +45,47 @@ const connectionsIcons = [
 ];
 
 export default function FriendProfile(props) {
-  const { user } = props;
+  const { friend, children } = props;
   const classes = useStyles();
 
-  const icons = connectionsIcons.map((icon) => {
-    return <FriendProfileItems>{icon}</FriendProfileItems>;
+  const iconClasses = useDisIconButtonStyles();
+
+  const icons = connectionsIcons.map((icon, i) => {
+    return (
+      <IconButton key={i} className={iconClasses.connections}>
+        {icon}
+      </IconButton>
+    );
   });
 
   return (
     <Card className={classes.card}>
-      <Avatar alt={user.full_name} src={user.img} className={classes.avatar} />
+      <Avatar
+        alt={friend.full_name}
+        src={friend.img}
+        className={classes.avatar}
+      />
       <DisBox type="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography
-            type="userName"
+            disStyle="userName"
             gutterBottom
             variant="h5"
             component="div"
           >
-            {user.username}
+            {friend.username}
           </DisTypography>
           <DisTypography gutterBottom variant="h7" component="div">
-            {user.full_name}
+            {friend.full_name}
           </DisTypography>
           <DisTypography type="bio" variant="body1" color="text.secondary">
-            {user.bio}
+            {friend.bio}
           </DisTypography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <DisBox type="connections">{icons}</DisBox>
+          <DisBox disStyle="connections">{icons}</DisBox>
         </CardActions>
+        {children}
       </DisBox>
     </Card>
   );

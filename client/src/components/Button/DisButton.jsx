@@ -6,16 +6,17 @@ import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 
 export default function DisButton(props) {
   //props destructure
-  const { children, type, ...rest } = props;
+  const { children, disStyle, ...rest } = props;
 
   //styles
   const classes = useDisButtonStyles();
 
   //dynamic classname
   const buttonClass = classNames(classes.root, {
-    [classes.submit]: type === "submit",
-    [classes.create]: type === "create",
-    [classes.cancel]: type === "cancel",
+    [classes.submit]: disStyle === "submit",
+    [classes.create]: disStyle === "create",
+    [classes.cancel]: disStyle === "cancel",
+    [classes.closeDialog]: disStyle === "closeDialog",
   });
 
   return (

@@ -48,11 +48,11 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
-  height: "3em",
+  height: "2em",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    height: "3em",
-    fontSize: "1.3em",
+    height: "2em",
+    fontSize: "1em",
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
@@ -70,7 +70,7 @@ export default function SearchBar() {
   const classes = useStyles();
   return (
     <Box>
-      <DisBox component="form" type="friendsBar">
+      <DisBox component="form" disStyle="friendsBar">
         <Toolbar
           sx={{
             display: "flex",
@@ -78,7 +78,7 @@ export default function SearchBar() {
             justifyContent: "space-between",
           }}
         >
-          <DisTypography variant="h4" noWrap component="div">
+          <DisTypography variant="h6" noWrap component="div">
             Friends List
           </DisTypography>
           <Search className={classes.search}>

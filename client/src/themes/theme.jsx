@@ -1,15 +1,15 @@
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
-  // components: {
-  //   MuiBox: {
-  //     styleOverrides: {
-  //       root: {
-  //         width: "100%",
-  //       },
-  //     },
-  //   },
-  // },
+  components: {
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: "0px",
+        },
+      },
+    },
+  },
   typography: {
     fontFamily: "Roboto Mono",
     fontWeightLight: 300,

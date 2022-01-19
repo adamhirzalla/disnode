@@ -1,11 +1,18 @@
 import { useState } from "react";
-import { Dialog, DialogActions, DialogTitle, MenuItem } from "@mui/material";
+import {
+  Dialog,
+  DialogActions,
+  DialogTitle,
+  MenuItem,
+  Button,
+} from "@mui/material";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
-import DisButton from "../Button/DisButton";
+import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 
 export default function MemberDialog({ setting, member, setAnchorUser }) {
   const [open, setOpen] = useState(false);
   const classes = useNewChannelDialogStyles();
+  const buttonClasses = useDisButtonStyles();
 
   // open dialog
   const handleClickOpen = () => {
@@ -26,9 +33,7 @@ export default function MemberDialog({ setting, member, setAnchorUser }) {
 
   return (
     <>
-      <MenuItem key={setting} onClick={handleClickOpen}>
-        {setting}
-      </MenuItem>
+      <MenuItem onClick={handleClickOpen}>{setting}</MenuItem>
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         open={open}
@@ -39,8 +44,12 @@ export default function MemberDialog({ setting, member, setAnchorUser }) {
           <br /> {`Are you sure you want to  ${setting}?`}
         </DialogTitle>
         <DialogActions>
-          <DisButton type="cancel" onClick={handleClose} name="Cancel" />
-          <DisButton type="submit" onClick={handleConfirm} name="Submit" />
+          <Button className={buttonClasses.cancel} onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className={buttonClasses.submit} onClick={handleConfirm}>
+            Confirm
+          </Button>
         </DialogActions>
       </Dialog>
     </>

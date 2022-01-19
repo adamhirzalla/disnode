@@ -18,10 +18,10 @@ export const useMessageListItemStyles = makeStyles((theme) =>
       height: "auto",
       wordBreak: "break-word",
       // padding: 10,
-      borderRadius: 40,
+      borderRadius: 20,
       color: "white",
       backgroundColor: "black",
-      padding: "1em 2em",
+      padding: "1em 1em",
     },
     messageText: {
       "&.MuiListItemText-multiline": {

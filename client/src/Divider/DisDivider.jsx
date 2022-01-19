@@ -7,14 +7,14 @@ import { useDisDividerStyles } from "../components/styles/useDisDividerStyles";
 
 export default function DisDivider(props) {
   //props destructure
-  const { type, ...rest } = props;
+  const { disStyle, ...rest } = props;
 
   //styles
   const classes = useDisDividerStyles();
 
   //dynamic classname
   const dividerClass = classNames(classes.root, {
-    [classes.serverList]: type === "home",
+    [classes.serverList]: disStyle === "home",
   });
 
   return <Divider className={dividerClass} />;
