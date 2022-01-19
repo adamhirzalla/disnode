@@ -8,15 +8,7 @@ import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
-import {
-  List,
-  Box,
-  CssBaseline,
-  IconButton,
-  Tooltip,
-  ListItem,
-  Avatar,
-} from "@mui/material";
+import { List, IconButton, Tooltip, ListItem, Avatar } from "@mui/material";
 import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 import {
   createServer,
