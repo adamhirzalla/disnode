@@ -10,7 +10,7 @@ export const useLoginStyles = makeStyles((theme) =>
       alignItems: "center",
     },
     section: {
-      height: "50%",
+      height: "auto",
       width: "60%",
       padding: "80px",
       border: `1px solid black`,

@@ -7,6 +7,7 @@ import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
+import SearchServerDialog from "./SearchServerDialog";
 import {
   List,
   Box,
@@ -105,6 +106,9 @@ export default function ServerList(props) {
               <DisDivider disStyle="home" />
               <ListItem sx={{ justifyContent: "center" }}>
                 <NewServerDialog onClick={handleCreate} />
+              </ListItem>
+              <ListItem sx={{ justifyContent: "center" }}>
+                <SearchServerDialog />
               </ListItem>
             </>
           )}

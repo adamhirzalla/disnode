@@ -29,14 +29,12 @@ export default function ChannelList({ children }) {
   });
   return (
     <>
-      <Box className={classes.box}>
-        <CssBaseline />
-        <Drawer className={classes.drawer} variant="permanent" anchor="left">
-          <List className={classes.list}>{parsedChannels}</List>
-          <NewChannelDialog />
-        </Drawer>
-        <div className={classes.div}>{children}</div>
-      </Box>
+      <CssBaseline />
+      <Drawer className={classes.drawer} variant="permanent" anchor="left">
+        <List className={classes.list}>{parsedChannels}</List>
+        <NewChannelDialog />
+      </Drawer>
+      {children}
     </>
   );
 }

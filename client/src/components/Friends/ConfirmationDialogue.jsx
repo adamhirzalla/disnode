@@ -5,21 +5,31 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import DisButton from "./Button/DisButton";
+import { useDisButtonStyles } from "../styles/useDisButtonStyles";
+import { useConfirmationDialogStyles } from "../styles/useConfirmationDialogStyles";
 
 // styles
-import { useConfirmationDialogStyles } from "./styles/useConfirmationDialogStyles";
 
-export default function ConfirmationDialogue({ action, friendName }) {
+export default function ConfirmationDialogue({
+  setFriend,
+  friend,
+  setAnchorElUser,
+}) {
   const classes = useConfirmationDialogStyles();
+  const buttonClasses = useDisButtonStyles();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+    setAnchorElUser(false);
   };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClick = () => {
+    setFriend(friend);
   };
 
   return (
@@ -29,22 +39,31 @@ export default function ConfirmationDialogue({ action, friendName }) {
         variant="outlined"
         onClick={handleClickOpen}
       >
-        {action}
+        Remove Friend
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{"Removing..."}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to remove {friendName} from your Friends?
+            Are you sure you want to remove {friend.full_name} from your
+            Friends?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <DisButton disStyle="cancel" onClick={handleClose} name="Cancel">
+          <Button
+            variant="text"
+            className={buttonClasses.cancel}
+            onClick={handleClose}
+          >
             Cancel
-          </DisButton>
-          <DisButton disStyle="submit" onClick={handleClose} name="Confirm">
+          </Button>
+          <Button
+            variant="contained"
+            className={buttonClasses.submit}
+            onClick={handleClick}
+          >
             Confirm
-          </DisButton>
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

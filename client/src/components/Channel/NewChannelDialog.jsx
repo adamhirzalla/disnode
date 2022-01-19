@@ -45,21 +45,16 @@ export default function NewChannelDialog() {
   // submit handler that creates a new channel
   const handleSubmit = async () => {
     if (title) {
-      setOpen((prev) => false);
       const serverId = server.id;
       const channel = await createChannel(serverId, { title });
       setNewChannel(channel);
-      setTitle((prev) => "");
+      handleClose();
     }
   };
 
   return (
     <div>
-      <Button
-        className={classes.addButton}
-        disableRipple={true}
-        onClick={handleClickOpen}
-      >
+      <Button className={classes.addButton} onClick={handleClickOpen}>
         <AddCircleIcon fontSize="small" />
       </Button>
 

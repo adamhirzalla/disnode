@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "2em",
     minWidth: 550,
     minHeight: 650,
-    marginTop: "8em",
+    // marginTop: "8em",
     backgroundColor: "#68696b",
     color: "#FFF",
     borderRadius: "1em",
@@ -45,7 +45,7 @@ const connectionsIcons = [
 ];
 
 export default function FriendProfile(props) {
-  const { user } = props;
+  const { friend, children } = props;
   const classes = useStyles();
 
   const iconClasses = useDisIconButtonStyles();
@@ -60,8 +60,12 @@ export default function FriendProfile(props) {
 
   return (
     <Card className={classes.card}>
-      <Avatar alt={user.full_name} src={user.img} className={classes.avatar} />
-      <DisBox disStyle="displayColumn">
+      <Avatar
+        alt={friend.full_name}
+        src={friend.img}
+        className={classes.avatar}
+      />
+      <DisBox type="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography
             disStyle="userName"
@@ -69,18 +73,19 @@ export default function FriendProfile(props) {
             variant="h5"
             component="div"
           >
-            {user.username}
+            {friend.username}
           </DisTypography>
           <DisTypography gutterBottom variant="h7" component="div">
-            {user.full_name}
+            {friend.full_name}
           </DisTypography>
-          <DisTypography disStyle="bio" variant="body1" color="text.secondary">
-            {user.bio}
+          <DisTypography type="bio" variant="body1" color="text.secondary">
+            {friend.bio}
           </DisTypography>
         </CardContent>
         <CardActions className={classes.cardAction}>
           <DisBox disStyle="connections">{icons}</DisBox>
         </CardActions>
+        {children}
       </DisBox>
     </Card>
   );

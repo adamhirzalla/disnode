@@ -1,10 +1,15 @@
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
-import FriendsList from "./Friends/FriendsList";
+// import DisBox from "../components/Box/DisBox";
+import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 
 // styles
-import { useHomePageStyles } from "./styles/useHomePageStyles";
+import { useHomePageStyles } from "../components/styles/useHomePageStyles";
+import FriendList from "./Friends/FriendList";
+
+// styles
+// import { useHomePageStyles } from "./styles/useHomePageStyles";
 import FriendProfile from "./Friends/FriendProfile";
 import DisBox from "./Box/DisBox";
 
@@ -79,11 +84,11 @@ export default function Home() {
   return (
     <DisBox disStyle="homeWrapper">
       <DisBox>
-        <div className={classes.rowTwo}>
-          <FriendsList friendList={friendList} />
-        </div>
+        <div className={classes.rowTwo}></div>
+        <FriendsListDrawer />
+        {/* <FriendsList friendList={friendList} /> */}
         <DisBox disStyle="friendProfileWrapper">
-          <FriendProfile user={friendList[1]} />
+          {/* <FriendProfile user={friendList[1]} /> */}
         </DisBox>
       </DisBox>
     </DisBox>

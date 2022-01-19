@@ -15,6 +15,7 @@ export const useHomePageStyles = makeStyles((theme) =>
       alignItems: "center",
       height: "100%",
       width: "100%",
+      zIndex: 99,
     },
     row: {
       display: "flex",

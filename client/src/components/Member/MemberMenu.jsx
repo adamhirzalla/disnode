@@ -7,7 +7,7 @@ import MemberDialog from "./MemberDialog";
 const settings = ["Add Friend", "Assign Mod", "Assign Admin", "Kick Out"];
 
 export default function MemberMenu({ member }) {
-  const [anchorUser, setAnchorUser] = useState(null);
+  const [anchorUser, setAnchorUser] = useState(false);
 
   // tartget a member that user clicks
   const handleClick = (e) => {
@@ -15,7 +15,7 @@ export default function MemberMenu({ member }) {
   };
 
   const handleClose = (e) => {
-    setAnchorUser(null);
+    setAnchorUser(false);
   };
 
   return (
