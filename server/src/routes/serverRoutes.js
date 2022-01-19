@@ -43,6 +43,11 @@ router.post("/servers", async (req, res) => {
       userId: server.creator_id,
       role: "owner",
     });
+    await Channel.create({
+      serverId: server.id,
+      userId: server.creator_id,
+      title: "general",
+    });
     res.status(200).send(server);
   } catch (e) {
     res.status(500).send("Internal Server Error");

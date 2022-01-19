@@ -7,7 +7,7 @@ const create = (data) => {
   const query = `
   INSERT INTO channels 
   (server_id, title, creator_id)
-  VALUES ($1, $2, $3)
+  VALUES ($1, LOWER($2), $3)
   RETURNING *;
   `;
   const params = [serverId, title, userId];
