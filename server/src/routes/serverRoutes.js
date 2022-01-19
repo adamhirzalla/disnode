@@ -12,14 +12,17 @@ router.get("/servers", async (req, res) => {
     if (title) {
       // querying by title
       const servers = await Server.byTitle(title);
+      if (!servers) return res.status(400).send("No servers found");
       return res.status(200).send(servers);
     } else if (invite_code) {
       // querying by invite_code
-      const servers = await Server.byCode(invite_code);
-      return res.status(200).send(servers);
+      const server = await Server.byCode(invite_code);
+      if (!server) return res.status(400).send("Invalid invite code!");
+      return res.status(200).send(server);
     }
     // no query, return servers joined by user
     const servers = await Server.byUser(userId);
+    if (!servers) return res.status(400).send("No servers joined");
     res.status(200).send(servers);
   } catch (e) {
     res.status(500).send("Internal Server Error");
@@ -31,6 +34,7 @@ router.post("/servers", async (req, res) => {
   const creatorId = req.user.id;
   const { title, logo } = req.body;
   const invite_code = uuid.v4();
+  if (!title) return res.status(400).send("Server title is required");
   try {
     const server = await Server.create({
       creatorId,
@@ -60,6 +64,7 @@ router.post("/servers/:id", async (req, res) => {
   const serverId = req.params.id;
   try {
     const server = await Server.byID(serverId);
+    if (!server) return res.status(400).send("Server not found");
     res.status(200).json(server);
   } catch (e) {
     res.status(500).send("Internal Server Error");
@@ -74,7 +79,7 @@ router.post("/servers/:id/channels", async (req, res) => {
   const userId = req.user.id;
   const serverId = req.params.id;
   const { title } = req.body;
-
+  if (!title) return res.status(400).send("Channel title is required");
   try {
     const channel = await Channel.create({ serverId, userId, title });
     res.status(200).json(channel);
@@ -91,6 +96,7 @@ router.put("/servers/:id/tags", async (req, res) => {
   const userId = req.user.id;
   const serverId = req.params.id;
   const { tags } = req.body;
+  if (!tags) return res.status(400).send("At least 1 server tag is required");
   try {
     await Server.createTags(tags, serverId);
     res.status(200).send("ok");
