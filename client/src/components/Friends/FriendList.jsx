@@ -67,6 +67,48 @@ const friendList = [
     img: "/images/avatar3.jpg",
     is_active: false,
   },
+  {
+    id: 10,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
+  {
+    id: 9,
+    full_name: "Adam Hirzalla",
+    img: "/images/avatar3.jpg",
+    is_active: false,
+  },
 ];
 
 // styles
