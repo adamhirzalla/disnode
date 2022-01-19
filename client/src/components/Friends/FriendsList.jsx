@@ -14,6 +14,7 @@ export default function FriendsList({ friendList }) {
     const labelId = `label-${friend.id}`;
     return (
       <FriendsListItem
+        key={friend.id}
         className={classes.listItem}
         name={friend.full_name}
         labelId={labelId}
@@ -25,7 +26,7 @@ export default function FriendsList({ friendList }) {
   });
 
   return (
-    <DisBox type="friendListBox">
+    <DisBox disStyle="friendListBox">
       <SearchBar></SearchBar>
       <List className={classes.list}>{parsedFriendList}</List>
     </DisBox>

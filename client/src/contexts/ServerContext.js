@@ -1,6 +1,8 @@
 import reducer from "../reducers/reducer";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import {
+  HOME,
+  SET_MODE,
   SET_CHANNEL,
   SET_SERVER,
   SET_MEMBERS,
@@ -10,6 +12,7 @@ import {
   SET_NEW_CHANNEL,
   SET_ACTIVE_USERS,
 } from "../utils/constants";
+import { getServers } from "../network/serverApi";
 import AuthContext from "./AuthContext";
 
 const ServerContext = createContext();
@@ -22,12 +25,39 @@ export const initialState = {
   channels: [],
   messages: [],
   members: [],
-  activeUsers: [],
+  mode: null,
+  loading: true,
 };
 
 export const ServerProvider = ({ children }) => {
   const [app, appDispatch] = useReducer(reducer, initialState);
   const { state } = useContext(AuthContext);
+
+  // landing socket connection and serverlist load
+  useEffect(async () => {
+    if (state.authenticated) {
+      const servers = await getServers();
+      setServers(servers);
+      if (!app.mode) setMode(HOME);
+    }
+  }, [state.authenticated]);
+
+  useEffect(async () => {
+    const members = app.members.map((member) => {
+      return {
+        ...member,
+        is_active: state.activeUsers.includes(member.user_id),
+      };
+    });
+    setMembers(members);
+  }, [state.activeUsers]);
+
+  const setMode = (mode) => {
+    appDispatch({
+      type: SET_MODE,
+      mode,
+    });
+  };
 
   const setServers = (servers) => {
     appDispatch({
@@ -106,13 +136,14 @@ export const ServerProvider = ({ children }) => {
     <ServerContext.Provider
       value={{
         app,
+        appDispatch,
+        setMode,
         setServer,
         setChannel,
         setServers,
         setMembers,
         setMessages,
         setChannels,
-        appDispatch,
         setNewChannel,
         setNewServers,
         setActiveUsers,

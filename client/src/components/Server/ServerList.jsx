@@ -6,34 +6,44 @@ import ServerListItem from "./ServerListItem";
 import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
-import DisIconButton from "../Button/DisIconButton";
-import { List, Box, CssBaseline } from "@mui/material";
 import ServerContext from "../../contexts/ServerContext";
+import {
+  List,
+  Box,
+  CssBaseline,
+  IconButton,
+  Tooltip,
+  ListItem,
+  Avatar,
+} from "@mui/material";
+import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 import {
   createServer,
   createTags,
   getServer,
   getServers,
 } from "../../network/serverApi";
+import { HOME } from "../../utils/constants";
+import classNames from "classnames";
+import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 
 export default function ServerList(props) {
   const { socket, user, children } = props;
 
   const {
-    app: { servers },
+    app: { servers, mode, loading },
     setServer,
     setServers,
+    setMode,
   } = useContext(ServerContext);
 
   const parsedServers = servers.map((server) => {
     return (
       <ServerListItem
         key={server.id}
-        server={server.id}
         id={server.id}
         title={server.title}
         logo={server.logo}
-        setServer={setServer}
       />
     );
   });
@@ -55,27 +65,50 @@ export default function ServerList(props) {
 
   const handleHomeClick = (socket) => {
     socket.emit("home click", socket.id, user.display_name);
+    setMode(HOME);
   };
 
   // useEffect(() => {
   //   socket?.emit("connection", socket.id, user.display_name);
   // }, []);
-
+  const iconClasses = useDisIconButtonStyles();
+  const homeIconClass = classNames(iconClasses.home, {
+    [iconClasses.selected]: mode === HOME,
+  });
   return (
-    <DisBox type="navBox">
-      <CssBaseline />
-      <DisDrawer type="nav" variant="permanent" anchor="left">
-        <DisIconButton type="home" onClick={() => handleHomeClick(socket)}>
-          <DisImg alt="Home" src="/images/Disnode-red.png" type="home" />
-        </DisIconButton>
-        <DisDivider type="home" />
-        <Box>
-          <List>{parsedServers}</List>
-        </Box>
-        <DisDivider />
-        <Box>
-          <NewServerDialog onClick={handleCreate} />
-        </Box>
+    <DisBox disStyle="navBox">
+      {/* <CssBaseline /> */}
+      <DisDrawer disStyle="nav" variant="permanent" anchor="left">
+        <List>
+          <Tooltip title={"Home"} arrow placement="right">
+            <ListItem>
+              <IconButton
+                className={homeIconClass}
+                onClick={() => handleHomeClick(socket)}
+              >
+                <Avatar
+                  style={{
+                    width: "68px",
+                    height: "68px",
+                  }}
+                  src="/images/Disnode-red.png"
+                />
+              </IconButton>
+            </ListItem>
+          </Tooltip>
+
+          <DisDivider disStyle="home" />
+          {parsedServers}
+
+          {!loading && (
+            <>
+              <DisDivider disStyle="home" />
+              <ListItem sx={{ justifyContent: "center" }}>
+                <NewServerDialog onClick={handleCreate} />
+              </ListItem>
+            </>
+          )}
+        </List>
       </DisDrawer>
       {children}
     </DisBox>
