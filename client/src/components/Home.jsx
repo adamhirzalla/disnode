@@ -4,6 +4,8 @@ import { logout } from "../network/authApi";
 // import DisBox from "../components/Box/DisBox";
 import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 import { Box } from "@mui/system";
+import FriendProfile from "./Friends/FriendProfile";
+import NewServerDialog from "./Server/NewServerDialog";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
@@ -82,7 +84,7 @@ export default function Home() {
     <Box className={boxClasses.homeWrapper}>
       <Box className={boxClasses.root}>
         <div className={classes.rowTwo}></div>
-        <FriendsListDrawer />
+        <FriendsListDrawer>HELLO</FriendsListDrawer>
         <Box className={boxClasses.friendProfileWrapper}></Box>
       </Box>
     </Box>

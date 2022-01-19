@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,7 +9,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FriendList from "./FriendList";
 
-const drawerWidth = 600;
+const drawerWidth = 510;
 
 // styles
 const useStyles = makeStyles(() => ({
@@ -31,13 +31,15 @@ const useStyles = makeStyles(() => ({
   },
   friendListCloseIcon: {
     position: "fixed",
-    left: "107px",
+    left: "27em",
     top: "20px",
-    width: "3em",
-    height: "3em",
+    width: "2em",
+    height: "2em",
+    backgroundColor: "rgb(150, 5, 5, 1)",
+    color: "#FFF",
+
     "&:hover": {
-      color: "rgb(204, 180, 180, 1)",
-      backgroundColor: "inherit",
+      color: "#01040D",
     },
   },
 }));
@@ -93,10 +95,24 @@ export default function FriendsListDrawer(props) {
           width: drawerWidth,
           flexShrink: 0,
           zIndex: 1,
+
           "& .MuiDrawer-paper": {
             width: drawerWidth,
+            overflowX: "hidden",
             boxSizing: "border-box",
             marginLeft: "122px",
+            "&::-webkit-scrollbar": {
+              width: "0.5em",
+              borderRadius: "30px",
+            },
+            "&::-webkit-scrollbar-track": {
+              WebkitBoxShadow: "inset 0 0 6px rgb(0,0,0,0)",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgb(0,0,0,0)",
+              // outline: "1px solid black",
+              borderRadius: "30px",
+            },
           },
         }}
         variant="persistent"
@@ -109,7 +125,7 @@ export default function FriendsListDrawer(props) {
             display: "flex",
             justifyContent: "space-evenly",
             height: "100%",
-            padding: "1.5em 0em",
+            padding: "5em 0em",
           }}
         >
           <IconButton
@@ -123,7 +139,7 @@ export default function FriendsListDrawer(props) {
         </Box>
       </Drawer>
 
-      <Main open={open}>{props.children}</Main>
+      <Main open={open}> {props.children}</Main>
     </Box>
   );
 }

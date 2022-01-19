@@ -5,7 +5,7 @@ export const useBoxStyles = makeStyles((theme) =>
     root: { display: "flex", width: "100%", height: "100%" },
     navBox: { display: "flex", width: "100%" },
     friendListBox: {
-      width: "31em",
+      width: "100%",
       display: "flex",
       flexDirection: "column",
     },
@@ -45,6 +45,10 @@ export const useBoxStyles = makeStyles((theme) =>
       height: "4em",
       borderRadius: "1em",
       marginBottom: "1em",
+      position: "fixed",
+      top: "10px",
+      left: "150px",
     },
+    friendsBarContainer: {},
   })
 );
