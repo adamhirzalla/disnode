@@ -27,7 +27,7 @@ export default function FriendsList({ friendList }) {
   });
 
   return (
-    <DisBox type="friendListBox">
+    <DisBox disStyle="friendListBox">
       <SearchBar></SearchBar>
 
       <List className={classes.list}></List>

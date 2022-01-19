@@ -3,7 +3,7 @@ import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import SelectButton from "./SelectButton";
 import Avatar from "@mui/material/Avatar";
-import { Alert } from "@mui/material";
+import { Alert, Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DisButton from "../Button/DisButton";
 import DisTextField from "../Inputs/DisTextField";
@@ -43,9 +43,11 @@ export default function NewServerDialog(props) {
   };
   return (
     <div>
-      <IconButton className={classes.addButton} onClick={handleClickOpen}>
-        <AddCircleIcon fontSize="large" />
-      </IconButton>
+      <Tooltip title={"Create a Server"} arrow placement="right">
+        <IconButton className={classes.addButton} onClick={handleClickOpen}>
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </Tooltip>
 
       <Dialog
         classes={{ paper: classes.dialogPaper }}
@@ -82,10 +84,10 @@ export default function NewServerDialog(props) {
           <Tags setTags={setTags} />
         </DialogContent>
         <DialogActions>
-          <DisButton type="cancel" onClick={handleClose}>
+          <DisButton disStyle="cancel" onClick={handleClose}>
             Cancel
           </DisButton>
-          <DisButton type="submit" onClick={handleCreate}>
+          <DisButton disStyle="submit" onClick={handleCreate}>
             Create
           </DisButton>
         </DialogActions>

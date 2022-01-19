@@ -55,11 +55,7 @@ export default function NewChannelDialog() {
 
   return (
     <div>
-      <Button
-        className={classes.addButton}
-        disableRipple={true}
-        onClick={handleClickOpen}
-      >
+      <Button className={classes.addButton} onClick={handleClickOpen}>
         <AddCircleIcon fontSize="small" />
       </Button>
 
@@ -76,7 +72,7 @@ export default function NewChannelDialog() {
             autoFocus
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            type="text"
+            disStyle="text"
             fullWidth
             required
             variant="outlined"
@@ -89,12 +85,12 @@ export default function NewChannelDialog() {
         <DialogActions>
           <DisButton
             // variant="text "
-            type="cancel"
+            disStyle="cancel"
             onClick={handleClose}
           >
             Cancel
           </DisButton>
-          <DisButton type="submit" onClick={handleSubmit}>
+          <DisButton disStyle="submit" onClick={handleSubmit}>
             Create
           </DisButton>
         </DialogActions>

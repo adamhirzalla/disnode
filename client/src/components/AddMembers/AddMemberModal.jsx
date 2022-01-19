@@ -14,11 +14,7 @@ export default function AddMemberModal(props) {
 
   return (
     <div>
-      <Button
-        className={classes.addButton}
-        disableRipple={true}
-        onClick={handleOpen}
-      >
+      <Button className={classes.addButton} onClick={handleOpen}>
         {props.icon}
       </Button>
       <Modal open={open} onClose={handleClose}>

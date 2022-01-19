@@ -6,8 +6,8 @@ import DisTypography from "../Box/DisTypography";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
-import FriendProfileItems from "./FriendProfileItems";
-import { Avatar, CardActions, CardContent } from "@mui/material";
+import { Avatar, CardActions, CardContent, IconButton } from "@mui/material";
+import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 
 const useStyles = makeStyles(() => ({
   cardAction: {
@@ -48,17 +48,23 @@ export default function FriendProfile(props) {
   const { user, children } = props;
   const classes = useStyles();
 
-  const icons = connectionsIcons.map((icon) => {
-    return <FriendProfileItems>{icon}</FriendProfileItems>;
+  const iconClasses = useDisIconButtonStyles();
+
+  const icons = connectionsIcons.map((icon, i) => {
+    return (
+      <IconButton key={i} className={iconClasses.connections}>
+        {icon}
+      </IconButton>
+    );
   });
 
   return (
     <Card className={classes.card}>
       <Avatar alt={user.full_name} src={user.img} className={classes.avatar} />
-      <DisBox type="displayColumn">
+      <DisBox disStyle="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography
-            type="userName"
+            disStyle="userName"
             gutterBottom
             variant="h5"
             component="div"
@@ -68,12 +74,12 @@ export default function FriendProfile(props) {
           <DisTypography gutterBottom variant="h7" component="div">
             {user.full_name}
           </DisTypography>
-          <DisTypography type="bio" variant="body1" color="text.secondary">
+          <DisTypography disStyle="bio" variant="body1" color="text.secondary">
             {user.bio}
           </DisTypography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <DisBox type="connections">{icons}</DisBox>
+          <DisBox disStyle="connections">{icons}</DisBox>
         </CardActions>
         {children}
       </DisBox>

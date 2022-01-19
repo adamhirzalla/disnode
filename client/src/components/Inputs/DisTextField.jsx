@@ -12,7 +12,7 @@ export default function DisTextField(props) {
   const classes = useStyles();
 
   //props destructure
-  const { variant, placeholder, type, onChange, ...rest } = props;
+  const { disStyle, ...rest } = props;
 
   //dynamic styling
   const textFieldClass = classNames(classes.root, {});
@@ -20,10 +20,7 @@ export default function DisTextField(props) {
   return (
     <TextField
       margin="normal"
-      type={type}
-      variant={variant}
-      placeholder={placeholder}
-      onChange={onChange}
+      // className={textFieldClass}
       {...rest}
     />
   );

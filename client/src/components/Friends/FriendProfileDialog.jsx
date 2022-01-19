@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 // mock data
 const friendList = [
   {
-    id: 3,
+    id: 1,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
@@ -26,43 +26,43 @@ const friendList = [
     bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
   },
   {
-    id: 1,
+    id: 3,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: true,
   },
   {
-    id: 3,
+    id: 4,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
   },
   {
-    id: 2,
+    id: 5,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: true,
   },
   {
-    id: 1,
+    id: 6,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 3,
+    id: 7,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: false,
   },
   {
-    id: 2,
+    id: 8,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: false,
   },
   {
-    id: 1,
+    id: 9,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
@@ -150,6 +150,7 @@ export default function FriendProfileDialog(props) {
     const labelId = `label-${friend.id}`;
     return (
       <FriendsListItem
+        key={friend.id}
         className={classes.listItem}
         name={friend.full_name}
         labelId={labelId}
@@ -164,7 +165,7 @@ export default function FriendProfileDialog(props) {
 
   return (
     <div>
-      <DisBox type="friendListBox">
+      <DisBox disStyle="friendListBox">
         <SearchBar></SearchBar>
         <List className={classes.list}>{parsedFriendList}</List>
       </DisBox>
