@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ServerContext from "../../contexts/ServerContext";
 import { makeStyles } from "@mui/styles";
-import { Button, Dialog, DialogActions, List } from "@mui/material";
+import { Button, Dialog, DialogActions, List, Paper } from "@mui/material";
 import FriendProfile from "./FriendProfile";
 import FriendsListItem from "./FriendsListItem";
 import DisBox from "../Box/DisBox";
@@ -74,37 +74,37 @@ const friendList = [
     is_active: false,
   },
   {
-    id: 9,
+    id: 11,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 9,
+    id: 12,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 9,
+    id: 13,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 9,
+    id: 14,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 9,
+    id: 15,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 9,
+    id: 16,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,

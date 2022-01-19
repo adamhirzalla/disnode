@@ -10,12 +10,27 @@ export const useDisDrawerStyles = makeStyles((theme) =>
     serverList: {
       width: "125px",
       flexShrink: 0,
+
       "& .MuiDrawer-paper": {
+        overflowX: "hidden",
         width: "122px",
         boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
         backgroundColor: "#040B0C",
+        overflowX: "hidden",
+        "&::-webkit-scrollbar": {
+          width: "0.5em",
+          borderRadius: "30px",
+        },
+        "&::-webkit-scrollbar-track": {
+          "-webkit-box-shadow": "inset 0 0 6px rgb(0,0,0,0)",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          backgroundColor: "rgb(0,0,0,0)",
+          // outline: "1px solid black",
+          borderRadius: "30px",
+        },
       },
       "& .MuiDrawer-root": {
         height: "0",

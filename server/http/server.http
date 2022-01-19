@@ -4,12 +4,12 @@ GET http://localhost:8001/api/debug/reset_db
 
 
 ### all servers
-GET http://localhost:8001/api/servers
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyMzg2MDIzLCJleHAiOjE2NDI0NzI0MjN9.LB7TkLU3L2QaCZpTqRMhE2XA6qUqTsl1vSbneyFPpU4
+GET http://localhost:8001/api/servers?asdasd=adddd
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNTg3MTYyLCJleHAiOjE2NDI2NzM1NjJ9.WSeFt8npPl7FLFnRYa2wGy9K81R_wyFeo2cw6ufsEmg
 
 ### single server
 POST http://localhost:8001/api/servers/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNDk1ODE5LCJleHAiOjE2NDI1ODIyMTl9.BvzBYGm1WO_Hzw4kh7-qbqcQ56pttYEAQRon1dQxzWU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNTg3MTYyLCJleHAiOjE2NDI2NzM1NjJ9.WSeFt8npPl7FLFnRYa2wGy9K81R_wyFeo2cw6ufsEmg
 
 ### create a server
 POST http://localhost:8001/api/servers

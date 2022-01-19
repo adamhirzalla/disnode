@@ -4,7 +4,7 @@ import { HOME, SERVER } from "../utils/constants";
 import { useContext } from "react";
 import ServerContext from "../contexts/ServerContext";
 import ServerList from "../components/Server/ServerList";
-import Server from "../components/Server/Server";
+import Server from "../components/Server";
 
 export default function Dashboard() {
   // const { app, setServer, setChannel } = useServerData();

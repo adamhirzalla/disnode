@@ -6,8 +6,10 @@ import InputBase from "@mui/material/InputBase";
 import DisBox from "../Box/DisBox";
 import DisTypography from "../Box/DisTypography";
 import SearchIcon from "@mui/icons-material/Search";
+import { AppBar } from "@mui/material";
 
 // styles
+import { useBoxStyles } from "../styles/useBoxStyles";
 const useStyles = makeStyles(() => ({
   search: {
     backgroundColor: "inherit",
@@ -18,6 +20,15 @@ const useStyles = makeStyles(() => ({
       backgroundColor: "inherit",
       color: "#FFF",
     },
+  },
+  appBar: {
+    top: "10px",
+    bottom: "auto",
+    left: "7.9em",
+    width: "31.0em",
+    backgroundColor: "#040B0C",
+    color: "#FFF",
+    borderRadius: "1em",
   },
 }));
 
@@ -67,10 +78,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchBar() {
+  const boxClasses = useBoxStyles();
   const classes = useStyles();
   return (
-    <Box>
-      <DisBox component="form" disStyle="friendsBar">
+    <Box component="form" className={boxClasses.stickyFriendBar}>
+      {/* <DisBox component="form" disStyle="friendsBar"> */}
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar
           sx={{
             display: "flex",
@@ -91,7 +104,8 @@ export default function SearchBar() {
             />
           </Search>
         </Toolbar>
-      </DisBox>
+      </AppBar>
+      {/* </DisBox> */}
     </Box>
   );
 }

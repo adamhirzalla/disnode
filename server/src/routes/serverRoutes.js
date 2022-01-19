@@ -7,7 +7,18 @@ const uuid = require("uuid");
 // GET All user servers
 router.get("/servers", async (req, res) => {
   const userId = req.user.id;
+  const { title, invite_code } = req.query;
   try {
+    if (title) {
+      // querying by title
+      const servers = await Server.byTitle(title);
+      return res.status(200).send(servers);
+    } else if (invite_code) {
+      // querying by invite_code
+      const servers = await Server.byCode(invite_code);
+      return res.status(200).send(servers);
+    }
+    // no query, return servers joined by user
     const servers = await Server.byUser(userId);
     res.status(200).send(servers);
   } catch (e) {
@@ -31,6 +42,11 @@ router.post("/servers", async (req, res) => {
       serverId: server.id,
       userId: server.creator_id,
       role: "owner",
+    });
+    await Channel.create({
+      serverId: server.id,
+      userId: server.creator_id,
+      title: "general",
     });
     res.status(200).send(server);
   } catch (e) {
@@ -76,7 +92,7 @@ router.put("/servers/:id/tags", async (req, res) => {
   const serverId = req.params.id;
   const { tags } = req.body;
   try {
-    await Server.addTags(tags, serverId);
+    await Server.createTags(tags, serverId);
     res.status(200).send("ok");
   } catch (e) {
     res.status(500).send("Internal Server Error");

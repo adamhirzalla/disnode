@@ -13,11 +13,11 @@ import DialogContent from "@mui/material/DialogContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 // styles
-import { useNewServerDialogStyles } from "../styles/useNewServerDialogStyles";
+import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
 export default function NewServerDialog(props) {
   const { onClick: createServer } = props;
-  const classes = useNewServerDialogStyles();
+  const classes = useServerDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
