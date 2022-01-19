@@ -39,8 +39,12 @@ export default function ConfirmationDialogue({ action, friendName }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <DisButton variant="text" onClick={handleClose} name="Cancel" />
-          <DisButton variant="contained" onClick={handleClose} name="Confirm" />
+          <DisButton disStyle="cancel" onClick={handleClose} name="Cancel">
+            Cancel
+          </DisButton>
+          <DisButton disStyle="submit" onClick={handleClose} name="Confirm">
+            Confirm
+          </DisButton>
         </DialogActions>
       </Dialog>
     </div>

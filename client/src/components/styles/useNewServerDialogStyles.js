@@ -2,20 +2,23 @@ import { makeStyles, createStyles } from "@mui/styles";
 
 export const useNewServerDialogStyles = makeStyles((theme) =>
   createStyles({
-    addButton: {
-      color: "#FFFFFF",
-      // backgroundColor: "inherit",
-      "&:hover": {
-        color: "gray",
-        // backgroundColor: "inherit",
-      },
-    },
     root: {
       // color: "#FFFFFF",
       "& .MuiInputBase-root": {
-        width: "500px",
+        // width: "500px",
         // color: "#FFF", // or black
         textAlign: "center",
+      },
+    },
+    addButton: {
+      marginTop: "0.2em",
+      color: "#FFFFFF",
+      opacity: "0.8",
+      // backgroundColor: "inherit",
+      "&:hover": {
+        opacity: "1",
+        // color: "gray",
+        // backgroundColor: "inherit",
       },
     },
     content: {

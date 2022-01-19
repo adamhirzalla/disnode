@@ -39,8 +39,8 @@ export default function MemberDialog({ setting, member, setAnchorUser }) {
           <br /> {`Are you sure you want to  ${setting}?`}
         </DialogTitle>
         <DialogActions>
-          <DisButton type="cancel" onClick={handleClose} name="Cancel" />
-          <DisButton type="submit" onClick={handleConfirm} name="Submit" />
+          <DisButton disStyle="cancel" onClick={handleClose} name="Cancel" />
+          <DisButton disStyle="submit" onClick={handleConfirm} name="Submit" />
         </DialogActions>
       </Dialog>
     </>
