@@ -16,6 +16,7 @@ export default function DisButton(props) {
     [classes.submit]: type === "submit",
     [classes.create]: type === "create",
     [classes.cancel]: type === "cancel",
+    [classes.closeDialog]: type === "closeDialog",
   });
 
   return (

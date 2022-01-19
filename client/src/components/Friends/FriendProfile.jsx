@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     paddingTop: "2em",
     minWidth: 550,
     minHeight: 650,
-    marginTop: "8em",
+    // marginTop: "8em",
     backgroundColor: "#68696b",
     color: "#FFF",
     borderRadius: "1em",
@@ -45,7 +45,7 @@ const connectionsIcons = [
 ];
 
 export default function FriendProfile(props) {
-  const { user } = props;
+  const { user, children } = props;
   const classes = useStyles();
 
   const icons = connectionsIcons.map((icon) => {
@@ -75,6 +75,7 @@ export default function FriendProfile(props) {
         <CardActions className={classes.cardAction}>
           <DisBox type="connections">{icons}</DisBox>
         </CardActions>
+        {children}
       </DisBox>
     </Card>
   );

@@ -44,12 +44,20 @@ const StyledBadge = styled(Badge)(({ theme, open }) => ({
   },
 }));
 
-export default function FriendsListItem({ id, name, img, labelId, variant }) {
+export default function FriendsListItem({
+  id,
+  name,
+  img,
+  labelId,
+  variant,
+  onClick,
+  setFriend,
+}) {
   const classes = useFriendsListItemStyles();
 
   return (
     <ListItem key={id} secondaryAction={<ElipsesDropdown />} disablePadding>
-      <ListItemButton className={classes.list}>
+      <ListItemButton className={classes.list} onClick={onClick}>
         <ListItemAvatar>
           <StyledBadge
             overlap="circular"

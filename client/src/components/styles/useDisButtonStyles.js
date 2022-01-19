@@ -30,5 +30,14 @@ export const useDisButtonStyles = makeStyles((theme) =>
       borderRadius: ".8em",
       border: "1px solid #7a211b",
     },
+    closeDialog: {
+      color: "white",
+      borderRadius: ".8em",
+      backgroundColor: "#7a211b",
+      width: "20%",
+      "&:hover": {
+        background: "rgb(179, 2, 2, 0.5)",
+      },
+    },
   })
 );

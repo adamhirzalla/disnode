@@ -78,7 +78,7 @@ export default function SearchBar() {
             justifyContent: "space-between",
           }}
         >
-          <DisTypography variant="h4" noWrap component="div">
+          <DisTypography variant="h6" noWrap component="div">
             Friends List
           </DisTypography>
           <Search className={classes.search}>

@@ -5,11 +5,12 @@ import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 import ServerContext from "../contexts/ServerContext";
 import FriendsList from "../components/Friends/FriendsList";
+import FriendProfile from "../components/Friends/FriendProfile";
+import DisBox from "../components/Box/DisBox";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
-import FriendProfile from "../components/Friends/FriendProfile";
-import DisBox from "../components/Box/DisBox";
+import FriendProfileDialog from "../components/Friends/FriendProfileDialog";
 
 const friendList = [
   {
@@ -98,11 +99,9 @@ export default function Home() {
         setServer={setServer}
       >
         <DisBox>
-          <div className={classes.rowTwo}>
-            <FriendsList friendList={friendList} />
-          </div>
+          <div className={classes.rowTwo}></div>
           <DisBox type="friendProfileWrapper">
-            <FriendProfile user={friendList[1]} />
+            <FriendProfileDialog />
           </DisBox>
         </DisBox>
       </ServerList>
