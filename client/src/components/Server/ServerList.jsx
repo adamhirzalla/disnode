@@ -26,6 +26,8 @@ export default function ServerList(props) {
     setServers,
   } = useContext(ServerContext);
 
+  console.log(servers);
+
   const parsedServers = servers.map((server) => {
     return (
       <ServerListItem

@@ -22,10 +22,10 @@ export const useNewServerDialogStyles = makeStyles((theme) =>
       // color: "#FFFFFF",
       width: "500px",
       paddingBottom: "42px",
+      overflowY: "hidden",
     },
     dialogPaper: {
       display: "flex",
-
       alignItems: "center",
       borderRadius: "2em",
       // backgroundColor: "#040B0C",
@@ -35,6 +35,7 @@ export const useNewServerDialogStyles = makeStyles((theme) =>
       paddingTop: "25px",
       flexDirection: "column",
       justifyContent: "space-evenly",
+      overflow: "hidden",
     },
   })
 );
