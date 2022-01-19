@@ -20,15 +20,15 @@ const useStyles = makeStyles(() => ({
 
 export default function DisTypography(props) {
   //props destructure
-  const { type, children, component, variant, ...rest } = props;
+  const { disStyle, children, component, variant, ...rest } = props;
 
   //styles
   const classes = useStyles();
 
   //dynamic classname
   const typographyClass = classNames(classes.root, {
-    [classes.bio]: type === "bio",
-    [classes.userName]: type === "userName",
+    [classes.bio]: disStyle === "bio",
+    [classes.userName]: disStyle === "userName",
   });
 
   return (
