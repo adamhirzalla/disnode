@@ -43,7 +43,7 @@ const useStyles = makeStyles(() => ({
     color: "#FFF",
     width: "100%",
     backgroundColor: "#040B0C",
-    height: "5em",
+    height: "4em",
     borderRadius: "1em",
   },
 }));

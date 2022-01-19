@@ -1,18 +1,13 @@
-import * as React from "react";
+import React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiAppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import { makeStyles } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FriendProfileDialog from "./FriendProfileDialog";
-import Slide from "@mui/material/Slide";
 
 const drawerWidth = 550;
 
@@ -26,13 +21,13 @@ const useStyles = makeStyles(() => ({
   },
   friendListOpenIcon: {
     "&:hover": {
-      color: "red",
+      color: "rgb(99, 55, 62, 0.5)",
       backgroundColor: "inherit",
     },
   },
   friendListCloseIcon: {
     "&:hover": {
-      color: "blue",
+      color: "rgb(99, 55, 62, 0.5)",
       backgroundColor: "inherit",
     },
   },

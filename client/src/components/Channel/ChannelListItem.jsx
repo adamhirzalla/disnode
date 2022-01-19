@@ -7,7 +7,6 @@ import {
   Box,
 } from "@mui/material";
 import TagIcon from "@mui/icons-material/Tag";
-import { useState } from "react";
 import classNames from "classnames";
 
 //style
