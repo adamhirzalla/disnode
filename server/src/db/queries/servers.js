@@ -58,7 +58,56 @@ const byID = (serverId) => {
   });
 };
 
-const addTags = (tagIds, serverId) => {
+const byTitle = (title) => {
+  const query = `
+  SELECT 
+    id,
+    title,
+    logo,
+    creator_id AS owner_id
+  FROM servers
+  WHERE LOWER(title) LIKE LOWER($1)
+  `;
+  const params = [`%${title}%`];
+  return db
+    .query(query, params)
+    .then((res) => res.rows)
+    .then((servers) => {
+      const membersQueries = servers.map((server) =>
+        Member.byServer(server.id)
+      );
+      return Promise.all(membersQueries).then((members) => {
+        servers.forEach((server, i) => {
+          server.members = members[i];
+        });
+        return servers;
+      });
+    });
+};
+
+const byCode = (code) => {
+  const query = `
+  SELECT 
+    id,
+    title,
+    logo,
+    creator_id AS owner_id
+  FROM servers
+  WHERE invite_code = $1
+  `;
+  const params = [code];
+  return db
+    .query(query, params)
+    .then((res) => res.rows[0])
+    .then((server) => {
+      if (!server) return;
+      return Member.byServer(server.id).then((members) => {
+        return { ...server, members };
+      });
+    });
+};
+
+const createTags = (tagIds, serverId) => {
   const tagQueries = tagIds.map((tagId) => {
     return db
       .query(
@@ -81,7 +130,9 @@ const addTags = (tagIds, serverId) => {
 
 module.exports = {
   byUser,
+  byTitle,
+  byCode,
   byID,
   create,
-  addTags,
+  createTags,
 };
