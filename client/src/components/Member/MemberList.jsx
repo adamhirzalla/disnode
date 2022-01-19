@@ -6,7 +6,7 @@ import ServerContext from "../../contexts/ServerContext";
 import MemberListItem from "./MemberListItem";
 import classNames from "classnames";
 
-export default function MemberList({ socket }) {
+export default function MemberList(props) {
   const classes = useMemberListStyles();
   const [open, setOpen] = useState(false);
   const {

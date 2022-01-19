@@ -6,8 +6,8 @@ import DisTypography from "../Box/DisTypography";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
-import FriendProfileItems from "./FriendProfileItems";
-import { Avatar, CardActions, CardContent } from "@mui/material";
+import { Avatar, CardActions, CardContent, IconButton } from "@mui/material";
+import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 
 const useStyles = makeStyles(() => ({
   cardAction: {
@@ -48,8 +48,14 @@ export default function FriendProfile(props) {
   const { friend, children } = props;
   const classes = useStyles();
 
-  const icons = connectionsIcons.map((icon) => {
-    return <FriendProfileItems>{icon}</FriendProfileItems>;
+  const iconClasses = useDisIconButtonStyles();
+
+  const icons = connectionsIcons.map((icon, i) => {
+    return (
+      <IconButton key={i} className={iconClasses.connections}>
+        {icon}
+      </IconButton>
+    );
   });
 
   return (
@@ -62,7 +68,7 @@ export default function FriendProfile(props) {
       <DisBox type="displayColumn">
         <CardContent className={classes.cardContent}>
           <DisTypography
-            type="userName"
+            disStyle="userName"
             gutterBottom
             variant="h5"
             component="div"
@@ -77,7 +83,7 @@ export default function FriendProfile(props) {
           </DisTypography>
         </CardContent>
         <CardActions className={classes.cardAction}>
-          <DisBox type="connections">{icons}</DisBox>
+          <DisBox disStyle="connections">{icons}</DisBox>
         </CardActions>
         {children}
       </DisBox>

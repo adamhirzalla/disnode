@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { styled } from "@mui/material/styles";
-import ElipsesDropdown from "../ElipsesDropDown";
+import ElipsesDropdown from "./ElipsesDropDown";
 import {
   ListItem,
   ListItemButton,

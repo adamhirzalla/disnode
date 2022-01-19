@@ -1,5 +1,6 @@
 import {
   SET_USER,
+  SET_MODE,
   SET_TOKENS,
   SET_SERVER,
   SET_SERVERS,
@@ -9,6 +10,7 @@ import {
   SET_CHANNELS,
   SET_MESSAGES,
   SET_NEW_CHANNEL,
+  SET_SOCKET,
   SET_ACTIVE_USERS,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
@@ -17,6 +19,7 @@ import { initialState } from "../contexts/AuthContext";
 
 export default function reducer(state, action) {
   const {
+    mode,
     user,
     tokens,
     server,
@@ -25,6 +28,7 @@ export default function reducer(state, action) {
     channel,
     channels,
     messages,
+    socket,
     activeUsers,
   } = action;
   switch (action.type) {
@@ -50,6 +54,16 @@ export default function reducer(state, action) {
         ...state,
         activeUsers,
       };
+    case SET_MODE:
+      return {
+        ...state,
+        mode,
+      };
+    case SET_SOCKET:
+      return {
+        ...state,
+        socket,
+      };
     case SET_AUTHENTICATED:
       return {
         ...state,
@@ -59,6 +73,7 @@ export default function reducer(state, action) {
       return {
         ...initialState,
         loading: false,
+        authenticated: false,
       };
     case SET_SERVER:
       return {
@@ -73,6 +88,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         servers,
+        loading: false,
       };
     case SET_CHANNEL:
       return {

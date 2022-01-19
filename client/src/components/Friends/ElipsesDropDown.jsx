@@ -2,18 +2,7 @@ import { React, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
 import { makeStyles } from "@mui/styles";
-import {
-  IconButton,
-  Menu,
-  Tooltip,
-  Avatar,
-  Button,
-  ListItemButton,
-  ListItem,
-  Box,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { IconButton, Menu, Box, MenuItem } from "@mui/material";
 import ConfirmationDialogue from "./ConfirmationDialogue";
 
 // styles
@@ -58,16 +47,15 @@ export default function ElipsesDropdown(props) {
 
   return (
     <Box sx={{ flexGrow: 0 }}>
-      <Tooltip title="Options">
-        <IconButton
-          className={classes.icon}
-          onClick={handleOpenUserMenu}
-          disableRipple={true}
-          disableFocusRipple
-        >
-          <FontAwesomeIcon icon={faEllipsisV} />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        className={classes.icon}
+        onClick={handleOpenUserMenu}
+        disableRipple={true}
+        disableFocusRipple
+      >
+        <FontAwesomeIcon icon={faEllipsisV} />
+      </IconButton>
+
       <Menu
         sx={{ marginLeft: "1em", mt: "1em", padding: "0px" }}
         id="menu-appbar"

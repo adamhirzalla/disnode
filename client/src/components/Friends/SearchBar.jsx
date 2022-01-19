@@ -70,7 +70,7 @@ export default function SearchBar() {
   const classes = useStyles();
   return (
     <Box>
-      <DisBox component="form" type="friendsBar">
+      <DisBox component="form" disStyle="friendsBar">
         <Toolbar
           sx={{
             display: "flex",

@@ -1,18 +1,21 @@
-import { useContext, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import ServerList from "../components/Server/ServerList";
+import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
-import ServerContext from "../contexts/ServerContext";
-import DisBox from "../components/Box/DisBox";
+// import DisBox from "../components/Box/DisBox";
 import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
+import FriendList from "./Friends/FriendList";
+
+// styles
+// import { useHomePageStyles } from "./styles/useHomePageStyles";
+import FriendProfile from "./Friends/FriendProfile";
+import DisBox from "./Box/DisBox";
 
 const friendList = [
   {
-    id: 3,
+    id: 8,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
@@ -20,7 +23,7 @@ const friendList = [
     bio: "Hi, we are disnode!",
   },
   {
-    id: 2,
+    id: 9,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: true,
@@ -34,37 +37,37 @@ const friendList = [
     is_active: true,
   },
   {
-    id: 3,
+    id: 2,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
   },
   {
-    id: 2,
+    id: 3,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: true,
   },
   {
-    id: 1,
+    id: 4,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
   },
   {
-    id: 3,
+    id: 5,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: false,
   },
   {
-    id: 2,
+    id: 6,
     full_name: "Jonathan Su",
     img: "/images/avatar.jpg",
     is_active: false,
   },
   {
-    id: 1,
+    id: 7,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: false,
@@ -75,34 +78,27 @@ export default function Home() {
   const classes = useHomePageStyles();
   const { state, dispatch } = useContext(AuthContext);
 
-  const socket = useRef();
-  const { app, setServer, setChannel } = useContext(ServerContext);
+  const handleLogout = () => {
+    logout(dispatch);
+  };
+  return (
+    <DisBox disStyle="homeWrapper">
+      <DisBox>
+        <div className={classes.rowTwo}></div>
+        <FriendsListDrawer />
+        {/* <FriendsList friendList={friendList} /> */}
+        <DisBox disStyle="friendProfileWrapper">
+          {/* <FriendProfile user={friendList[1]} /> */}
+        </DisBox>
+      </DisBox>
+    </DisBox>
+  );
+}
 
+/* 
   // If user is not logged in, redirect to login
   const navigate = useNavigate();
   useEffect(() => {
     if (!state.authenticated) navigate("/login");
   }, []);
-
-  const handleLogout = () => {
-    logout(dispatch);
-  };
-  return (
-    <DisBox type="homeWrapper">
-      <ServerList
-        className={classes.root}
-        servers={app.servers}
-        socket={socket.current}
-        user={state.user}
-        setServer={setServer}
-      >
-        <DisBox>
-          <div className={classes.rowTwo}></div>
-          <FriendsListDrawer />
-
-          <DisBox type="friendProfileWrapper"></DisBox>
-        </DisBox>
-      </ServerList>
-    </DisBox>
-  );
-}
+*/

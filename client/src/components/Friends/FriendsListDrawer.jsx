@@ -73,7 +73,6 @@ export default function FriendsListDrawer(props) {
       <CssBaseline />
       <IconButton
         className={classes.friendListOpenIcon}
-        disableripple={true}
         disableFocusRipple
         color="inherit"
         aria-label="open drawer"
@@ -111,7 +110,6 @@ export default function FriendsListDrawer(props) {
           <IconButton
             className={classes.friendListCloseIcon}
             onClick={handleDrawerClose}
-            disableripple={true}
             disableFocusRipple
           >
             <ChevronLeftIcon />

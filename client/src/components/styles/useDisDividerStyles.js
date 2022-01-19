@@ -4,7 +4,7 @@ export const useDisDividerStyles = makeStyles((theme) =>
   createStyles({
     root: {},
     serverList: {
-      marginTop: ".6em",
+      margin: "0.3em auto",
       width: "60%",
       height: ".15em",
       backgroundColor: "#FFFFFF",

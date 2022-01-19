@@ -10,7 +10,7 @@ import SearchBar from "./SearchBar";
 // mock data
 const friendList = [
   {
-    id: 3,
+    id: 1,
     full_name: "HyunSu Kim",
     img: "/images/avatar2.jpg",
     is_active: true,
@@ -26,7 +26,7 @@ const friendList = [
     bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
   },
   {
-    id: 1,
+    id: 3,
     full_name: "Adam Hirzalla",
     img: "/images/avatar3.jpg",
     is_active: true,
@@ -109,7 +109,7 @@ export default function FriendList(props) {
 
   return (
     <div>
-      <DisBox type="friendListBox">
+      <DisBox disStyle="friendListBox">
         <SearchBar></SearchBar>
         <List className={classes.list}>{parsedFriendList}</List>
       </DisBox>

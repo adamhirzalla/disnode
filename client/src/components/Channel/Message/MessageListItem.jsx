@@ -13,18 +13,26 @@ export default function MessageListItem(props) {
 
   return (
     <Grid container alignItems="center" className={classes.root}>
-      <Grid xs={1} item sx={{ height: "auto" }}>
+      <Grid xs={1.3} item sx={{ height: "auto" }}>
         <Box className={classes.avatar}>
           <Avatar
             alt={sender.name}
             src={sender.avatar}
-            sx={{ width: 35, height: 35, mt: 1 }}
+            sx={{ width: 40, height: 40, mt: 0.3 }}
           />
           <Typography>{sender.name}</Typography>
         </Box>
       </Grid>
       <Grid xs={"auto"} item>
-        <List ref={scrollRef} sx={{ maxWidth: 700 }}>
+        <List
+          ref={scrollRef}
+          sx={{
+            maxWidth: 700,
+            ml: "0.2em",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
           <Typography
             className={classes.messages}
             variant="body1"
@@ -35,6 +43,8 @@ export default function MessageListItem(props) {
           <Typography
             title={moment(sent_at).format("dddd, MMMM Do YYYY, h:mm:ss a")}
             variant="caption"
+            display="block"
+            sx={{ ml: "1em" }}
           >
             {moment(sent_at).fromNow()}
           </Typography>
