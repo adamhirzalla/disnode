@@ -82,19 +82,14 @@ const Login = () => {
           </Button>
         </Box>
         <Grid container>
-          <Grid item xs>
-            {" "}
-          </Grid>
           <Grid item sx={{ fontSize: "large" }}>
-            <b>{"Don't have an account? Sign Up"}</b>
+            <b>{"Don't have an account? "}</b>
             <Link
               href="/register"
               variant="body2"
               sx={{ textDecoration: "none" }}
             >
-              <Button className={buttons.submit} type="submit" sx={{ ml: 3 }}>
-                Sign Up
-              </Button>
+              SIGN UP
             </Link>
           </Grid>
         </Grid>
