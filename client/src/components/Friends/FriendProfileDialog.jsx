@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 import ServerContext from "../../contexts/ServerContext";
 import { makeStyles } from "@mui/styles";
-import { Button, Dialog, DialogActions } from "@mui/material";
+import { Button, Dialog, DialogActions, List } from "@mui/material";
 import FriendProfile from "./FriendProfile";
 import FriendsListItem from "./FriendsListItem";
+import DisBox from "../Box/DisBox";
+import SearchBar from "./SearchBar";
 
 // mock data
 const friendList = [
@@ -114,6 +116,11 @@ const useStyles = makeStyles(() => ({
       background: "rgb(179, 2, 2, 0.5)",
     },
   },
+  list: {
+    width: "100%",
+    maxWidth: "360",
+    backgroundColor: "inherit",
+  },
 }));
 
 export default function FriendProfileDialog(props) {
@@ -157,7 +164,10 @@ export default function FriendProfileDialog(props) {
 
   return (
     <div>
-      {parsedFriendList}
+      <DisBox type="friendListBox">
+        <SearchBar></SearchBar>
+        <List className={classes.list}>{parsedFriendList}</List>
+      </DisBox>
       <Dialog
         className={classes.dialog}
         classes={{ paper: classes.dialogPaper }}

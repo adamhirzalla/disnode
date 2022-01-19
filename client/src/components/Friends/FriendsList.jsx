@@ -2,6 +2,7 @@ import DisBox from "../Box/DisBox";
 import SearchBar from "./SearchBar";
 import { List } from "@mui/material";
 import FriendsListItem from "./FriendsListItem";
+import FriendProfileDialog from "./FriendProfileDialog";
 
 // styles
 import { useFriendsListStyles } from "../styles/useFriendsListStyles";
@@ -28,7 +29,8 @@ export default function FriendsList({ friendList }) {
   return (
     <DisBox type="friendListBox">
       <SearchBar></SearchBar>
-      <List className={classes.list}>{parsedFriendList}</List>
+
+      <List className={classes.list}></List>
     </DisBox>
   );
 }

@@ -4,13 +4,11 @@ import ServerList from "../components/Server/ServerList";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 import ServerContext from "../contexts/ServerContext";
-import FriendsList from "../components/Friends/FriendsList";
-import FriendProfile from "../components/Friends/FriendProfile";
 import DisBox from "../components/Box/DisBox";
+import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
-import FriendProfileDialog from "../components/Friends/FriendProfileDialog";
 
 const friendList = [
   {
@@ -100,9 +98,9 @@ export default function Home() {
       >
         <DisBox>
           <div className={classes.rowTwo}></div>
-          <DisBox type="friendProfileWrapper">
-            <FriendProfileDialog />
-          </DisBox>
+          <FriendsListDrawer />
+
+          <DisBox type="friendProfileWrapper"></DisBox>
         </DisBox>
       </ServerList>
     </DisBox>
