@@ -7,7 +7,7 @@ import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../../Divider/DisDivider";
 import DisIconButton from "../Button/DisIconButton";
-import { List, Box, CssBaseline } from "@mui/material";
+import { List, CssBaseline } from "@mui/material";
 import ServerContext from "../../contexts/ServerContext";
 import {
   createServer,
@@ -15,6 +15,7 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
+import SearchServerDialog from "./SearchServerDialog";
 
 export default function ServerList(props) {
   const { socket, user, children } = props;
@@ -69,13 +70,12 @@ export default function ServerList(props) {
           <DisImg alt="Home" src="/images/Disnode-red.png" type="home" />
         </DisIconButton>
         <DisDivider type="home" />
-        <Box>
-          <List>{parsedServers}</List>
-        </Box>
+
+        <List>{parsedServers}</List>
         <DisDivider />
-        <Box>
-          <NewServerDialog onClick={handleCreate} />
-        </Box>
+
+        <NewServerDialog onClick={handleCreate} />
+        <SearchServerDialog />
       </DisDrawer>
       {children}
     </DisBox>
