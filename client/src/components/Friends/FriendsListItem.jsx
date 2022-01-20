@@ -11,6 +11,7 @@ import {
   Button,
   Dialog,
   DialogActions,
+  Divider,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import FriendProfile from "./FriendProfile";
@@ -120,54 +121,58 @@ export default function FriendsListItem({ setFriend, friend }) {
   };
 
   return (
-    <ListItem
-      className={classes.listItem}
-      secondaryAction={
-        <ElipsesDropdown friend={friend} setFriend={setFriend} />
-      }
-      disablePadding
-    >
-      <ListItemButton className={classes.list} onClick={handleOpen}>
-        <ListItemAvatar>
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-            variant={friend.is_active ? "dot" : "standard"}
-            sx={{
-              "& .MuiBadge-badge": {
-                right: 10,
-                width: "1em",
-                height: "1em",
-                borderRadius: "1em",
-              },
-            }}
-          >
-            <Avatar
-              alt={friend.name}
-              src={friend.img}
-              className={classes.avatar}
-            />
-          </StyledBadge>
-        </ListItemAvatar>
-        <ListItemText className={classes.text} primary={friend.full_name} />
-      </ListItemButton>
-      <Dialog
-        className={classes.dialog}
-        classes={{ paper: classes.dialogPaper }}
-        open={open}
-        onClose={() => setOpen(false)}
+    <>
+      <ListItem
+        className={classes.listItem}
+        secondaryAction={
+          <ElipsesDropdown friend={friend} setFriend={setFriend} />
+        }
+        disablePadding
       >
-        <FriendProfile friend={friend}>
-          <DialogActions className={classes.dialogActions}>
-            <Button
-              className={classes.closeDialog}
-              onClick={() => setOpen(false)}
+        <ListItemButton className={classes.list} onClick={handleOpen}>
+          <ListItemAvatar>
+            <StyledBadge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              variant={friend.is_active ? "dot" : "standard"}
+              sx={{
+                "& .MuiBadge-badge": {
+                  right: 10,
+                  width: "1em",
+                  height: "1em",
+                  borderRadius: "1em",
+                },
+              }}
             >
-              close
-            </Button>
-          </DialogActions>
-        </FriendProfile>
-      </Dialog>
-    </ListItem>
+              <Avatar
+                alt={friend.name}
+                src={friend.img}
+                className={classes.avatar}
+              />
+            </StyledBadge>
+          </ListItemAvatar>
+          <ListItemText className={classes.text} primary={friend.full_name} />
+        </ListItemButton>
+
+        <Dialog
+          className={classes.dialog}
+          classes={{ paper: classes.dialogPaper }}
+          open={open}
+          onClose={() => setOpen(false)}
+        >
+          <FriendProfile friend={friend}>
+            <DialogActions className={classes.dialogActions}>
+              <Button
+                className={classes.closeDialog}
+                onClick={() => setOpen(false)}
+              >
+                close
+              </Button>
+            </DialogActions>
+          </FriendProfile>
+        </Dialog>
+      </ListItem>
+      <Divider />
+    </>
   );
 }

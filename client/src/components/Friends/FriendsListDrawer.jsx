@@ -137,7 +137,7 @@ export default function FriendsListDrawer(props) {
           component="div"
           sx={{
             display: "flex",
-            justifyContent: "space-evenly",
+            justifyContent: "flex-start",
             height: "100%",
             padding: "5em 0em",
           }}

@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
       zIndex: 0,
       borderRight: "0",
       "&::-webkit-scrollbar": {
-        width: "0",
+        display: "none",
         borderRadius: "30px",
       },
       "&::-webkit-scrollbar-track": {

@@ -10,6 +10,15 @@ import { AppBar } from "@mui/material";
 // styles
 import { useBoxStyles } from "../styles/useBoxStyles";
 const useStyles = makeStyles(() => ({
+  box: {
+    width: 511,
+    backgroundColor: "#FFF",
+    borderRadius: "0px 0px 15px 0px",
+    position: "fixed",
+    top: "0",
+    height: "5em",
+    zIndex: 2,
+  },
   search: {
     backgroundColor: "inherit",
     color: "#FFF",
@@ -20,14 +29,15 @@ const useStyles = makeStyles(() => ({
       color: "#FFF",
     },
   },
-  appBar: {
-    top: "10px",
-    bottom: "auto",
-    left: "7.9em",
-    width: "31.0em",
+  toolBar: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: 510,
+    height: "5em",
     backgroundColor: "#040B0C",
     color: "#FFF",
-    borderRadius: "1em",
+
+    borderRadius: "0px 15px 15px 0px",
   },
 }));
 
@@ -80,30 +90,24 @@ export default function SearchBar() {
   const boxClasses = useBoxStyles();
   const classes = useStyles();
   return (
-    <Box component="form" className={boxClasses.stickyFriendBar}>
+    <Box component="form" className={classes.box}>
       {/* <DisBox component="form" disStyle="friendsBar"> */}
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "space-between",
-          }}
-        >
-          <DisTypography variant="h6" noWrap component="div">
-            Friends List
-          </DisTypography>
-          <Search className={classes.search}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search Friends..."
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
+      {/* <AppBar position="fixed" className={classes.appBar}> */}
+      <Toolbar className={classes.toolBar}>
+        <DisTypography variant="h6" noWrap component="div">
+          Friends List
+        </DisTypography>
+        <Search className={classes.search}>
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search Friends..."
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
+      </Toolbar>
+      {/* </AppBar> */}
       {/* </DisBox> */}
     </Box>
   );
