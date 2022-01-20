@@ -99,8 +99,10 @@ export default function ServerList(props) {
       await createTags(tags, id);
       const servers = await getServers();
       const server = await getServer(id);
-      setServers(servers);
-      setServer(server);
+      if (server && servers) {
+        setServers(servers);
+        setServer(server);
+      }
     } catch (e) {
       console.log("Could not create server");
     }
