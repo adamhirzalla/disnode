@@ -28,6 +28,7 @@ import classNames from "classnames";
 import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 import { makeStyles } from "@mui/styles";
 import FriendsListDrawer from "../Friends/FriendsListDrawer";
+import UserInfoList from "./UserInfoList";
 
 const useStyles = makeStyles(() => ({
   navHome: {
@@ -158,9 +159,13 @@ export default function ServerList(props) {
               <DisDivider disStyle="nav-bot" />
               <ListItem className={classes.navCreate}>
                 <NewServerDialog onClick={handleCreate} />
-              </ListItem>
-              <ListItem className={classes.navSearch}>
                 <SearchServerDialog />
+              </ListItem>
+              <ListItem
+                className={classes.navCreate}
+                sx={{ position: "absolute" }}
+              >
+                <UserInfoList />
               </ListItem>
             </>
           )}

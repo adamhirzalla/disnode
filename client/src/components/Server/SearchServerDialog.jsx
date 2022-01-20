@@ -40,7 +40,7 @@ export default function SearchServerDialog() {
   return (
     <>
       <IconButton className={classes.addButton} onClick={() => setOpen(true)}>
-        <Search fontSize="large" />
+        <Search fontSize="small" />
       </IconButton>
       <Dialog
         classes={{ paper: classes.dialogPaper }}
