@@ -4,7 +4,6 @@ import ChannelListItem from "./ChannelListItem";
 import NewChannelDialog from "./NewChannelDialog";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListStyles";
-import SettingServer from "./SettingServer";
 import ServerMenu from "./ServerMenu";
 
 export default function ChannelList({ children }) {
@@ -30,9 +29,8 @@ export default function ChannelList({ children }) {
     <>
       <CssBaseline />
       <Drawer className={classes.drawer} variant="permanent" anchor="left">
-        <List className={classes.list}></List>
         <List className={classes.list}>
-          <SettingServer />
+          <ServerMenu />
           <Divider />
           {parsedChannels}
         </List>

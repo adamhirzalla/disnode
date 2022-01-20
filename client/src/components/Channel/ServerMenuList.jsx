@@ -1,17 +1,17 @@
 import { IconButton, Menu } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
-import ServerMenu from "./ServerMenu";
+import ServerMenuListItem from "./ServerMenuListItem";
 
 export default function SettingServerMenu() {
-  const [anchorUser, setAnchorUser] = useState(false);
+  const [anchor, setAnchor] = useState(false);
 
   const handleClose = () => {
-    setAnchorUser(false);
+    setAnchor(false);
   };
 
   const handleClick = (e) => {
-    setAnchorUser(e.currentTarget);
+    setAnchor(e.currentTarget);
   };
 
   return (
@@ -22,7 +22,7 @@ export default function SettingServerMenu() {
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
-        anchorEl={anchorUser}
+        anchorEl={anchor}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -32,10 +32,10 @@ export default function SettingServerMenu() {
           vertical: "top",
           horizontal: "right",
         }}
-        open={Boolean(anchorUser)}
+        open={Boolean(anchor)}
         onClose={handleClose}
       >
-        <ServerMenu handleClose={handleClose} />
+        <ServerMenuListItem handleClose={handleClose} />
       </Menu>
     </>
   );

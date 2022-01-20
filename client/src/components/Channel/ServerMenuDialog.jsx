@@ -4,7 +4,7 @@ import ServerContext from "../../contexts/ServerContext";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 
-export default function SettingDialog({ open, setOpen }) {
+export default function ServerMenuDialog({ open, setOpen }) {
   const classes = useNewChannelDialogStyles();
   const buttonClasses = useDisButtonStyles();
   const {
@@ -18,11 +18,13 @@ export default function SettingDialog({ open, setOpen }) {
 
   // click handler for confirm button
   const handleConfirm = () => {
+    //TODO - need to link to server
     const serverId = server.id;
     const index = servers.findIndex((server) => {
       return server.id === serverId;
     });
     servers.splice(index, 1);
+
     setOpen(false);
   };
 
