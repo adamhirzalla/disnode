@@ -21,10 +21,9 @@ export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
   const handleConfirm = () => {
     //TODO - need to link to server
     const serverId = server.id;
-    const index = servers.findIndex((server) => {
-      return server.id === serverId;
+    servers.find((server, i) => {
+      if (server.id === serverId) return servers.splice(i, 1);
     });
-    servers.splice(index, 1);
 
     setOpen(false);
     setOption(null);

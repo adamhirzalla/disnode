@@ -12,9 +12,12 @@ export default function ServerMenu() {
   const [option, setOption] = useState(null);
 
   return (
-    <Box sx={{ pl: 2, height: "65px" }}>
-      <ListItem button className={classes.listItem}>
-        <ListItemText primary={server.title} />
+    <Box sx={{ height: "65px" }}>
+      <ListItem button className={classes.listItem} sx={{ height: "100%" }}>
+        <ListItemText
+          primary={server.title}
+          sx={{ paddingLeft: "25px", fontWeight: "bold" }}
+        />
         {option === "Copy invite code" && (
           <Alert
             sx={{ position: "fixed", top: "60px", left: "45%", zIndex: 2 }}

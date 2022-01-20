@@ -21,7 +21,7 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
   } = useContext(ServerContext);
 
   const handleClick = (e) => {
-    // setOption(e.target.textContent);
+    setOption(e.target.textContent);
     setOpen(true);
     handleClose();
   };
