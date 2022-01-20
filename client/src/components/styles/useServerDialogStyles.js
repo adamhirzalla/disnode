@@ -10,6 +10,10 @@ export const useServerDialogStyles = makeStyles((theme) =>
         textAlign: "center",
       },
     },
+    avatar: {
+      height: "50px",
+      width: "50px",
+    },
     addButton: {
       marginTop: "0.2em",
       color: "#FFFFFF",

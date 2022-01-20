@@ -43,9 +43,9 @@ export default function NewServerDialog(props) {
   };
   return (
     <div>
-      <Tooltip title={"Create a Server"} arrow placement="top">
+      <Tooltip title={"Create Server"} arrow placement="top">
         <IconButton className={classes.addButton} onClick={handleClickOpen}>
-          <AddCircleIcon fontSize="small" />
+          <AddCircleIcon fontSize="medium" />
         </IconButton>
       </Tooltip>
 

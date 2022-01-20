@@ -6,11 +6,13 @@ import {
   ListItemText,
   IconButton,
   AvatarGroup,
+  Tooltip,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useState } from "react";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import ConfirmDialog from "./ConfirmDialog";
+import { makeStyles } from "@mui/styles";
 
 export default function SearchServerListDialog({ server, openResult }) {
   const { title, logo, members } = server;
@@ -39,10 +41,20 @@ export default function SearchServerListDialog({ server, openResult }) {
                 primary={server.title}
               />
 
-              <AvatarGroup total={members.length} sx={{ pr: "25px" }}>
-                <Avatar alt={members[0].nickname} src={members[0].avatar} />
-                <Avatar alt={members[1]?.nickname} src={members[1]?.avatar} />
-                <Avatar alt={members[2]?.nickname} src={members[2]?.avatar} />
+              <AvatarGroup total={members.length} sx={{ pr: "80px" }}>
+                <Tooltip title={members[0].nickname} arrow placement="top">
+                  <Avatar alt={members[0].nickname} src={members[0].avatar} />
+                </Tooltip>
+                {members[1] && (
+                  <Tooltip title={members[1].nickname} arrow placement="top">
+                    <Avatar alt={members[1].nickname} src={members[1].avatar} />
+                  </Tooltip>
+                )}
+                {members[2] && (
+                  <Tooltip title={members[2].nickname} arrow placement="top">
+                    <Avatar alt={members[2].nickname} src={members[2].avatar} />
+                  </Tooltip>
+                )}
               </AvatarGroup>
 
               <IconButton

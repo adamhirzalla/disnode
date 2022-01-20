@@ -13,7 +13,7 @@ const Input = styled("input")({
 });
 
 export default function SelectButton(props) {
-  const { setFile } = props;
+  const { setInput } = props;
   const classes = useDisButtonStyles();
 
   const handleChange = (e) => {
@@ -22,7 +22,7 @@ export default function SelectButton(props) {
     preview.onload = function () {
       URL.revokeObjectURL(preview.src); // free memory
     };
-    setFile(e.target.files[0]);
+    setInput((prev) => ({ ...prev, file: e.target.files[0] }));
   };
 
   return (
@@ -40,6 +40,7 @@ export default function SelectButton(props) {
         name="Select File"
         className={classes.contained}
         size="small"
+        color="primary"
       >
         Select File
       </Button>

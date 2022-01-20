@@ -11,9 +11,12 @@ import { logout } from "../../network/authApi";
 import { useContext, useState } from "react";
 import UserInfoDialog from "./UserInfoDialog";
 import AuthContext from "../../contexts/AuthContext";
+import { makeStyles } from "@mui/styles";
+import { Person } from "@mui/icons-material";
 
-export default function UserInfoListItem({ handleClose }) {
+export default function ProfileMenuItem({ handleClose }) {
   const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState(false);
   const { dispatch } = useContext(AuthContext);
 
   const handleClick = () => {
@@ -29,9 +32,15 @@ export default function UserInfoListItem({ handleClose }) {
     <Paper sx={{ width: "100%", maxWidth: "100%" }}>
       <MenuList>
         <Divider />
+        <MenuItem>
+          <ListItemIcon>
+            <Person fontSize="small" color="primary" />
+          </ListItemIcon>
+          Profile
+        </MenuItem>
         <MenuItem onClick={handleClick}>
           <ListItemIcon>
-            <Settings fontSize="small" color="primary" />
+            <Settings fontSize="small" />
           </ListItemIcon>
           Edit Profile
         </MenuItem>
