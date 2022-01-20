@@ -112,9 +112,9 @@ export default function FriendsListDrawer(props) {
 
       <Drawer
         sx={{
-          width: drawerWidth,
+          // width: drawerWidth,
           flexShrink: 0,
-          zIndex: 1,
+          zIndex: 2,
 
           "& .MuiDrawer-paper": {
             width: drawerWidth,

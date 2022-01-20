@@ -3,6 +3,7 @@ import { Box, Paper } from "@mui/material";
 import { DMTextInput } from "./DMTextInput";
 import { DMMessageLeft, DMMessageRight } from "./DMMessage";
 import { makeStyles } from "@mui/styles";
+import DMChatTitle from "./DMChatTitle";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -21,21 +22,15 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "flex-end",
+    marginLeft: 1005,
     "& .MuiPaper-root": {
-      marginLeft: 1000,
+      padding: "1rem 1rem",
       zIndex: 0,
+      // marginLeft: 1000,
       boxSizing: "border-box",
-      left: "122px",
+      left: 652,
       "&::-webkit-scrollbar": {
         width: "0em",
-        borderRadius: "30px",
-      },
-      "&::-webkit-scrollbar-track": {
-        WebkitBoxShadow: "inset 0 0 6px rgb(0,0,0,0)",
-      },
-      "&::-webkit-scrollbar-thumb": {
-        backgroundColor: "rgb(0,0,0,0)",
-        // outline: "1px solid black",
         borderRadius: "30px",
       },
     },
@@ -69,7 +64,7 @@ const messages = [
   {
     id: 2,
     sender_nickname: "Hyunsu",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar2.jpg",
     sender_id: 2,
     body: "hi whats up 88!",
     sent_at: "now",
@@ -77,7 +72,7 @@ const messages = [
   {
     id: 3,
     sender_nickname: "Learth",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar3.jpg",
     sender_id: 3,
     body: "hi whats up 88!",
     sent_at: "now",
@@ -93,7 +88,7 @@ const messages = [
   {
     id: 2,
     sender_nickname: "Hyunsu",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar2.jpg",
     sender_id: 2,
     body: "hi whats up 88!",
     sent_at: "now",
@@ -101,7 +96,7 @@ const messages = [
   {
     id: 3,
     sender_nickname: "Learth",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar3.jpg",
     sender_id: 3,
     body: "hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! ",
     sent_at: "now",
@@ -109,7 +104,7 @@ const messages = [
   {
     id: 1,
     sender_nickname: "smart lad",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar",
     sender_id: 1,
     body: "hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99!",
     sent_at: "now",
@@ -117,7 +112,7 @@ const messages = [
   {
     id: 2,
     sender_nickname: "Hyunsu",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar2.jpg",
     sender_id: 2,
     body: "hi whats up 88!",
     sent_at: "now",
@@ -125,7 +120,7 @@ const messages = [
   {
     id: 3,
     sender_nickname: "Learth",
-    sender_avatar: "",
+    sender_avatar: "/images/avatar3.jpg",
     sender_id: 3,
     body: "hi whats up 88!",
     sent_at: "now",
@@ -140,12 +135,11 @@ export default function DMChat(props) {
       return (
         <DMMessageRight
           key={i}
-          displayName={message.sender_nickname}
-          photoURL={message.sender_avatar}
+          sender_nickname={message.sender_nickname}
+          sender_avatar={message.sender_avatar}
           id={message.sender_id}
-          avatarDisp={true}
           message={message.body}
-          timestamp={message.sent_at}
+          sent_at={message.sent_at}
           // scrollRef={scrollRef}
           // scrollToBottom={scrollToBottom}
           // side={isOwner(user.user_id)}
@@ -154,13 +148,12 @@ export default function DMChat(props) {
     }
     return (
       <DMMessageLeft
-        key={message.id}
-        displayName={message.sender_nickname}
-        photoURL={message.sender_avatar}
+        key={i}
+        sender_nickname={message.sender_nickname}
+        sender_avatar={message.sender_avatar}
         id={message.sender_id}
-        avatarDisp={true}
         message={message.body}
-        timestamp={message.sent_at}
+        sent_at={message.sent_at}
         // scrollRef={scrollRef}
         // scrollToBottom={scrollToBottom}
         // side={isOwner(user.user_id)}
@@ -171,6 +164,7 @@ export default function DMChat(props) {
   return (
     <Box className={classes.box}>
       <Box className={classes.paper}>
+        <DMChatTitle title={"DM Title"} />
         <Paper className={classes.body} classes={{ paper: classes.chatPaper }}>
           {messageItems}
           <DMTextInput />

@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
       alignItems: "center",
       flexDirection: "column",
       backgroundColor: "gray",
-      zIndex: 0,
+      zIndex: 1,
       borderRight: "0",
       "&::-webkit-scrollbar": {
         display: "none",

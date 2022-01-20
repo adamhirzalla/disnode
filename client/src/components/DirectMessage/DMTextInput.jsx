@@ -5,9 +5,7 @@ import SendIcon from "@mui/icons-material/Send";
 const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
-    // justifyContent: "center",
     width: "65%",
-    // marginLeft: "1000px",
     position: "fixed",
     bottom: 40,
     right: 20,
@@ -31,7 +29,7 @@ export const DMTextInput = () => {
   return (
     <>
       <Box
-        // component="form"
+        component="form"
         className={classes.form}
         noValidate
         autoComplete="off"

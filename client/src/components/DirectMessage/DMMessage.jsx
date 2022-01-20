@@ -5,7 +5,6 @@ import { Avatar, Box, Typography } from "@mui/material";
 const useStyles = makeStyles(() => ({
   messageRow: {
     display: "flex",
-    // minHeight: "800px",
   },
   messageRowRight: {
     display: "flex",
@@ -107,25 +106,25 @@ const useStyles = makeStyles(() => ({
 // other users
 export const DMMessageLeft = (props) => {
   const classes = useStyles();
-  const { message, timestamp, photoURL, displayName } = props;
+  const { message, sent_at, sender_avatar, sender_username } = props;
 
   return (
     <>
       <Box className={classes.messageRow}>
         <Avatar
-          alt={displayName}
+          alt={sender_username}
           className={classes.blue}
-          src={photoURL}
+          src={sender_avatar}
         ></Avatar>
         <Box sx={{ width: "100%" }}>
-          <Box className={classes.displayName}>{displayName}</Box>
+          <Box className={classes.displayName}>{sender_username}</Box>
           <Box className={classes.otherMessage}>
             <Box>
               <Typography className={classes.messageContent}>
                 {message}
               </Typography>
             </Box>
-            <Box className={classes.messageTimeStampRight}>{timestamp}</Box>
+            <Box className={classes.messageTimeStampRight}>{sent_at}</Box>
           </Box>
         </Box>
       </Box>
@@ -136,12 +135,12 @@ export const DMMessageLeft = (props) => {
 // user
 export const DMMessageRight = (props) => {
   const classes = useStyles();
-  const { message, timestamp } = props;
+  const { message, sent_at } = props;
   return (
     <Box className={classes.messageRowRight}>
       <Box className={classes.userMessage}>
         <Typography className={classes.messageContent}>{message}</Typography>
-        <Box className={classes.messageTimeStampRight}>{timestamp}</Box>
+        <Box className={classes.messageTimeStampRight}>{sent_at}</Box>
       </Box>
     </Box>
   );
