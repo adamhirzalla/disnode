@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxN
 
 ### single server
 POST http://localhost:8001/api/servers/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNTg3MTYyLCJleHAiOjE2NDI2NzM1NjJ9.WSeFt8npPl7FLFnRYa2wGy9K81R_wyFeo2cw6ufsEmg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNjUzMTI3LCJleHAiOjE2NDI3Mzk1Mjd9.f0Ni1CR6nEVT8Wpt50N5Mt0FvquxeAGgaqSADQ8LGDc
 
 ### create a server
 POST http://localhost:8001/api/servers

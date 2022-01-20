@@ -1,12 +1,10 @@
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import Drawer from "@mui/material/Drawer";
 import { useContext, useState } from "react";
+import { List, Drawer, CssBaseline, Divider } from "@mui/material";
 import ChannelListItem from "./ChannelListItem";
 import NewChannelDialog from "./NewChannelDialog";
-import CssBaseline from "@mui/material/CssBaseline";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListStyles";
+import ServerMenu from "./ServerMenu";
 
 export default function ChannelList({ children }) {
   const classes = useChannelListStyles();
@@ -31,7 +29,11 @@ export default function ChannelList({ children }) {
     <>
       <CssBaseline />
       <Drawer className={classes.drawer} variant="permanent" anchor="left">
-        <List className={classes.list}>{parsedChannels}</List>
+        <List className={classes.list}>
+          <ServerMenu />
+          <Divider />
+          {parsedChannels}
+        </List>
         <NewChannelDialog />
       </Drawer>
       {children}
