@@ -5,7 +5,7 @@ import DisDrawer from "../Drawer/DisDrawer";
 import ServerListItem from "./ServerListItem";
 import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
-import DisDivider from "../../Divider/DisDivider";
+import DisDivider from "../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
 import { List, IconButton, Tooltip, ListItem, Avatar } from "@mui/material";

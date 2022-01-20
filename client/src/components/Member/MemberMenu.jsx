@@ -1,65 +1,53 @@
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+import Person from "@mui/icons-material/Person";
+import Admin from "@mui/icons-material/AdminPanelSettings";
+
+import { makeStyles } from "@mui/styles";
 import {
   Box,
   Divider,
   IconButton,
   ListItemIcon,
-  ListItemText,
   Menu,
   MenuItem,
   MenuList,
   Tooltip,
-  DialogTitle,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Button,
 } from "@mui/material";
-import { useState } from "react";
 import MemberDialog from "./MemberDialog";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
-import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 
-const settings = ["Add Friend", "Assign Mod", "Assign Admin", "Kick Out"];
-
+const useStyles = makeStyles(() => ({
+  root: { backgroundColor: "white" },
+}));
 export default function MemberMenu({ member }) {
   const [anchorUser, setAnchorUser] = useState(false);
-  const [dialog, setDialog] = useState(false);
+  const [open, setOpen] = useState(false);
   const [action, setAction] = useState("");
+  const classes = useStyles();
 
-  const classes = useNewChannelDialogStyles();
-  const buttonClasses = useDisButtonStyles();
+  const [PROFILE, ADD, ADMIN, KICK] = ["PROFILE", "ADD", "ADMIN", "KICK"];
 
   // tartget a member that user clicks
-  const handleClick = (e) => {
+  const handleAnchor = (e) => {
     setAnchorUser(e.currentTarget);
   };
 
-  const handleClose = (e) => {
+  const handleAnchorClose = (e) => {
     setAnchorUser(false);
   };
-  const handleDialogClose = (e) => {
-    setDialog(false);
-  };
-  const handleDialog = (action) => {
-    setDialog(true);
-    setAction(action);
-  };
 
-  const handleConfirm = () => {
-    if (action === "ADD") console.log(`Adding friend ${member.nickname}`);
+  const handleAction = (action) => {
+    setOpen(true);
+    setAction(action);
   };
 
   return (
     <Box>
-      <Tooltip title={member.nickname}>
-        <IconButton onClick={handleClick} sx={{ mr: "20px" }}>
-          <FontAwesomeIcon icon={faEllipsisV} />
+      <Tooltip title={"Options"}>
+        <IconButton onClick={handleAnchor} sx={{ mr: "20px" }}>
+          <Settings fontSize="small" />
         </IconButton>
       </Tooltip>
       <Menu
@@ -76,69 +64,41 @@ export default function MemberMenu({ member }) {
           horizontal: "right",
         }}
         open={Boolean(anchorUser)}
-        onClose={handleClose}
+        onClose={handleAnchorClose}
       >
         <MenuList>
           <Divider />
-          <MenuItem onClick={() => handleDialog("ADD")}>
+          <MenuItem onClick={() => handleAction(PROFILE)}>
             <ListItemIcon>
-              <PersonAdd color="success" fontSize="small" />
+              <Person color="info" />
             </ListItemIcon>
-            Add members
+            Profile
           </MenuItem>
-          <MenuItem onClick={() => handleDialog("KICK")}>
+          <MenuItem onClick={() => handleAction(ADD)}>
             <ListItemIcon>
-              <Settings fontSize="small" />
+              <PersonAdd color="success" />
             </ListItemIcon>
-            <PersonAdd color="success" fontSize="small" />
+            Add Friend
           </MenuItem>
-          <MenuItem onClick={() => handleDialog("PROFILE")}>
+          <MenuItem onClick={() => handleAction(ADMIN)}>
             <ListItemIcon>
-              <ContentCopy fontSize="small" />
+              <Admin color="warning" />
             </ListItemIcon>
-            <ListItemText>Profile</ListItemText>
+            Assign Admin
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => handleAction(KICK)}>
             <ListItemIcon>
-              <Logout color="error" fontSize="small" />
+              <Logout color="error" />
             </ListItemIcon>
-            Logout
+            Kick
           </MenuItem>
         </MenuList>
-        {/* {settings.map((setting, i) => (
-          <MemberDialog
-            key={i}
-            setting={setting}
-            member={member}
-            setAnchorUser={setAnchorUser}
-          />
-        ))} */}
-        <Dialog
-          classes={{ paper: classes.dialogPaper }}
-          open={dialog}
-          onClose={handleDialogClose}
-        >
-          <DialogTitle>
-            {/* {action === "ADD" || "KICK"} */}
-            {`member: ${member.nickname}`}
-            {`Would you like to ${action}`}
-            {action === "ADD" && "would you really like to add him?"}
-            {action === "KICK" && "KICK HIM?? CUZ HE CANT COME BACK"}
-            {action === "PROFILE" && member.id}
-          </DialogTitle>
-          <DialogContent>
-            {action === "PROFILE" && "HERE IS THIS GUYS BIO!"}
-          </DialogContent>
-
-          <DialogActions>
-            <Button className={buttonClasses.cancel} onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button className={buttonClasses.submit} onClick={handleConfirm}>
-              Confirm
-            </Button>
-          </DialogActions>
-        </Dialog>
+        <MemberDialog
+          member={member}
+          open={open}
+          setOpen={setOpen}
+          action={action}
+        />
       </Menu>
     </Box>
   );
