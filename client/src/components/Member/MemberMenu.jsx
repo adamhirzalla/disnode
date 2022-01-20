@@ -45,9 +45,15 @@ export default function MemberMenu({ member }) {
 
   return (
     <Box>
+<<<<<<< HEAD
       <Tooltip title={"Options"}>
         <IconButton onClick={handleAnchor} sx={{ mr: "20px" }}>
           <Settings fontSize="small" />
+=======
+      <Tooltip title={`${member.nickname}'s Options`}>
+        <IconButton onClick={handleClick} sx={{ mr: "20px" }}>
+          <FontAwesomeIcon icon={faEllipsisV} />
+>>>>>>> master
         </IconButton>
       </Tooltip>
       <Menu
