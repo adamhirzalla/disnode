@@ -3,7 +3,9 @@ import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
 import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 import { Box } from "@mui/system";
-import DMChannelList from "./DirectMessage/DMList.jsx";
+import DMList from "./DirectMessage/DMList";
+import { makeStyles } from "@mui/styles";
+import DMChat from "./DirectMessage/DMChat";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
@@ -70,9 +72,18 @@ const friendList = [
   },
 ];
 
+const useStyles = makeStyles(() => ({
+  chatWrapper: {
+    display: "flex",
+    width: "100vw",
+    height: "100vh",
+  },
+}));
+
 export default function Home() {
-  const classes = useHomePageStyles();
+  const homeClasses = useHomePageStyles();
   const boxClasses = useBoxStyles();
+  const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
 
   const handleLogout = () => {
@@ -81,11 +92,11 @@ export default function Home() {
   return (
     <Box className={boxClasses.homeWrapper}>
       <Box className={boxClasses.root}>
-        <div className={classes.rowTwo}></div>
         <FriendsListDrawer>
-          <DMChannelList />
+          <DMList></DMList>
         </FriendsListDrawer>
-        <Box className={boxClasses.friendProfileWrapper}></Box>
+
+        <Box className={classes.chatWrapper}></Box>
       </Box>
     </Box>
   );

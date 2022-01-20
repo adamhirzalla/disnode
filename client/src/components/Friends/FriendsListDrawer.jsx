@@ -16,7 +16,9 @@ const drawerWidth = 510;
 const useStyles = makeStyles(() => ({
   drawerWrapper: {
     display: "flex",
-    overflowX: "hidden",
+
+    width: "100%",
+    height: "100%",
   },
   friendListWrapper: {
     display: "flex",
@@ -110,9 +112,9 @@ export default function FriendsListDrawer(props) {
 
       <Drawer
         sx={{
-          width: drawerWidth,
+          // width: drawerWidth,
           flexShrink: 0,
-          zIndex: 1,
+          zIndex: 2,
 
           "& .MuiDrawer-paper": {
             width: drawerWidth,

@@ -4,11 +4,11 @@ import { Box, IconButton, TextField } from "@mui/material";
 import AuthContext from "../../../contexts/AuthContext";
 import { sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
-import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import { useMessageListStyles } from "../../styles/useMessageListStyles";
 import { getChannels } from "../../../network/channelApi";
 
 export default function MessageForm() {
-  const classes = useMessageListSytle();
+  const classes = useMessageListStyles();
   const [input, setInput] = useState("");
   const {
     setMessages,

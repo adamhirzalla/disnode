@@ -3,7 +3,7 @@ import MessageListItem from "./MessageListItem";
 import { AddCircle } from "@mui/icons-material";
 import { useContext, useState, useRef } from "react";
 import ServerContext from "../../../contexts/ServerContext";
-import { useMessageListSytle } from "../../styles/useMessageListSytle";
+import { useMessageListStyles } from "../../styles/useMessageListStyles";
 import ArrowDownIcon from "@mui/icons-material/ArrowDropDownCircleSharp";
 import {
   Box,
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 
 export default function MessageList({ children }) {
-  const classes = useMessageListSytle();
+  const classes = useMessageListStyles();
   const {
     app: { messages, channel },
     setMessages,

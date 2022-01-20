@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-export const useMessageListSytle = makeStyles(() =>
+export const useMessageListStyles = makeStyles(() =>
   createStyles({
     root: {
       width: "100%",

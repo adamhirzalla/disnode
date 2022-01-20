@@ -13,6 +13,8 @@ export const theme = createTheme({
       styleOverrides: {
         root: {
           padding: "0px",
+          boxShadow: "0",
+          WebkitBoxShadow: "0",
         },
       },
     },
@@ -31,6 +33,7 @@ export const theme = createTheme({
     fontWeightMedium: 500,
     fontWeightBold: 600,
   },
+  // shadows: ["none"],
 });
 
 export const darkTheme = createTheme({
@@ -44,5 +47,4 @@ export const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
-  // shadows: ["none"],
 });

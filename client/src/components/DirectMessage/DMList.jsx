@@ -9,6 +9,7 @@ import { mockDMChannels } from "./mock";
 
 import { Typography, Toolbar, Divider } from "@mui/material";
 import DMListItem from "./DMListItem";
+import DMChat from "./DMChat";
 
 // styles
 const drawerWidth = 500;
@@ -27,7 +28,7 @@ const useStyles = makeStyles(() => ({
       alignItems: "center",
       flexDirection: "column",
       backgroundColor: "gray",
-      zIndex: 0,
+      zIndex: 1,
       borderRight: "0",
       "&::-webkit-scrollbar": {
         display: "none",
@@ -75,13 +76,89 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const messages = [
+  {
+    id: 1,
+    sender_nickname: "smart lad",
+    sender_avatar: "/images/avatar",
+    sender_id: 2,
+    body: "hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi ",
+    sent_at: "now",
+  },
+  {
+    id: 2,
+    sender_nickname: "Hyunsu",
+    sender_avatar: "/images/avatar2.jpg",
+    sender_id: 3,
+    body: "hi whats up 88!",
+    sent_at: "now",
+  },
+  {
+    id: 3,
+    sender_nickname: "Learth",
+    sender_avatar: "/images/avatar3.jpg",
+    sender_id: 1,
+    body: "hi whats up 88!",
+    sent_at: "now",
+  },
+  {
+    id: 1,
+    sender_nickname: "smart lad",
+    sender_avatar: "/images/avatar",
+    sender_id: 2,
+    body: "hi whats up 99! ",
+    sent_at: "now",
+  },
+  {
+    id: 2,
+    sender_nickname: "Hyunsu",
+    sender_avatar: "/images/avatar2.jpg",
+    sender_id: 3,
+    body: "hi whats up 88!",
+    sent_at: "now",
+  },
+  {
+    id: 3,
+    sender_nickname: "Learth",
+    sender_avatar: "/images/avatar3.jpg",
+    sender_id: 1,
+    body: "hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! ",
+    sent_at: "now",
+  },
+  {
+    id: 1,
+    sender_nickname: "smart lad",
+    sender_avatar: "/images/avatar",
+    sender_id: 2,
+    body: "hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99!",
+    sent_at: "now",
+  },
+  {
+    id: 2,
+    sender_nickname: "Hyunsu",
+    sender_avatar: "/images/avatar2.jpg",
+    sender_id: 3,
+    body: "hi whats up 88!",
+    sent_at: "now",
+  },
+  {
+    id: 3,
+    sender_nickname: "Learth",
+    sender_avatar: "/images/avatar3.jpg",
+    sender_id: 1,
+    body: "hi whats up 88!",
+    sent_at: "now",
+  },
+];
+
 export default function DMList({ children }) {
   const classes = useStyles();
+  const [DM, setDM] = useState(null);
 
-  const {
-    app: { DMchannels, DMchannel },
-    setDMChannel,
-  } = useContext(ServerContext);
+  // const {
+  //   app: { DMchannels, DMchannel },
+  //   setDMChannel,
+  // } = useContext(ServerContext);
 
   const parsedDMs = mockDMChannels.map((dm, i) => {
     return (
@@ -89,30 +166,29 @@ export default function DMList({ children }) {
         key={i}
         id={dm.id}
         user={dm.user}
-        DMchannel={DMchannel}
-        setDMChannel={setDMChannel}
+        DMchannel={DM}
+        setDM={setDM}
       />
     );
   });
   return (
-    <Box>
-      <CssBaseline />
+    <>
+      <Box>
+        <CssBaseline />
+        <Drawer className={classes.drawer} variant="permanent" anchor="left">
+          <Box className={classes.toolbarWrapper}>
+            <Toolbar className={classes.toolbar}>
+              <Typography className={classes.header} variant="h6">
+                Direct Messages
+              </Typography>
+            </Toolbar>
+          </Box>
 
-      <Drawer className={classes.drawer} variant="permanent" anchor="left">
-        <Box className={classes.toolbarWrapper}>
-          <Toolbar className={classes.toolbar}>
-            <Typography className={classes.header} variant="h6">
-              Direct Messages
-            </Typography>
-          </Toolbar>
-        </Box>
-
-        <List className={classes.list}>
-          {/* <Divider /> */}
-          {parsedDMs}
-        </List>
-      </Drawer>
-      {children}
-    </Box>
+          <List className={classes.list}>{parsedDMs}</List>
+        </Drawer>
+      </Box>
+      {/* {DM ? <DMChat /> : null} */}
+      <DMChat messages={messages} />
+    </>
   );
 }
