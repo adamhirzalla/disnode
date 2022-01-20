@@ -84,7 +84,8 @@ export default function ServerList(props) {
   //   });
 
   const handleHomeClick = (socket) => {
-    socket.emit("home click", socket.id, user.display_name);
+    socket.emit("home click", socket.id, user.nickname);
+    navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
     setMode(HOME);
   };
 
@@ -104,7 +105,7 @@ export default function ServerList(props) {
   };
 
   // useEffect(() => {
-  //   socket?.emit("connection", socket.id, user.display_name);
+  //   socket?.emit("connection", socket.id, user.nickname);
   // }, []);
 
   const parsedServers = servers.map((server) => {

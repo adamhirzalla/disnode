@@ -16,5 +16,5 @@ Content-Type: application/json
 POST http://localhost:8001/api/register
 Content-Type: application/json
 
-{ "full_name": "Ted Mosby", "display_name": "Tedy", "username": "ted555", "email": "ted.mosby@gmail.com", "password": "password", "repeat_password": "password" }
+{ "full_name": "Ted Mosby", "nickname": "Tedy", "username": "ted555", "email": "ted.mosby@gmail.com", "password": "password", "repeat_password": "password" }
 

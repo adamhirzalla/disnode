@@ -24,7 +24,7 @@ CREATE TYPE "roles" AS ENUM (
 CREATE TABLE users (
   "id" SERIAL PRIMARY KEY,
   "full_name" VARCHAR(255),
-  "display_name" VARCHAR(255),
+  "nickname" VARCHAR(255),
   "username" VARCHAR(255) UNIQUE,
   "email" VARCHAR(255) UNIQUE,
   "password" VARCHAR(255),

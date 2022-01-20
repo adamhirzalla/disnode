@@ -39,7 +39,7 @@ export default function MessageForm() {
       const message = await sendMessage(channel.id, { body: input });
       const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;
-      message.sender_nickname = user.display_name;
+      message.sender_nickname = user.nickname;
       setMessages(message);
       setChannels(channels);
       setInput((prev) => "");
