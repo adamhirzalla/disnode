@@ -1,69 +1,31 @@
-import { useContext } from "react";
-import {
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { useContext, useState } from "react";
+import { Alert, Box, ListItem, ListItemText } from "@mui/material";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
-import ContentCopy from "@mui/icons-material/ContentCopy";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import PersonAdd from "@mui/icons-material/PersonAdd";
-import Settings from "@mui/icons-material/Settings";
-import Logout from "@mui/icons-material/Logout";
+import ServerMenuList from "./ServerMenuList";
 
 export default function ServerMenu() {
   const {
     app: { server },
   } = useContext(ServerContext);
   const classes = useChannelListStyles();
+  const [option, setOption] = useState(null);
 
   return (
-    <Paper sx={{ width: "100%", maxWidth: "100%" }}>
-      <MenuList>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <PersonAdd color="success" fontSize="small" />
-          </ListItemIcon>
-          Add members
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy invite code</ListItemText>
-        </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Logout color="error" fontSize="small" />
-          </ListItemIcon>
-          Leave
-        </MenuItem>
-        {/* <MenuItem>
-          <ListItemIcon>
-            <ContentCopy fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Copy invite code</ListItemText>
-        </MenuItem>
-        <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <ExitToAppIcon color="error" fontSize="small" />
-          </ListItemIcon>
-          <ListItemText>Leave Server</ListItemText>
-        </MenuItem> */}
-      </MenuList>
-    </Paper>
+    <Box sx={{ height: "65px" }}>
+      <ListItem button className={classes.listItem} sx={{ height: "100%" }}>
+        <ListItemText
+          primary={server.title}
+          sx={{ paddingLeft: "25px", fontWeight: "bold" }}
+        />
+        {option === "Copy invite code" && (
+          <Alert
+            sx={{ position: "fixed", top: "10px", left: "45%", zIndex: 2 }}
+            severity="success"
+          >{`Copied on your clipboard`}</Alert>
+        )}
+        <ServerMenuList option={option} setOption={setOption} />
+      </ListItem>
+    </Box>
   );
 }
