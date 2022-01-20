@@ -95,24 +95,26 @@ export default function DMList({ children }) {
     );
   });
   return (
-    <Box>
-      <CssBaseline />
+    <>
+      <Box>
+        <CssBaseline />
 
-      <Drawer className={classes.drawer} variant="permanent" anchor="left">
-        <Box className={classes.toolbarWrapper}>
-          <Toolbar className={classes.toolbar}>
-            <Typography className={classes.header} variant="h6">
-              Direct Messages
-            </Typography>
-          </Toolbar>
-        </Box>
+        <Drawer className={classes.drawer} variant="permanent" anchor="left">
+          <Box className={classes.toolbarWrapper}>
+            <Toolbar className={classes.toolbar}>
+              <Typography className={classes.header} variant="h6">
+                Direct Messages
+              </Typography>
+            </Toolbar>
+          </Box>
 
-        <List className={classes.list}>
-          {/* <Divider /> */}
-          {parsedDMs}
-        </List>
-      </Drawer>
+          <List className={classes.list}>
+            {/* <Divider /> */}
+            {parsedDMs}
+          </List>
+        </Drawer>
+      </Box>
       {children}
-    </Box>
+    </>
   );
 }

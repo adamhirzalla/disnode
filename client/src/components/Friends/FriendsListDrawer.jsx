@@ -16,7 +16,9 @@ const drawerWidth = 510;
 const useStyles = makeStyles(() => ({
   drawerWrapper: {
     display: "flex",
-    overflowX: "hidden",
+
+    width: "100%",
+    height: "100%",
   },
   friendListWrapper: {
     display: "flex",
