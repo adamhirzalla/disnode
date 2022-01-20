@@ -3,7 +3,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
 import ServerMenuListItem from "./ServerMenuListItem";
 
-export default function SettingServerMenu() {
+export default function SettingServerMenu({ option, setOption }) {
   const [anchor, setAnchor] = useState(false);
 
   const handleClose = () => {
@@ -35,7 +35,11 @@ export default function SettingServerMenu() {
         open={Boolean(anchor)}
         onClose={handleClose}
       >
-        <ServerMenuListItem handleClose={handleClose} />
+        <ServerMenuListItem
+          option={option}
+          setOption={setOption}
+          handleClose={handleClose}
+        />
       </Menu>
     </>
   );

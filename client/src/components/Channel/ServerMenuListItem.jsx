@@ -14,9 +14,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import ServerMenuDialog from "./ServerMenuDialog";
 
-export default function ServerMenuList({ handleClose }) {
+export default function ServerMenuList({ handleClose, option, setOption }) {
   const [open, setOpen] = useState(false);
-  // const [option, setOption] = useState(null);
   const {
     app: { server },
   } = useContext(ServerContext);
@@ -27,8 +26,11 @@ export default function ServerMenuList({ handleClose }) {
     handleClose();
   };
 
-  const handleClipboard = (e) => {
-    // setOption(e.target.textContent);
+  const handleCopy = (e) => {
+    setOption(e.target.textContent);
+    setTimeout(() => {
+      setOption(null);
+    }, 2000);
     navigator.clipboard.writeText(server.invite_code);
     handleClose();
   };
@@ -49,7 +51,7 @@ export default function ServerMenuList({ handleClose }) {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClipboard}>
+        <MenuItem onClick={handleCopy}>
           <ListItemIcon>
             <ContentCopy color="primary" fontSize="small" />
           </ListItemIcon>
@@ -62,7 +64,12 @@ export default function ServerMenuList({ handleClose }) {
           Leave
         </MenuItem>
       </MenuList>
-      <ServerMenuDialog open={open} setOpen={setOpen} />
+      <ServerMenuDialog
+        open={open}
+        setOpen={setOpen}
+        option={option}
+        setOption={setOption}
+      />
     </Paper>
   );
 }
