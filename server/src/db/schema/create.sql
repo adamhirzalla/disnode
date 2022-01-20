@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS server_tags CASCADE;
-DROP TABLE IF EXISTS connections CASCADE;
+DROP TABLE IF EXISTS socials CASCADE;
 DROP TABLE IF EXISTS requests CASCADE;
 DROP TABLE IF EXISTS friends CASCADE;
 DROP TABLE IF EXISTS views CASCADE;
@@ -36,8 +36,7 @@ CREATE TABLE users (
 
 CREATE TABLE icons (
   "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR(255),
-  "path" VARCHAR(255)
+  "name" VARCHAR(255)
 );
 
 CREATE TABLE tags (
@@ -107,10 +106,11 @@ CREATE TABLE friends (
 CREATE TABLE requests (
   "id" SERIAL PRIMARY KEY,
   "sender_id" INT REFERENCES users(id) ON DELETE CASCADE,
-  "receiver_id" INT REFERENCES users(id) ON DELETE CASCADE
+  "receiver_id" INT REFERENCES users(id) ON DELETE CASCADE,
+  "pending" BOOLEAN DEFAULT TRUE
 );
 
-CREATE TABLE connections (
+CREATE TABLE socials (
   "id" SERIAL PRIMARY KEY,
   "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "icon_id" INT REFERENCES icons(id) ON DELETE CASCADE,

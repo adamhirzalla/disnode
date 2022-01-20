@@ -1,0 +1,7 @@
+### Reset DB
+GET http://localhost:8001/api/debug/reset_db
+
+### TEST
+GET http://localhost:8001/api/test
+Content-Type: application/json
+{"userId": 1, "serverId": 1}

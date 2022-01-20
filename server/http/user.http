@@ -1,2 +1,6 @@
 ### All users
 GET http://localhost:8001/api/users
+
+### get a specific user
+POST http://localhost:8001/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNjc1NTY5LCJleHAiOjE2NDI3NjE5Njl9.OVgQ6jc-0jt1qfBl2T8Y0FpLT955sdUadBHYUaTFgFs
