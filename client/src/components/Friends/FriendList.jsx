@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import ServerContext from "../../contexts/ServerContext";
 import { makeStyles } from "@mui/styles";
 import { Button, Dialog, DialogActions, List, Paper } from "@mui/material";
-import FriendProfile from "./FriendProfile";
 import FriendsListItem from "./FriendsListItem";
 import DisBox from "../Box/DisBox";
 import SearchBar from "./SearchBar";

@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import { makeStyles } from "@mui/styles";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FriendList from "./FriendList";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import { ChevronRight } from "@mui/icons-material";
 
 const drawerWidth = 510;
 
@@ -24,6 +25,14 @@ const useStyles = makeStyles(() => ({
     padding: "1em",
   },
   friendListOpenIcon: {
+    // marginTop: ".75em",
+    // marginLeft: ".8em",
+    position: "fixed",
+    top: ".3em",
+    height: "2em",
+    width: "2em",
+    zIndex: 3,
+    color: "#FFF",
     "&:hover": {
       color: "rgb(204, 180, 180, 1)",
       backgroundColor: "inherit",
@@ -41,6 +50,10 @@ const useStyles = makeStyles(() => ({
     "&:hover": {
       color: "#01040D",
     },
+  },
+  peopleAltIcon: {
+    height: "1.3em",
+    width: "1.3em",
   },
 }));
 
@@ -87,7 +100,8 @@ export default function FriendsListDrawer(props) {
         edge="start"
         sx={{ ml: 2, ...(open && { display: "none" }) }}
       >
-        <MenuIcon />
+        <PeopleAltIcon className={classes.peopleAltIcon} />
+        <ChevronRight />
       </IconButton>
 
       <Drawer
@@ -100,9 +114,9 @@ export default function FriendsListDrawer(props) {
             width: drawerWidth,
             overflowX: "hidden",
             boxSizing: "border-box",
-            marginLeft: "122px",
+            left: "122px",
             "&::-webkit-scrollbar": {
-              width: "0.5em",
+              width: "0em",
               borderRadius: "30px",
             },
             "&::-webkit-scrollbar-track": {

@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/styles";
 import InputBase from "@mui/material/InputBase";
-import DisBox from "../Box/DisBox";
 import DisTypography from "../Box/DisTypography";
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar } from "@mui/material";
