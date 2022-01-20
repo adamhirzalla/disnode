@@ -16,7 +16,7 @@ import { register } from "../network/authApi";
 
 const initialInput = {
   full_name: "",
-  display_name: "",
+  nickname: "",
   username: "",
   email: "",
   password: "",
@@ -87,9 +87,9 @@ const Register = () => {
               margin="normal"
               required
               label="Nick Name"
-              value={input.display_name}
+              value={input.nickname}
               onChange={(e) =>
-                setInput((prev) => ({ ...prev, display_name: e.target.value }))
+                setInput((prev) => ({ ...prev, nickname: e.target.value }))
               }
             />
           </Box>

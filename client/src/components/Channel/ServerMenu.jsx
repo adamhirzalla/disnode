@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Alert, Box, ListItem, ListItemText } from "@mui/material";
+import { Alert, Box, Divider, ListItem, ListItemText } from "@mui/material";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 import ServerMenuList from "./ServerMenuList";
@@ -12,11 +12,16 @@ export default function ServerMenu() {
   const [option, setOption] = useState(null);
 
   return (
-    <Box sx={{ height: "65px" }}>
+    <Box
+      sx={{
+        height: "65px",
+        backgroundColor: "#040B0C",
+      }}
+    >
       <ListItem button className={classes.listItem} sx={{ height: "100%" }}>
         <ListItemText
           primary={server.title}
-          sx={{ paddingLeft: "25px", fontWeight: "bold" }}
+          sx={{ fontWeight: "bold", color: "white" }}
         />
         {option === "Copy invite code" && (
           <Alert

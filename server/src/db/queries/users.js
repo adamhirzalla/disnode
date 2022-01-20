@@ -6,15 +6,15 @@ const all = () => {
 };
 
 const create = (data) => {
-  const { full_name, display_name, username, email, password } = data;
+  const { full_name, nickname, username, email, password } = data;
 
   const query = `
   INSERT INTO users 
-  (full_name, display_name, username, email, password)
+  (full_name, nickname, username, email, password)
   VALUES ($1, $2, $3, $4, $5)
   RETURNING *;
   `;
-  const params = [full_name, display_name, username, email, password];
+  const params = [full_name, nickname, username, email, password];
   return db.query(query, params).then((res) => res.rows[0]);
 };
 

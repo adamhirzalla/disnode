@@ -17,7 +17,7 @@ export default function SettingServerMenu({ option, setOption }) {
   return (
     <>
       <IconButton onClick={handleClick}>
-        <KeyboardArrowDownIcon />
+        <KeyboardArrowDownIcon sx={{ color: "white" }} />
       </IconButton>
       <Menu
         sx={{ mt: "45px" }}

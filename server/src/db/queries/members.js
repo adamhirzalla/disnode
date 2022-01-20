@@ -18,7 +18,7 @@ const byServer = (serverId) => {
   SELECT 
     members.id,
     users.id AS user_id,
-    users.display_name AS nickname,
+    users.nickname,
     members.role,
     users.avatar,
     users.is_active
