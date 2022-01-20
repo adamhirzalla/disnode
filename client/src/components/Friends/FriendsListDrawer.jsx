@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     // marginTop: ".75em",
     // marginLeft: ".8em",
     position: "fixed",
-    top: ".3em",
+    top: ".685em",
     height: "2em",
     width: "2em",
     zIndex: 3,
