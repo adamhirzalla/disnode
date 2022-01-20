@@ -1,36 +1,37 @@
 import React from "react";
 import { TextField, Button, Box, IconButton } from "@mui/material";
-import { makeStyles, createStyles } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import SendIcon from "@mui/icons-material/Send";
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    form: {
-      display: "flex",
-      justifyContent: "center",
-      width: "95%",
-      marginLeft: "1000px",
-      "&:hover": {
-        // borderColor: "black",
-      },
+const useStyles = makeStyles(() => ({
+  form: {
+    display: "flex",
+    // justifyContent: "center",
+    width: "65%",
+    // marginLeft: "1000px",
+    position: "fixed",
+    bottom: 40,
+    right: 20,
+    "& .MuiBox-root": {},
+    "&:hover": {
+      // borderColor: "black",
     },
-    button: {
-      opacity: "0.8",
-      fontSize: "5em",
-      "&:hover": {
-        backgroundColor: "inherit",
-        opacity: "1",
-      },
+  },
+  button: {
+    opacity: "0.8",
+    fontSize: "5em",
+    "&:hover": {
+      backgroundColor: "inherit",
+      opacity: "1",
     },
-  })
-);
+  },
+}));
 
 export const DMTextInput = () => {
   const classes = useStyles();
   return (
     <>
       <Box
-        component="form"
+        // component="form"
         className={classes.form}
         noValidate
         autoComplete="off"

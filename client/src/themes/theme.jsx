@@ -33,7 +33,7 @@ export const theme = createTheme({
     fontWeightMedium: 500,
     fontWeightBold: 600,
   },
-  shadows: ["none"],
+  // shadows: ["none"],
 });
 
 export const darkTheme = createTheme({

@@ -15,14 +15,15 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     height: "100%",
     minWidth: "75.625rem",
-    minHeight: "57rem",
-    maxHeight: "57rem",
+    minHeight: "52rem",
+    maxHeight: "52rem",
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "flex-end",
     "& .MuiPaper-root": {
       marginLeft: 1000,
+      zIndex: 0,
       boxSizing: "border-box",
       left: "122px",
       "&::-webkit-scrollbar": {
@@ -134,11 +135,11 @@ const messages = [
 export default function DMChat(props) {
   const classes = useStyles();
 
-  const messageItems = messages.map((message) => {
+  const messageItems = messages.map((message, i) => {
     if (message.sender_id === 1) {
       return (
         <DMMessageRight
-          key={message.id}
+          key={i}
           displayName={message.sender_nickname}
           photoURL={message.sender_avatar}
           id={message.sender_id}
@@ -169,12 +170,12 @@ export default function DMChat(props) {
 
   return (
     <Box className={classes.box}>
-      <Paper className={classes.paper}>
+      <Box className={classes.paper}>
         <Paper className={classes.body} classes={{ paper: classes.chatPaper }}>
           {messageItems}
+          <DMTextInput />
         </Paper>
-        <DMTextInput />
-      </Paper>
+      </Box>
     </Box>
   );
 }
