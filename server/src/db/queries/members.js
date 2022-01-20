@@ -14,6 +14,24 @@ const create = (data) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
+const byID = (memberId) => {
+  const query = `
+  SELECT * FROM members
+  WHERE id = $1
+  `;
+  const params = [memberId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
+const inServerByUser = (userId, serverId) => {
+  const query = `
+  SELECT * FROM members
+  WHERE user_id = $1 AND server_id = $2
+  `;
+  const params = [userId, serverId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 const byServer = (serverId) => {
   const query = `
   SELECT 
@@ -46,6 +64,7 @@ const byServer = (serverId) => {
     });
 };
 
+// NOT IMPLEMENTED YET
 const byDM = (serverId) => {
   const query = `
   SELECT 
@@ -68,4 +87,6 @@ module.exports = {
   byServer,
   create,
   byDM,
+  byID,
+  inServerByUser,
 };

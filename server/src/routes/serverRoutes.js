@@ -110,6 +110,35 @@ router.post("/servers/:id/channels", async (req, res) => {
   }
 });
 
+// removing a member from server
+router.delete("/servers/:serverId/members/:memberId", async (req, res) => {
+  // for: error validation
+  // const { error } = validateChannel(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+  const userId = req.user.id;
+  const { serverId, memberId } = req.params;
+  try {
+    const requester = await Member.inServerByUser(userId, serverId);
+    const member = await Member.byID(memberId);
+    // member -> being deleted, requester -> requesting the delete action
+
+    // if either the requester or the member do not exist in the server, return
+    if (!requester || !member)
+      return res.status(400).send("User is not a member of the server");
+    if (
+      member.user_id != userId &&
+      requester.role !== "owner" &&
+      requester.role !== "admin"
+    ) {
+      return res.status(400).send("User does not have permission");
+    }
+    await Server.removeMember(memberId, serverId);
+    res.status(200).send("Member removed successfully");
+  } catch (e) {
+    return res.status(500).send("Internal Server Error");
+  }
+});
+
 // adding tags to a server
 router.put("/servers/:id/tags", async (req, res) => {
   // for: error validation
@@ -121,7 +150,7 @@ router.put("/servers/:id/tags", async (req, res) => {
   if (!tags) return res.status(400).send("At least 1 server tag is required");
   try {
     await Server.createTags(tags, serverId);
-    res.status(200).send("ok");
+    res.status(200).send("Tags added successfully");
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
