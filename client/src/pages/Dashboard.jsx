@@ -11,27 +11,21 @@ export default function Dashboard() {
 
   const { state } = useContext(AuthContext);
   const {
-    app: { mode },
+    app: { mode, loading },
   } = useContext(ServerContext);
 
+  /* sending socket+user as prop just for test purposes */
   return (
-    <div
-    // style={{
-    //   display: "flex",
-    // }}
-    >
-      {/* sending socket+user as prop just for test purposes */}
-      <ServerList socket={state.socket} user={state.user}>
-        {
-          mode === HOME ? (
-            <Home />
-          ) : mode === SERVER ? (
-            <Server />
-          ) : (
-            <></>
-          ) /* Skeleton here */
-        }
-      </ServerList>
-    </div>
+    <ServerList socket={state.socket} user={state.user}>
+      {
+        mode === HOME ? (
+          <Home />
+        ) : mode === SERVER ? (
+          <Server />
+        ) : (
+          <></>
+        ) /* Skeleton here */
+      }
+    </ServerList>
   );
 }

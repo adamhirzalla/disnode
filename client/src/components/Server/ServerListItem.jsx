@@ -27,8 +27,8 @@ export default function ServerListItem(props) {
   };
 
   return (
-    <Tooltip title={title} arrow placement="right">
-      <ListItem className={classes.center} key={id}>
+    <Tooltip title={title ? title : "unnamed"} arrow placement="right">
+      <ListItem className={classes.center}>
         <IconButton className={listItemClass} onClick={handleServerClick}>
           <Avatar
             style={{

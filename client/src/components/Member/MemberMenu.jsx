@@ -20,7 +20,7 @@ export default function MemberMenu({ member }) {
 
   return (
     <Box>
-      <Tooltip title={member.nickname}>
+      <Tooltip title={`${member.nickname}'s Options`}>
         <IconButton onClick={handleClick} sx={{ mr: "20px" }}>
           <FontAwesomeIcon icon={faEllipsisV} />
         </IconButton>

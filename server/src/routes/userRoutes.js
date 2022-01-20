@@ -16,10 +16,12 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
+// get a specific user data
 router.post("/users/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await User.byID(userId);
+    if (!user) return res.status(400).send("User not found");
     delete user.password;
     res.status(200).send(user);
   } catch (e) {
