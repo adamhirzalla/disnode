@@ -3,7 +3,6 @@ import { Box, ListItem, ListItemText } from "@mui/material";
 import ServerContext from "../../contexts/ServerContext";
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 import SettingServerMenu from "./SettingServerMenu";
-import ServerMenu from "./ServerMenu";
 
 export default function SettingServer() {
   const {

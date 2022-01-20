@@ -1,11 +1,7 @@
-import { Button, IconButton, Menu, MenuItem } from "@mui/material";
+import { IconButton, Menu } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState } from "react";
-import SettingDialog from "./SettingDialog";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ServerMenu from "./ServerMenu";
-
-const settings = [`Invite Code`, "Leave Server"];
 
 export default function SettingServerMenu() {
   const [anchorUser, setAnchorUser] = useState(false);
@@ -39,14 +35,7 @@ export default function SettingServerMenu() {
         open={Boolean(anchorUser)}
         onClose={handleClose}
       >
-        <ServerMenu />
-        {/* {settings.map((setting, i) => (
-          <SettingDialog
-            key={i}
-            setting={setting}
-            setAnchorUser={setAnchorUser}
-          />
-        ))} */}
+        <ServerMenu handleClose={handleClose} />
       </Menu>
     </>
   );
