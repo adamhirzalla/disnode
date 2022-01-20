@@ -34,7 +34,7 @@ export const DMTextInput = () => {
         noValidate
         autoComplete="off"
       >
-        <TextField autofocus label="Message" sx={{ width: "100%" }} />
+        <TextField autoFocus label="Message" sx={{ width: "100%" }} />
         <IconButton variant="contained" className={classes.button}>
           <SendIcon sx={{ fontSize: ".5em" }} />
         </IconButton>

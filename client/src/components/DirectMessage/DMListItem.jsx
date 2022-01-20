@@ -29,14 +29,14 @@ const useStyles = makeStyles(() => ({
 
 export default function DMListItem(props) {
   const classes = useStyles();
-  const { user, id, DMchannel, setDMChannel } = props;
+  const { user, id, DM, setDM } = props;
   // const listItemClass = classNames(classes.listItem, {
   //   [classes.selected]: id === channel.id,
   // });
 
-  // const handleChannelClick = () => {
-  //   setDMChannel(id);
-  // };
+  const handleChannelClick = () => {
+    setDM(id);
+  };
 
   return (
     <Box>
@@ -44,7 +44,7 @@ export default function DMListItem(props) {
         className={classes.listItem}
         button
         key={user.id}
-        // onClick={handleChannelClick}
+        onClick={handleChannelClick}
         disablePadding
       >
         <ListItemAvatar>

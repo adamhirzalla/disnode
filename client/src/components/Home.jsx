@@ -93,9 +93,7 @@ export default function Home() {
     <Box className={boxClasses.homeWrapper}>
       <Box className={boxClasses.root}>
         <FriendsListDrawer>
-          <DMList>
-            <DMChat />
-          </DMList>
+          <DMList></DMList>
         </FriendsListDrawer>
 
         <Box className={classes.chatWrapper}></Box>

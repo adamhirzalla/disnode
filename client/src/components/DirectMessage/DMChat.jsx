@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Box, Paper } from "@mui/material";
 import { DMTextInput } from "./DMTextInput";
 import { DMMessageLeft, DMMessageRight } from "./DMMessage";
 import { makeStyles } from "@mui/styles";
 import DMChatTitle from "./DMChatTitle";
+import AuthContext from "../../contexts/AuthContext";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -52,86 +53,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const messages = [
-  {
-    id: 1,
-    sender_nickname: "smart lad",
-    sender_avatar: "",
-    sender_id: 1,
-    body: "hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi ",
-    sent_at: "now",
-  },
-  {
-    id: 2,
-    sender_nickname: "Hyunsu",
-    sender_avatar: "/images/avatar2.jpg",
-    sender_id: 2,
-    body: "hi whats up 88!",
-    sent_at: "now",
-  },
-  {
-    id: 3,
-    sender_nickname: "Learth",
-    sender_avatar: "/images/avatar3.jpg",
-    sender_id: 3,
-    body: "hi whats up 88!",
-    sent_at: "now",
-  },
-  {
-    id: 1,
-    sender_nickname: "smart lad",
-    sender_avatar: "",
-    sender_id: 1,
-    body: "hi whats up 99! ",
-    sent_at: "now",
-  },
-  {
-    id: 2,
-    sender_nickname: "Hyunsu",
-    sender_avatar: "/images/avatar2.jpg",
-    sender_id: 2,
-    body: "hi whats up 88!",
-    sent_at: "now",
-  },
-  {
-    id: 3,
-    sender_nickname: "Learth",
-    sender_avatar: "/images/avatar3.jpg",
-    sender_id: 3,
-    body: "hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! hi whats up 88! ",
-    sent_at: "now",
-  },
-  {
-    id: 1,
-    sender_nickname: "smart lad",
-    sender_avatar: "/images/avatar",
-    sender_id: 1,
-    body: "hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99! hi whats up 99!",
-    sent_at: "now",
-  },
-  {
-    id: 2,
-    sender_nickname: "Hyunsu",
-    sender_avatar: "/images/avatar2.jpg",
-    sender_id: 2,
-    body: "hi whats up 88!",
-    sent_at: "now",
-  },
-  {
-    id: 3,
-    sender_nickname: "Learth",
-    sender_avatar: "/images/avatar3.jpg",
-    sender_id: 3,
-    body: "hi whats up 88!",
-    sent_at: "now",
-  },
-];
-
 export default function DMChat(props) {
   const classes = useStyles();
+  const { messages } = props;
+
+  const user_id = useContext(AuthContext).state.user.id;
 
   const messageItems = messages.map((message, i) => {
-    if (message.sender_id === 1) {
+    if (message.sender_id === user_id) {
       return (
         <DMMessageRight
           key={i}
