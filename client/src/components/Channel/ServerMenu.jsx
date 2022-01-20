@@ -20,7 +20,7 @@ export default function ServerMenu() {
         />
         {option === "Copy invite code" && (
           <Alert
-            sx={{ position: "fixed", top: "60px", left: "45%", zIndex: 2 }}
+            sx={{ position: "fixed", top: "10px", left: "45%", zIndex: 2 }}
             severity="success"
           >{`Copied on your clipboard`}</Alert>
         )}
