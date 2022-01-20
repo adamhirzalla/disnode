@@ -32,7 +32,8 @@ export default function ChannelList({ children }) {
         <List className={classes.list}>
           <ServerMenu />
           <Divider />
-          {parsedChannels}
+
+          {channels && parsedChannels}
         </List>
         <NewChannelDialog />
       </Drawer>
