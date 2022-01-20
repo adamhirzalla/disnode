@@ -5,6 +5,7 @@ import {
   IconButton,
   DialogTitle,
   DialogContent,
+  Tooltip,
 } from "@mui/material/";
 import { Search } from "@mui/icons-material";
 import SearchServerListDialog from "./SearchServerListDialog";
@@ -39,9 +40,11 @@ export default function SearchServerDialog() {
 
   return (
     <>
-      <IconButton className={classes.addButton} onClick={() => setOpen(true)}>
-        <Search fontSize="large" />
-      </IconButton>
+      <Tooltip title={"Search Servers"} arrow placement="top">
+        <IconButton className={classes.addButton} onClick={() => setOpen(true)}>
+          <Search fontSize="medium" />
+        </IconButton>
+      </Tooltip>
       <Dialog
         classes={{ paper: classes.dialogPaper }}
         open={open}

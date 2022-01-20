@@ -25,7 +25,8 @@ export default function SearchServerForm(props) {
     // make http request to find server
     // then open Server List dialog
     const servers = await searchServers(search);
-    if (!servers) return setError("Can not find any server.");
+    console.log(servers);
+    if (!servers?.length) return setError("Can not find any server.");
     setError(null);
     setResult(servers);
     setOpenResult(true);

@@ -1,5 +1,4 @@
 import DisBox from "../Box/DisBox";
-import DisImg from "../Image/DisImg";
 import uploadtoS3 from "../../utils/s3";
 import DisDrawer from "../Drawer/DisDrawer";
 import ServerListItem from "./ServerListItem";
@@ -8,14 +7,7 @@ import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
-import {
-  List,
-  IconButton,
-  Tooltip,
-  ListItem,
-  Avatar,
-  Skeleton,
-} from "@mui/material";
+import { List, IconButton, Tooltip, ListItem, Avatar } from "@mui/material";
 import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 import {
   createServer,
@@ -25,9 +17,8 @@ import {
 } from "../../network/serverApi";
 import { HOME } from "../../utils/constants";
 import classNames from "classnames";
-import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 import { makeStyles } from "@mui/styles";
-import FriendsListDrawer from "../Friends/FriendsListDrawer";
+import ProfileMenu from "./ProfileMenu";
 
 const useStyles = makeStyles(() => ({
   navHome: {
@@ -68,20 +59,6 @@ export default function ServerList(props) {
   const homeIconClass = classNames(iconClasses.home, {
     [iconClasses.selected]: mode === HOME,
   });
-
-  // : [...new Array(7)].map((e, i) => {
-  //     return (
-  //       <ServerListItem key={i} logo={"/images/Disnode.png"}>
-  //         <Skeleton
-  //           sx={{ bgcolor: "#B13737", opacity: "1" }}
-  //           variant="circular"
-  //           width={"65px"}
-  //           height={"65px"}
-  //           animate={"wave"}
-  //         />
-  //       </ServerListItem>
-  //     );
-  //   });
 
   const handleHomeClick = (socket) => {
     socket.emit("home click", socket.id, user.nickname);
@@ -158,9 +135,13 @@ export default function ServerList(props) {
               <DisDivider disStyle="nav-bot" />
               <ListItem className={classes.navCreate}>
                 <NewServerDialog onClick={handleCreate} />
-              </ListItem>
-              <ListItem className={classes.navSearch}>
                 <SearchServerDialog />
+              </ListItem>
+              <ListItem
+                className={classes.navCreate}
+                sx={{ position: "absolute" }}
+              >
+                <ProfileMenu />
               </ListItem>
             </>
           )}

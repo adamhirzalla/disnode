@@ -32,8 +32,8 @@ export default function ServerListItem(props) {
         <IconButton className={listItemClass} onClick={handleServerClick}>
           <Avatar
             style={{
-              width: "65px",
-              height: "65px",
+              width: "60px",
+              height: "60px",
             }}
             src={logo}
           />
