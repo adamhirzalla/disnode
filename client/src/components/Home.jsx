@@ -1,11 +1,9 @@
 import { useContext } from "react";
 import AuthContext from "../contexts/AuthContext";
 import { logout } from "../network/authApi";
-// import DisBox from "../components/Box/DisBox";
 import FriendsListDrawer from "../components/Friends/FriendsListDrawer";
 import { Box } from "@mui/system";
-import FriendProfile from "./Friends/FriendProfile";
-import NewServerDialog from "./Server/NewServerDialog";
+import DMChannelList from "./DirectMessage/DMList.jsx";
 
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
@@ -84,7 +82,9 @@ export default function Home() {
     <Box className={boxClasses.homeWrapper}>
       <Box className={boxClasses.root}>
         <div className={classes.rowTwo}></div>
-        <FriendsListDrawer>HELLO</FriendsListDrawer>
+        <FriendsListDrawer>
+          <DMChannelList />
+        </FriendsListDrawer>
         <Box className={boxClasses.friendProfileWrapper}></Box>
       </Box>
     </Box>

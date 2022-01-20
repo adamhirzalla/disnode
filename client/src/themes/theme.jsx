@@ -9,6 +9,20 @@ export const theme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: "0px",
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          padding: "0px",
+        },
+      },
+    },
   },
   typography: {
     fontFamily: "Roboto Mono",

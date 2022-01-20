@@ -20,7 +20,7 @@ export const useDisDrawerStyles = makeStyles((theme) =>
         backgroundColor: "#040B0C",
         overflowX: "hidden",
         "&::-webkit-scrollbar": {
-          width: "0.5em",
+          width: "0em",
           borderRadius: "30px",
         },
         "&::-webkit-scrollbar-track": {

@@ -1,11 +1,13 @@
 import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
-import { Avatar, CardContent, Typography } from "@mui/material";
+import { Avatar, CardContent, Divider, Typography } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
   root: {
-    minWidth: 300,
-    maxWidth: 345,
+    minWidth: 250,
+    maxWidth: 300,
+    minHeight: 250,
+    // maxHeight: 300,
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -29,20 +31,25 @@ export default function MemberProfile(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <Avatar
-        alt={member.nickname}
-        src={member.avatar}
-        className={classes.avatar}
-      />
-      <CardContent className={classes.content}>
-        <Typography gutterBottom variant="h5" component="div">
-          {member.nickname}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          BIO BIO BIOOOOOOOOOOO
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      <Card className={classes.root}>
+        <Avatar
+          alt={member.nickname}
+          src={member.avatar}
+          className={classes.avatar}
+        />
+        <CardContent className={classes.content}>
+          <Typography gutterBottom variant="h5" component="div">
+            {member.nickname}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            YO HMU if you into apex and shooting stuff YO HMU if you into apex
+            and shooting stuff YO HMU if you into apex and shooting stuff YO HMU
+            if you into ape
+          </Typography>
+        </CardContent>
+      </Card>
+      <Divider />
+    </>
   );
 }
