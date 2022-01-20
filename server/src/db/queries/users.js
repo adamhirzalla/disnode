@@ -1,4 +1,5 @@
 const db = require("../index");
+const Social = require("./socials");
 
 const all = () => {
   const query = `SELECT * FROM users;`;
@@ -28,14 +29,31 @@ const byUsername = (username) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const byID = (id) => {
-  const query = `
+// need: friends
+// dms
+// requests (friends)
+
+const byID = (userId) => {
+  const userQuery = db
+    .query(
+      `
   SELECT *
   FROM users
   WHERE id = $1
-  `;
-  const params = [id];
-  return db.query(query, params).then((res) => res.rows[0]);
+  `,
+      [userId]
+    )
+    .then((res) => res.rows[0]);
+
+  return Promise.all([userQuery, Social.byUser(userId)]).then(
+    ([user, socials]) => {
+      delete user.password;
+      delete user.email;
+      delete user.username;
+      delete user.created_at;
+      return { ...user, socials };
+    }
+  );
 };
 
 const setActive = (id) => {

@@ -71,6 +71,28 @@ router.post("/servers/:id", async (req, res) => {
   }
 });
 
+// getting all current server channels
+router.get("/servers/:id/channels", async (req, res) => {
+  // for: error validation
+  // const { error } = validateChannel(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+  const userId = req.user.id;
+  const serverId = req.params.id;
+
+  try {
+    // some test servers have no channels created (prior to default 'general' creation)
+    // if (!channels)return res.status(400).send('No channels found');
+    const servers = await Server.byUser(userId);
+    const server = servers.filter((server) => server.id === parseInt(serverId));
+    if (!server.length)
+      return res.status(401).send("User is not a member of this server");
+    const channels = await Channel.byServer(serverId);
+    res.status(200).json(channels);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // creating a new channel
 router.post("/servers/:id/channels", async (req, res) => {
   // for: error validation

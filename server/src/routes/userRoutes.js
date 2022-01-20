@@ -29,8 +29,12 @@ router.post("/users/:id", async (req, res) => {
   }
 });
 
-// get all users
+// TODO: get rid of this route, or make it POST/authenticated route
+// get all users (FOR TESTING ONLY)
 router.get("/users", (req, res) => {
-  User.all().then((result) => res.json(result));
+  User.all().then((users) => {
+    users.forEach((user) => delete user.password);
+    res.json(users);
+  });
 });
 module.exports = router;
