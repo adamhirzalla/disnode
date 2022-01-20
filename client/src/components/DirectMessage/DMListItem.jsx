@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
 export default function DMListItem(props) {
   const classes = useStyles();
   const { user, id, DMchannel, setDMChannel } = props;
-  console.log(user);
   // const listItemClass = classNames(classes.listItem, {
   //   [classes.selected]: id === channel.id,
   // });

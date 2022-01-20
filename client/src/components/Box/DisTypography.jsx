@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
+    paddingLeft: "2.5em",
   },
   bio: {
     display: "flex",

@@ -26,7 +26,7 @@ const validateRegister = (input) => {
       .required()
       .label("Username"),
     full_name: Joi.string().min(3).max(40).required().label("Full Name"),
-    display_name: Joi.string().min(3).max(40).required().label("Display Name"),
+    nickname: Joi.string().min(3).max(40).required().label("Display Name"),
     email: Joi.string().min(5).max(254).required().email().label("Email"),
     password: Joi.string()
       .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))

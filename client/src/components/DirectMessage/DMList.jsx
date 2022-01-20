@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import ServerContext from "../../contexts/ServerContext";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
+import { mockDMChannels } from "./mock";
 
 import { Typography, Toolbar, Divider } from "@mui/material";
 import DMListItem from "./DMListItem";
@@ -12,7 +13,7 @@ import DMListItem from "./DMListItem";
 // styles
 const drawerWidth = 500;
 const useStyles = makeStyles(() => ({
-  header: { color: "#FFF" },
+  header: { color: "#FFF", paddingLeft: "2.5em" },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -56,8 +57,9 @@ const useStyles = makeStyles(() => ({
   },
   toolbar: {
     display: "flex",
-    justifyContent: "center",
-    backgroundColor: "black",
+    justifyContent: "flex-start",
+    backgroundColor: "#040B0C",
+
     height: "5em",
     width: "100%",
     borderRadius: "0px 15px 15px 0px",
@@ -73,265 +75,6 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const mockDMChannels = [
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-  {
-    id: 1,
-
-    user: {
-      id: 1,
-      full_name: "HyunSu Kim",
-      img: "/images/avatar2.jpg",
-      is_active: true,
-      username: "Learth",
-      bio: "Hi, we are disnode!",
-    },
-  },
-  {
-    id: 2,
-    user: {
-      id: 2,
-      full_name: "Jonathan Su",
-      img: "/images/avatar.jpg",
-      is_active: true,
-      username: "smart lad",
-      bio: "Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! Hi, we are disnode! ",
-    },
-  },
-  {
-    id: 3,
-    user: {
-      id: 3,
-      full_name: "Adam Hirzalla",
-      img: "/images/avatar3.jpg",
-      is_active: true,
-    },
-  },
-];
-
 export default function DMList({ children }) {
   const classes = useStyles();
 
@@ -340,10 +83,10 @@ export default function DMList({ children }) {
     setDMChannel,
   } = useContext(ServerContext);
 
-  const parsedDMs = mockDMChannels.map((dm) => {
+  const parsedDMs = mockDMChannels.map((dm, i) => {
     return (
       <DMListItem
-        key={dm.id}
+        key={i}
         id={dm.id}
         user={dm.user}
         DMchannel={DMchannel}

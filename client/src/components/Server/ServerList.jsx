@@ -5,7 +5,7 @@ import DisDrawer from "../Drawer/DisDrawer";
 import ServerListItem from "./ServerListItem";
 import { useContext } from "react";
 import NewServerDialog from "./NewServerDialog";
-import DisDivider from "../../Divider/DisDivider";
+import DisDivider from "../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
 import {
@@ -40,10 +40,10 @@ const useStyles = makeStyles(() => ({
   navCreate: {
     justifyContent: "center",
     position: "sticky",
-    bottom: "55px",
+    bottom: "56px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
-    height: "55px",
+    height: "56px",
   },
   navSearch: {
     justifyContent: "center",
@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     bottom: "0px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
-    height: "55px",
+    height: "56px",
   },
 }));
 
@@ -84,7 +84,8 @@ export default function ServerList(props) {
   //   });
 
   const handleHomeClick = (socket) => {
-    socket.emit("home click", socket.id, user.display_name);
+    socket.emit("home click", socket.id, user.nickname);
+    navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
     setMode(HOME);
   };
 
@@ -93,18 +94,23 @@ export default function ServerList(props) {
     // we get back an array or urls (to support multiple file upload)
     const formData = new FormData();
     formData.append("image", file);
-    console.log(formData);
-    const [logo] = await uploadtoS3(formData);
-    const { id } = await createServer(title, logo);
-    await createTags(tags, id);
-    const servers = await getServers();
-    const server = await getServer(id);
-    setServers(servers);
-    setServer(server);
+    try {
+      const [logo] = await uploadtoS3(formData);
+      const { id } = await createServer(title, logo);
+      await createTags(tags, id);
+      const servers = await getServers();
+      const server = await getServer(id);
+      if (server && servers) {
+        setServers(servers);
+        setServer(server);
+      }
+    } catch (e) {
+      console.log("Could not create server");
+    }
   };
 
   // useEffect(() => {
-  //   socket?.emit("connection", socket.id, user.display_name);
+  //   socket?.emit("connection", socket.id, user.nickname);
   // }, []);
 
   const parsedServers = servers.map((server) => {

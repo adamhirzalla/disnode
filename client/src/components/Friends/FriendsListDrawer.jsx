@@ -8,7 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FriendList from "./FriendList";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { ChevronRight } from "@mui/icons-material";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 const drawerWidth = 510;
 
@@ -33,9 +33,11 @@ const useStyles = makeStyles(() => ({
     width: "2em",
     zIndex: 3,
     color: "#FFF",
+    opacity: "0.8",
     "&:hover": {
-      color: "rgb(204, 180, 180, 1)",
-      backgroundColor: "inherit",
+      // color: "rgb(204, 180, 180, 1)",
+      // backgroundColor: "inherit",
+      opacity: "1",
     },
   },
   friendListCloseIcon: {
@@ -96,12 +98,14 @@ export default function FriendsListDrawer(props) {
         disableFocusRipple
         color="inherit"
         aria-label="open drawer"
-        onClick={handleDrawerOpen}
+        onClick={open ? handleDrawerClose : handleDrawerOpen}
         edge="start"
-        sx={{ ml: 2, ...(open && { display: "none" }) }}
+        sx={{ ml: 1 }}
       >
-        <PeopleAltIcon className={classes.peopleAltIcon} />
-        <ChevronRight />
+        <PeopleAltIcon sx={{ fontSize: 30 }} />
+        {open ? <ChevronLeft /> : <ChevronRight />}
+        {/* <PeopleAltIcon className={classes.peopleAltIcon} />
+        <ChevronRight /> */}
       </IconButton>
 
       <Drawer
@@ -142,13 +146,13 @@ export default function FriendsListDrawer(props) {
             padding: "5em 0em",
           }}
         >
-          <IconButton
+          {/* <IconButton
             className={classes.friendListCloseIcon}
             onClick={handleDrawerClose}
             disableFocusRipple
           >
             <ChevronLeftIcon />
-          </IconButton>
+          </IconButton> */}
           <FriendList />
         </Box>
       </Drawer>

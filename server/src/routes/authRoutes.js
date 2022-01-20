@@ -13,13 +13,13 @@ const {
 router.post("/register", async (req, res) => {
   const { error } = validateRegister(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-  const { full_name, display_name, username, email, password } = req.body;
+  const { full_name, nickname, username, email, password } = req.body;
   try {
     // Hash password
     const hash = await bcrypt.hash(password, 10);
     await User.create({
       full_name,
-      display_name,
+      nickname,
       username,
       email,
       password: hash,

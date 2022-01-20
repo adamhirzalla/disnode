@@ -58,7 +58,7 @@ const useStyles = makeStyles(() => ({
   dialogPaper: {
     display: "flex",
     alignItems: "center",
-    borderRadius: "2em",
+    // borderRadius: "2em",
     backgroundColor: "#040B0C",
     color: "#FFFFFF",
     textAlign: "center",
@@ -155,21 +155,20 @@ export default function FriendsListItem({ setFriend, friend }) {
         </ListItemButton>
 
         <Dialog
-          className={classes.dialog}
-          classes={{ paper: classes.dialogPaper }}
+          // className={classes.dialog}
+          // classes={{ paper: classes.dialogPaper }}
           open={open}
           onClose={() => setOpen(false)}
         >
-          <FriendProfile friend={friend}>
-            <DialogActions className={classes.dialogActions}>
-              <Button
-                className={classes.closeDialog}
-                onClick={() => setOpen(false)}
-              >
-                close
-              </Button>
-            </DialogActions>
-          </FriendProfile>
+          <FriendProfile friend={friend} />
+          <DialogActions className={classes.dialogActions}>
+            <Button
+              className={classes.closeDialog}
+              onClick={() => setOpen(false)}
+            >
+              close
+            </Button>
+          </DialogActions>
         </Dialog>
       </ListItem>
       <Divider />

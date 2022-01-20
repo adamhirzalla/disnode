@@ -1,57 +1,82 @@
 import { useState } from "react";
 import {
+  Button,
   Dialog,
   DialogActions,
+  DialogContent,
   DialogTitle,
-  MenuItem,
-  Button,
+  IconButton,
+  Stack,
 } from "@mui/material";
-import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
-import { useDisButtonStyles } from "../styles/useDisButtonStyles";
+import { makeStyles } from "@mui/styles";
+import MemberProfile from "./MemberProfile";
+import SteamSvg from "../SvgIcons/SteamSvg";
+import TwitterSvg from "../SvgIcons/TwitterSvg";
+import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
+import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
 
-export default function MemberDialog({ setting, member, setAnchorUser }) {
-  const [open, setOpen] = useState(false);
-  const classes = useNewChannelDialogStyles();
-  const buttonClasses = useDisButtonStyles();
+const [PROFILE, ADD, ADMIN, KICK] = ["PROFILE", "ADD", "ADMIN", "KICK"];
 
-  // open dialog
-  const handleClickOpen = () => {
-    setOpen(true);
-    setAnchorUser(null);
-  };
+const parsedConnections = [
+  <SteamSvg />,
+  <TwitterSvg />,
+  <RiotGamesSvg />,
+  <EpicGamesSvg />,
+].map((icon, i) => {
+  return (
+    <IconButton key={i} onClick={() => console.log(i)}>
+      {icon}
+    </IconButton>
+  );
+});
 
-  // close dialog
-  const handleClose = () => {
-    setOpen(false);
-  };
+const useStyles = makeStyles(() => ({
+  root: { backgroundColor: "white" },
+  actions: { display: "flex", justifyContent: "center" },
+}));
+export default function MemberDialog(props) {
+  const { action, member, setOpen, open } = props;
 
-  // click handler for confirm button
-  const handleConfirm = () => {
-    console.log(member.nickname);
-    setOpen(false);
+  const classes = useStyles();
+
+  const handleAction = () => {
+    console.log(`making a ${action} request on member: ${member.nickname}`);
   };
 
   return (
-    <>
-      <MenuItem onClick={handleClickOpen}>{setting}</MenuItem>
-      <Dialog
-        classes={{ paper: classes.dialogPaper }}
-        open={open}
-        onClose={handleClose}
-      >
-        <DialogTitle>
-          {`User: ${member.nickname}`}
-          <br /> {`Are you sure you want to  ${setting}?`}
-        </DialogTitle>
-        <DialogActions>
-          <Button className={buttonClasses.cancel} onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button className={buttonClasses.submit} onClick={handleConfirm}>
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+    <Dialog open={open} onClose={() => setOpen(false)}>
+      <DialogTitle>
+        {action !== PROFILE && "Are you sure you want to "}
+        {action === ADD
+          ? `Add ${member.nickname} as a Friend?`
+          : action === ADMIN
+          ? `Assign Admin role to ${member.nickname}?`
+          : action === KICK
+          ? `Kick ${member.nickname} from the Server?`
+          : ""}
+      </DialogTitle>
+      <DialogContent>
+        {action === PROFILE && <MemberProfile member={member} />}
+      </DialogContent>
+
+      <DialogActions className={classes.actions}>
+        {action === PROFILE ? (
+          parsedConnections
+        ) : (
+          <>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button variant="contained" color="info" onClick={handleAction}>
+              Confirm
+            </Button>
+          </>
+        )}
+      </DialogActions>
+    </Dialog>
   );
 }
