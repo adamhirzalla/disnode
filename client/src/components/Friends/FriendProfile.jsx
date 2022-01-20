@@ -45,7 +45,7 @@ const connectionsIcons = [
 ];
 
 export default function FriendProfile(props) {
-  const { friend, children } = props;
+  const { friend } = props;
   const classes = useStyles();
 
   const iconClasses = useDisIconButtonStyles();
@@ -85,7 +85,6 @@ export default function FriendProfile(props) {
         <CardActions className={classes.cardAction}>
           <DisBox disStyle="connections">{icons}</DisBox>
         </CardActions>
-        {children}
       </DisBox>
     </Card>
   );

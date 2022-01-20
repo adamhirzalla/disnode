@@ -157,16 +157,15 @@ export default function FriendsListItem({ setFriend, friend }) {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <FriendProfile friend={friend}>
-          <DialogActions className={classes.dialogActions}>
-            <Button
-              className={classes.closeDialog}
-              onClick={() => setOpen(false)}
-            >
-              close
-            </Button>
-          </DialogActions>
-        </FriendProfile>
+        <FriendProfile friend={friend} />
+        <DialogActions className={classes.dialogActions}>
+          <Button
+            className={classes.closeDialog}
+            onClick={() => setOpen(false)}
+          >
+            close
+          </Button>
+        </DialogActions>
       </Dialog>
     </ListItem>
   );

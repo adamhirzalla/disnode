@@ -16,11 +16,11 @@ export const useMemberListItemStyles = makeStyles((theme) =>
     },
     memberIcon: {
       width: "100%",
-      borderRadius: 20,
+      borderRadius: 10,
       "&:hover": {
         backgroundColor: "rgb(182, 185, 181, 0.5)",
         transition: `backgroundColor 150ms rgb(0.4, 0, 0.2, 1) 50ms`,
-        cursor: "default",
+        cursor: "pointer",
       },
     },
     userBadge: {

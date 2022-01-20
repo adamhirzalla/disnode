@@ -1,15 +1,35 @@
 import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
+import { searchServers } from "../../network/serverApi";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
-export default function SearchServerForm({
-  setSearch,
-  handleKeyDown,
-  handleClose,
-  handleSearch,
-}) {
+export default function SearchServerForm(props) {
+  const { setSearch, handleClose, setError, search, setResult, setOpenResult } =
+    props;
   const classes = useServerDialogStyles();
   const buttonClasses = useDisButtonStyles();
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleSearch();
+  };
+
+  // Search a server with invite code or title
+  const handleSearch = async () => {
+    const { inviteCode, title } = search;
+    if (!inviteCode && !title) {
+      return setError("Please fill in Invite Code or Server Title.");
+    } else if (inviteCode && title) {
+      return setError("Please fill in one field only.");
+    }
+
+    // make http request to find server
+    // then open Server List dialog
+    const servers = await searchServers(search);
+    if (!servers) return setError("Can not find any server.");
+    setError(null);
+    setResult(servers);
+    setOpenResult(true);
+  };
 
   return (
     <>

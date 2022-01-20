@@ -12,13 +12,13 @@ import { useState } from "react";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import ConfirmDialog from "./ConfirmDialog";
 
-export default function SearchServerListDialog({ server, result }) {
-  const [join, setJoin] = useState(false);
+export default function SearchServerListDialog({ server, openResult }) {
+  const { title, logo, members } = server;
+  const [open, setOpen] = useState(false);
   const classes = useServerDialogStyles();
-
   return (
     <>
-      {result && (
+      {openResult && (
         <>
           <ListItem
             className={classes.listItem}
@@ -31,11 +31,7 @@ export default function SearchServerListDialog({ server, result }) {
           >
             <ListItemButton className={classes.list}>
               <ListItemAvatar>
-                <Avatar
-                  alt={server.title}
-                  src={server.logo}
-                  className={classes.avatar}
-                />
+                <Avatar alt={title} src={logo} className={classes.avatar} />
               </ListItemAvatar>
               <ListItemText
                 className={classes.text}
@@ -43,32 +39,22 @@ export default function SearchServerListDialog({ server, result }) {
                 primary={server.title}
               />
 
-              {/* mock avatar group */}
-              <AvatarGroup total={24} sx={{ pr: "25px" }}>
-                <Avatar
-                  alt="Jonathan"
-                  src="https://proofmart.com/wp-content/uploads/2021/06/1-1.png"
-                />
-                <Avatar
-                  alt="Adam"
-                  src="https://proofmart.com/wp-content/uploads/2021/06/7web.png"
-                />
-                <Avatar
-                  alt="Hyunsu"
-                  src="https://proofmart.com/wp-content/uploads/2021/06/3-web-1.png"
-                />
+              <AvatarGroup total={members.length} sx={{ pr: "25px" }}>
+                <Avatar alt={members[0].nickname} src={members[0].avatar} />
+                <Avatar alt={members[1]?.nickname} src={members[1]?.avatar} />
+                <Avatar alt={members[2]?.nickname} src={members[2]?.avatar} />
               </AvatarGroup>
 
               <IconButton
-                onClick={() => setJoin(true)}
+                onClick={() => setOpen(true)}
                 sx={{ color: "green", opacity: 0.6 }}
               >
                 <AddCircleOutlineIcon />
               </IconButton>
             </ListItemButton>
           </ListItem>
-          {join && (
-            <ConfirmDialog setJoin={setJoin} join={join} server={server} />
+          {open && (
+            <ConfirmDialog setOpen={setOpen} open={open} server={server} />
           )}
         </>
       )}

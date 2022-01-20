@@ -18,7 +18,7 @@ export const useDisDividerStyles = makeStyles((theme) =>
       height: ".2em",
       backgroundColor: "#FFFFFF",
       position: "sticky",
-      bottom: "110px",
+      bottom: "112px",
       zIndex: 1301,
     },
   })
