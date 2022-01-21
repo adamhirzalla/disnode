@@ -79,16 +79,33 @@ const setInactive = (id) => {
 };
 
 const update = (id, profile) => {
-  const { full_name, bio, avatar, nickname, STEAM } = profile;
+  const { full_name, bio, avatar, nickname } = profile;
   const query = `
   UPDATE users
-  SET full_name = $1
-  SET bio = $2
-  SET avatar = $3
-  SET nickname = $4
+  SET full_name = $1,
+  bio = $2,
+  avatar = $3,
+  nickname = $4
   WHERE id = $5
-  RETURING *
+  RETURNING *
   `;
+  const params = [full_name, bio, avatar, nickname, id];
+  return db.query(query, params).then((res) => {
+    const user = res.rows[0];
+    delete user.password;
+    delete user.email;
+    delete user.username;
+    delete user.created_at;
+    return { ...user };
+  });
 };
 
-module.exports = { all, create, byUsername, byID, setActive, setInactive };
+module.exports = {
+  all,
+  create,
+  byUsername,
+  byID,
+  setActive,
+  setInactive,
+  update,
+};

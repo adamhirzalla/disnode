@@ -39,16 +39,8 @@ const useStyles = makeStyles({
     marginTop: "20px",
   },
 });
-const [STEAM, EPIC, BLIZZARD, DISCORD, RIOT, ORIGIN] = [
-  "STEAM",
-  "EPIC",
-  "BLIZZARD",
-  "DISCORD",
-  "RIOT",
-  "ORIGIN",
-];
 
-export default function UserInfoDialog({ open, setOpen }) {
+export default function UserInfoDialog({ open, setOpen, icons }) {
   const {
     state: { user },
     setUser,
@@ -61,44 +53,17 @@ export default function UserInfoDialog({ open, setOpen }) {
     full_name,
     nickname,
     bio,
-    STEAM: { id: 1, url: socials.find((social) => social.id === 1)?.url || "" },
-    socials: [
-      {
-        id: 1,
-        url: socials.find((social) => social.id === 1)?.url || "",
-      },
-      {
-        id: 2,
-        url: socials.find((social) => social.id === 2)?.url || "",
-      },
-      {
-        id: 3,
-        url: socials.find((social) => social.id === 3)?.url || "",
-      },
-      {
-        id: 4,
-        url: socials.find((social) => social.id === 4)?.url || "",
-      },
-      {
-        id: 5,
-        url: socials.find((social) => social.id === 5)?.url || "",
-      },
-      {
-        id: 6,
-        url: socials.find((social) => social.id === 6)?.url || "",
-      },
-    ],
-    // socails: [    {STEAM: socials.find((social) => social.id === 1)?.url || ""},
-    // {EPIC: socials.find((social) => social.id === 2)?.url || ""},
-    // {BLIZZARD: socials.find((social) => social.id === 3)?.url || ""},
-    // {DISCORD: socials.find((social) => social.id === 4)?.url || ""},
-    // {RIOT: socials.find((social) => social.id === 5)?.url || ""},
-    // {ORIGIN: socials.find((social) => social.id === 6)?.url || ""},]
+    1: { url: socials.find((social) => social.id === 1)?.url || "" },
+    2: { url: socials.find((social) => social.id === 2)?.url || "" },
+    3: { url: socials.find((social) => social.id === 3)?.url || "" },
+    4: { url: socials.find((social) => social.id === 4)?.url || "" },
+    5: { url: socials.find((social) => social.id === 5)?.url || "" },
+    6: { url: socials.find((social) => social.id === 6)?.url || "" },
   };
 
   const [input, setInput] = useState(initialInput);
+  const [social, setSocial] = useState(null);
   const [dialog, setDialog] = useState(false);
-  const [icon, setIcon] = useState("");
   const classes = useStyles();
 
   const handleClose = () => {
@@ -106,14 +71,34 @@ export default function UserInfoDialog({ open, setOpen }) {
     setOpen(false);
   };
 
-  const handleSave = async () => {
+  const handleSave = () => {
+    for (let i = 1; i <= 6; i++) {
+      if (initialInput[i]?.url && initialInput[i]?.url === input[i]?.url) {
+        input[i] = null;
+      } else if (!initialInput[i]?.url && !input[i]?.url) {
+        input[i] = null;
+      } else if (!initialInput[i]?.url && input[i]?.url) {
+        input[i].status = "create";
+      } else if (initialInput[i]?.url && !input[i]?.url) {
+        input[i].status = "delete";
+      } else if (
+        initialInput[i]?.url &&
+        initialInput[i]?.url !== input[i]?.url
+      ) {
+        input[i].status = "edit";
+      }
+    }
+    updateUser();
+  };
+
+  const updateUser = async () => {
     const formData = new FormData();
     formData.append("image", initialInput.file);
     const [logo] = await uploadtoS3(formData);
 
     const updatedUser = await updateProfile(id, input);
-    setUser(updatedUser);
-    setInput(initialInput);
+    await setUser(updatedUser);
+    setInput({});
     handleClose();
   };
 
@@ -124,7 +109,7 @@ export default function UserInfoDialog({ open, setOpen }) {
   };
 
   const handleDialog = (id) => {
-    setIcon(id);
+    setSocial(id);
     setDialog(true);
   };
 
@@ -167,14 +152,40 @@ export default function UserInfoDialog({ open, setOpen }) {
         {/* <UserConnection /> */}
         <ConnectionsDialog
           initialInput={initialInput}
-          icon={icon}
+          social={social}
           input={input}
           open={dialog}
           setOpen={setDialog}
           setInput={setInput}
         />
         <Grid container className={classes.connections}>
-          <Grid item xs={4}>
+          {icons.map((icon, i) => {
+            const { id } = icon;
+            return (
+              <Grid item xs={4} key={id}>
+                <IconButton
+                  onClick={() => handleDialog(id)}
+                  sx={initialInput[id]?.url ? { opacity: 1 } : { opacity: 0.2 }}
+                >
+                  {id === 1 ? (
+                    <SteamSvg />
+                  ) : id === 2 ? (
+                    <TwitterSvg />
+                  ) : id === 3 ? (
+                    <RiotGamesSvg />
+                  ) : id === 4 ? (
+                    <EpicGamesSvg />
+                  ) : id === 5 ? (
+                    <TwitterSvg />
+                  ) : (
+                    <RiotGamesSvg />
+                  )}
+                </IconButton>
+              </Grid>
+            );
+          })}
+
+          {/* <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(1)}
               sx={
@@ -233,7 +244,7 @@ export default function UserInfoDialog({ open, setOpen }) {
             >
               <RiotGamesSvg />
             </IconButton>
-          </Grid>
+          </Grid> */}
         </Grid>
       </DialogContent>
       <DialogActions>

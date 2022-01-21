@@ -23,3 +23,13 @@ export const updateProfile = async (userId, profile) => {
     console.log("Failed to retreive user data", e);
   }
 };
+
+export const getIcons = async () => {
+  try {
+    const res = await axios.get(`api/icons`);
+    const icons = res.data;
+    return icons;
+  } catch (e) {
+    console.log("Failed to retreive icons data", e);
+  }
+};

@@ -16,50 +16,37 @@ import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
 
-const parsedConnections = [
-  <SteamSvg />,
-  <TwitterSvg />,
-  <RiotGamesSvg />,
-  <EpicGamesSvg />,
-].map((icon, i) => {
-  return (
-    <IconButton key={i} onClick={() => console.log(i)}>
-      {icon}
-    </IconButton>
-  );
-});
+// const parsedConnections = [
+//   <SteamSvg />,
+//   <TwitterSvg />,
+//   <RiotGamesSvg />,
+//   <EpicGamesSvg />,
+// ].map((icon, i) => {
+//   return (
+//     <IconButton key={i} onClick={() => console.log(i)}>
+//       {icon}
+//     </IconButton>
+//   );
+// });
 
 const useStyles = makeStyles(() => ({
   asd: { width: "60ch", margin: "0 auto" },
   actions: { display: "flex", justifyContent: "center" },
 }));
 export default function ConnectionsDialog(props) {
-  const { icon, input, setInput, setOpen, open, initialInput } = props;
-
+  const { input, setInput, setOpen, open, initialInput, social } = props;
   const classes = useStyles();
+  const [url, setUrl] = useState("");
 
-  const handleAction = (e, icon) => {
+  const handleAction = () => {
     setInput((prev) => ({
       ...prev,
-      socials: [...prev.socials, { id: icon, url: e.target.value }],
+      [social]: { url: url },
     }));
     setOpen(false);
-
-    // if (icon === STEAM) setInput((prev) => ({ ...prev, [icon]: input[icon] }));
-    // else if (icon === EPIC)
-    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
-    // else if (icon === BLIZZARD)
-    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
-    // else if (icon === DISCORD)
-    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
-    // else if (icon === RIOT)
-    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
-    // else if (icon === ORIGIN)
-    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
   };
-
   const handleCancel = () => {
-    setInput(initialInput);
+    setUrl("");
     setOpen(false);
   };
 
@@ -77,10 +64,9 @@ export default function ConnectionsDialog(props) {
           type="text"
           fullWidth
           variant="standard"
-          value={input[icon]}
-          onChange={(e) =>
-            setInput((prev) => ({ ...prev, [icon]: e.target.value }))
-          }
+          placeholder={input[social]?.url}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
         />
       </DialogContent>
 
