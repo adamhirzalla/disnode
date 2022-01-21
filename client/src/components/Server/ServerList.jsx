@@ -102,52 +102,54 @@ export default function ServerList(props) {
   });
 
   return (
-    <DisBox disStyle="navBox">
-      <DisDrawer disStyle="nav" variant="permanent" anchor="left">
-        <List>
-          <Tooltip
-            title={"Home"}
-            arrow
-            placement="right"
-            className={classes.navHome}
-          >
-            <ListItem>
-              <IconButton
-                className={homeIconClass}
-                onClick={() => handleHomeClick(socket)}
-              >
-                <Avatar
-                  style={{
-                    width: "68px",
-                    height: "68px",
-                  }}
-                  src="/images/Disnode-red.png"
-                />
-              </IconButton>
+    // <DisBox disStyle="navBox">
+    // <>
+    <DisDrawer disStyle="nav" variant="permanent" anchor="left">
+      <List>
+        <Tooltip
+          title={"Home"}
+          arrow
+          placement="right"
+          className={classes.navHome}
+        >
+          <ListItem>
+            <IconButton
+              className={homeIconClass}
+              onClick={() => handleHomeClick(socket)}
+            >
+              <Avatar
+                style={{
+                  width: "68px",
+                  height: "68px",
+                }}
+                src="/images/Disnode-red.png"
+              />
+            </IconButton>
+          </ListItem>
+        </Tooltip>
+
+        <DisDivider disStyle="nav-top" />
+        {parsedServers}
+
+        {!loading && (
+          <>
+            <DisDivider disStyle="nav-bot" />
+            <ListItem className={classes.navCreate}>
+              <NewServerDialog onClick={handleCreate} />
+              <SearchServerDialog />
             </ListItem>
-          </Tooltip>
-
-          <DisDivider disStyle="nav-top" />
-          {parsedServers}
-
-          {!loading && (
-            <>
-              <DisDivider disStyle="nav-bot" />
-              <ListItem className={classes.navCreate}>
-                <NewServerDialog onClick={handleCreate} />
-                <SearchServerDialog />
-              </ListItem>
-              <ListItem
-                className={classes.navCreate}
-                sx={{ position: "absolute" }}
-              >
-                <ProfileMenu />
-              </ListItem>
-            </>
-          )}
-        </List>
-      </DisDrawer>
-      {children}
-    </DisBox>
+            <ListItem
+              className={classes.navCreate}
+              sx={{ position: "absolute" }}
+            >
+              <ProfileMenu />
+            </ListItem>
+          </>
+        )}
+      </List>
+      {/* {children} */}
+      {/* </DisBox> */}
+      {/* </> */}
+    </DisDrawer>
   );
 }

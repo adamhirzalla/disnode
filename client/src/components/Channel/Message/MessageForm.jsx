@@ -1,14 +1,36 @@
 import { Send } from "@mui/icons-material";
 import { useContext, useState } from "react";
-import { Box, IconButton, TextField } from "@mui/material";
+import { Box, Fab, TextField } from "@mui/material";
 import AuthContext from "../../../contexts/AuthContext";
 import { sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
-import { useMessageListStyles } from "../../styles/useMessageListStyles";
 import { getChannels } from "../../../network/channelApi";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  form: {
+    display: "flex",
+    justifyContent: "center",
+    mineight: "30%",
+    width: "100%",
+    minWidth: "100%",
+    borderTop: "1px solid rgb(4,11,12,0.4)",
+  },
+  textField: {
+    width: "80%",
+    justifyContent: "center",
+  },
+  input: {
+    width: "100%",
+  },
+  send: {
+    margin: "3em 2em",
+  },
+}));
 
 export default function MessageForm() {
-  const classes = useMessageListStyles();
+  // const classes = useMessageListStyles();
+  const classes = useStyles();
   const [input, setInput] = useState("");
   const {
     setMessages,
@@ -57,16 +79,20 @@ export default function MessageForm() {
         onKeyDown={handleKeyDown}
         autoFocus
         type="text"
-        maxRows="3"
+        maxRows="4"
         variant="standard"
         placeholder={`Message #${channel.title}`}
         multiline
         required
         InputProps={{ className: classes.input }}
       />
-      <IconButton type="submit" aria-label="send" color="primary">
+      <Fab type="submit" variant="extended" className={classes.send}>
         <Send />
-      </IconButton>
+        Send
+      </Fab>
+      {/* <IconButton type="submit" aria-label="send" color="primary">
+        
+      </IconButton> */}
     </Box>
   );
 }

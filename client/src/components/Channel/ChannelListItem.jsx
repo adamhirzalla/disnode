@@ -11,12 +11,19 @@ import classNames from "classnames";
 
 //style
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
-
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles({
+  channel: { borderBottom: "1px solid rgb(4,11,12,0.2)", padding: "1em 0.8em" },
+  selected: { background: "rgb(182, 185, 181, 0.5)" },
+  title: {},
+  icon: { minWidth: "auto", paddingRight: "0.5em" },
+});
 export default function ChannelListItem(props) {
-  const classes = useChannelListStyles();
+  // const classes = useChannelListStyles();
+  const classes = useStyles();
   const { id, title, channel, setChannel } = props;
 
-  const listItemClass = classNames(classes.listItem, {
+  const channelClass = classNames(classes.channel, {
     [classes.selected]: id === channel.id,
   });
 
@@ -27,15 +34,15 @@ export default function ChannelListItem(props) {
   return (
     <Box>
       <ListItem
-        className={listItemClass}
+        className={channelClass}
         button
         key={id}
         onClick={handleChannelClick}
       >
-        <ListItemIcon>
+        <ListItemIcon className={classes.icon}>
           <TagIcon />
         </ListItemIcon>
-        <ListItemText primary={title} />
+        <ListItemText primary={title} className={classes.title} />
       </ListItem>
       <Divider />
     </Box>

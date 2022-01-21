@@ -21,8 +21,8 @@ import MemberDialog from "./MemberDialog";
 const useStyles = makeStyles(() => ({
   root: { backgroundColor: "white" },
 }));
-export default function MemberMenu({ member }) {
-  const [anchorUser, setAnchorUser] = useState(false);
+export default function MemberMenu(props) {
+  const { anchor, setAnchor, member } = props;
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState("");
   const classes = useStyles();
@@ -31,29 +31,30 @@ export default function MemberMenu({ member }) {
 
   // tartget a member that user clicks
   const handleAnchor = (e) => {
-    setAnchorUser(e.currentTarget);
+    setAnchor(e.currentTarget);
   };
 
   const handleAnchorClose = (e) => {
-    setAnchorUser(false);
+    setAnchor(false);
   };
 
   const handleAction = (action) => {
     setOpen(true);
+    setAnchor(false);
     setAction(action);
   };
 
   return (
     <Box>
-      <Tooltip title={"Options"}>
+      {/* <Tooltip title={"Options"}>
         <IconButton onClick={handleAnchor} sx={{ mr: "20px" }}>
           <Settings fontSize="small" />
         </IconButton>
-      </Tooltip>
+      </Tooltip> */}
       <Menu
         sx={{ mt: "45px" }}
         id="menu-appbar"
-        anchorEl={anchorUser}
+        anchorEl={anchor}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -63,8 +64,8 @@ export default function MemberMenu({ member }) {
           vertical: "top",
           horizontal: "right",
         }}
-        open={Boolean(anchorUser)}
-        onClose={handleAnchorClose}
+        open={Boolean(anchor)}
+        onClose={() => setAnchor(false)}
       >
         <MenuList>
           <Divider />

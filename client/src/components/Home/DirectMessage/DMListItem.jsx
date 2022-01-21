@@ -18,12 +18,20 @@ const useStyles = makeStyles(() => ({
   listItem: {
     "&:hover": {},
     padding: "1.2em 1em",
+    "&.MuiListItem-root": {
+      padding: "1.2em 1.2em",
+    },
   },
   selected: {
     background: "rgb(182, 185, 181, 0.5)",
   },
   text: {
-    color: "#FFF",
+    color: "black",
+    paddingLeft: "2em",
+  },
+  avatar: {
+    width: "50px",
+    height: "50px",
   },
 }));
 
@@ -39,7 +47,7 @@ export default function DMListItem(props) {
   };
 
   return (
-    <Box>
+    <>
       <ListItem
         className={classes.listItem}
         button
@@ -48,11 +56,15 @@ export default function DMListItem(props) {
         disablePadding
       >
         <ListItemAvatar>
-          <Avatar alt={user.full_name} src={user.img} />
+          <Avatar
+            alt={user.full_name}
+            src={user.img}
+            className={classes.avatar}
+          />
         </ListItemAvatar>
         <ListItemText primary={user.full_name} className={classes.text} />
       </ListItem>
       <Divider />
-    </Box>
+    </>
   );
 }
