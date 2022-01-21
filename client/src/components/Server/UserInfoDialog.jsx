@@ -82,9 +82,8 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("image", file);
-    const [avatar] = await uploadtoS3(formData);
-
-    const user = await updateProfile({ ...input, avatar });
+    const [logo] = await uploadtoS3(formData);
+    const user = await updateProfile(file ? { ...input, avatar: logo } : input);
     await setUser(user);
     setOpen(false);
     // setInput({});
@@ -126,7 +125,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   const handleUndo = () => {
     const preview = document.querySelector("#image-preview");
     preview.src = user?.avatar;
-    setInput((prev) => ({ ...prev, file: null }));
+    setFile(null);
   };
 
   const handleDialog = (iconId) => {

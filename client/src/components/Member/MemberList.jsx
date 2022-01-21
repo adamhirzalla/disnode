@@ -128,7 +128,7 @@ export default function MemberList(props) {
         <Divider component="li" className={classes.divider} />
         {admins}
         <Typography className={classes.role} variant="button">
-          {admins && "users"}
+          {users && "users"}
         </Typography>
         <Divider component="li" className={classes.divider} />
         {users}
