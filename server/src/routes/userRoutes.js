@@ -3,6 +3,8 @@
 const router = require("express").Router();
 const { auth } = require("../middleware/auth");
 const User = require("../db/queries/users");
+const Icon = require("../db/queries/icons");
+const Social = require("../db/queries/socials");
 
 // Testing token
 router.get("/me", auth, async (req, res) => {
@@ -37,4 +39,37 @@ router.get("/users", (req, res) => {
     res.json(users);
   });
 });
+
+// should probably be /api/users/:id to follow RESTful API
+// using jwt to get userID instead
+router.patch("/users", auth, async (req, res) => {
+  const userId = req.user.id;
+  const { input } = req.body;
+  try {
+    // await User.update(userId, input);
+    // for (let i = 1; i <= 6; i++) {
+    //   if (profile[i]?.status === "create") {
+    //     await Social.createSocials(userId, i, profile);
+    //   } else if (profile[i]?.status === "edit") {
+    //     await Social.editSocials(userId, i, profile);
+    //   } else if (profile[i]?.status === "delete") {
+    //     await Social.deleteSocials(userId, i);
+    //   }
+    // }
+    // console.log(input, userId);
+    await User.update(input, userId);
+    await Social.addMultiple(userId, input.socials);
+    const user = await User.byID(userId);
+
+    res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/icons", async (req, res) => {
+  const icons = await Icon.all();
+  res.status(200).send(icons);
+});
+
 module.exports = router;

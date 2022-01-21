@@ -111,10 +111,11 @@ CREATE TABLE requests (
 );
 
 CREATE TABLE socials (
-  "id" SERIAL PRIMARY KEY,
+  -- "id" SERIAL PRIMARY KEY,
   "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "icon_id" INT REFERENCES icons(id) ON DELETE CASCADE,
-  "url" VARCHAR(255)
+  "url" VARCHAR(255),
+  UNIQUE ("icon_id", "user_id")
 );
 
 CREATE TABLE server_tags (

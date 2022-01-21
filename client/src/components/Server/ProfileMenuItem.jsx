@@ -13,15 +13,21 @@ import UserInfoDialog from "./UserInfoDialog";
 import AuthContext from "../../contexts/AuthContext";
 import { makeStyles } from "@mui/styles";
 import { Person } from "@mui/icons-material";
+import { getIcons } from "../../network/userApi";
 
-export default function ProfileMenuItem({ handleClose }) {
+export default function ProfileMenuItem({ setAnchor }) {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(false);
   const { dispatch } = useContext(AuthContext);
+  // const [icons, setIcons] = useState([]);
 
   const handleClick = () => {
+    // const icon = await getIcons();
+    // setIcons(icon);
     setOpen(true);
-    handleClose();
+    setAnchor(false);
+
+    // handleClose();
   };
 
   const handleLogout = () => {
