@@ -1,6 +1,6 @@
 import { makeStyles, createStyles } from "@mui/styles";
 
-const drawerWidth = "150px";
+const drawerWidth = "100px";
 
 // drawer opening transition
 const openedMixin = (theme) => ({
@@ -9,7 +9,6 @@ const openedMixin = (theme) => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  overflowX: "hidden",
 });
 
 // drawer closing transition
@@ -19,7 +18,7 @@ const closedMixin = (theme) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: "hidden",
-  width: `calc(${theme.spacing(15)} + 1px)`,
+  width: `calc(${theme.spacing(10)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(35)} + 1px)`,
   },
@@ -38,11 +37,6 @@ export const useMemberListStyles = makeStyles((theme) =>
     drawerOpen: {
       ...closedMixin(theme),
       "& .MuiDrawer-paper": closedMixin(theme),
-    },
-    closeIcon: {
-      position: "fixed",
-      bottom: 20,
-      right: 20,
     },
   })
 );

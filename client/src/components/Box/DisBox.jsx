@@ -4,7 +4,12 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
   root: { display: "flex", width: "100%", height: "100%" },
-  navBox: { display: "flex", width: "100%", overflowX: "hidden" },
+  navBox: {
+    display: "flex",
+    flexDirection: "column",
+    width: "5%",
+    overflowX: "hidden",
+  },
   friendListBox: {
     width: "510px",
     display: "flex",

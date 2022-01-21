@@ -1,13 +1,25 @@
-import { useContext, useState } from "react";
-import { List, Drawer, CssBaseline, Divider } from "@mui/material";
+import { useContext } from "react";
+import { List, ListItem, Box, Grid } from "@mui/material";
 import ChannelListItem from "./ChannelListItem";
 import NewChannelDialog from "./NewChannelDialog";
 import ServerContext from "../../contexts/ServerContext";
-import { useChannelListStyles } from "../styles/useChannelListStyles";
 import ServerMenu from "./ServerMenu";
+import { makeStyles } from "@mui/styles";
 
-export default function ChannelList({ children }) {
-  const classes = useChannelListStyles();
+const useStyles = makeStyles({
+  channels: {
+    borderRight: "1px solid rgb(4,11,12,0.5)",
+    minWidth: "20em",
+    // width: "30%",
+    // maxWidth: "20em",
+  },
+  add: {
+    justifyContent: "center",
+  },
+});
+
+export default function ChannelList() {
+  const classes = useStyles();
 
   const {
     app: { channels, channel },
@@ -26,18 +38,17 @@ export default function ChannelList({ children }) {
     );
   });
   return (
-    <>
-      <CssBaseline />
-      <Drawer className={classes.drawer} variant="permanent" anchor="left">
-        <List className={classes.list}>
-          <ServerMenu />
-          <Divider />
+    <Box className={classes.channels}>
+      {/* // <Grid className={classes.channels} xs={2.5}> */}
+      <List>
+        <ServerMenu />
 
-          {channels && parsedChannels}
-        </List>
-        <NewChannelDialog />
-      </Drawer>
-      {children}
-    </>
+        {channels && parsedChannels}
+        <ListItem className={classes.add}>
+          <NewChannelDialog />
+        </ListItem>
+      </List>
+      {/* </Grid> */}
+    </Box>
   );
 }

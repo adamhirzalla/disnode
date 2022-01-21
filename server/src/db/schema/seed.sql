@@ -39,6 +39,7 @@ VALUES
 (1, 3, 'owner'),
 (1, 2, 'admin'),
 (1, 1, 'user'),
+(1, 4, 'user'),
 (2, 1, 'owner'),
 (2, 3, 'user'),
 (3, 2, 'owner'),
