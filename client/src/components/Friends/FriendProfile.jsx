@@ -79,13 +79,15 @@ export default function FriendProfile(props) {
 
   const iconClasses = useDisIconButtonStyles();
 
-  const icons = connectionsIcons.map((icon, i) => {
-    return (
-      <IconButton key={i} className={iconClasses.connections}>
-        {icon}
-      </IconButton>
-    );
-  });
+  const icons = connectionsIcons
+    .filter((e) => e.url)
+    .map((icon, i) => {
+      return (
+        <IconButton key={i} className={iconClasses.connections}>
+          {icon}
+        </IconButton>
+      );
+    });
 
   return (
     <>

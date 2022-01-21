@@ -5,3 +5,11 @@ GET http://localhost:8001/api/debug/reset_db
 GET http://localhost:8001/api/test
 Content-Type: application/json
 {"userId": 1, "serverId": 1}
+
+### TEST
+PATCH http://localhost:8001/api/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjQyNzc5MDkwLCJleHAiOjE2NDI4NjU0OTB9.GJni34pMrV_2stTz6Ab423t5xA78hSfYJv_npbvjK78
+
+{"input":{"full_name":"full", "nickname":"nick", "bio":"bio", "avatar":"url", "socials": [{"id":1,"url":"im new"},{"id":2,"url":"i should be updated"},{"id":3,"url":"im also ujpdated"}]}}
+

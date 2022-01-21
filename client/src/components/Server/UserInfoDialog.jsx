@@ -47,60 +47,81 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   } = useContext(AuthContext);
   const { id, avatar, full_name, nickname, bio, socials } = user;
 
+  // const initialInput = {
+  //   avatar,
+  //   full_name,
+  //   nickname,
+  //   bio,
+  //   1: socials.find((social) => social.id === 1)?.url || "",
+  //   2: socials.find((social) => social.id === 2)?.url || "",
+  //   3: socials.find((social) => social.id === 3)?.url || "",
+  //   4: socials.find((social) => social.id === 4)?.url || "",
+  //   5: socials.find((social) => social.id === 5)?.url || "",
+  //   6: socials.find((social) => social.id === 6)?.url || "",
+  // };
+
   const initialInput = {
-    file: null,
     avatar,
     full_name,
     nickname,
     bio,
-    1: { url: socials.find((social) => social.id === 1)?.url || "" },
-    2: { url: socials.find((social) => social.id === 2)?.url || "" },
-    3: { url: socials.find((social) => social.id === 3)?.url || "" },
-    4: { url: socials.find((social) => social.id === 4)?.url || "" },
-    5: { url: socials.find((social) => social.id === 5)?.url || "" },
-    6: { url: socials.find((social) => social.id === 6)?.url || "" },
+    socials,
   };
-
+  const [file, setFile] = useState(null);
   const [input, setInput] = useState(initialInput);
-  const [social, setSocial] = useState(null);
+  const [iconId, setIconId] = useState("");
   const [dialog, setDialog] = useState(false);
+  const [url, setUrl] = useState("");
   const classes = useStyles();
 
   const handleClose = () => {
-    setInput(initialInput);
+    // setInput(initialInput);
     setOpen(false);
   };
 
-  const handleSave = () => {
-    for (let i = 1; i <= 6; i++) {
-      if (initialInput[i]?.url && initialInput[i]?.url === input[i]?.url) {
-        input[i] = null;
-      } else if (!initialInput[i]?.url && !input[i]?.url) {
-        input[i] = null;
-      } else if (!initialInput[i]?.url && input[i]?.url) {
-        input[i].status = "create";
-      } else if (initialInput[i]?.url && !input[i]?.url) {
-        input[i].status = "delete";
-      } else if (
-        initialInput[i]?.url &&
-        initialInput[i]?.url !== input[i]?.url
-      ) {
-        input[i].status = "edit";
-      }
-    }
-    updateUser();
-  };
-
-  const updateUser = async () => {
+  const handleSubmit = async () => {
     const formData = new FormData();
-    formData.append("image", initialInput.file);
-    const [logo] = await uploadtoS3(formData);
+    formData.append("image", file);
+    const [avatar] = await uploadtoS3(formData);
 
-    const updatedUser = await updateProfile(id, input);
-    await setUser(updatedUser);
-    setInput({});
-    handleClose();
+    const user = await updateProfile({ ...input, avatar });
+    await setUser(user);
+    setOpen(false);
+    // setInput({});
+    // handleClose();
   };
+
+  // const handleSave = async () => {
+  //   for (let i = 1; i <= 6; i++) {
+  //     if (initialInput[i]?.url && initialInput[i]?.url === input[i]?.url) {
+  //       input[i] = null;
+  //     } else if (!initialInput[i]?.url && !input[i]?.url) {
+  //       input[i] = null;
+  //     } else if (!initialInput[i]?.url && input[i]?.url) {
+  //       input[i].status = "create";
+  //     } else if (initialInput[i]?.url && !input[i]?.url) {
+  //       input[i].status = "delete";
+  //     } else if (
+  //       initialInput[i]?.url &&
+  //       initialInput[i]?.url !== input[i]?.url
+  //     ) {
+  //       input[i].status = "edit";
+  //     }
+  //   }
+  //   await updateUser();
+  //   setInput(initialInput);
+  // };
+
+  // const updateUser = async () => {
+  //   const formData = new FormData();
+  //   formData.append("image", initialInput.file);
+  //   const [logo] = await uploadtoS3(formData);
+
+  //   const updatedUser = await updateProfile(input);
+  //   await setUser(updatedUser);
+  //   setInput({});
+  //   handleClose();
+  // };
 
   const handleUndo = () => {
     const preview = document.querySelector("#image-preview");
@@ -108,10 +129,16 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     setInput((prev) => ({ ...prev, file: null }));
   };
 
-  const handleDialog = (id) => {
-    setSocial(id);
+  const handleDialog = (iconId) => {
+    setIconId(iconId);
+    const url = input.socials.find((s) => s.id === iconId)?.url;
+    setUrl(url || "");
     setDialog(true);
   };
+
+  // const iconClasses = classNames(classes.empty, {
+  //   [classes.filled]: input.socials.
+  // })
 
   return (
     <Dialog
@@ -139,7 +166,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             src={avatar}
             imgProps={{ id: "image-preview" }}
           />
-          <SelectButton setInput={setInput} />
+          <SelectButton setFile={setFile} />
           <Button color="error" onClick={handleUndo}>
             Undo
           </Button>
@@ -151,21 +178,26 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
         {/* connection form */}
         {/* <UserConnection /> */}
         <ConnectionsDialog
-          initialInput={initialInput}
-          social={social}
+          // initialInput={initialInput}
+          // social={iconId}
           input={input}
           open={dialog}
+          iconId={iconId}
           setOpen={setDialog}
           setInput={setInput}
+          url={url}
+          setUrl={setUrl}
         />
         <Grid container className={classes.connections}>
-          {icons.map((icon, i) => {
+          {/* {icons.map((icon, i) => {
             const { id } = icon;
             return (
               <Grid item xs={4} key={id}>
                 <IconButton
                   onClick={() => handleDialog(id)}
-                  sx={initialInput[id]?.url ? { opacity: 1 } : { opacity: 0.2 }}
+                  sx={
+                    input?.socials[id]?.url ? { opacity: 1 } : { opacity: 0.2 }
+                  }
                 >
                   {id === 1 ? (
                     <SteamSvg />
@@ -183,13 +215,19 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
                 </IconButton>
               </Grid>
             );
-          })}
-
-          {/* <Grid item xs={4}>
+          })} */}
+          {/* 
+{
+  socials: []
+}
+*/}
+          <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(1)}
               sx={
-                initialInput.socials[0].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 1)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <SteamSvg />
@@ -199,7 +237,9 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             <IconButton
               onClick={() => handleDialog(2)}
               sx={
-                initialInput.socials[1].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 2)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <TwitterSvg />
@@ -209,7 +249,9 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             <IconButton
               onClick={() => handleDialog(3)}
               sx={
-                initialInput.socials[2].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 3)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <RiotGamesSvg />
@@ -219,7 +261,9 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             <IconButton
               onClick={() => handleDialog(4)}
               sx={
-                initialInput.socials[3].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 4)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <EpicGamesSvg />
@@ -229,7 +273,9 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             <IconButton
               onClick={() => handleDialog(5)}
               sx={
-                initialInput.socials[4].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 5)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <TwitterSvg />
@@ -239,19 +285,21 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
             <IconButton
               onClick={() => handleDialog(6)}
               sx={
-                initialInput.socials[5].url ? { opacity: 1 } : { opacity: 0.2 }
+                input.socials.find((e) => e.id == 6)?.url
+                  ? { opacity: 1 }
+                  : { opacity: 0.2 }
               }
             >
               <RiotGamesSvg />
             </IconButton>
-          </Grid> */}
+          </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" color="error" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
           Save
         </Button>
       </DialogActions>

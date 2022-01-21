@@ -40,21 +40,27 @@ router.get("/users", (req, res) => {
   });
 });
 
-router.patch("/users/:id", async (req, res) => {
-  const userId = req.params.id;
-  const { profile } = req.body;
+// should probably be /api/users/:id to follow RESTful API
+// using jwt to get userID instead
+router.patch("/users", auth, async (req, res) => {
+  const userId = req.user.id;
+  const { input } = req.body;
   try {
-    const updatedUser = await User.update(userId, profile);
-    for (let i = 1; i <= 6; i++) {
-      if (profile[i]?.status === "create") {
-        await Social.createSocials(userId, i, profile);
-      } else if (profile[i]?.status === "edit") {
-        await Social.editSocials(userId, i, profile);
-      } else if (profile[i]?.status === "delete") {
-        await Social.deleteSocials(userId, i);
-      }
-    }
-    const user = await User.byID(updatedUser.id);
+    // await User.update(userId, input);
+    // for (let i = 1; i <= 6; i++) {
+    //   if (profile[i]?.status === "create") {
+    //     await Social.createSocials(userId, i, profile);
+    //   } else if (profile[i]?.status === "edit") {
+    //     await Social.editSocials(userId, i, profile);
+    //   } else if (profile[i]?.status === "delete") {
+    //     await Social.deleteSocials(userId, i);
+    //   }
+    // }
+    // console.log(input, userId);
+    await User.update(input, userId);
+    await Social.addMultiple(userId, input.socials);
+    const user = await User.byID(userId);
+
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send("Internal Server Error");

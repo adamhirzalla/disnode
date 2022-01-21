@@ -34,16 +34,24 @@ const useStyles = makeStyles(() => ({
   actions: { display: "flex", justifyContent: "center" },
 }));
 export default function ConnectionsDialog(props) {
-  const { input, setInput, setOpen, open, initialInput, social } = props;
+  const { input, url, setOpen, open, setUrl, iconId, setInput } = props;
   const classes = useStyles();
-  const [url, setUrl] = useState("");
 
   const handleAction = () => {
-    setInput((prev) => ({
+    // setInput((prev) => ({
+    //   ...prev,
+    //   [iconId]: url,
+    // }));
+    const socials = setInput((prev) => ({
       ...prev,
-      [social]: { url: url },
+      socials: [
+        ...prev.socials.filter((social) => social.id !== iconId),
+        { id: iconId, url },
+      ],
     }));
+
     setOpen(false);
+    setUrl("");
   };
   const handleCancel = () => {
     setUrl("");
@@ -52,7 +60,7 @@ export default function ConnectionsDialog(props) {
 
   return (
     <Dialog className={classes.asd} open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Enter a URL!</DialogTitle>
+      <DialogTitle>Enter a URL! {iconId}</DialogTitle>
       <DialogContent>
         <DialogContentText color="error">
           Note: This will be public to your friends and mutual server members.
@@ -64,7 +72,7 @@ export default function ConnectionsDialog(props) {
           type="text"
           fullWidth
           variant="standard"
-          placeholder={input[social]?.url}
+          placeholder={input[iconId]?.url}
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />

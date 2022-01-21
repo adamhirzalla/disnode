@@ -12,9 +12,9 @@ export const getUser = async (userId) => {
   }
 };
 
-export const updateProfile = async (userId, profile) => {
+export const updateProfile = async (input) => {
   try {
-    const res = await axios.patch(`/api/users/${userId}`, { profile });
+    const res = await axios.patch(`/api/users`, { input });
     const user = res.data;
     return user;
     // const sio = await import("../socket/index");

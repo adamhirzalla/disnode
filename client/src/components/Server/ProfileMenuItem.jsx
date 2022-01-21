@@ -15,17 +15,19 @@ import { makeStyles } from "@mui/styles";
 import { Person } from "@mui/icons-material";
 import { getIcons } from "../../network/userApi";
 
-export default function ProfileMenuItem({ handleClose }) {
+export default function ProfileMenuItem({ setAnchor }) {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(false);
   const { dispatch } = useContext(AuthContext);
-  const [icons, setIcons] = useState([]);
+  // const [icons, setIcons] = useState([]);
 
-  const handleClick = async () => {
-    const icon = await getIcons();
-    setIcons(icon);
+  const handleClick = () => {
+    // const icon = await getIcons();
+    // setIcons(icon);
     setOpen(true);
-    handleClose();
+    setAnchor(false);
+
+    // handleClose();
   };
 
   const handleLogout = () => {
@@ -55,7 +57,7 @@ export default function ProfileMenuItem({ handleClose }) {
           Log Out
         </MenuItem>
       </MenuList>
-      <UserInfoDialog open={open} setOpen={setOpen} icons={icons} />
+      <UserInfoDialog open={open} setOpen={setOpen} />
     </Paper>
   );
 }
