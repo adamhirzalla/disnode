@@ -4,16 +4,16 @@ export const useDisDrawerStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: "flex",
-      width: "100%",
-      height: "100%",
     },
     serverList: {
-      width: "125px",
       flexShrink: 0,
-
+      "& .MuiDrawer-root": {
+        height: "0",
+        width: "5%",
+      },
       "& .MuiDrawer-paper": {
         overflowX: "hidden",
-        width: "122px",
+        width: "90px",
         boxSizing: "border-box",
         display: "flex",
         alignItems: "center",
@@ -31,10 +31,6 @@ export const useDisDrawerStyles = makeStyles((theme) =>
           // outline: "1px solid black",
           borderRadius: "30px",
         },
-      },
-      "& .MuiDrawer-root": {
-        height: "0",
-        width: "100%",
       },
     },
     divider: {

@@ -3,12 +3,11 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/styles";
 import InputBase from "@mui/material/InputBase";
-import DisTypography from "../Box/DisTypography";
 import SearchIcon from "@mui/icons-material/Search";
-import { AppBar } from "@mui/material";
+import { AppBar, Typography } from "@mui/material";
 
 // styles
-import { useBoxStyles } from "../styles/useBoxStyles";
+import { useBoxStyles } from "../../styles/useBoxStyles";
 const useStyles = makeStyles(() => ({
   box: {
     width: 511,
@@ -94,9 +93,9 @@ export default function SearchBar() {
       {/* <DisBox component="form" disStyle="friendsBar"> */}
       {/* <AppBar position="fixed" className={classes.appBar}> */}
       <Toolbar className={classes.toolBar}>
-        <DisTypography variant="h6" noWrap component="div">
+        <Typography variant="h6" noWrap component="div">
           Friends List
-        </DisTypography>
+        </Typography>
         <Search className={classes.search}>
           <SearchIconWrapper>
             <SearchIcon />

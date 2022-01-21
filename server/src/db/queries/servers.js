@@ -6,7 +6,6 @@ const Channel = require("./channels");
 
 const create = (data) => {
   const { creatorId, title, logo, invite_code } = data;
-
   const query = `
   INSERT INTO servers 
   (creator_id, title, logo, invite_code)

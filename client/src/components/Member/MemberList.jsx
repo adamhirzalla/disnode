@@ -1,56 +1,139 @@
 import { useContext, useState } from "react";
 import { ChevronRight, ChevronLeft } from "@mui/icons-material";
-import { Box, IconButton, Drawer } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Drawer,
+  Grid,
+  ListItem,
+  ListItemButton,
+  List,
+  Typography,
+  Divider,
+} from "@mui/material";
 import { useMemberListStyles } from "../styles/useMemberListStyles";
 import ServerContext from "../../contexts/ServerContext";
 import MemberListItem from "./MemberListItem";
 import classNames from "classnames";
+import { makeStyles } from "@mui/styles";
+import GroupsIcon from "@mui/icons-material/Groups";
+
+const useStyles = makeStyles({
+  members: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  button: {
+    // justifyContent: "space-around",
+    cursor: "pointer",
+    opacity: "0.7",
+    "&:hover": {
+      opacity: "1.0",
+    },
+  },
+  role: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: "1em",
+  },
+  divider: {
+    width: "85%",
+    margin: "auto auto",
+  },
+});
 
 export default function MemberList(props) {
-  const classes = useMemberListStyles();
+  const drawerClasses = useMemberListStyles();
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
+
   const {
     app: { members },
   } = useContext(ServerContext);
-  const drawerClass = classNames(classes.drawer, {
-    [classes.drawerOpen]: open,
+  const drawerClass = classNames(drawerClasses.drawer, {
+    [drawerClasses.drawerOpen]: open,
   });
 
-  const handleDrawerOpen = () => {
+  const openDrawer = () => {
     // socket.emit("get online");
     setOpen(true);
   };
-  const handleDrawerClose = () => {
+  const closeDrawner = () => {
     setOpen(false);
   };
 
-  const memberList = members.map((member) => {
-    return (
-      <MemberListItem
-        key={member.id}
-        member={member}
-        open={open}
-        handleDrawerOpen={handleDrawerOpen}
-      />
-    );
-  });
+  // TODO: refactor this mess (when in the mood)
+  const admins = members
+    .filter((member) => member.role === "admin")
+    .map((member) => {
+      return (
+        <MemberListItem
+          key={member.id}
+          member={member}
+          open={open}
+          setOpen={setOpen}
+        />
+      );
+    });
+  const users = members
+    .filter((member) => member.role === "user")
+    .map((member) => {
+      return (
+        <MemberListItem
+          key={member.id}
+          member={member}
+          open={open}
+          setOpen={setOpen}
+        />
+      );
+    });
+  const owner = members
+    .filter((member) => member.role === "owner")
+    .map((member) => {
+      return (
+        <MemberListItem
+          key={member.id}
+          member={member}
+          open={open}
+          setOpen={setOpen}
+        />
+      );
+    });
 
   return (
-    <Box sx={{ position: "sticky" }}>
-      <Drawer
-        className={drawerClass}
-        variant="permanent"
-        anchor="right"
-        open={open}
-      >
-        {memberList}
-        <IconButton
-          className={classes.closeIcon}
-          onClick={open ? handleDrawerClose : handleDrawerOpen}
+    // <Grid sx={1} className={classes.members}>
+    <Drawer
+      className={drawerClass}
+      variant="permanent"
+      anchor="right"
+      open={open}
+      // sx={{ width: "100%" }}
+    >
+      <List className={classes.members}>
+        <ListItem
+          className={classes.button}
+          onClick={open ? closeDrawner : openDrawer}
         >
+          <GroupsIcon fontSize="large" />
           {open ? <ChevronRight /> : <ChevronLeft />}
-        </IconButton>
-      </Drawer>
-    </Box>
+        </ListItem>
+        <Typography className={classes.role} variant="button">
+          {owner && "owner"}
+        </Typography>
+        <Divider component="li" className={classes.divider} />
+        {owner}
+        <Typography className={classes.role} variant="button">
+          {admins && "admins"}
+        </Typography>
+        <Divider component="li" className={classes.divider} />
+        {admins}
+        <Typography className={classes.role} variant="button">
+          {admins && "users"}
+        </Typography>
+        <Divider component="li" className={classes.divider} />
+        {users}
+      </List>
+      {/* </Grid> */}
+    </Drawer>
   );
 }

@@ -13,7 +13,7 @@ export const createChannel = async (serverId, title) => {
 // get channels for a server
 export const getChannels = async (serverId) => {
   try {
-    const res = await axios.post(`/api//channels`, { serverId });
+    const res = await axios.get(`/api/servers/${serverId}/channels`);
     return res.data;
   } catch (e) {
     console.log("Failed to retreive channel data", e);

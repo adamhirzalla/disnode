@@ -6,8 +6,9 @@ export const useChannelListStyles = makeStyles((theme) =>
   createStyles({
     list: {
       paddingTop: "0",
-      display: "flex",
-      flexDirection: "column",
+      // display: "flex",
+      // flexDirection: "column",
+      // alignItems: "center",
       width: "100%",
     },
 
@@ -15,7 +16,7 @@ export const useChannelListStyles = makeStyles((theme) =>
       width: drawerWidth,
       flexShrink: 0,
       "& .MuiDrawer-paper": {
-        marginLeft: "122px",
+        marginLeft: "90px",
         width: drawerWidth,
         boxSizing: "border-box",
         display: "flex",

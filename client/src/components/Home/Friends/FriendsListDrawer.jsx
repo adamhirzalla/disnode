@@ -16,6 +16,7 @@ const drawerWidth = 510;
 const useStyles = makeStyles(() => ({
   drawerWrapper: {
     display: "flex",
+    flexDirection: "column",
 
     width: "100%",
     height: "100%",

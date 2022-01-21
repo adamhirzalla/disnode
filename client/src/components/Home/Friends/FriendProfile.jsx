@@ -1,11 +1,9 @@
-import DisBox from "../Box/DisBox";
 import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
-import SteamSvg from "../SvgIcons/SteamSvg";
-import DisTypography from "../Box/DisTypography";
-import TwitterSvg from "../SvgIcons/TwitterSvg";
-import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
-import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
+import SteamSvg from "../../SvgIcons/SteamSvg";
+import TwitterSvg from "../../SvgIcons/TwitterSvg";
+import RiotGamesSvg from "../../SvgIcons/RiotGamesSvg";
+import EpicGamesSvg from "../../SvgIcons/EpicGamesSvg";
 import {
   Avatar,
   CardActions,
@@ -14,7 +12,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
+import { useDisIconButtonStyles } from "../../styles/useDisIconButtonStyles";
 
 // const useStyles = makeStyles(() => ({
 //   cardAction: {
