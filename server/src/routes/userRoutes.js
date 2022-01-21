@@ -37,4 +37,11 @@ router.get("/users", (req, res) => {
     res.json(users);
   });
 });
+
+router.patch("/users/:id", async (req, res) => {
+  const userId = req.params.id;
+  const { profile } = req.body;
+
+  console.log(profile);
+});
 module.exports = router;

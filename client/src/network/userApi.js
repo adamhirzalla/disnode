@@ -11,3 +11,15 @@ export const getUser = async (userId) => {
     console.log("Failed to retreive user data", e);
   }
 };
+
+export const updateProfile = async (userId, profile) => {
+  try {
+    const res = await axios.patch(`/api/users/${userId}`, { profile });
+    const user = res.data;
+    return user;
+    // const sio = await import("../socket/index");
+    // console.log("Started a socket:", sio);
+  } catch (e) {
+    console.log("Failed to retreive user data", e);
+  }
+};

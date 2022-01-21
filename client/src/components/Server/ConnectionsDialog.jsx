@@ -16,15 +16,6 @@ import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
 
-const [STEAM, EPIC, BLIZZARD, DISCORD, RIOT, ORIGIN] = [
-  "STEAM",
-  "EPIC",
-  "BLIZZARD",
-  "DISCORD",
-  "RIOT",
-  "ORIGIN",
-];
-
 const parsedConnections = [
   <SteamSvg />,
   <TwitterSvg />,
@@ -43,22 +34,33 @@ const useStyles = makeStyles(() => ({
   actions: { display: "flex", justifyContent: "center" },
 }));
 export default function ConnectionsDialog(props) {
-  const { icon, input, setInput, setOpen, open } = props;
-  const [value, setValue] = useState("");
+  const { icon, input, setInput, setOpen, open, initialInput } = props;
 
   const classes = useStyles();
 
-  const handleAction = () => {
-    if (icon === STEAM) setInput((prev) => ({ ...prev, steam: value }));
-    else if (icon === EPIC) setInput((prev) => ({ ...prev, epic: value }));
-    else if (icon === BLIZZARD)
-      setInput((prev) => ({ ...prev, blizard: value }));
-    else if (icon === DISCORD)
-      setInput((prev) => ({ ...prev, discord: value }));
-    else if (icon === RIOT) setInput((prev) => ({ ...prev, riot: value }));
-    else if (icon === ORIGIN) setInput((prev) => ({ ...prev, origin: value }));
+  const handleAction = (e, icon) => {
+    setInput((prev) => ({
+      ...prev,
+      socials: [...prev.socials, { id: icon, url: e.target.value }],
+    }));
     setOpen(false);
-    setValue("");
+
+    // if (icon === STEAM) setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+    // else if (icon === EPIC)
+    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+    // else if (icon === BLIZZARD)
+    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+    // else if (icon === DISCORD)
+    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+    // else if (icon === RIOT)
+    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+    // else if (icon === ORIGIN)
+    //   setInput((prev) => ({ ...prev, [icon]: input[icon] }));
+  };
+
+  const handleCancel = () => {
+    setInput(initialInput);
+    setOpen(false);
   };
 
   return (
@@ -71,21 +73,23 @@ export default function ConnectionsDialog(props) {
         <TextField
           autoFocus
           margin="dense"
-          // id="name"
           label="Connection URL"
           type="text"
           fullWidth
           variant="standard"
-          onChange={(e) => setValue(e.target.value)}
+          value={input[icon]}
+          onChange={(e) =>
+            setInput((prev) => ({ ...prev, [icon]: e.target.value }))
+          }
         />
       </DialogContent>
 
       <DialogActions className={classes.actions}>
-        <Button variant="outlined" color="error" onClick={() => setOpen(false)}>
+        <Button variant="outlined" color="error" onClick={handleCancel}>
           Cancel
         </Button>
         <Button variant="contained" color="info" onClick={handleAction}>
-          Confirm
+          Save
         </Button>
       </DialogActions>
     </Dialog>

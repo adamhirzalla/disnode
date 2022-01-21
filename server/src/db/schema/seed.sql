@@ -101,14 +101,14 @@ VALUES (1, 2, true), (3, 4, false), (2, 4, true);
 
 INSERT INTO socials (user_id, icon_id, url)
 VALUES
-(1, 1, 'https://google.ca'),
-(2, 3, 'https://twitch.tv'),
-(2, 5, 'https://youtube.com'),
-(3, 2, 'https://reddit.com'),
-(1, 1, 'https://reddit.com'),
-(1, 4, 'https://reddit.com'),
-(2, 2, 'https://reddit.com'),
-(3, 6, 'https://discord.com');
+(1, 1, 'https://steam.ca'),
+(2, 3, 'https://blizzard.ca'),
+(2, 5, 'https://riotgames.com'),
+(3, 2, 'https://epicgames.com'),
+(1, 2, 'https://epicgames.com'),
+(1, 3, 'https://blizzard.com'),
+(2, 2, 'https://epicgames.com'),
+(3, 6, 'https://origin.com');
 
 INSERT INTO server_tags
 (server_id, tag_id)

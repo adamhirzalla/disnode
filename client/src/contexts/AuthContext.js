@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer, useRef } from "react";
 import reducer from "../reducers/reducer";
 import { isAuth, updateTokens } from "../network/authApi";
 import socket from "../utils/socket/index";
-import { SET_ACTIVE_USERS, SET_SOCKET } from "../utils/constants";
+import { SET_ACTIVE_USERS, SET_SOCKET, SET_USER } from "../utils/constants";
 
 const AuthContext = createContext();
 export default AuthContext;
@@ -59,8 +59,12 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(tokenInterval);
   }, []);
 
+  const setUser = (user) => {
+    dispatch({ type: SET_USER, user });
+  };
+
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ state, dispatch, setUser }}>
       {children}
     </AuthContext.Provider>
   );
