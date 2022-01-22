@@ -19,3 +19,16 @@ export const getChannels = async (serverId) => {
     console.log("Failed to retreive channel data", e);
   }
 };
+
+// edit channel name
+export const editChannel = async (serverId, channelId, input) => {
+  try {
+    const res = await axios.put(
+      `/api/servers/${serverId}/channels/${channelId}`,
+      { input }
+    );
+    return res.data;
+  } catch (e) {
+    console.log("Failed to retreive channel data", e);
+  }
+};

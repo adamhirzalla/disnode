@@ -42,7 +42,19 @@ const byServer = (serverId) => {
     });
 };
 
+const edit = (input, channelId) => {
+  const query = `
+  UPDATE channels
+  SET title = $1
+  WHERE id = $2
+  RETURNING * 
+  `;
+  const params = [input, channelId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 module.exports = {
   byServer,
   create,
+  edit,
 };
