@@ -156,4 +156,13 @@ router.put("/servers/:id/tags", async (req, res) => {
   }
 });
 
+// updating member's role in a server
+router.put("/servers/:serverId/members/:memberId", async (req, res) => {
+  const { serverId, memberId } = req.params;
+  const { role } = req.body;
+  await Member.updateRole(role, memberId);
+  const members = await Member.byServer(serverId);
+  res.status(200).send(members);
+});
+
 module.exports = router;

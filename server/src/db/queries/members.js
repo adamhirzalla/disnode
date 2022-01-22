@@ -83,10 +83,21 @@ const byDM = (serverId) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
+const updateRole = (role, memberId) => {
+  const query = `
+  UPDATE members
+  SET role = $1
+  WHERE id = $2
+  `;
+  const params = [role, memberId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 module.exports = {
   byServer,
   create,
   byDM,
   byID,
   inServerByUser,
+  updateRole,
 };

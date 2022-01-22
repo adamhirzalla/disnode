@@ -35,7 +35,13 @@ export default function MemberMenu(props) {
   const [action, setAction] = useState("");
   const classes = useStyles();
 
-  const [PROFILE, ADD, ADMIN, KICK] = ["PROFILE", "ADD", "ADMIN", "KICK"];
+  const [PROFILE, ADD, ADMIN, DEMOTE, KICK] = [
+    "PROFILE",
+    "ADD",
+    "ADMIN",
+    "DEMOTE",
+    "KICK",
+  ];
 
   // tartget a member that user clicks
   const handleAnchor = (e) => {
@@ -101,9 +107,20 @@ export default function MemberMenu(props) {
                 Assign Admin
               </MenuItem>
             )}
-          {members.find((m) => m.user_id === user.id).role ===
-            ("owner" || "admin") &&
+          {member.role === "admin" &&
+            members.find((m) => m.user_id === user.id).role === "owner" &&
             member.user_id !== user.id && (
+              <MenuItem onClick={() => handleAction(DEMOTE)}>
+                <ListItemIcon>
+                  <Admin color="warning" />
+                </ListItemIcon>
+                Demote To User
+              </MenuItem>
+            )}
+          {(members.find((m) => m.user_id === user.id).role === "owner" ||
+            members.find((m) => m.user_id === user.id).role === "admin") &&
+            member.user_id !== user.id &&
+            member.role !== "owner" && (
               <MenuItem onClick={() => handleAction(KICK)}>
                 <ListItemIcon>
                   <Logout color="error" />
