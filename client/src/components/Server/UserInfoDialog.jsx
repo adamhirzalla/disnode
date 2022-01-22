@@ -87,8 +87,8 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     let logo;
     if (file) [logo] = await uploadtoS3(formData);
     const data = file ? { ...input, avatar: logo } : input;
-    const user = await updateProfile(data, user.id);
-    await setUser(user);
+    const updatedUser = await updateProfile(data, user.id);
+    await setUser(updatedUser);
     setOpen(false);
     // setInput({});
     // handleClose();

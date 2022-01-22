@@ -208,4 +208,17 @@ router.get("/servers/:id/members", async (req, res) => {
   }
 });
 
+// add a member into server
+router.post("/servers/:serverId/users/:userId", async (req, res) => {
+  const { serverId, userId } = req.params;
+  const data = { serverId, userId, role: "user" };
+  try {
+    await Member.create(data);
+    const members = await Member.byServer(serverId);
+    res.status(200).json(members);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
