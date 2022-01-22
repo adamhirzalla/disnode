@@ -9,9 +9,9 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   channels: {
     borderRight: "1px solid rgb(4,11,12,0.5)",
-    minWidth: "20em",
-    // width: "30%",
-    // maxWidth: "20em",
+    // minWidth: "20em",
+    width: "30%",
+    maxWidth: "17em",
   },
   add: {
     justifyContent: "center",

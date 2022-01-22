@@ -1,4 +1,4 @@
-import { Avatar, IconButton, Menu } from "@mui/material";
+import { Avatar, IconButton, Menu, Tooltip } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useContext, useState } from "react";
 import AuthContext from "../../contexts/AuthContext";
@@ -32,9 +32,16 @@ export default function ProfileMenu() {
 
   return (
     <>
-      <IconButton onClick={handleClick}>
-        <Avatar className={classes.profile} src={user.avatar} />
-      </IconButton>
+      <Tooltip
+        title={user.nickname}
+        arrow
+        placement="right"
+        className={classes.navHome}
+      >
+        <IconButton onClick={handleClick}>
+          <Avatar className={classes.profile} src={user.avatar} />
+        </IconButton>
+      </Tooltip>
       <Menu
         sx={{ mt: "5px" }}
         id="menu-appbar"

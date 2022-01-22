@@ -101,18 +101,20 @@ export default function MemberListItem(props) {
       {/* <Box className={classes.memberIcon}> */}
 
       <ListItem disableGutters className={memberListClass}>
-        <StyledBadge
-          overlap="circular"
-          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-          variant={member.is_active ? "dot" : "standard"}
-          onClick={handleAnchor}
-        >
-          <Avatar
-            alt={member.nickname}
-            src={member.avatar}
-            className={avatarClasses}
-          />
-        </StyledBadge>
+        <Tooltip title={member.nickname} arrow placement="left">
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant={member.is_active ? "dot" : "standard"}
+            onClick={handleAnchor}
+          >
+            <Avatar
+              alt={member.nickname}
+              src={member.avatar}
+              className={avatarClasses}
+            />
+          </StyledBadge>
+        </Tooltip>
         {open && (
           <>
             <ListItemText

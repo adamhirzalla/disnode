@@ -46,7 +46,6 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     setUser,
   } = useContext(AuthContext);
   const { id, avatar, full_name, nickname, bio, socials } = user;
-
   // const initialInput = {
   //   avatar,
   //   full_name,
@@ -87,7 +86,8 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     formData.append("image", file);
     let logo;
     if (file) [logo] = await uploadtoS3(formData);
-    const user = await updateProfile(file ? { ...input, avatar: logo } : input);
+    const data = file ? { ...input, avatar: logo } : input;
+    const user = await updateProfile(data, user.id);
     await setUser(user);
     setOpen(false);
     // setInput({});
