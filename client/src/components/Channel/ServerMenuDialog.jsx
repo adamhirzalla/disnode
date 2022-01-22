@@ -38,9 +38,9 @@ export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
     // });
     const servers = await getServers();
     await setServers(servers);
-    setMode(HOME);
     setOpen(false);
     setOption(null);
+    setMode(HOME);
   };
 
   return (

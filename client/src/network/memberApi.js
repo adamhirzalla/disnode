@@ -19,6 +19,15 @@ export const removeMember = async (serverId, memberId) => {
     );
     return res.data;
   } catch (e) {
-    console.log("Failed to retreive message data", e);
+    console.log("Failed to remove member", e);
+  }
+};
+
+export const getMembers = async (serverId) => {
+  try {
+    const res = await axios.get(`/api/servers/${serverId}/members`);
+    return res.data;
+  } catch (e) {
+    console.log("Failed to retreive members", e);
   }
 };

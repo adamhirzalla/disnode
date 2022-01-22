@@ -133,6 +133,7 @@ export default function MemberMenu(props) {
         {/* DIALOG HERE  */}
 
         <MemberDialog
+          setAction={setAction}
           member={member}
           open={open}
           setOpen={setOpen}
