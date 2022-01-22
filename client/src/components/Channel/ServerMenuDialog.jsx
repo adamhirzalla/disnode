@@ -1,15 +1,25 @@
 import { Button, Dialog, DialogActions, DialogTitle } from "@mui/material";
 import { useContext } from "react";
 import ServerContext from "../../contexts/ServerContext";
+import AuthContext from "../../contexts/AuthContext";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
+import { removeMember } from "../../network/memberApi";
+import { getServers } from "../../network/serverApi";
+import { HOME } from "../../utils/constants";
 
 export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
   const classes = useNewChannelDialogStyles();
   const buttonClasses = useDisButtonStyles();
   const {
-    app: { server, servers },
+    app: { server },
+    setServers,
+    setMode,
   } = useContext(ServerContext);
+
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   // close dialog
   const handleClose = () => {
@@ -18,15 +28,19 @@ export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
   };
 
   // click handler for confirm button
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    const memberId = server.members.find((e) => e.user_id == user.id).id;
+    await removeMember(server.id, memberId);
     //TODO - need to link to server
-    const serverId = server.id;
-    servers.find((server, i) => {
-      if (server.id === serverId) return servers.splice(i, 1);
-    });
-
+    // const serverId = server.id;
+    // servers.find((server, i) => {
+    //   if (server.id === serverId) return servers.splice(i, 1);
+    // });
+    const servers = await getServers();
+    await setServers(servers);
     setOpen(false);
     setOption(null);
+    setMode(HOME);
   };
 
   return (

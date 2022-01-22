@@ -156,4 +156,31 @@ router.put("/servers/:id/tags", async (req, res) => {
   }
 });
 
+// updating member's role in a server
+router.put("/servers/:serverId/members/:memberId", async (req, res) => {
+  const { serverId, memberId } = req.params;
+  const { role } = req.body;
+  await Member.updateRole(role, memberId);
+  const members = await Member.byServer(serverId);
+  res.status(200).send(members);
+});
+
+router.get("/servers/:id/members", async (req, res) => {
+  // for: error validation
+  // const { error } = validateChannel(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
+  const userId = req.user.id;
+  const serverId = req.params.id;
+
+  try {
+    // some test servers have no channels created (prior to default 'general' creation)
+    // if (!channels)return res.status(400).send('No channels found');
+    const members = await Member.byServer(serverId);
+
+    res.status(200).json(members);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
