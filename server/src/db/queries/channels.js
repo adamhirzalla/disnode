@@ -14,7 +14,7 @@ const create = (data) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const byServer = (serverId) => {
+const byServer = (serverId, userId) => {
   const query = `
   SELECT 
     channels.id,
@@ -31,7 +31,7 @@ const byServer = (serverId) => {
     .then((res) => res.rows)
     .then((channels) => {
       const messageQueries = channels.map((channel) =>
-        Message.byChannel(channel.id)
+        Message.byChannel(channel.id, userId)
       );
       return Promise.all(messageQueries).then((messages) => {
         channels.forEach((channel, i) => {

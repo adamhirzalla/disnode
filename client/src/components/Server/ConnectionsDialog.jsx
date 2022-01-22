@@ -42,7 +42,7 @@ export default function ConnectionsDialog(props) {
     //   ...prev,
     //   [iconId]: url,
     // }));
-    const socials = setInput((prev) => ({
+    setInput((prev) => ({
       ...prev,
       socials: [
         ...prev.socials.filter((social) => social.id !== iconId),

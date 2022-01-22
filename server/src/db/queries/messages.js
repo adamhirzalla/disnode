@@ -1,7 +1,8 @@
 const db = require("../index");
+const Views = require("./views");
 
 // TODO: add type as parameter (img/text/code)
-const createInChannel = (data) => {
+const sendToChannel = (data) => {
   const { senderId, body, channelId } = data;
   const query = `
   INSERT INTO messages
@@ -17,9 +18,9 @@ const createInChannel = (data) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-const byChannel = (channelId) => {
+const byChannel = (channelId, userId) => {
   const query = `
-  SELECT 
+  SELECT
     messages.id,
     users.nickname AS sender_nickname,
     users.avatar AS sender_avatar,
@@ -32,10 +33,23 @@ const byChannel = (channelId) => {
   WHERE channel_id = $1
   `;
   const params = [channelId];
-  return db.query(query, params).then((res) => res.rows);
+  return db
+    .query(query, params)
+    .then((res) => res.rows)
+    .then((messages) => {
+      const viewsQueries = messages.map((message) =>
+        Views.byMessage(message, userId)
+      );
+      return Promise.all(viewsQueries).then((views) => {
+        messages.forEach((message, i) => {
+          message.views = views[i];
+        });
+        return messages;
+      });
+    });
 };
 
 module.exports = {
-  createInChannel,
+  sendToChannel,
   byChannel,
 };

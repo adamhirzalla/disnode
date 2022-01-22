@@ -91,10 +91,11 @@ CREATE TABLE messages (
 );
 
 CREATE TABLE views (
-  "id" SERIAL PRIMARY KEY,
+  -- "id" SERIAL PRIMARY KEY,
   "message_id" INT REFERENCES messages(id) ON DELETE CASCADE,
   "user_id" INT REFERENCES users(id) ON DELETE CASCADE,
-  "viewed_at" TIMESTAMP DEFAULT NOW()
+  "viewed_at" TIMESTAMP DEFAULT NOW(),
+  UNIQUE ("user_id", "message_id")
 );
 
 CREATE TABLE friends (

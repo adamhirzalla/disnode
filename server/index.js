@@ -41,7 +41,7 @@ if (ENV !== "production") {
 // Add routes
 app.use("/", uploadRoute);
 app.use("/api", authRoutes);
-app.use("/api", userRoutes);
+app.use("/api", auth, userRoutes);
 app.use("/api", auth, serverRoutes);
 app.use("/api", auth, channelRoutes);
 

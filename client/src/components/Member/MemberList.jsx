@@ -117,20 +117,32 @@ export default function MemberList(props) {
           <GroupsIcon fontSize="large" />
           {open ? <ChevronRight /> : <ChevronLeft />}
         </ListItem>
-        <Typography className={classes.role} variant="button">
-          {owner && "owner"}
-        </Typography>
-        <Divider component="li" className={classes.divider} />
+        {owner.length > 0 && (
+          <>
+            <Typography className={classes.role} variant="button">
+              owner
+            </Typography>
+            <Divider component="li" className={classes.divider} />
+          </>
+        )}
         {owner}
-        <Typography className={classes.role} variant="button">
-          {admins && "admins"}
-        </Typography>
-        <Divider component="li" className={classes.divider} />
+        {admins.length > 0 && (
+          <>
+            <Typography className={classes.role} variant="button">
+              admins
+            </Typography>
+            <Divider component="li" className={classes.divider} />
+          </>
+        )}
         {admins}
-        <Typography className={classes.role} variant="button">
-          {users && "users"}
-        </Typography>
-        <Divider component="li" className={classes.divider} />
+        {users.length > 0 && (
+          <>
+            <Typography className={classes.role} variant="button">
+              users
+            </Typography>
+            <Divider component="li" className={classes.divider} />
+          </>
+        )}
         {users}
       </List>
       {/* </Grid> */}

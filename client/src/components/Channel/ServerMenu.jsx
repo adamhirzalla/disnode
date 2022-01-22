@@ -11,6 +11,13 @@ const useStyles = makeStyles({
     backgroundColor: "rgb(4,11,12,1)",
   },
   header: { fontWeight: "bold", color: "white" },
+  alert: {
+    zIndex: 2000,
+    position: "fixed",
+    left: "50%",
+    top: "5%",
+    transform: "translate(-50%, -50%)",
+  },
 });
 
 export default function ServerMenu() {
@@ -26,7 +33,10 @@ export default function ServerMenu() {
       <ListItem button>
         <ListItemText primary={server.title} className={classes.header} />
         {option === "Copy invite code" && (
-          <Alert sx={{}} severity="success">{`Copied on your clipboard`}</Alert>
+          <Alert
+            className={classes.alert}
+            severity="success"
+          >{`Invite code copied to clipboard!`}</Alert>
         )}
         <ServerMenuList option={option} setOption={setOption} />
       </ListItem>

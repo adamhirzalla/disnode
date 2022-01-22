@@ -46,7 +46,6 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     setUser,
   } = useContext(AuthContext);
   const { id, avatar, full_name, nickname, bio, socials } = user;
-
   // const initialInput = {
   //   avatar,
   //   full_name,
@@ -77,13 +76,18 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   const handleClose = () => {
     // setInput(initialInput);
     setOpen(false);
+    setTimeout(() => {
+      setInput(initialInput);
+    }, 500);
   };
 
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append("image", file);
-    const [logo] = await uploadtoS3(formData);
-    const user = await updateProfile(file ? { ...input, avatar: logo } : input);
+    let logo;
+    if (file) [logo] = await uploadtoS3(formData);
+    const data = file ? { ...input, avatar: logo } : input;
+    const user = await updateProfile(data, user.id);
     await setUser(user);
     setOpen(false);
     // setInput({});
@@ -217,7 +221,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           })} */}
           {/* 
 {
-  socials: []
+  socials: [{id:1,url:"asdsad"}]
 }
 */}
           <Grid item xs={4}>

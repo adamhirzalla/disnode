@@ -11,17 +11,19 @@ const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
     justifyContent: "center",
-    mineight: "30%",
+    // minHeight: "30%",
     width: "100%",
-    minWidth: "100%",
+    // minWidth: "100%",
     borderTop: "1px solid rgb(4,11,12,0.4)",
   },
   textField: {
-    width: "80%",
+    // width: "80%",
     justifyContent: "center",
+    flexGrow: 1,
+    marginLeft: "3em",
   },
   input: {
-    width: "100%",
+    // width: "100%",
   },
   send: {
     margin: "3em 2em",
@@ -62,6 +64,7 @@ export default function MessageForm() {
       const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;
       message.sender_nickname = user.nickname;
+      message.views = [];
       setMessages(message);
       setChannels(channels);
       setInput((prev) => "");

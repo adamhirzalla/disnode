@@ -13,10 +13,11 @@ export default function UserForm(props) {
     <Grid container columnSpacing={12} rowSpacing={4}>
       <Grid item xs={6}>
         <TextField
-          autoFocus
+          // autoFocus
           type="text"
           variant="outlined"
           label="Full Name"
+          value={input.full_name}
           placeholder={full_name}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, full_name: e.target.value }))
@@ -28,6 +29,7 @@ export default function UserForm(props) {
           type="text"
           variant="outlined"
           label="Nickname"
+          value={input.nickname}
           placeholder={nickname}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, nickname: e.target.value }))
@@ -39,6 +41,7 @@ export default function UserForm(props) {
           type="text"
           variant="outlined"
           label="Bio"
+          value={input.bio}
           placeholder={bio}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, bio: e.target.value }))
