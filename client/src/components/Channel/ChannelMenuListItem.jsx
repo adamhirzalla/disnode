@@ -18,7 +18,7 @@ export default function ChannelMenuListItem({ setAnchor }) {
   } = useContext(ServerContext);
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  const [input, setInput] = useState(channel.title);
+  const [input, setInput] = useState(channel?.title);
   const handleEdit = () => {
     setAnchor(false);
     setInput(channel.title);

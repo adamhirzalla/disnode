@@ -45,7 +45,7 @@ export default function ChannelDeleteDialog({ open, setOpen, channel }) {
       open={open}
       onClose={() => setOpen(false)}
     >
-      <DialogTitle># {channel.title}</DialogTitle>
+      <DialogTitle># {channel?.title}</DialogTitle>
       <DialogContentText>{`Are you sure you want to delete the channel?`}</DialogContentText>
       <DialogActions>
         <Button className={buttonClasses.cancel} onClick={() => setOpen(false)}>

@@ -24,7 +24,7 @@ export default function ChannelListItem(props) {
   const { id, title, channel, setChannel } = props;
 
   const channelClass = classNames(classes.channel, {
-    [classes.selected]: id === channel.id,
+    [classes.selected]: id === channel?.id,
   });
 
   const handleChannelClick = () => {

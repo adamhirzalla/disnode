@@ -57,7 +57,6 @@ export default function ChannelEditDialog(props) {
     if (input !== channel.title && input) {
       const channels = await editChannel(server.id, channel.id, input);
       setChannels(channels);
-      setChannel(channel.id);
       setOpen(false);
     }
   };

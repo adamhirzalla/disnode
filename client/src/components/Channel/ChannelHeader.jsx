@@ -1,7 +1,7 @@
 import { IconButton, ListItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ServerContext from "../../contexts/ServerContext";
 import AuthContext from "../../contexts/AuthContext";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -21,13 +21,18 @@ const useStyles = makeStyles({
 
 export default function ChannelHeader() {
   const {
-    app: { channel, members },
+    app: { channel, members, channels },
+    setChannel,
   } = useContext(ServerContext);
   const {
     state: { user },
   } = useContext(AuthContext);
   const classes = useStyles();
   const [anchor, setAnchor] = useState(false);
+
+  useEffect(() => {
+    setChannel(channel?.id);
+  }, [channels]);
 
   return (
     <ListItem

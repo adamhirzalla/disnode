@@ -92,13 +92,11 @@ export const ServerProvider = ({ children }) => {
   };
 
   const setChannel = (channelId) => {
-    const [channel] = app.channels.filter(
-      (channel) => channel.id === channelId
-    );
+    const channel = app.channels.find((channel) => channel.id === channelId);
     appDispatch({
       type: SET_CHANNEL,
       channel,
-      messages: channel.messages || [],
+      messages: channel?.messages || [],
     });
   };
 
