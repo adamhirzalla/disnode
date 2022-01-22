@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getUser = async (userId) => {
   try {
-    const res = await axios.post(`/api/users/${userId}`);
+    const res = await axios.get(`/api/users/${userId}`);
     const user = res.data;
     return user;
     // const sio = await import("../socket/index");
@@ -12,9 +12,9 @@ export const getUser = async (userId) => {
   }
 };
 
-export const updateProfile = async (input) => {
+export const updateProfile = async (data, userId) => {
   try {
-    const res = await axios.patch(`/api/users`, { input });
+    const res = await axios.put(`/api/users/${userId}`, { data });
     const user = res.data;
     return user;
     // const sio = await import("../socket/index");

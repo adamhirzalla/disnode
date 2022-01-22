@@ -63,7 +63,7 @@ router.post("/servers/:id", async (req, res) => {
   const userId = req.user.id;
   const serverId = req.params.id;
   try {
-    const server = await Server.byID(serverId);
+    const server = await Server.byID(serverId, userId);
     if (!server) return res.status(400).send("Server not found");
     res.status(200).json(server);
   } catch (e) {
@@ -86,7 +86,7 @@ router.get("/servers/:id/channels", async (req, res) => {
     const server = servers.filter((server) => server.id === parseInt(serverId));
     if (!server.length)
       return res.status(401).send("User is not a member of this server");
-    const channels = await Channel.byServer(serverId);
+    const channels = await Channel.byServer(serverId, userId);
     res.status(200).json(channels);
   } catch (e) {
     res.status(500).send("Internal Server Error");

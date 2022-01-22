@@ -40,7 +40,7 @@ const removeMember = (memberId, serverId) => {
   return db.query(query, params).then((res) => res);
 };
 
-const byID = (serverId) => {
+const byID = (serverId, userId) => {
   const serverQuery = db
     .query(
       `
@@ -61,7 +61,7 @@ const byID = (serverId) => {
     serverQuery,
     Member.byServer(serverId),
     Tag.byServer(serverId),
-    Channel.byServer(serverId),
+    Channel.byServer(serverId, userId),
   ]).then(([server, members, tags, channels]) => {
     return { ...server, members, tags, channels };
   });
