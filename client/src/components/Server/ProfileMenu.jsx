@@ -58,7 +58,7 @@ export default function ProfileMenu() {
         open={Boolean(anchor)}
         onClose={handleClose}
       >
-        <ProfileMenuItem setAnchor={setAnchor} />
+        <ProfileMenuItem setAnchor={setAnchor} user={user} />
       </Menu>
     </>
   );

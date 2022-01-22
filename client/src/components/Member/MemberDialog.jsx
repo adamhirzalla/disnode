@@ -46,10 +46,10 @@ const useStyles = makeStyles(() => ({
   icons: { opacity: "0.7", "&:hover": { opacity: 1 } },
 }));
 export default function MemberDialog(props) {
-  const { action, member, setOpen, setAction, open } = props;
+  const { action, member, setOpen, setAction, open, user } = props;
   const {
     setMembers,
-    app: { members, server },
+    app: { server },
   } = useContext(ServerContext);
 
   const classes = useStyles();
@@ -80,8 +80,8 @@ export default function MemberDialog(props) {
       }
     } catch (e) {}
   };
-
-  const parsedConnections = member.socials
+  const connetion = member ? member.socials : user.socials;
+  const parsedConnections = connetion
     ?.filter((e) => e.url)
     .map((social, i) => {
       return (
@@ -126,7 +126,7 @@ export default function MemberDialog(props) {
       {/* MEMBER'S PROFILE  */}
 
       <DialogContent className={classes.content}>
-        {action === PROFILE && <MemberProfile member={member} />}
+        {action === PROFILE && <MemberProfile member={member} user={user} />}
       </DialogContent>
 
       <DialogActions className={classes.actions}>

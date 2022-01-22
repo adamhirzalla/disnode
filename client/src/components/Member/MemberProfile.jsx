@@ -31,7 +31,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function MemberProfile(props) {
-  const { member } = props;
+  const { member, user } = props;
   const classes = useStyles();
 
   return (
@@ -39,8 +39,8 @@ export default function MemberProfile(props) {
       <Card className={classes.card}>
         <Box variant="column" className={classes.top}>
           <Avatar
-            alt={member.nickname}
-            src={member.avatar}
+            alt={member ? member?.nickname : user?.nickname}
+            src={member ? member?.avatar : user?.avatar}
             className={classes.avatar}
           />
           <Typography
@@ -49,12 +49,12 @@ export default function MemberProfile(props) {
             component="div"
             className={classes.name}
           >
-            {member.nickname}
+            {member ? member.nickname : user.nickname}
           </Typography>
         </Box>
         <CardContent className={classes.bio}>
           <Typography variant="body1" color="text.secondary">
-            {member.bio}
+            {member ? member.bio : user.bio}
           </Typography>
         </CardContent>
       </Card>

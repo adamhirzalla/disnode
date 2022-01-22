@@ -11,15 +11,23 @@ import { logout } from "../../network/authApi";
 import { useContext, useState } from "react";
 import UserInfoDialog from "./UserInfoDialog";
 import AuthContext from "../../contexts/AuthContext";
-import { makeStyles } from "@mui/styles";
 import { Person } from "@mui/icons-material";
-import { getIcons } from "../../network/userApi";
+import MemberDialog from "../Member/MemberDialog";
 
-export default function ProfileMenuItem({ setAnchor }) {
+const PROFILE = "PROFILE";
+
+export default function ProfileMenuItem({ setAnchor, user }) {
   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(false);
+  const [action, setAction] = useState(false);
   const { dispatch } = useContext(AuthContext);
   // const [icons, setIcons] = useState([]);
+
+  const handleOpen = () => {
+    setAction(PROFILE);
+    setProfile(true);
+    setAnchor(false);
+  };
 
   const handleClick = () => {
     // const icon = await getIcons();
@@ -38,7 +46,7 @@ export default function ProfileMenuItem({ setAnchor }) {
     <Paper sx={{ width: "100%", maxWidth: "100%" }}>
       <MenuList>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={handleOpen}>
           <ListItemIcon>
             <Person fontSize="small" color="primary" />
           </ListItemIcon>
@@ -58,6 +66,12 @@ export default function ProfileMenuItem({ setAnchor }) {
         </MenuItem>
       </MenuList>
       <UserInfoDialog open={open} setOpen={setOpen} />
+      <MemberDialog
+        open={profile}
+        setOpen={setProfile}
+        action={action}
+        user={user}
+      />
     </Paper>
   );
 }
