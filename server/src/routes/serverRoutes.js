@@ -110,12 +110,24 @@ router.post("/servers/:id/channels", async (req, res) => {
   }
 });
 
-// edit a channel name in the server
+// edit a channel name
 router.put("/servers/:serverId/channels/:channelId", async (req, res) => {
   const { serverId, channelId } = req.params;
   const { input } = req.body;
   try {
     await Channel.edit(input, channelId);
+    const channels = await Channel.byServer(serverId);
+    res.status(200).json(channels);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// remove a channel from server
+router.delete("/servers/:serverId/channels/:channelId", async (req, res) => {
+  const { serverId, channelId } = req.params;
+  try {
+    await Channel.remove(channelId);
     const channels = await Channel.byServer(serverId);
     res.status(200).json(channels);
   } catch (e) {

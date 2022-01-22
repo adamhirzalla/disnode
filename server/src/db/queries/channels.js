@@ -24,6 +24,7 @@ const byServer = (serverId) => {
   JOIN users ON users.id = creator_id
   JOIN servers ON servers.id = server_id
   WHERE server_id = $1
+  ORDER BY channels.id
   `;
   const params = [serverId];
   return db
@@ -53,8 +54,19 @@ const edit = (input, channelId) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
+const remove = (channelId) => {
+  const query = `
+  DELETE FROM channels
+  WHERE id = $1
+  RETURNING *
+  `;
+  const params = [channelId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 module.exports = {
   byServer,
   create,
   edit,
+  remove,
 };

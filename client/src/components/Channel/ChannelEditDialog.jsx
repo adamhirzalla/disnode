@@ -14,6 +14,7 @@ import { useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import ServerContext from "../../contexts/ServerContext";
 import { editChannel } from "../../network/channelApi";
+import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 
 const useStyles = makeStyles({
   dialogPaper: {
@@ -37,6 +38,7 @@ export default function ChannelEditDialog(props) {
     setChannels,
   } = useContext(ServerContext);
   const classes = useStyles();
+  const buttonClasses = useDisButtonStyles();
 
   const handleClose = () => {
     setOpen(false);
@@ -45,10 +47,15 @@ export default function ChannelEditDialog(props) {
     }, 500);
   };
 
+  const handleKeydown = (e) => {
+    if (e.key === "Enter") {
+      handleSave();
+    }
+  };
+
   const handleSave = async () => {
     if (input !== channel.title && input) {
       const channels = await editChannel(server.id, channel.id, input);
-      channels.sort((a, b) => a.id - b.id);
       setChannels(channels);
       setChannel(channel.id);
       setOpen(false);
@@ -90,17 +97,17 @@ export default function ChannelEditDialog(props) {
               variant="outlined"
               label="Channel Title"
               value={input}
-              // placeholder={input}
+              onKeyDown={handleKeydown}
               onChange={(e) => setInput((prev) => e.target.value)}
             />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" color="error" onClick={handleClose}>
+        <Button className={buttonClasses.cancel} onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button className={buttonClasses.submit} onClick={handleSave}>
           Save
         </Button>
       </DialogActions>
