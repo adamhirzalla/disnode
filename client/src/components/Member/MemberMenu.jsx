@@ -112,6 +112,9 @@ export default function MemberMenu(props) {
               </MenuItem>
             )}
         </MenuList>
+
+        {/* DIALOG HERE  */}
+
         <MemberDialog
           member={member}
           open={open}

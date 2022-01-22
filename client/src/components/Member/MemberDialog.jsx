@@ -7,6 +7,7 @@ import {
   DialogTitle,
   IconButton,
   Stack,
+  SvgIcon,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import MemberProfile from "./MemberProfile";
@@ -14,25 +15,27 @@ import SteamSvg from "../SvgIcons/SteamSvg";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
+import DiscordSvg from "../SvgIcons/DiscordSvg";
+import OriginSvg from "../SvgIcons/OriginSvg";
+import BlizzardSvg from "../SvgIcons/BlizzardSvg";
+// import Blizzard from "../SvgIcons/blizzard.svg";
 
 const [PROFILE, ADD, ADMIN, KICK] = ["PROFILE", "ADD", "ADMIN", "KICK"];
 
-const parsedConnections = [
+const icons = [
   <SteamSvg />,
-  <TwitterSvg />,
-  <RiotGamesSvg />,
   <EpicGamesSvg />,
-].map((icon, i) => {
-  return (
-    <IconButton key={i} onClick={() => console.log(i)}>
-      {icon}
-    </IconButton>
-  );
-});
+  <BlizzardSvg />,
+  <DiscordSvg />,
+  <RiotGamesSvg />,
+  <OriginSvg />,
+];
 
 const useStyles = makeStyles(() => ({
   root: { backgroundColor: "white" },
   actions: { display: "flex", justifyContent: "center" },
+  content: { paddingBottom: 0 },
+  icons: { opacity: "0.7", "&:hover": { opacity: 1 } },
 }));
 export default function MemberDialog(props) {
   const { action, member, setOpen, open } = props;
@@ -42,6 +45,33 @@ export default function MemberDialog(props) {
   const handleAction = () => {
     console.log(`making a ${action} request on member: ${member.nickname}`);
   };
+
+  const parsedConnections = member.socials
+    .filter((e) => e.url)
+    .map((social, i) => {
+      return (
+        <IconButton
+          disableRipple
+          className={classes.icons}
+          key={social.id}
+          onClick={() => window.open(social.url, "_blank")}
+        >
+          {social.id === 1
+            ? icons[0]
+            : social.id === 2
+            ? icons[1]
+            : social.id === 3
+            ? icons[2]
+            : social.id === 4
+            ? icons[3]
+            : social.id === 5
+            ? icons[4]
+            : social.id === 6
+            ? icons[5]
+            : ""}
+        </IconButton>
+      );
+    });
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
@@ -55,7 +85,10 @@ export default function MemberDialog(props) {
           ? `Kick ${member.nickname} from the Server?`
           : ""}
       </DialogTitle>
-      <DialogContent>
+
+      {/* MEMBER'S PROFILE  */}
+
+      <DialogContent className={classes.content}>
         {action === PROFILE && <MemberProfile member={member} />}
       </DialogContent>
 

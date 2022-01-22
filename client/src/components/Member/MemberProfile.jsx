@@ -19,12 +19,14 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    textAlign: "center",
   },
-  top: { alignItems: "center" },
+  top: { display: "flex", flexDirection: "column", alignItems: "center" },
   name: { justifyContent: "self-end" },
   avatar: {
     width: "60px",
     height: "60px",
+    justifyContent: "center",
   },
 }));
 
