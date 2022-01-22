@@ -58,6 +58,7 @@ export default function reducer(state, action) {
       return {
         ...state,
         mode,
+        loading: false,
       };
     case SET_SOCKET:
       return {

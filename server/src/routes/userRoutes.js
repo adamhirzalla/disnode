@@ -67,9 +67,9 @@ router.patch("/users", auth, async (req, res) => {
   }
 });
 
-router.get("/icons", async (req, res) => {
-  const icons = await Icon.all();
-  res.status(200).send(icons);
-});
+// router.get("/icons", async (req, res) => {
+//   const icons = await Icon.all();
+//   res.status(200).send(icons);
+// });
 
 module.exports = router;

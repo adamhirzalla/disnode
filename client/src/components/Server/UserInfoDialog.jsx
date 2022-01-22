@@ -77,6 +77,9 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   const handleClose = () => {
     // setInput(initialInput);
     setOpen(false);
+    setTimeout(() => {
+      setInput(initialInput);
+    }, 500);
   };
 
   const handleSubmit = async () => {
@@ -217,7 +220,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           })} */}
           {/* 
 {
-  socials: []
+  socials: [{id:1,url:"asdsad"}]
 }
 */}
           <Grid item xs={4}>

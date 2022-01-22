@@ -1,9 +1,9 @@
 import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
-import { Avatar, CardContent, Divider, Typography } from "@mui/material";
+import { Avatar, Box, CardContent, Divider, Typography } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
-  root: {
+  card: {
     minWidth: 250,
     maxWidth: 300,
     minHeight: 250,
@@ -12,14 +12,16 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    justifyContent: "space-between",
   },
-  content: {
+  bio: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   },
-
+  top: { alignItems: "center" },
+  name: { justifyContent: "self-end" },
   avatar: {
     width: "60px",
     height: "60px",
@@ -32,20 +34,25 @@ export default function MemberProfile(props) {
 
   return (
     <>
-      <Card className={classes.root}>
-        <Avatar
-          alt={member.nickname}
-          src={member.avatar}
-          className={classes.avatar}
-        />
-        <CardContent className={classes.content}>
-          <Typography gutterBottom variant="h5" component="div">
+      <Card className={classes.card}>
+        <Box variant="column" className={classes.top}>
+          <Avatar
+            alt={member.nickname}
+            src={member.avatar}
+            className={classes.avatar}
+          />
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            className={classes.name}
+          >
             {member.nickname}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            YO HMU if you into apex and shooting stuff YO HMU if you into apex
-            and shooting stuff YO HMU if you into apex and shooting stuff YO HMU
-            if you into ape
+        </Box>
+        <CardContent className={classes.bio}>
+          <Typography variant="body1" color="text.secondary">
+            {member.bio}
           </Typography>
         </CardContent>
       </Card>

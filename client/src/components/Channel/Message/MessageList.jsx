@@ -10,7 +10,7 @@ const useStyles = makeStyles(() => ({
     maxHeight: "100vh",
     flexDirection: "column",
     marginTop: "auto",
-    // justifyContent: "flex-end", BUG
+    // justifyContent: "flex-end", // BUG
     paddingBottom: "0.5em",
     overflowY: "scroll",
     "&::-webkit-scrollbar": {

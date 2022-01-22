@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
@@ -17,12 +17,20 @@ import {
   Tooltip,
 } from "@mui/material";
 import MemberDialog from "./MemberDialog";
+import AuthContext from "../../contexts/AuthContext";
+import ServerContext from "../../contexts/ServerContext";
 
 const useStyles = makeStyles(() => ({
   root: { backgroundColor: "white" },
 }));
 export default function MemberMenu(props) {
   const { anchor, setAnchor, member } = props;
+  const {
+    state: { user },
+  } = useContext(AuthContext);
+  const {
+    app: { members },
+  } = useContext(ServerContext);
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState("");
   const classes = useStyles();
@@ -75,24 +83,34 @@ export default function MemberMenu(props) {
             </ListItemIcon>
             Profile
           </MenuItem>
-          <MenuItem onClick={() => handleAction(ADD)}>
-            <ListItemIcon>
-              <PersonAdd color="success" />
-            </ListItemIcon>
-            Add Friend
-          </MenuItem>
-          <MenuItem onClick={() => handleAction(ADMIN)}>
-            <ListItemIcon>
-              <Admin color="warning" />
-            </ListItemIcon>
-            Assign Admin
-          </MenuItem>
-          <MenuItem onClick={() => handleAction(KICK)}>
-            <ListItemIcon>
-              <Logout color="error" />
-            </ListItemIcon>
-            Kick
-          </MenuItem>
+          {member.user_id !== user.id && (
+            <MenuItem onClick={() => handleAction(ADD)}>
+              <ListItemIcon>
+                <PersonAdd color="success" />
+              </ListItemIcon>
+              Add Friend
+            </MenuItem>
+          )}
+          {member.role !== "admin" &&
+            members.find((m) => m.user_id === user.id).role === "owner" &&
+            member.user_id !== user.id && (
+              <MenuItem onClick={() => handleAction(ADMIN)}>
+                <ListItemIcon>
+                  <Admin color="warning" />
+                </ListItemIcon>
+                Assign Admin
+              </MenuItem>
+            )}
+          {members.find((m) => m.user_id === user.id).role ===
+            ("owner" || "admin") &&
+            member.user_id !== user.id && (
+              <MenuItem onClick={() => handleAction(KICK)}>
+                <ListItemIcon>
+                  <Logout color="error" />
+                </ListItemIcon>
+                Kick
+              </MenuItem>
+            )}
         </MenuList>
         <MemberDialog
           member={member}
