@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
@@ -8,10 +7,11 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function Tags({ setTags }) {
-  const parseTags = (tags) => {
-    setTags(tags.map((tag) => tag.id));
-  };
+export default function Tags({ setTags, serverTags }) {
+  // const parseTags = (tags) => {
+  //   setTags(tags.map((tag) => tag.id));
+  // };
+
   return (
     <Autocomplete
       multiple
@@ -19,7 +19,9 @@ export default function Tags({ setTags }) {
       options={tags}
       disableCloseOnSelect
       getOptionLabel={(tag) => tag.name}
-      onChange={(e, value) => parseTags(value)}
+      defaultValue={serverTags || []}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      onChange={(e, value) => setTags(value)}
       renderOption={(props, tag, { selected }) => (
         <li {...props}>
           <Checkbox
@@ -32,8 +34,8 @@ export default function Tags({ setTags }) {
         </li>
       )}
       // style={{ width: "auto" }}
-      renderInput={(params) => (
-        <TextField {...params} label="Tags" placeholder="Server Tags" />
+      renderInput={(serverTags) => (
+        <TextField {...serverTags} label="Tags" placeholder="Server Tags" />
       )}
     />
   );

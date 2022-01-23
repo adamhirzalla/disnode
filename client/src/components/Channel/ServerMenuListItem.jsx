@@ -12,26 +12,39 @@ import ContentCopy from "@mui/icons-material/ContentCopy";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import ServerMenuDialog from "./ServerMenuDialog";
+import ServerLeaveDialog from "./ServerLeaveDialog";
+import AuthContext from "../../contexts/AuthContext";
+import ServerEditDialog from "./ServerEditDialog";
 
 export default function ServerMenuList({ handleClose, option, setOption }) {
   const [open, setOpen] = useState(false);
+  const [edit, setEdit] = useState(false);
   const {
-    app: { server },
+    app: { server, members },
   } = useContext(ServerContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
-  const handleClick = (e) => {
-    setOption(e.target.textContent);
+  const role = members?.find((m) => m.user_id === user.id)?.role;
+
+  const handleClick = () => {
     setOpen(true);
     handleClose();
   };
 
   const handleCopy = (e) => {
     setOption(e.target.textContent);
+    // removing alert in 2 secs (successfully copied invite code)
     setTimeout(() => {
       setOption(null);
     }, 2000);
     navigator.clipboard.writeText(server.invite_code);
+    handleClose();
+  };
+
+  const handleEdit = () => {
+    setEdit(true);
     handleClose();
   };
 
@@ -45,12 +58,15 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
           </ListItemIcon>
           Add members
         </MenuItem>
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
+
+        {role === "owner" && (
+          <MenuItem onClick={handleEdit}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+        )}
         <MenuItem onClick={handleCopy}>
           <ListItemIcon>
             <ContentCopy color="primary" fontSize="small" />
@@ -64,12 +80,8 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
           Leave
         </MenuItem>
       </MenuList>
-      <ServerMenuDialog
-        open={open}
-        setOpen={setOpen}
-        option={option}
-        setOption={setOption}
-      />
+      <ServerLeaveDialog open={open} setOpen={setOpen} />
+      <ServerEditDialog open={edit} setOpen={setEdit} />
     </Paper>
   );
 }
