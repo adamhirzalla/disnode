@@ -36,8 +36,8 @@ export default function Dashboard() {
           console.log(message);
         }
         // to see if other users can see messages outside of server (notification)
+        state.socket.on("channel message", test);
       };
-      state.socket.on("channel message", test);
       // const messages = await getMessages();
       // if (channel.id !== message.channel_id) return;
       // const channels = await getChannels(server.id);
@@ -54,11 +54,7 @@ export default function Dashboard() {
     }
     // return () => state.socket.offAny();
     return () => {
-      state.socket.off("channel message", test);
-      dispatch({
-        type: SET_SOCKET,
-        socket: null,
-      });
+      // state.socket.off("channel message", test);
     };
     // setMembers(members);
     // }, [app.socket, app.activeUsers, app.server, app.servers, app.channels]);

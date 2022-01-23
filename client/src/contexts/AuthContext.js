@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
   const sio = useRef();
 
   // landing socket connection on app load
-  useEffect(async () => {
+  useEffect(() => {
     const updateActive = (activeUsers) => {
       dispatch({
         type: SET_ACTIVE_USERS,

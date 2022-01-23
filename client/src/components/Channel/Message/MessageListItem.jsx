@@ -120,71 +120,28 @@ export default function MessageListItem(props) {
           </IconButton>
           {views.length > 0 && (
             <Tooltip title={tooltip} arrow placement="bottom">
-              <AvatarGroup total={views.length} className={classes.views}>
-                {(!messages
-                  .slice(index + 1)
-                  .map((message) => {
-                    return !message?.views.find(
-                      (e) => e.viewer_id === views[0]?.viewer_id
-                    );
-                  })
-                  .includes(false) ||
-                  !messages[index + 1]) &&
-                  views[0] && (
-                    <Avatar
-                      alt={views[0]?.viewer_nickname}
-                      src={views[0]?.viewer_avatar}
-                      className={classes.viewers}
-                    />
-                  )}
-                {(!messages
-                  .slice(index + 1)
-                  .map((message) => {
-                    return !message?.views.find(
-                      (e) => e.viewer_id === views[1]?.viewer_id
-                    );
-                  })
-                  .includes(false) ||
-                  !messages[index + 1]) &&
-                  views[1] && (
-                    <Avatar
-                      alt={views[1]?.viewer_nickname}
-                      src={views[1]?.viewer_avatar}
-                      className={classes.viewers}
-                    />
-                  )}
-                {(!messages
-                  .slice(index + 1)
-                  .map((message) => {
-                    return !message?.views.find(
-                      (e) => e.viewer_id === views[2]?.viewer_id
-                    );
-                  })
-                  .includes(false) ||
-                  !messages[index + 1]) &&
-                  views[2] && (
-                    <Avatar
-                      alt={views[2]?.viewer_nickname}
-                      src={views[2]?.viewer_avatar}
-                      className={classes.viewers}
-                    />
-                  )}
-                {(!messages
-                  .slice(index + 1)
-                  .map((message) => {
-                    return !message?.views.find(
-                      (e) => e.viewer_id === views[3]?.viewer_id
-                    );
-                  })
-                  .includes(false) ||
-                  !messages[index + 1]) &&
-                  views[3] && (
-                    <Avatar
-                      alt={views[3]?.viewer_nickname}
-                      src={views[3]?.viewer_avatar}
-                      className={classes.viewers}
-                    />
-                  )}
+              <AvatarGroup max={4} className={classes.views}>
+                {views.map((viewer, i) => {
+                  return (
+                    (!messages
+                      .slice(index + 1)
+                      .map((message) => {
+                        return !message?.views.find(
+                          (e) => e.viewer_id === viewer?.viewer_id
+                        );
+                      })
+                      .includes(false) ||
+                      !messages[index + 1]) &&
+                    viewer && (
+                      <Avatar
+                        key={i}
+                        alt={viewer?.viewer_nickname}
+                        src={viewer?.viewer_avatar}
+                        className={classes.viewers}
+                      />
+                    )
+                  );
+                })}
               </AvatarGroup>
             </Tooltip>
           )}
