@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Server = require("../db/queries/servers");
 const Channel = require("../db/queries/channels");
 const Member = require("../db/queries/members");
+const Helpers = require("../helpers/dbHelpers");
 const uuid = require("uuid");
 
 // GET All user servers
@@ -65,7 +66,8 @@ router.post("/servers/:id", async (req, res) => {
   try {
     const server = await Server.byID(serverId, userId);
     if (!server) return res.status(400).send("Server not found");
-    res.status(200).json(server);
+    const channels = Helpers.parseChannels(server.channels);
+    res.status(200).send({ ...server, channels });
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }

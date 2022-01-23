@@ -6,6 +6,7 @@ import {
   Box,
   ListItemAvatar,
   Avatar,
+  Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -48,7 +49,7 @@ export default function DMListItem(props) {
 
   return (
     <>
-      <ListItem
+      {/* <ListItem
         className={classes.listItem}
         button
         key={user.id}
@@ -63,6 +64,27 @@ export default function DMListItem(props) {
           />
         </ListItemAvatar>
         <ListItemText primary={user.full_name} className={classes.text} />
+      </ListItem> */}
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Remy Sharp" src={""} />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Brunch this weekend?"
+          secondary={
+            <>
+              <Typography
+                sx={{ display: "inline" }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                Ali Connors
+              </Typography>
+              {" — I'll be in your neighborhood doing errands this…"}
+            </>
+          }
+        />
       </ListItem>
       <Divider />
     </>

@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const sio = useRef();
 
+  // landing socket connection on app load
   useEffect(async () => {
     if (!state.loading && state.authenticated) {
       sio.current = socket;
@@ -46,7 +47,8 @@ export const AuthProvider = ({ children }) => {
         });
       });
     }
-  }, [state.authenticated]);
+    return () => socket.off();
+  }, [state.authenticated, socket]);
 
   useEffect(() => {
     isAuth(dispatch);
@@ -56,7 +58,10 @@ export const AuthProvider = ({ children }) => {
     const tokenInterval = setInterval(() => {
       state.authenticated && updateTokens(dispatch, state.tokens.refreshToken);
     }, 1000 * 60 * 60 * 23);
-    return () => clearInterval(tokenInterval);
+    return () => {
+      clearInterval(tokenInterval);
+      socket.off();
+    };
   }, []);
 
   const setUser = (user) => {
