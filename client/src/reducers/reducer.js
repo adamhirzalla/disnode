@@ -168,7 +168,9 @@ export default function reducer(state, action) {
       // const channel = {
       //   ...channelsData.find((ch) => ch.id === message.channel_id),
       // };
+
       const messages = [...channel.messages, message];
+
       // const updatedChannel = { ...channel, messages };
 
       // -> for DMs (this puts newest DM on top (can be used for notifications))
@@ -202,6 +204,7 @@ export default function reducer(state, action) {
       };
     case SET_NEW_CHANNEL: {
       // const channels = [...state.server.channels, channel];
+      channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
       return {
         ...state,
