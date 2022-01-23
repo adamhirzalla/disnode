@@ -25,9 +25,11 @@ export default function Server(props) {
   } = useContext(AuthContext);
 
   // useeffect responsbile for all server actions
-  useEffect(async () => {
+  useEffect(() => {
+    console.log("Socket Updated", new Date());
+
     if (socket) {
-      socket.on("channel message", async (message) => {
+      socket.on("channel message", (message) => {
         // const messages = await getMessages();
         // if (channel.id !== message.channel_id) return;
         // const channels = await getChannels(server.id);
@@ -37,16 +39,28 @@ export default function Server(props) {
         // can also only render views if message is last index
         // on backend -> receive that emit and add users to
         // views db and chip off the msg to clients w views filled
+
         if (message.server_id !== server.id) return;
-        console.log(message);
+
         setMessages(message);
         // setChannels(channels); // dont use
         // setServer(server);
       });
     }
-    return () => socket.removeAllListeners("channel message");
+
+    return () => {
+      if (socket) {
+        socket.removeAllListeners("channel message");
+      }
+    };
+
     // setMembers(members);
-  }, [socket, activeUsers]);
+  }, [socket, server]);
+
+  // useEffect(() => {
+
+  //   console.log("server change");
+  // }, []);
   return (
     <>
       <ChannelList />

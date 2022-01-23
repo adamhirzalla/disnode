@@ -32,15 +32,8 @@ export default function Dashboard() {
     <>
       <ServerList socket={state.socket} user={state.user} />
       <Box className={classes.main}>
-        {
-          mode === HOME ? (
-            <Home />
-          ) : mode === SERVER ? (
-            <Server className={classes.server} />
-          ) : (
-            <></>
-          ) /* Skeleton here */
-        }
+        {mode === HOME && <Home />}
+        {mode === SERVER && <Server className={classes.server} />}
       </Box>
     </>
   );
