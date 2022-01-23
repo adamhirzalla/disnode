@@ -17,6 +17,28 @@ const Channel = require("../db/queries/channels");
 //   }
 // });
 
+// getting all server messages
+// router.get("/channels/:id/messages", async (req, res) => {
+//   // for: error validation
+//   // const { error } = validateChannel(req.body);
+//   // if (error) return res.status(400).send(error.details[0].message);
+//   const senderId = req.user.id;
+//   const channelId = req.params.id;
+//   const { body } = req.body;
+//   if (!body.trim()) return res.status(400).send("Cannot send an empty message");
+//   try {
+//     const message = await Message.sendToChannel({
+//       senderId,
+//       channelId,
+//       body,
+//     });
+//     const messages = Message.byChannel;
+//     res.status(200).json(message);
+//   } catch (e) {
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
 // sending a new channel message
 router.post("/channels/:id/messages", async (req, res) => {
   // for: error validation

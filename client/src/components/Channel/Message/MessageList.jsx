@@ -31,8 +31,7 @@ export default function MessageList({ children }) {
   // const classes = useMessageListStyles();
   const classes = useStyles();
   const {
-    app: { messages, channel },
-    setMessages,
+    app: { messages },
   } = useContext(ServerContext);
   const scrollRef = useRef(null);
 

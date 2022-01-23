@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ListItemIcon,
   ListItem,
@@ -12,19 +12,30 @@ import classNames from "classnames";
 //style
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 import { makeStyles } from "@mui/styles";
+import ServerContext from "../../contexts/ServerContext";
 const useStyles = makeStyles({
-  channel: { borderBottom: "1px solid rgb(4,11,12,0.2)", padding: "1em 0.8em" },
-  selected: { background: "rgb(182, 185, 181, 0.5)" },
+  channel: {
+    borderBottom: "1px solid rgb(4,11,12,0.2)",
+    padding: "1em 0.8em",
+    cursor: "pointer",
+    opacity: 0.7,
+    "&:hover": {
+      opacity: 1,
+    },
+  },
+  selected: { background: "rgb(182, 185, 181, 1)", opacity: 1 },
   title: {},
   icon: { minWidth: "auto", paddingRight: "0.5em" },
 });
 export default function ChannelListItem(props) {
   // const classes = useChannelListStyles();
+  const { app, setChannel } = useContext(ServerContext);
+
   const classes = useStyles();
-  const { id, title, channel, setChannel } = props;
+  const { id, channel } = props;
 
   const channelClass = classNames(classes.channel, {
-    [classes.selected]: id === channel?.id,
+    [classes.selected]: id === app.channel.id,
   });
 
   const handleChannelClick = () => {
@@ -35,14 +46,15 @@ export default function ChannelListItem(props) {
     <Box>
       <ListItem
         className={channelClass}
-        button
-        key={id}
+        // button
+        // key={id}
+        // disableRipple
         onClick={handleChannelClick}
       >
         <ListItemIcon className={classes.icon}>
           <TagIcon />
         </ListItemIcon>
-        <ListItemText primary={title} className={classes.title} />
+        <ListItemText primary={channel.title} className={classes.title} />
       </ListItem>
       <Divider />
     </Box>

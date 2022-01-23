@@ -1,10 +1,13 @@
 const Online = require("./helpers/online");
 const User = require("../db/queries/users");
+const Server = require("../db/queries/servers");
 
 module.exports = (io) => {
   io.on("connection", async (socket) => {
     /* socket object may be used to send specific messages to the new connected client */
     const user = await User.setActive(socket.userId);
+    socket.join("disnode");
+    // socket.join("channel1");
 
     Online.add(socket.id, user.id);
 
@@ -25,7 +28,10 @@ module.exports = (io) => {
     // Test event (when client clicks home button)
     socket.on("home click", (socketId, username) => {
       console.log(`${socketId} -> ${username} clicked home button`);
-      io.to(socketId).emit("scare", `Server says: look behind you ${username}`);
+      socket.broadcast.emit(
+        "scare",
+        `Server says: look behind you ${username}`
+      );
     });
 
     // Test event (when client requests online members)
@@ -36,6 +42,15 @@ module.exports = (io) => {
       );
       const online = Online.all();
       io.to(socket.id).emit("get online", online);
+    });
+
+    socket.on("channel message", async (message) => {
+      // console.log("socket id:", socket.id);
+      // console.log("message:", message);
+      // console.log("userid:", socket.userId);
+      // const server = await Server.byID(serverId);
+      // console.log({ server });
+      socket.broadcast.emit("channel message", message);
     });
 
     // test

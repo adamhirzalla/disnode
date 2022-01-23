@@ -28,7 +28,9 @@ export default function reducer(state, action) {
     channel,
     channels,
     messages,
+    message,
     socket,
+    channelId,
     activeUsers,
   } = action;
   switch (action.type) {
@@ -76,49 +78,94 @@ export default function reducer(state, action) {
         loading: false,
         authenticated: false,
       };
-    case SET_SERVER:
+    case SET_SERVER: {
+      const channels = Object.values(server?.channels);
       return {
         ...state,
         server,
-        channels,
-        channel,
-        messages,
-        members,
+        channels: server?.channels || {},
+        channel: channels[0],
+        messages: channels[0]?.messages || [],
+        members: server.members,
       };
+    }
     case SET_SERVERS:
       return {
         ...state,
         servers,
         loading: false,
       };
-    case SET_CHANNEL:
+    case SET_CHANNEL: {
+      const channels = Object.values(state?.channels);
+      const channel = { ...channels.find((c) => c.id === channelId) };
       return {
         ...state,
         channel,
-        messages,
+        messages: channel.messages || [],
       };
-    case SET_CHANNELS:
+    }
+    case SET_CHANNELS: // dont use
+      // retired (use NEW_CHANNEL instead)
+      // const channels = []
       return {
         ...state,
+        server: { ...state.server, channels },
         channels,
       };
-    case SET_MESSAGES:
+    case SET_MESSAGES: {
+      // const messages = [...app.messages, message];
+      // const channelsData = Object.values(state.server?.channels);
+      const channel = state.channels[message.channel_id];
+      if (state.server.id !== message.server_id || !channel) return;
+      // if (
+      //   state.server.id !== message.server_id ||
+      //   !channelsData.some((ch) => ch.id === message.channel_id)
+      // )
+      // const channel = {
+      //   ...channelsData.find((ch) => ch.id === message.channel_id),
+      // };
+      const messages = [...channel.messages, message];
+      // const updatedChannel = { ...channel, messages };
+
+      // -> for DMs (this puts newest DM on top (can be used for notifications))
+      // const updatedChannels = [
+      //   updatedChannel,
+      //   ...channels.filter((ch) => ch.id !== message.channel_id),
+      // ];
+      const updatedChannel = { ...channel, messages };
+      // state.server.channels[message.channel_id] = updatedChannel;
+      // reformatChannel(channels)
+      // [0:{},1:{},2:{}]
+      // const channelIds = Object.keys(state.server?.channels);
+      // const index = channelIds.indexOf(message.channel_id)
       return {
         ...state,
-        messages,
+        // server: { ...state.server, channels: state.server.channels },
+        // channels: state.server.channels,
+        channels: {
+          ...state.channels,
+          [message.channel_id]: updatedChannel,
+        },
+        messages:
+          state.channel.id === message.channel_id ? messages : state.messages,
       };
+    }
     case SET_MEMBERS:
       return {
         ...state,
+        server: { ...state.server, members },
         members,
       };
-    case SET_NEW_CHANNEL:
+    case SET_NEW_CHANNEL: {
+      // const channels = [...state.server.channels, channel];
+      const channels = { ...state.channels, [channel.id]: channel };
       return {
         ...state,
         channels,
         channel,
         messages: [],
       };
+    }
     default:
       return { ...state, error: `Unsupported action type: ${action.type}` };
   }

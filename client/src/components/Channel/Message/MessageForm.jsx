@@ -1,11 +1,12 @@
 import { Send } from "@mui/icons-material";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Box, Fab, TextField } from "@mui/material";
 import AuthContext from "../../../contexts/AuthContext";
-import { sendMessage } from "../../../network/messageApi";
+import { getMessages, sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
 import { getChannels } from "../../../network/channelApi";
 import { makeStyles } from "@mui/styles";
+import { SET_MESSAGES } from "../../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -36,11 +37,12 @@ export default function MessageForm() {
   const [input, setInput] = useState("");
   const {
     setMessages,
-    setChannels,
-    app: { channel, server },
+    appDispatch,
+    setServer,
+    app: { channel, server, messages },
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket, activeUsers, autheticated },
   } = useContext(AuthContext);
 
   const handleChange = (e) => {
@@ -54,20 +56,24 @@ export default function MessageForm() {
     }
   };
 
-  // form onSubmit event handler
+  // Sending a message to a server channel
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setInput((prev) => "");
     try {
       // We query for server channels so that our sent messages
       // that are handles on client side can persist on channel navigation
       const message = await sendMessage(channel.id, { body: input });
-      const channels = await getChannels(server.id);
+      // const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;
       message.sender_nickname = user.nickname;
       message.views = [];
+      message.server_id = server.id;
+      // setChannels(channels); // dont use
+      // console.log(message);
+      // console.log(activeUsers);
+      socket.emit("channel message", message);
       setMessages(message);
-      setChannels(channels);
-      setInput((prev) => "");
     } catch (e) {
       console.log("Failed to send message");
     }
