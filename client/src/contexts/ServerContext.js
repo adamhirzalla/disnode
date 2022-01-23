@@ -73,7 +73,7 @@ export const ServerProvider = ({ children }) => {
       channels: server?.channels || [],
       channel: server?.channels[0],
       messages: server?.channels[0]?.messages || [],
-      members: server.members,
+      members: server?.members,
     });
   };
 

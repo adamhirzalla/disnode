@@ -30,7 +30,7 @@ export default function ChannelList() {
     state: { user },
   } = useContext(AuthContext);
 
-  const parsedChannels = channels.map((ch) => {
+  const parsedChannels = channels?.map((ch) => {
     return (
       <ChannelListItem
         key={ch.id}
