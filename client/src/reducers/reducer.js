@@ -84,8 +84,8 @@ export default function reducer(state, action) {
       };
     case SET_SERVER: {
       const channels = Object.values(server?.channels);
-      console.log("Old Reducer Server:", state.server);
-      console.log("Reducer server:", server);
+      console.log("Old Reducer Server:", state.server.id);
+      console.log("Reducer server:", server.id);
       return {
         ...state,
         server,

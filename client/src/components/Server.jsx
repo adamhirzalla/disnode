@@ -49,9 +49,7 @@ export default function Server(props) {
     }
 
     return () => {
-      if (socket) {
-        socket.removeAllListeners("channel message");
-      }
+      socket.removeAllListeners("channel message");
     };
 
     // setMembers(members);

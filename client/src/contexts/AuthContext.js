@@ -47,7 +47,9 @@ export const AuthProvider = ({ children }) => {
         });
       });
     }
-    return () => socket.off();
+    return () => {
+      socket && socket.off();
+    };
   }, [state.authenticated, socket]);
 
   useEffect(() => {

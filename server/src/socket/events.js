@@ -15,7 +15,7 @@ module.exports = (io) => {
 
     console.log(`${user.username} connected`);
     socket.emit("login", online);
-    io.emit("connection", online);
+    socket.broadcast.emit("connection", online);
 
     socket.on("disconnect", async () => {
       const user = await User.setInactive(socket.userId);
