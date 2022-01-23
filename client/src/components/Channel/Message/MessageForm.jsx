@@ -56,6 +56,10 @@ export default function MessageForm() {
     }
   };
 
+  useEffect(() => {
+    setInput("");
+  }, [channel]);
+
   // Sending a message to a server channel
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +94,7 @@ export default function MessageForm() {
         type="text"
         maxRows="4"
         variant="standard"
-        placeholder={`Message #${channel.title}`}
+        placeholder={`Message #${channel?.title}`}
         multiline
         required
         InputProps={{ className: classes.input }}

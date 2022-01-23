@@ -134,8 +134,8 @@ router.delete("/servers/:serverId/members/:memberId", async (req, res) => {
     ) {
       return res.status(400).send("User does not have permission");
     }
-    await Server.removeMember(memberId, serverId);
-    res.status(200).send("Member removed successfully");
+    await Member.remove(memberId);
+    res.status(200).send(member);
   } catch (e) {
     return res.status(500).send("Internal Server Error");
   }
@@ -179,6 +179,19 @@ router.get("/servers/:id/members", async (req, res) => {
     // if (!channels)return res.status(400).send('No channels found');
     const members = await Member.byServer(serverId);
 
+    res.status(200).json(members);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// add a member into server
+router.post("/servers/:serverId/users/:userId", async (req, res) => {
+  const { serverId, userId } = req.params;
+  const data = { serverId, userId, role: "user" };
+  try {
+    await Member.create(data);
+    const members = await Member.byServer(serverId);
     res.status(200).json(members);
   } catch (e) {
     res.status(500).send("Internal Server Error");

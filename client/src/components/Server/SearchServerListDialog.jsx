@@ -9,15 +9,32 @@ import {
   Tooltip,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import ConfirmDialog from "./ConfirmDialog";
-import { makeStyles } from "@mui/styles";
+import AuthContext from "../../contexts/AuthContext";
+import { addMember } from "../../network/memberApi";
+import ServerContext from "../../contexts/ServerContext";
+import { getServers } from "../../network/serverApi";
 
-export default function SearchServerListDialog({ server, openResult }) {
+export default function SearchServerListDialog(props) {
+  const { server, openResult, setOpenResult } = props;
   const { title, logo, members } = server;
   const [open, setOpen] = useState(false);
   const classes = useServerDialogStyles();
+  const {
+    state: { user },
+  } = useContext(AuthContext);
+  const { setMembers, setServers } = useContext(ServerContext);
+
+  const handleJoin = async () => {
+    const members = await addMember(server.id, user.id);
+    const servers = await getServers();
+    setServers(servers);
+    setMembers(members);
+    setOpenResult(false);
+  };
+
   return (
     <>
       {openResult && (
@@ -56,13 +73,14 @@ export default function SearchServerListDialog({ server, openResult }) {
                   </Tooltip>
                 )}
               </AvatarGroup>
-
-              <IconButton
-                onClick={() => setOpen(true)}
-                sx={{ color: "green", opacity: 0.6 }}
-              >
-                <AddCircleOutlineIcon />
-              </IconButton>
+              {!members.find((m) => m.user_id === user.id) && (
+                <IconButton
+                  onClick={handleJoin}
+                  sx={{ color: "green", opacity: 0.6 }}
+                >
+                  <AddCircleOutlineIcon />
+                </IconButton>
+              )}
             </ListItemButton>
           </ListItem>
           {open && (

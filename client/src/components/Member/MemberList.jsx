@@ -22,6 +22,18 @@ const useStyles = makeStyles({
   members: {
     display: "flex",
     flexDirection: "column",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      borderRadius: "30px",
+      width: "2px",
+    },
+    "&::-webkit-scrollbar-track": {
+      WebkitBoxShadow: "inset 0 0 3px rgb(0,0,0,0.1)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgb(0,0,0,0.3)",
+      borderRadius: "30px",
+    },
   },
   button: {
     // justifyContent: "space-around",

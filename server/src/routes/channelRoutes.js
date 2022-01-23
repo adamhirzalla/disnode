@@ -39,6 +39,31 @@ const Channel = require("../db/queries/channels");
 //   }
 // });
 
+// edit a channel title
+router.put("/channels/:channelId", async (req, res) => {
+  const { channelId } = req.params;
+  const { input } = req.body;
+  try {
+    const channel = await Channel.edit(input, channelId);
+    // const channels = await Channel.byServer(serverId);
+    res.status(200).json(channel);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// remove a channel from server
+router.delete("/channels/:channelId", async (req, res) => {
+  const { channelId } = req.params;
+  try {
+    const channel = await Channel.remove(channelId);
+    // const channels = await Channel.byServer(serverId);
+    res.status(200).json(channel);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 // sending a new channel message
 router.post("/channels/:id/messages", async (req, res) => {
   // for: error validation
