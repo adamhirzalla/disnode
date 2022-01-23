@@ -20,6 +20,7 @@ import OriginSvg from "../SvgIcons/OriginSvg";
 import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
+import { DELETE_MEMBER } from "../../utils/constants";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
 const [PROFILE, ADD, ADMIN, DEMOTE, KICK] = [
@@ -50,6 +51,7 @@ export default function MemberDialog(props) {
   const {
     setMembers,
     app: { server },
+    appDispatch,
   } = useContext(ServerContext);
 
   const classes = useStyles();
@@ -73,10 +75,13 @@ export default function MemberDialog(props) {
       } else if (action === ADD) {
       } else if (action === KICK) {
         await removeMember(server.id, member.id);
-        const members = await getMembers(server.id);
+        // const member = await getMembers(server.id);
         setOpen(false);
         setAction(null);
-        setMembers(members);
+        appDispatch({
+          type: DELETE_MEMBER,
+          member,
+        });
       }
     } catch (e) {}
   };

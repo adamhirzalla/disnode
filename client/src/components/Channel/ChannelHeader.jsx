@@ -13,9 +13,17 @@ const useStyles = makeStyles({
     borderBottom: "1px solid rgb(4,11,12,0.4)",
     backgroundColor: "rgb(4,11,12,1)",
     height: "58px",
+    display: "flex",
+    justifyContent: "center",
   },
   title: {
     color: "white",
+  },
+  channel: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 
@@ -30,36 +38,35 @@ export default function ChannelHeader() {
   const classes = useStyles();
   const [anchor, setAnchor] = useState(false);
 
-  useEffect(() => {
-    setChannel(channel?.id);
-  }, [channels]);
+  // useEffect(() => {
+  //   setChannel(channel?.id);
+  // }, [channels]);
 
   return (
-    <ListItem
-      className={classes.header}
-      alignItems="center"
-      sx={{ display: "flex", justifyContent: "center" }}
-    >
-      <Box style={{ width: "100%" }} className={classes.channel}>
+    <ListItem className={classes.header} alignItems="center">
+      <Box className={classes.channel}>
         <Typography className={classes.title} component="span">
           # {channel?.title}
         </Typography>
         {members.find((m) => m.user_id === user.id).role !== "user" && (
-          <>
-            <IconButton
-              sx={{ mr: 1 }}
-              onClick={(e) => {
-                setAnchor(e.currentTarget);
+          <IconButton
+            sx={{ mr: 1 }}
+            onClick={(e) => {
+              setAnchor(e.currentTarget);
+            }}
+          >
+            <SettingsIcon
+              sx={{
+                // fontSize: "large",
+                color: "white",
+                opacity: 0.5,
+                "&:hover": { opacity: 1 },
               }}
-            >
-              <SettingsIcon
-                sx={{ color: "white", opacity: 0.5, "&:hover": { opacity: 1 } }}
-              />
-            </IconButton>
-            <ChannelMenuList anchor={anchor} setAnchor={setAnchor} />
-          </>
+            />
+          </IconButton>
         )}
       </Box>
+      <ChannelMenuList anchor={anchor} setAnchor={setAnchor} />
     </ListItem>
   );
 }

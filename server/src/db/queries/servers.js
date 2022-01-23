@@ -30,16 +30,6 @@ const byUser = (userId) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
-const removeMember = (memberId, serverId) => {
-  const query = `
-  DELETE FROM members
-  WHERE id = $1 AND server_id = $2
-  RETURNING true
-  `;
-  const params = [memberId, serverId];
-  return db.query(query, params).then((res) => res);
-};
-
 const byID = (serverId, userId) => {
   const serverQuery = db
     .query(
@@ -144,5 +134,4 @@ module.exports = {
   byID,
   create,
   createTags,
-  removeMember,
 };

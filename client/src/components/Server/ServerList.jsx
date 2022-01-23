@@ -7,7 +7,15 @@ import NewServerDialog from "./NewServerDialog";
 import DisDivider from "../Divider/DisDivider";
 import ServerContext from "../../contexts/ServerContext";
 import SearchServerDialog from "./SearchServerDialog";
-import { List, IconButton, Tooltip, ListItem, Avatar } from "@mui/material";
+import {
+  List,
+  IconButton,
+  Tooltip,
+  ListItem,
+  Avatar,
+  Box,
+  Drawer,
+} from "@mui/material";
 import { useDisIconButtonStyles } from "../styles/useDisIconButtonStyles";
 import {
   createServer,
@@ -29,20 +37,61 @@ const useStyles = makeStyles(() => ({
     height: "78px",
   },
   navCreate: {
-    justifyContent: "center",
-    position: "sticky",
-    bottom: "56px",
+    // justifyContent: "center",
+    // position: "sticky",
+    // bottom: "56px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
     height: "56px",
   },
   navSearch: {
-    justifyContent: "center",
-    position: "sticky",
-    bottom: "0px",
+    // justifyContent: "center",
+    // position: "sticky",
+    // bottom: "0px",
     zIndex: 1300,
     backgroundColor: "#040B0C",
     height: "56px",
+  },
+  navBot: {
+    position: "sticky",
+    bottom: "0px",
+    width: "100%",
+    backgroundColor: "#040B0C",
+  },
+  nav: {
+    // position: "relative",
+    height: "100vh",
+    overflowY: "scroll",
+    "& .MuiPaper-root": {
+      width: "90px",
+      backgroundColor: "#040B0C",
+      position: "relative",
+      minHeight: "100vh",
+    },
+  },
+  list: {
+    width: "100%",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      borderRadius: "30px",
+      width: "5px",
+    },
+    "&::-webkit-scrollbar-track": {
+      WebkitBoxShadow: "inset 0 0 3px rgb(0,0,0,0.1)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgb(0,0,0,0.3)",
+      borderRadius: "30px",
+    },
+  },
+  listItem: { padding: "0 0", justifyContent: "center", zIndex: 1300 },
+  logo: {
+    padding: "0 0",
+    justifyContent: "center",
+    zIndex: 1300,
+    position: "sticky",
+    top: "0px",
+    backgroundColor: "#040B0C",
   },
 }));
 
@@ -104,15 +153,16 @@ export default function ServerList(props) {
   return (
     // <DisBox disStyle="navBox">
     // <>
-    <DisDrawer disStyle="nav" variant="permanent" anchor="left">
-      <List>
+    // <DisDrawer disStyle="nav" variant="permanent" anchor="left">
+    <Drawer variant="permanent" anchor="left" className={classes.nav}>
+      <List className={classes.list}>
         <Tooltip
           title={"Home"}
           arrow
           placement="right"
-          className={classes.navHome}
+          // className={classes.navHome}
         >
-          <ListItem>
+          <ListItem className={classes.logo}>
             <IconButton
               className={homeIconClass}
               onClick={() => handleHomeClick(socket)}
@@ -127,29 +177,29 @@ export default function ServerList(props) {
             </IconButton>
           </ListItem>
         </Tooltip>
-
         <DisDivider disStyle="nav-top" />
+
         {parsedServers}
 
         {!loading && (
-          <>
+          <Box className={classes.navBot}>
             <DisDivider disStyle="nav-bot" />
-            <ListItem className={classes.navCreate}>
+            <ListItem className={classes.listItem}>
               <NewServerDialog onClick={handleCreate} />
               <SearchServerDialog />
             </ListItem>
             <ListItem
-              className={classes.navCreate}
-              sx={{ position: "absolute" }}
+              className={classes.listItem}
+              // sx={{ position: "absolute" }}
             >
               <ProfileMenu />
             </ListItem>
-          </>
+          </Box>
         )}
       </List>
       {/* {children} */}
       {/* </DisBox> */}
       {/* </> */}
-    </DisDrawer>
+    </Drawer>
   );
 }

@@ -9,6 +9,7 @@ import { makeStyles } from "@mui/styles";
 import { useContext } from "react";
 import ServerContext from "../../contexts/ServerContext";
 import { deleteChannel } from "../../network/channelApi";
+import { DELETE_CHANNEL } from "../../utils/constants";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 
 const useStyles = makeStyles({
@@ -25,17 +26,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ChannelDeleteDialog({ open, setOpen, channel }) {
+export default function ChannelDeleteDialog({ open, setOpen }) {
   const classes = useStyles();
   const buttonClasses = useDisButtonStyles();
   const {
-    app: { server },
+    app: { channel },
     setChannels,
+    appDispatch,
   } = useContext(ServerContext);
 
   const handleDelete = async () => {
-    const channels = await deleteChannel(server.id, channel.id);
-    setChannels(channels);
+    // const channels = await deleteChannel(server.id, channel.id);
+    // setChannels(channels);
+    const channel = await deleteChannel(channel.id);
+    appDispatch({
+      type: DELETE_CHANNEL,
+      channel,
+    });
     setOpen(false);
   };
 

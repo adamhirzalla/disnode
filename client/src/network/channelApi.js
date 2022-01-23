@@ -20,13 +20,10 @@ export const getChannels = async (serverId) => {
   }
 };
 
-// edit a channel name
-export const editChannel = async (serverId, channelId, input) => {
+// edit a channel title
+export const editChannel = async (channelId, input) => {
   try {
-    const res = await axios.put(
-      `/api/servers/${serverId}/channels/${channelId}`,
-      { input }
-    );
+    const res = await axios.put(`/api/channels/${channelId}`, { input });
     return res.data;
   } catch (e) {
     console.log("Failed to retreive channels data", e);
@@ -34,11 +31,9 @@ export const editChannel = async (serverId, channelId, input) => {
 };
 
 // delete a channel from server
-export const deleteChannel = async (serverId, channelId) => {
+export const deleteChannel = async (channelId) => {
   try {
-    const res = await axios.delete(
-      `/api/servers/${serverId}/channels/${channelId}`
-    );
+    const res = await axios.delete(`/api/channels/${channelId}`);
     return res.data;
   } catch (e) {
     console.log("Failed to retreive channels data", e);

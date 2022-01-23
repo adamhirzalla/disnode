@@ -7,9 +7,24 @@ import { Avatar, Tooltip } from "@mui/material";
 import { getServer } from "../../network/serverApi";
 import ServerContext from "../../contexts/ServerContext";
 import { SERVER } from "../../utils/constants";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+  default: {
+    opacity: "0.5",
+    "&:hover": { opacity: "1" },
+  },
+  selected: {
+    boxShadow: "inset 0px 0px 0px 2px white",
+    opacity: "1",
+  },
+  center: {
+    justifyContent: "center",
+  },
+});
 
 export default function ServerListItem(props) {
-  const classes = useServerListItemStyles();
+  const classes = useStyles();
   const { id, title, logo } = props;
   const {
     app: { server, mode },

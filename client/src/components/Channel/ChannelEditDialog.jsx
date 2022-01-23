@@ -15,6 +15,7 @@ import { makeStyles } from "@mui/styles";
 import ServerContext from "../../contexts/ServerContext";
 import { editChannel } from "../../network/channelApi";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
+import { DELETE_CHANNEL, EDIT_CHANNEL } from "../../utils/constants";
 
 const useStyles = makeStyles({
   dialogPaper: {
@@ -31,19 +32,17 @@ const useStyles = makeStyles({
 });
 
 export default function ChannelEditDialog(props) {
-  const { open, setOpen, input, setInput, channel } = props;
-  const {
-    app: { server },
-    setChannel,
-    setChannels,
-  } = useContext(ServerContext);
+  const { open, setOpen, input, setInput } = props;
+  const { app, setChannel, setChannels, appDispatch } =
+    useContext(ServerContext);
+  const { server } = app;
   const classes = useStyles();
   const buttonClasses = useDisButtonStyles();
 
   const handleClose = () => {
     setOpen(false);
     setTimeout(() => {
-      setInput(channel.title);
+      setInput(app.channel.title);
     }, 500);
   };
 
@@ -54,9 +53,14 @@ export default function ChannelEditDialog(props) {
   };
 
   const handleSave = async () => {
-    if (input !== channel.title && input) {
-      const channels = await editChannel(server.id, channel.id, input);
-      setChannels(channels);
+    if (input !== app.channel.title && input) {
+      const channel = await editChannel(app.channel.id, input);
+      // const channels = await editChannel(server.id, channel.id, input);
+      // setChannels(channels);
+      appDispatch({
+        type: EDIT_CHANNEL,
+        channel,
+      });
       setOpen(false);
     }
   };

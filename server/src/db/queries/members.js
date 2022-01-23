@@ -93,6 +93,16 @@ const updateRole = (role, memberId) => {
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
+const remove = (memberId) => {
+  const query = `
+  DELETE FROM members
+  WHERE id = $1
+  RETURNING *
+  `;
+  const params = [memberId];
+  return db.query(query, params).then((res) => res);
+};
+
 module.exports = {
   byServer,
   create,
@@ -100,4 +110,5 @@ module.exports = {
   byID,
   inServerByUser,
   updateRole,
+  remove,
 };

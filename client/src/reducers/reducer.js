@@ -9,11 +9,14 @@ import {
   SET_LOADING,
   SET_CHANNELS,
   SET_MESSAGES,
+  DELETE_CHANNEL,
   SET_NEW_CHANNEL,
+  DELETE_MEMBER,
   SET_SOCKET,
   SET_ACTIVE_USERS,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
+  EDIT_CHANNEL,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -27,6 +30,7 @@ export default function reducer(state, action) {
     members,
     channel,
     channels,
+    member,
     messages,
     message,
     socket,
@@ -102,6 +106,42 @@ export default function reducer(state, action) {
         ...state,
         channel,
         messages: channel.messages || [],
+      };
+    }
+    case EDIT_CHANNEL: {
+      // const channelsData = Object.values(state?.channels);
+      const updatedChannel = { ...state.channel, ...channel };
+      state.channels[channel.id] = updatedChannel;
+      // const channel = { ...channels.find((c) => c.id === channelId) };
+      return {
+        ...state,
+        // channels,
+        channel: updatedChannel,
+        // messages: channelsData[0].messages || [],
+      };
+    }
+    case DELETE_CHANNEL: {
+      delete state?.channels[channel.id];
+      const channelsData = Object.values(state?.channels);
+      // const channel = { ...channels.find((c) => c.id === channelId) };
+      return {
+        ...state,
+        // channels,
+        channel: channelsData[0] || {},
+        messages: channelsData[0].messages || [],
+      };
+    }
+    case DELETE_MEMBER: {
+      // delete state?.channels[channel.id];
+      const members = state.members.filter((m) => m.id !== member.id);
+      // const channelsData = Object.values(state?.channels);
+      // const channel = { ...channels.find((c) => c.id === channelId) };
+      return {
+        ...state,
+        // channels,
+        // channel: channelsData[0] || {},
+        // messages: channelsData[0].messages || [],
+        members,
       };
     }
     case SET_CHANNELS: // dont use

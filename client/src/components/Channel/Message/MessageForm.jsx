@@ -56,6 +56,10 @@ export default function MessageForm() {
     }
   };
 
+  useEffect(() => {
+    setInput("");
+  }, [channel]);
+
   // Sending a message to a server channel
   const handleSubmit = async (e) => {
     e.preventDefault();
