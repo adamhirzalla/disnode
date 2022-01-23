@@ -12,7 +12,8 @@ const sendToChannel = (data) => {
     id,
     body,
     sent_at,
-    sender_id  ;
+    sender_id,
+    channel_id;
   `;
   const params = [senderId, body, channelId];
   return db.query(query, params).then((res) => res.rows[0]);
@@ -22,6 +23,7 @@ const byChannel = (channelId, userId) => {
   const query = `
   SELECT
     messages.id,
+    channel_id,
     users.nickname AS sender_nickname,
     users.avatar AS sender_avatar,
     messages.sender_id,

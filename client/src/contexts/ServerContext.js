@@ -32,8 +32,9 @@ export const initialState = {
 export const ServerProvider = ({ children }) => {
   const [app, appDispatch] = useReducer(reducer, initialState);
   const { state } = useContext(AuthContext);
+  const { socket, authenticated } = state;
 
-  // landing socket connection and serverlist load
+  // get user servers when user is authenticated (after load)
   useEffect(async () => {
     if (state.authenticated) {
       const servers = await getServers();
@@ -41,6 +42,8 @@ export const ServerProvider = ({ children }) => {
       if (!app.mode) setMode(HOME);
     }
   }, [state.authenticated]);
+
+  // SOCKETS //
 
   useEffect(async () => {
     const members = app.members.map((member) => {
@@ -70,54 +73,39 @@ export const ServerProvider = ({ children }) => {
     appDispatch({
       type: SET_SERVER,
       server,
-      channels: server?.channels || [],
-      channel: server?.channels[0],
-      messages: server?.channels[0]?.messages || [],
-      members: server.members,
     });
   };
 
-  const setChannels = (channels) => {
+  // retired (use newChannel for creating new channels)
+  const setChannels = (channel) => {
     appDispatch({
       type: SET_CHANNELS,
-      channels,
-    });
-  };
-
-  const setNewServers = (servers) => {
-    appDispatch({
-      type: SET_SERVERS,
-      servers,
+      channel,
     });
   };
 
   const setChannel = (channelId) => {
-    const [channel] = app.channels.filter(
-      (channel) => channel.id === channelId
-    );
     appDispatch({
       type: SET_CHANNEL,
-      channel,
-      messages: channel.messages || [],
+      channelId,
     });
   };
 
   const setMessages = (message) => {
-    const messages = [...app.messages, message];
     appDispatch({
       type: SET_MESSAGES,
-      messages,
+      message,
     });
   };
 
   const setNewChannel = (channel) => {
     appDispatch({
       type: SET_NEW_CHANNEL,
-      channels: [...app.channels, channel],
       channel,
     });
   };
 
+  // retired (used directly in authcontext)
   const setActiveUsers = (activeUsers) => {
     appDispatch({
       type: SET_ACTIVE_USERS,
@@ -145,7 +133,6 @@ export const ServerProvider = ({ children }) => {
         setMessages,
         setChannels,
         setNewChannel,
-        setNewServers,
         setActiveUsers,
       }}
     >

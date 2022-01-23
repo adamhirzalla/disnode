@@ -96,9 +96,6 @@ export default function MessageListItem(props) {
           <Divider className={classes.divider} />
           <ListItemText
             // inset
-            title={moment(message.sent_at).format(
-              "dddd, MMMM Do YYYY, h:mm:ss a"
-            )}
             primary={message.body}
             // secondary={moment(message.sent_at).fromNow()}
             className={classes.body}
