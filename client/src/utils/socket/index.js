@@ -7,6 +7,6 @@ const socket = io(process.env.REACT_APP_WEBSOCKET_URL, {
     accessToken,
   },
 });
-require("./events")(socket);
+// require("./events")(socket);
 
 export default socket;
