@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
         });
       });
     }
-    return () => socket.off();
+    return () => socket.offAny();
   }, [state.authenticated, socket]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
     }, 1000 * 60 * 60 * 23);
     return () => {
       clearInterval(tokenInterval);
-      socket.off();
+      socket.offAny();
     };
   }, []);
 
