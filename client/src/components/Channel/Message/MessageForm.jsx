@@ -63,7 +63,7 @@ export default function MessageForm() {
   // Sending a message to a server channel
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInput((prev) => "");
+    if (!input) return;
     try {
       // We query for server channels so that our sent messages
       // that are handles on client side can persist on channel navigation
@@ -77,6 +77,7 @@ export default function MessageForm() {
       // console.log(message);
       // console.log(activeUsers);
       socket.emit(CHANNEL_MESSAGE, message);
+      setInput("");
       setMessages(message);
     } catch (e) {
       console.log("Failed to send message");

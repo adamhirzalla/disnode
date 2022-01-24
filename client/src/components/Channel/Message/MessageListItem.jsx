@@ -135,16 +135,6 @@ export default function MessageListItem(props) {
           />
         </Stack>
         <Box className={classes.right}>
-          {(message.sender_id === user.id || role !== "user") && (
-            <IconButton
-              aria-label="delete"
-              className={classes.delete}
-              disableRipple
-              onClick={handleDelete}
-            >
-              <DeleteIcon />
-            </IconButton>
-          )}
           {views.length > 0 && (
             <Tooltip title={tooltip} arrow placement="bottom">
               <AvatarGroup max={4} className={classes.views}>
@@ -159,7 +149,8 @@ export default function MessageListItem(props) {
                       })
                       .includes(false) ||
                       !messages[index + 1]) &&
-                    viewer && (
+                    viewer &&
+                    viewer.viewer_id !== user.id && (
                       <Avatar
                         key={i}
                         alt={viewer?.viewer_nickname}
@@ -171,6 +162,16 @@ export default function MessageListItem(props) {
                 })}
               </AvatarGroup>
             </Tooltip>
+          )}
+          {(message.sender_id === user.id || role !== "user") && (
+            <IconButton
+              aria-label="delete"
+              className={classes.delete}
+              disableRipple
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </IconButton>
           )}
         </Box>
       </ListItem>
