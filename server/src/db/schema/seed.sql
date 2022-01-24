@@ -95,7 +95,7 @@ VALUES
 (7, 3, '2021-12-28T23:21:15.072Z');
 
 INSERT INTO friends (user1_id, user2_id)
-VALUES (1, 3), (2, 3), (4, 1);
+VALUES (1, 3), (2, 3), (4, 1), (1, 2);
 
 INSERT INTO requests (sender_id, receiver_id, pending)
 VALUES (1, 2, true), (3, 4, false), (2, 4, true);
