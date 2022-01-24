@@ -51,7 +51,18 @@ const byChannel = (channelId, userId) => {
     });
 };
 
+const remove = (messageId) => {
+  const query = `
+  DELETE FROM messages
+  WHERE id = $1
+  RETURNING *
+  `;
+  const params = [messageId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
 module.exports = {
   sendToChannel,
   byChannel,
+  remove,
 };

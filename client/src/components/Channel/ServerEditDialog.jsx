@@ -20,16 +20,13 @@ import { EDIT_SERVER } from "../../utils/constants";
 import { Box } from "@mui/system";
 
 export default function ServerEditDialog(props) {
-  const { open, setOpen } = props;
+  const { open, setOpen, input, setInput, initialInput } = props;
   const { app, appDispatch } = useContext(ServerContext);
   const { server } = app;
-  const initialInput = {
-    logo: server.logo,
-    title: server.title,
-  };
+
   const classes = useServerDialogStyles();
-  const [input, setInput] = useState(initialInput);
-  const [tags, setTags] = useState([]);
+
+  const [tags, setTags] = useState(server.tags.map((tag) => tag.id));
   const [file, setFile] = useState(null);
   const [error, setError] = useState(null);
 

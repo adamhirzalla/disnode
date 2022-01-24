@@ -18,6 +18,7 @@ import {
   SET_UNAUTHENTICATED,
   EDIT_CHANNEL,
   EDIT_SERVER,
+  DELETE_MESSAGE,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -143,6 +144,20 @@ export default function reducer(state, action) {
         // channel: channelsData[0] || {},
         // messages: channelsData[0].messages || [],
         members,
+      };
+    }
+    case DELETE_MESSAGE: {
+      const messages = state.messages.filter((msg) => msg.id !== message.id);
+      // state.channels[message.channel_id].messages = messages;
+
+      return {
+        ...state,
+        channel: { ...state.channel, messages },
+        channels: {
+          ...state.channels,
+          [message.channel_id]: { ...state.channel, messages },
+        },
+        messages,
       };
     }
     case SET_CHANNELS: // dont use

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Box,
   Avatar,
@@ -19,6 +19,10 @@ import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles"
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { makeStyles } from "@mui/styles";
+import ServerContext from "../../../contexts/ServerContext";
+import AuthContext from "../../../contexts/AuthContext";
+import { deleteMessage } from "../../../network/messageApi";
+import { DELETE_MESSAGE } from "../../../utils/constants";
 const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
@@ -51,6 +55,15 @@ export default function MessageListItem(props) {
   // const classes = useMessageListItemStyles();
   const classes = useStyles();
   const { sender, body, sent_at, scrollRef, scrollToBottom, message } = props;
+  const {
+    app: { members },
+    appDispatch,
+  } = useContext(ServerContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
+  const [throttle, setThrottle] = useState(false);
+
   const { views } = message;
   let tooltip;
   if (views.length === 1) tooltip = `seen by ${views[0].viewer_nickname}`;
@@ -66,6 +79,20 @@ export default function MessageListItem(props) {
   // useEffect(() => {
   //   scrollToBottom();
   // }, []);
+
+  const role = members.find((m) => m.user_id === user.id).role;
+
+  const handleDelete = () => {
+    if (throttle) return alert("HOLD ON!!");
+    controlSpam();
+  };
+
+  const controlSpam = async () => {
+    setThrottle(true);
+    const deletedMessage = await deleteMessage(message.id);
+    setThrottle(false);
+    appDispatch({ type: DELETE_MESSAGE, message: deletedMessage });
+  };
 
   return (
     <>
@@ -102,13 +129,16 @@ export default function MessageListItem(props) {
           />
         </Stack>
         <Box className={classes.right}>
-          <IconButton
-            aria-label="delete"
-            className={classes.delete}
-            disableRipple
-          >
-            <DeleteIcon />
-          </IconButton>
+          {(message.sender_id === user.id || role !== "user") && (
+            <IconButton
+              aria-label="delete"
+              className={classes.delete}
+              disableRipple
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </IconButton>
+          )}
           {views.length > 0 && (
             <Tooltip title={tooltip} arrow placement="bottom">
               <AvatarGroup total={views.length} className={classes.views}>

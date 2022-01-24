@@ -25,6 +25,11 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
   const {
     state: { user },
   } = useContext(AuthContext);
+  const initialInput = {
+    logo: server.logo,
+    title: server.title,
+  };
+  const [input, setInput] = useState(initialInput);
 
   const role = members?.find((m) => m.user_id === user.id)?.role;
 
@@ -44,6 +49,7 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
   };
 
   const handleEdit = () => {
+    setInput(initialInput);
     setEdit(true);
     handleClose();
   };
@@ -81,7 +87,13 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
         </MenuItem>
       </MenuList>
       <ServerLeaveDialog open={open} setOpen={setOpen} role={role} />
-      <ServerEditDialog open={edit} setOpen={setEdit} />
+      <ServerEditDialog
+        open={edit}
+        setOpen={setEdit}
+        input={input}
+        setInput={setInput}
+        initialInput={initialInput}
+      />
     </Paper>
   );
 }

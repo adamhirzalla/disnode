@@ -86,4 +86,15 @@ router.post("/channels/:id/messages", async (req, res) => {
   }
 });
 
+// delete a message
+router.delete("/channels/messages/:id", async (req, res) => {
+  const messageId = req.params.id;
+  try {
+    const message = await Message.remove(messageId);
+    res.status(200).send(message);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
