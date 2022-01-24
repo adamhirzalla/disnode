@@ -7,6 +7,8 @@ const {
   SERVER_LEAVE,
   MEMBER_UPDATE,
   MEMBER_KICK,
+  SERVER_EDIT,
+  SERVERS_UPDATE,
 } = require("./helpers/constants");
 
 module.exports = (io) => {
@@ -33,6 +35,12 @@ module.exports = (io) => {
     };
     const kickMember = (member, serverId) => {
       socket.to(`SERVER_${serverId}`).emit(MEMBER_KICK, member);
+    };
+    const editServer = (server) => {
+      socket.to(`SERVER_${server.id}`).emit(SERVER_EDIT, server);
+    };
+    const updateServers = () => {
+      socket.broadcast.emit(SERVERS_UPDATE);
     };
 
     const user = await User.setActive(socket.userId);
@@ -61,6 +69,8 @@ module.exports = (io) => {
     socket.on(CHANNEL_MESSAGE, messageServer);
     socket.on(MEMBER_UPDATE, updateMembers);
     socket.on(MEMBER_KICK, kickMember);
+    socket.on(SERVER_EDIT, editServer);
+    socket.on(SERVERS_UPDATE, updateServers);
   });
 };
 

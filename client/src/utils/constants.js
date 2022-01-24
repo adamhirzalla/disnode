@@ -35,3 +35,5 @@ export const SERVER_JOIN = "SERVER_JOIN";
 export const CHANNEL_MESSAGE = "CHANNEL_MESSAGE";
 export const MEMBER_UPDATE = "MEMBER_UPDATE";
 export const MEMBER_KICK = "MEMBER_KICK";
+export const SERVER_EDIT = "SERVER_EDIT";
+export const SERVERS_UPDATE = "SERVERS_UPDATE";

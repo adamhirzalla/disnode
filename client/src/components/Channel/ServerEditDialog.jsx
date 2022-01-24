@@ -16,12 +16,20 @@ import Tags from "../Server/Tags";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import uploadtoS3 from "../../utils/s3";
 import { updateServer } from "../../network/serverApi";
-import { EDIT_SERVER } from "../../utils/constants";
+import {
+  EDIT_SERVER,
+  SERVERS_UPDATE,
+  SERVER_EDIT,
+} from "../../utils/constants";
 import { Box } from "@mui/system";
+import AuthContext from "../../contexts/AuthContext";
 
 export default function ServerEditDialog(props) {
   const { open, setOpen, input, setInput, initialInput } = props;
   const { app, appDispatch } = useContext(ServerContext);
+  const {
+    state: { socket },
+  } = useContext(AuthContext);
   const { server } = app;
 
   const classes = useServerDialogStyles();
@@ -55,6 +63,8 @@ export default function ServerEditDialog(props) {
 
     const server = await updateServer(app.server.id, data);
     appDispatch({ type: EDIT_SERVER, server });
+    socket.emit(SERVER_EDIT, server);
+    socket.emit(SERVERS_UPDATE);
     setOpen(false);
     setError(null);
   };

@@ -10,9 +10,12 @@ import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import {
   CHANNEL_MESSAGE,
+  EDIT_SERVER,
   HOME,
   MEMBER_KICK,
   MEMBER_UPDATE,
+  SERVERS_UPDATE,
+  SERVER_EDIT,
   SERVER_JOIN,
   SERVER_LEAVE,
 } from "../utils/constants";
@@ -23,7 +26,7 @@ const useStyles = makeStyles({
 });
 export default function Server(props) {
   const classes = useStyles();
-  const { setMessages, setMembers, setServers, setMode, app } =
+  const { setMessages, setMembers, setServers, setMode, app, appDispatch } =
     useContext(ServerContext);
   const { channel, server, messages, servers } = app;
   const {
@@ -37,6 +40,8 @@ export default function Server(props) {
       socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
       socket.on(MEMBER_UPDATE, updateMembers);
       socket.on(MEMBER_KICK, kickMember);
+      socket.on(SERVER_EDIT, editServer);
+      socket.on(SERVERS_UPDATE, updateServers);
       console.log("listeners added");
     }
     return () => {
@@ -63,6 +68,13 @@ export default function Server(props) {
       setServers(servers);
       setMode(HOME);
     }
+  };
+  const editServer = (server) => {
+    if (server.id === app.server.id) appDispatch({ type: EDIT_SERVER, server });
+  };
+  const updateServers = async () => {
+    const servers = await getServers();
+    setServers(servers);
   };
   return (
     <>

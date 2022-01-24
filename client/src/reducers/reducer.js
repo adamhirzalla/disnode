@@ -234,6 +234,7 @@ export default function reducer(state, action) {
         if (s.id === id) {
           s.title = title;
           s.logo = logo;
+          s.tags = tags;
         }
         return s;
       });
