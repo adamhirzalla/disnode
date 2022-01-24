@@ -34,3 +34,4 @@ export const SERVER_LEAVE = "SERVER_LEAVE";
 export const SERVER_JOIN = "SERVER_JOIN";
 export const CHANNEL_MESSAGE = "CHANNEL_MESSAGE";
 export const MEMBER_JOIN = "MEMBER_JOIN";
+export const MEMBER_LEAVE = "MEMBER_LEAVE";

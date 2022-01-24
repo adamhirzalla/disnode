@@ -149,7 +149,8 @@ router.delete("/servers/:serverId/members/:memberId", async (req, res) => {
       return res.status(400).send("User does not have permission");
     }
     await Member.remove(memberId);
-    res.status(200).send(member);
+    const members = await Member.byServer(serverId);
+    res.status(200).json(members);
   } catch (e) {
     return res.status(500).send("Internal Server Error");
   }

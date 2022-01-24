@@ -11,6 +11,7 @@ import ServerContext from "../contexts/ServerContext";
 import {
   CHANNEL_MESSAGE,
   MEMBER_JOIN,
+  MEMBER_LEAVE,
   SERVER_JOIN,
   SERVER_LEAVE,
 } from "../utils/constants";
@@ -32,6 +33,7 @@ export default function Server(props) {
       socket.on(SERVER_LEAVE, serverLeft);
       socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
       socket.on(MEMBER_JOIN, updateMembers);
+      socket.on(MEMBER_LEAVE, updateMembers);
       console.log("listeners added");
     }
     return () => {

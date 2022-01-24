@@ -6,7 +6,7 @@ import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import { removeMember } from "../../network/memberApi";
 import { getServers } from "../../network/serverApi";
-import { HOME } from "../../utils/constants";
+import { HOME, MEMBER_LEAVE } from "../../utils/constants";
 
 export default function ServerLeaveDialog(props) {
   const { open, setOpen, role } = props;
@@ -18,18 +18,14 @@ export default function ServerLeaveDialog(props) {
     setMode,
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket },
   } = useContext(AuthContext);
 
   // click handler for confirm button
   const handleConfirm = async () => {
     const memberId = server.members.find((e) => e.user_id == user.id).id;
-    await removeMember(server.id, memberId);
-    //TODO - need to link to server
-    // const serverId = server.id;
-    // servers.find((server, i) => {
-    //   if (server.id === serverId) return servers.splice(i, 1);
-    // });
+    const members = await removeMember(server.id, memberId);
+    socket.emit(MEMBER_LEAVE, members, server.id);
     const servers = await getServers();
     await setServers(servers);
     setOpen(false);
