@@ -67,7 +67,7 @@ const useStyles = makeStyles(() => ({
   // chatPaper: {
   //   boxShadow: "0 0 0 0",
   // },
-  messages: { width: "75%" },
+  messages: { width: "75%", overflowY: "scroll" },
   message: {},
   avatar: {},
   body: {},

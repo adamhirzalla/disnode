@@ -22,8 +22,14 @@ export const AuthProvider = ({ children }) => {
   const sio = useRef();
 
   // landing socket connection on app load
-  useEffect(async () => {
-    if (!state.loading && state.authenticated) {
+  useEffect(() => {
+    const updateActive = (activeUsers) => {
+      dispatch({
+        type: SET_ACTIVE_USERS,
+        activeUsers,
+      });
+    };
+    if (state.authenticated) {
       sio.current = socket;
 
       dispatch({
@@ -33,21 +39,13 @@ export const AuthProvider = ({ children }) => {
 
       console.log("socket handshake with fingerprint", socket.id);
 
-      socket.on("connection", (activeUsers) => {
-        dispatch({
-          type: SET_ACTIVE_USERS,
-          activeUsers,
-        });
-      });
+      socket.on("connection", updateActive);
 
-      socket.on("disconnection", (activeUsers) => {
-        dispatch({
-          type: SET_ACTIVE_USERS,
-          activeUsers,
-        });
-      });
+      socket.on("disconnection", updateActive);
     }
-    return () => socket.off();
+    return () => {
+      socket && socket.removeAllListeners();
+    };
   }, [state.authenticated, socket]);
 
   useEffect(() => {
@@ -60,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     }, 1000 * 60 * 60 * 23);
     return () => {
       clearInterval(tokenInterval);
-      socket.off();
+      socket.offAny();
     };
   }, []);
 

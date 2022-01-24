@@ -41,7 +41,14 @@ export default function MessageList({ children }) {
   });
 
   const parsedMessages = messages.map((message, i) => {
-    return <MessageListItem key={i} message={message} />;
+    return (
+      <MessageListItem
+        key={i}
+        message={message}
+        index={i}
+        messages={messages}
+      />
+    );
   });
 
   return (

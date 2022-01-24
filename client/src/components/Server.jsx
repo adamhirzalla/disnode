@@ -14,20 +14,17 @@ const useStyles = makeStyles({
 });
 export default function Server(props) {
   const classes = useStyles();
-  const {
-    setMessages,
-    appDispatch,
-    setServer,
-    app: { channel, server, messages },
-  } = useContext(ServerContext);
+  const { setMessages, appDispatch, setServer, app } =
+    useContext(ServerContext);
+  const { channel, server, messages, servers } = app;
   const {
     state: { user, socket, activeUsers, autheticated },
   } = useContext(AuthContext);
 
   // useeffect responsbile for all server actions
-  useEffect(async () => {
+  useEffect(() => {
     if (socket) {
-      socket.on("channel message", async (message) => {
+      socket.on("channel message", (message) => {
         // const messages = await getMessages();
         // if (channel.id !== message.channel_id) return;
         // const channels = await getChannels(server.id);
@@ -37,16 +34,28 @@ export default function Server(props) {
         // can also only render views if message is last index
         // on backend -> receive that emit and add users to
         // views db and chip off the msg to clients w views filled
+
         if (message.server_id !== server.id) return;
-        console.log(message);
+
         setMessages(message);
         // setChannels(channels); // dont use
         // setServer(server);
       });
+      console.log("Channel Messages listener added:", new Date());
     }
-    return () => socket.removeAllListeners("channel message");
+
+    return () => {
+      socket.removeAllListeners("channel message");
+      console.log("Channel Messages listener removed");
+    };
+
     // setMembers(members);
-  }, [socket, activeUsers]);
+  }, [socket, server]);
+
+  // useEffect(() => {
+
+  //   console.log("server change");
+  // }, []);
   return (
     <>
       <ChannelList />
