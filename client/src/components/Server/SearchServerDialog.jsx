@@ -34,6 +34,7 @@ export default function SearchServerDialog() {
         key={server.id}
         openResult={openResult}
         server={server}
+        setOpen={setOpen}
         setOpenResult={setOpenResult}
       />
     );

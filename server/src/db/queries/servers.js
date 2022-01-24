@@ -75,11 +75,15 @@ const byTitle = (title) => {
       const membersQueries = servers.map((server) =>
         Member.byServer(server.id)
       );
+      const tagsQueries = servers.map((server) => Tag.byServer(server.id));
       return Promise.all(membersQueries).then((members) => {
-        servers.forEach((server, i) => {
-          server.members = members[i];
+        return Promise.all(tagsQueries).then((tags) => {
+          servers.forEach((server, i) => {
+            server.members = members[i];
+            server.tags = tags[i];
+          });
+          return servers;
         });
-        return servers;
       });
     });
 };
@@ -100,8 +104,11 @@ const byCode = (code) => {
     .then((res) => res.rows[0])
     .then((server) => {
       if (!server) return;
-      return Member.byServer(server.id).then((members) => {
-        return { ...server, members };
+      return Promise.all([
+        Member.byServer(server.id),
+        Tag.byServer(server.id),
+      ]).then(([members, tags]) => {
+        return { ...server, members, tags };
       });
     });
 };

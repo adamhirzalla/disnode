@@ -5,27 +5,46 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@mui/material";
+import { useContext } from "react";
+import AuthContext from "../../contexts/AuthContext";
+import ServerContext from "../../contexts/ServerContext";
+import { addMember } from "../../network/memberApi";
+import { getServers } from "../../network/serverApi";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
-export default function ConfirmDialog({ open, setOpen, server }) {
+export default function ConfirmDialog(props) {
+  const { confirm, setOpen, server, setOpenResult, setConfirm } = props;
+  const { setMembers, setServers } = useContext(ServerContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
+
   const buttonClasses = useDisButtonStyles();
   const classes = useServerDialogStyles();
 
-  const handleConfirm = () => {
-    console.log(server);
+  const handleConfirm = async () => {
+    const members = await addMember(server.id, user.id);
+    const servers = await getServers();
+    setServers(servers);
+    setMembers(members);
+    setOpenResult(false);
+    setOpen(false);
   };
 
   return (
     <Dialog
       classes={{ paper: classes.dialogPaper }}
-      open={open}
-      onClose={() => setOpen(false)}
+      open={confirm}
+      onClose={() => setConfirm(false)}
     >
       <DialogTitle>{server.title}</DialogTitle>
       <DialogContentText>{`Are you sure you want to Join?`}</DialogContentText>
       <DialogActions>
-        <Button className={buttonClasses.cancel} onClick={() => setOpen(false)}>
+        <Button
+          className={buttonClasses.cancel}
+          onClick={() => setConfirm(false)}
+        >
           Cancel
         </Button>
         <Button className={buttonClasses.submit} onClick={handleConfirm}>
