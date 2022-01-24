@@ -38,3 +38,4 @@ export const MEMBER_KICK = "MEMBER_KICK";
 export const SERVER_EDIT = "SERVER_EDIT";
 export const SERVERS_UPDATE = "SERVERS_UPDATE";
 export const CHANNEL_EDIT = "CHANNEL_EDIT";
+export const CHANNEL_DELETE = "CHANNEL_DELETE";

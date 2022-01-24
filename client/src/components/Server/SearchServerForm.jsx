@@ -39,7 +39,7 @@ export default function SearchServerForm(props) {
           type="text"
           fullWidth
           variant="outlined"
-          placeholder="Search Server Title"
+          placeholder="by Title..."
           onKeyDown={handleKeyDown}
           onChange={(e) => {
             setSearch((prev) => ({ ...prev, title: e.target.value }));
@@ -50,7 +50,7 @@ export default function SearchServerForm(props) {
           type="text"
           fullWidth
           variant="outlined"
-          placeholder="Invite Code"
+          placeholder="by Invite Code..."
           onKeyDown={handleKeyDown}
           onChange={(e) => {
             setSearch((prev) => ({ ...prev, inviteCode: e.target.value }));

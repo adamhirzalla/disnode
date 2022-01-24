@@ -133,10 +133,10 @@ export default function reducer(state, action) {
       delete state?.channels[channel.id];
       const channelsData = Object.values(state?.channels);
       // const channel = { ...channels.find((c) => c.id === channelId) };
+      if (state.channel.id !== channel.id) return { ...state };
       return {
         ...state,
-        // channels,
-        channel: channelsData[0] || {},
+        channel: channelsData[0] || { messages: [] },
         messages: channelsData[0].messages || [],
       };
     }

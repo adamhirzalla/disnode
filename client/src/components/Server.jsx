@@ -9,8 +9,10 @@ import { useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import {
+  CHANNEL_DELETE,
   CHANNEL_EDIT,
   CHANNEL_MESSAGE,
+  DELETE_CHANNEL,
   EDIT_CHANNEL,
   EDIT_SERVER,
   HOME,
@@ -45,6 +47,7 @@ export default function Server(props) {
       socket.on(SERVER_EDIT, editServer);
       socket.on(SERVERS_UPDATE, updateServers);
       socket.on(CHANNEL_EDIT, editChannel);
+      socket.on(CHANNEL_DELETE, deleteChanel);
       console.log("listeners added");
     }
     return () => {
@@ -82,6 +85,12 @@ export default function Server(props) {
   const editChannel = (channel) => {
     appDispatch({
       type: EDIT_CHANNEL,
+      channel,
+    });
+  };
+  const deleteChanel = (channel) => {
+    appDispatch({
+      type: DELETE_CHANNEL,
       channel,
     });
   };
