@@ -6,7 +6,7 @@ import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import { removeMember } from "../../network/memberApi";
 import { getServers } from "../../network/serverApi";
-import { HOME, MEMBER_LEAVE } from "../../utils/constants";
+import { HOME, MEMBER_UPDATE } from "../../utils/constants";
 
 export default function ServerLeaveDialog(props) {
   const { open, setOpen, role } = props;
@@ -25,7 +25,7 @@ export default function ServerLeaveDialog(props) {
   const handleConfirm = async () => {
     const memberId = server.members.find((e) => e.user_id == user.id).id;
     const members = await removeMember(server.id, memberId);
-    socket.emit(MEMBER_LEAVE, members, server.id);
+    socket.emit(MEMBER_UPDATE, members, server.id);
     const servers = await getServers();
     await setServers(servers);
     setOpen(false);

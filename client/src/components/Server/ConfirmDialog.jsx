@@ -10,7 +10,7 @@ import AuthContext from "../../contexts/AuthContext";
 import ServerContext from "../../contexts/ServerContext";
 import { addMember } from "../../network/memberApi";
 import { getServer, getServers } from "../../network/serverApi";
-import { MEMBER_JOIN, SERVER } from "../../utils/constants";
+import { MEMBER_UPDATE, SERVER } from "../../utils/constants";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
@@ -27,7 +27,7 @@ export default function ConfirmDialog(props) {
   const handleConfirm = async () => {
     try {
       const members = await addMember(server.id);
-      socket.emit(MEMBER_JOIN, members, server.id);
+      socket.emit(MEMBER_UPDATE, members, server.id);
       const servers = await getServers();
       const joinedServer = await getServer(server.id);
       if (joinedServer && servers) {
