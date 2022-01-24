@@ -9,7 +9,9 @@ import { useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import {
+  CHANNEL_EDIT,
   CHANNEL_MESSAGE,
+  EDIT_CHANNEL,
   EDIT_SERVER,
   HOME,
   MEMBER_KICK,
@@ -42,6 +44,7 @@ export default function Server(props) {
       socket.on(MEMBER_KICK, kickMember);
       socket.on(SERVER_EDIT, editServer);
       socket.on(SERVERS_UPDATE, updateServers);
+      socket.on(CHANNEL_EDIT, editChannel);
       console.log("listeners added");
     }
     return () => {
@@ -75,6 +78,12 @@ export default function Server(props) {
   const updateServers = async () => {
     const servers = await getServers();
     setServers(servers);
+  };
+  const editChannel = (channel) => {
+    appDispatch({
+      type: EDIT_CHANNEL,
+      channel,
+    });
   };
   return (
     <>

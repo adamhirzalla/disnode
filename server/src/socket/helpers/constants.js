@@ -6,6 +6,7 @@ const MEMBER_UPDATE = "MEMBER_UPDATE";
 const MEMBER_KICK = "MEMBER_KICK";
 const SERVER_EDIT = "SERVER_EDIT";
 const SERVERS_UPDATE = "SERVERS_UPDATE";
+const CHANNEL_EDIT = "CHANNEL_EDIT";
 
 module.exports = {
   SERVER_LEAVE,
@@ -15,4 +16,5 @@ module.exports = {
   MEMBER_KICK,
   SERVER_EDIT,
   SERVERS_UPDATE,
+  CHANNEL_EDIT,
 };

@@ -114,12 +114,18 @@ export default function reducer(state, action) {
     case EDIT_CHANNEL: {
       // const channelsData = Object.values(state?.channels);
       const updatedChannel = { ...state.channel, ...channel };
-      state.channels[channel.id] = updatedChannel;
+      // state.channels[channel.id] = updatedChannel;
       // const channel = { ...channels.find((c) => c.id === channelId) };
       return {
         ...state,
-        // channels,
-        channel: updatedChannel,
+        channels: {
+          ...state.channels,
+          [channel.id]: { ...state.channels[channel.id], ...channel },
+        },
+        channel:
+          state.channel.id === channel.id
+            ? updatedChannel
+            : { ...state.channel },
         // messages: channelsData[0].messages || [],
       };
     }
