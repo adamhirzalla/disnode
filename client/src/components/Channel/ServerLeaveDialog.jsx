@@ -9,7 +9,7 @@ import { getServers } from "../../network/serverApi";
 import { HOME } from "../../utils/constants";
 
 export default function ServerLeaveDialog(props) {
-  const { open, setOpen } = props;
+  const { open, setOpen, role } = props;
   const classes = useNewChannelDialogStyles();
   const buttonClasses = useDisButtonStyles();
   const {
@@ -36,20 +36,27 @@ export default function ServerLeaveDialog(props) {
     setMode(HOME);
   };
 
+  const confirmation =
+    role === "owner"
+      ? "Pass your ownership before leaving"
+      : "Would you like to leave server?";
+
   return (
     <Dialog
       classes={{ paper: classes.dialogPaper }}
       open={open}
       onClose={() => setOpen(false)}
     >
-      <DialogTitle>{`Would you like to leave server?`}</DialogTitle>
+      <DialogTitle>{confirmation}</DialogTitle>
       <DialogActions>
         <Button className={buttonClasses.cancel} onClick={() => setOpen(false)}>
           Cancel
         </Button>
-        <Button className={buttonClasses.submit} onClick={handleConfirm}>
-          Confirm
-        </Button>
+        {role !== "owner" && (
+          <Button className={buttonClasses.submit} onClick={handleConfirm}>
+            Confirm
+          </Button>
+        )}
       </DialogActions>
     </Dialog>
   );

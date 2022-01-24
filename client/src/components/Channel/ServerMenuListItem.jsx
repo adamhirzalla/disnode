@@ -80,7 +80,7 @@ export default function ServerMenuList({ handleClose, option, setOption }) {
           Leave
         </MenuItem>
       </MenuList>
-      <ServerLeaveDialog open={open} setOpen={setOpen} />
+      <ServerLeaveDialog open={open} setOpen={setOpen} role={role} />
       <ServerEditDialog open={edit} setOpen={setEdit} />
     </Paper>
   );

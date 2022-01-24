@@ -14,6 +14,8 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 // styles
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
+import { useContext } from "react";
+import ServerContext from "../../contexts/ServerContext";
 
 export default function NewServerDialog(props) {
   const { onClick: createServer } = props;
@@ -23,6 +25,7 @@ export default function NewServerDialog(props) {
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
+  const { setServer } = useContext(ServerContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,6 +47,7 @@ export default function NewServerDialog(props) {
     if (!tags.length) return setError("Please include at least one tag");
     createServer({ title, tags, file });
     handleClose();
+    // setServer(server);
   };
   return (
     <div>

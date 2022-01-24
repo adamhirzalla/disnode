@@ -9,13 +9,14 @@ import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import ServerContext from "../../contexts/ServerContext";
 import { addMember } from "../../network/memberApi";
-import { getServers } from "../../network/serverApi";
+import { getServer, getServers } from "../../network/serverApi";
+import { SERVER } from "../../utils/constants";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
 export default function ConfirmDialog(props) {
   const { confirm, setOpen, server, setOpenResult, setConfirm } = props;
-  const { setMembers, setServers } = useContext(ServerContext);
+  const { setServers, setServer, setMode } = useContext(ServerContext);
   const {
     state: { user },
   } = useContext(AuthContext);
@@ -24,12 +25,16 @@ export default function ConfirmDialog(props) {
   const classes = useServerDialogStyles();
 
   const handleConfirm = async () => {
-    const members = await addMember(server.id, user.id);
+    await addMember(server.id, user.id);
     const servers = await getServers();
-    setServers(servers);
-    setMembers(members);
+    const joinedServer = await getServer(server.id);
     setOpenResult(false);
     setOpen(false);
+    if (joinedServer && servers) {
+      setServers(servers);
+      setServer(joinedServer);
+      setMode(SERVER);
+    }
   };
 
   return (

@@ -23,7 +23,7 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
-import { HOME } from "../../utils/constants";
+import { HOME, SERVER } from "../../utils/constants";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import ProfileMenu from "./ProfileMenu";
@@ -129,6 +129,7 @@ export default function ServerList(props) {
       if (server && servers) {
         setServers(servers);
         setServer(server);
+        setMode(SERVER);
       }
     } catch (e) {
       console.log("Could not create server");

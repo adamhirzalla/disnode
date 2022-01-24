@@ -4,6 +4,7 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Person from "@mui/icons-material/Person";
 import Admin from "@mui/icons-material/AdminPanelSettings";
+import Onwership from "@mui/icons-material/CompareArrows";
 
 import { makeStyles } from "@mui/styles";
 import {
@@ -35,13 +36,16 @@ export default function MemberMenu(props) {
   const [action, setAction] = useState("");
   const classes = useStyles();
 
-  const [PROFILE, ADD, ADMIN, DEMOTE, KICK] = [
+  const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
     "PROFILE",
     "ADD",
     "ADMIN",
     "DEMOTE",
     "KICK",
+    "OWNERSHIP",
   ];
+
+  const role = members.find((m) => m.user_id === user.id).role;
 
   // tartget a member that user clicks
   const handleAnchor = (e) => {
@@ -97,8 +101,19 @@ export default function MemberMenu(props) {
               Add Friend
             </MenuItem>
           )}
+          {role === "owner" &&
+            member.user_id !== user.id &&
+            member.role === "admin" && (
+              <MenuItem onClick={() => handleAction(OWNERSHIP)}>
+                <ListItemIcon>
+                  <Onwership color="secondary" />
+                </ListItemIcon>
+                Pass Ownership
+              </MenuItem>
+            )}
+
           {member.role !== "admin" &&
-            members.find((m) => m.user_id === user.id).role === "owner" &&
+            role === "owner" &&
             member.user_id !== user.id && (
               <MenuItem onClick={() => handleAction(ADMIN)}>
                 <ListItemIcon>
@@ -108,7 +123,7 @@ export default function MemberMenu(props) {
               </MenuItem>
             )}
           {member.role === "admin" &&
-            members.find((m) => m.user_id === user.id).role === "owner" &&
+            role === "owner" &&
             member.user_id !== user.id && (
               <MenuItem onClick={() => handleAction(DEMOTE)}>
                 <ListItemIcon>
@@ -117,10 +132,9 @@ export default function MemberMenu(props) {
                 Demote To User
               </MenuItem>
             )}
-          {(members.find((m) => m.user_id === user.id).role === "owner" ||
-            members.find((m) => m.user_id === user.id).role === "admin") &&
+          {(role === "owner" || role === "admin") &&
             member.user_id !== user.id &&
-            member.role !== "owner" && (
+            member.role === "user" && (
               <MenuItem onClick={() => handleAction(KICK)}>
                 <ListItemIcon>
                   <Logout color="error" />
