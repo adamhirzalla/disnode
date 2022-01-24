@@ -13,7 +13,6 @@ import { useHomePageStyles } from "../components/styles/useHomePageStyles";
 import { useBoxStyles } from "./styles/useBoxStyles";
 import MessageForm from "./Channel/Message/MessageForm";
 import { Stack } from "@mui/material";
-import ChannelHeader from "./Channel/ChannelHeader";
 import DMHeader from "./Home/DirectMessage/DMHeader";
 
 const useStyles = makeStyles(() => ({
@@ -27,8 +26,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function Home() {
-  const homeClasses = useHomePageStyles();
-  const boxClasses = useBoxStyles();
   const classes = useStyles();
   const { state, dispatch } = useContext(AuthContext);
 
