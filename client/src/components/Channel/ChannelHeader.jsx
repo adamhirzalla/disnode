@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   header: {
     borderBottom: "1px solid rgb(4,11,12,0.4)",
     backgroundColor: "rgb(4,11,12,1)",
-    height: "58px",
+    minHeight: "58px",
     display: "flex",
     justifyContent: "center",
   },
