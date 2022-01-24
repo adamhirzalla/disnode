@@ -58,8 +58,6 @@ export default function Server(props) {
   };
   const kickMember = async (member) => {
     if (member.user_id === user.id) {
-      console.log("member:", member);
-      console.log(member.user_id, user.id);
       const servers = await getServers();
       if (server.id) socket.emit(SERVER_LEAVE, server.id);
       setServers(servers);

@@ -21,7 +21,7 @@ import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
 export default function ConfirmDialog(props) {
   const { confirm, setOpen, server, setOpenResult, setConfirm } = props;
-  const { setServers, setServer, setMode } = useContext(ServerContext);
+  const { setServers, setServer, setMode, app } = useContext(ServerContext);
   const {
     state: { socket },
   } = useContext(AuthContext);
@@ -38,7 +38,7 @@ export default function ConfirmDialog(props) {
       if (joinedServer && servers) {
         setOpenResult(false);
         setOpen(false);
-        socket.emit(SERVER_LEAVE, server.id);
+        if (app.server.id) socket.emit(SERVER_LEAVE, app.server.id);
         socket.emit(SERVER_JOIN, joinedServer.id);
         setServers(servers);
         setServer(joinedServer);
