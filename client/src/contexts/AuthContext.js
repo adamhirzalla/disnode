@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         activeUsers,
       });
     };
-    if (!state.loading && state.authenticated) {
+    if (state.authenticated) {
       sio.current = socket;
 
       dispatch({
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       socket.on("disconnection", updateActive);
     }
     return () => {
-      socket.removeAllListeners();
+      socket && socket.removeAllListeners();
     };
   }, [state.authenticated, socket]);
 

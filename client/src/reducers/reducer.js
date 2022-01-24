@@ -84,6 +84,8 @@ export default function reducer(state, action) {
       };
     case SET_SERVER: {
       const channels = Object.values(server?.channels);
+      console.log("Old Reducer Server:", state.server.id);
+      console.log("Reducer server:", server.id);
       return {
         ...state,
         server,
@@ -156,7 +158,9 @@ export default function reducer(state, action) {
       // const messages = [...app.messages, message];
       // const channelsData = Object.values(state.server?.channels);
       const channel = state.channels[message.channel_id];
-      if (state.server.id !== message.server_id || !channel) return;
+      if (state.server.id !== message.server_id || !channel)
+        return { ...state };
+
       // if (
       //   state.server.id !== message.server_id ||
       //   !channelsData.some((ch) => ch.id === message.channel_id)
@@ -164,7 +168,9 @@ export default function reducer(state, action) {
       // const channel = {
       //   ...channelsData.find((ch) => ch.id === message.channel_id),
       // };
+
       const messages = [...channel.messages, message];
+
       // const updatedChannel = { ...channel, messages };
 
       // -> for DMs (this puts newest DM on top (can be used for notifications))
@@ -198,6 +204,7 @@ export default function reducer(state, action) {
       };
     case SET_NEW_CHANNEL: {
       // const channels = [...state.server.channels, channel];
+      channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
       return {
         ...state,
