@@ -6,7 +6,7 @@ import { getMessages, sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
 import { getChannels } from "../../../network/channelApi";
 import { makeStyles } from "@mui/styles";
-import { SET_MESSAGES } from "../../../utils/constants";
+import { CHANNEL_MESSAGE, SET_MESSAGES } from "../../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -76,7 +76,7 @@ export default function MessageForm() {
       // setChannels(channels); // dont use
       // console.log(message);
       // console.log(activeUsers);
-      socket.emit("channel message", message);
+      socket.emit(CHANNEL_MESSAGE, message);
       setMessages(message);
     } catch (e) {
       console.log("Failed to send message");

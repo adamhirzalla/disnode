@@ -201,8 +201,9 @@ router.get("/servers/:id/members", async (req, res) => {
 });
 
 // add a member into server
-router.post("/servers/:serverId/users/:userId", async (req, res) => {
-  const { serverId, userId } = req.params;
+router.post("/servers/:serverId/members", async (req, res) => {
+  const userId = req.user.id;
+  const { serverId } = req.params;
   const data = { serverId, userId, role: "user" };
   try {
     await Member.create(data);

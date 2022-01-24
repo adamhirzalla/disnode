@@ -30,11 +30,7 @@ export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const SET_NEW_CHANNEL = "SET_NEW_CHANNEL";
 
 // Sockets
-export const SocketScare = "scare";
-export const SocketGetOnline = "get online";
-export const SocketMessage = "message";
-export const SocketConnection = "connection";
-export const SocketDisconnection = "disconnection";
-export const SocketHomeClient = "home client";
-export const SocketChannelMessage = "channel message";
-export const SocketHomeClick = "home click";
+export const SERVER_LEAVE = "SERVER_LEAVE";
+export const SERVER_JOIN = "SERVER_JOIN";
+export const CHANNEL_MESSAGE = "CHANNEL_MESSAGE";
+export const MEMBER_JOIN = "MEMBER_JOIN";

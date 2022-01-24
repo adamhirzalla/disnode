@@ -8,54 +8,49 @@ import ChannelHeader from "./Channel/ChannelHeader";
 import { useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
+import {
+  CHANNEL_MESSAGE,
+  MEMBER_JOIN,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+} from "../utils/constants";
 
 const useStyles = makeStyles({
   messages: { justifyContent: "flex-end", width: "100%" },
 });
 export default function Server(props) {
   const classes = useStyles();
-  const { setMessages, appDispatch, setServer, app } =
-    useContext(ServerContext);
+  const { setMessages, setMembers, app } = useContext(ServerContext);
   const { channel, server, messages, servers } = app;
   const {
     state: { user, socket, activeUsers, autheticated },
   } = useContext(AuthContext);
 
-  // useeffect responsbile for all server actions
   useEffect(() => {
     if (socket) {
-      socket.on("channel message", (message) => {
-        // const messages = await getMessages();
-        // if (channel.id !== message.channel_id) return;
-        // const channels = await getChannels(server.id);
-
-        // get back users online and add them in views
-        // do this only if user is sender
-        // can also only render views if message is last index
-        // on backend -> receive that emit and add users to
-        // views db and chip off the msg to clients w views filled
-
-        if (message.server_id !== server.id) return;
-
-        setMessages(message);
-        // setChannels(channels); // dont use
-        // setServer(server);
-      });
-      console.log("Channel Messages listener added:", new Date());
+      socket.on(SERVER_JOIN, serverJoined);
+      socket.on(SERVER_LEAVE, serverLeft);
+      socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
+      socket.on(MEMBER_JOIN, updateMembers);
+      console.log("listeners added");
     }
-
     return () => {
-      socket.removeAllListeners("channel message");
-      console.log("Channel Messages listener removed");
+      socket.removeAllListeners();
+      console.log("listeners removed");
     };
-
-    // setMembers(members);
   }, [socket, server]);
-
-  // useEffect(() => {
-
-  //   console.log("server change");
-  // }, []);
+  const serverJoined = (userId, serverId) => {
+    console.log(`User ${userId} has joined Server ${serverId}`);
+  };
+  const serverLeft = (userId, serverId) => {
+    console.log(`User ${userId} just left Server ${serverId}`);
+  };
+  const receiveChannelMSG = (message) => {
+    setMessages(message);
+  };
+  const updateMembers = (members) => {
+    setMembers(members);
+  };
   return (
     <>
       <ChannelList />
