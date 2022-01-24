@@ -18,6 +18,7 @@ export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";
 export const SET_MODE = "SET_MODE";
 export const SET_SERVER = "SET_SERVER";
 export const SET_SERVERS = "SET_SERVERS";
+export const EDIT_SERVER = "EDIT_SERVER";
 export const SET_CHANNEL = "SET_CHANNEL";
 export const SET_MEMBERS = "SET_MEMBERS";
 export const EDIT_CHANNEL = "EDIT_CHANNEL";

@@ -1,6 +1,7 @@
 import {
   Alert,
   Avatar,
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -13,27 +14,52 @@ import DisTextField from "../Inputs/DisTextField";
 import SelectButton from "../Server/SelectButton";
 import Tags from "../Server/Tags";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
+import uploadtoS3 from "../../utils/s3";
+import { updateServer } from "../../network/serverApi";
+import { EDIT_SERVER } from "../../utils/constants";
+import { Box } from "@mui/system";
 
 export default function ServerEditDialog(props) {
   const { open, setOpen } = props;
-  const {
-    app: { server },
-  } = useContext(ServerContext);
+  const { app, appDispatch } = useContext(ServerContext);
+  const { server } = app;
+  const initialInput = {
+    logo: server.logo,
+    title: server.title,
+  };
   const classes = useServerDialogStyles();
-  const [file, setFile] = useState();
-  const [title, setTitle] = useState(server.title);
-  const [tags, setTags] = useState(server.tags);
+  const [input, setInput] = useState(initialInput);
+  const [tags, setTags] = useState([]);
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
 
-  console.log(tags);
   const handleCancel = () => {
     setTimeout(() => {
-      setTitle(server.title);
+      setInput(initialInput);
     }, 200);
     setOpen(false);
+    setError(null);
   };
 
-  const handleCreate = () => {
+  const handleUndo = () => {
+    const preview = document.querySelector("#image-preview");
+    preview.src = server.logo;
+    setFile(null);
+  };
+
+  const handleEdit = async () => {
+    input.tags = tags;
+    if (!input.title) return setError("Title can not be empty");
+    const formData = new FormData();
+    formData.append("image", file);
+    let logo;
+    if (file) [logo] = await uploadtoS3(formData);
+    const data = file ? { ...input, logo } : input;
+
+    const server = await updateServer(app.server.id, data);
+    appDispatch({ type: EDIT_SERVER, server });
     setOpen(false);
+    setError(null);
   };
 
   return (
@@ -45,10 +71,11 @@ export default function ServerEditDialog(props) {
       >
         <DialogTitle style={{ fontSize: "1.55em" }}>Edit Server</DialogTitle>
         <DialogContent className={classes.content}>
-          <div
-            style={{
+          <Box
+            sx={{
               display: "flex",
-              justifyContent: "center",
+              flexDirection: "column",
+              alignItems: "center",
               marginBottom: "20px",
             }}
           >
@@ -56,20 +83,27 @@ export default function ServerEditDialog(props) {
               style={{
                 width: "85px",
                 height: "85px",
+                marginBottom: "20px",
               }}
               imgProps={{ id: "image-preview" }}
-              src="/images/Disnode-red.png"
+              src={server.logo}
             />
-          </div>
-          <SelectButton setFile={setFile} />
+            <SelectButton setFile={setFile} />
+            <Button color="error" onClick={handleUndo}>
+              Undo
+            </Button>
+          </Box>
           <DisTextField
             autoFocus
             type="text"
             fullWidth
             variant="outlined"
             label="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={input.title}
+            onChange={(e) =>
+              setInput((prev) => ({ ...prev, title: e.target.value }))
+            }
+            sx={{ marginBottom: "30px" }}
           />
           <Tags setTags={setTags} serverTags={server.tags} />
         </DialogContent>
@@ -77,11 +111,11 @@ export default function ServerEditDialog(props) {
           <DisButton disStyle="cancel" onClick={handleCancel}>
             Cancel
           </DisButton>
-          <DisButton disStyle="submit" onClick={handleCreate}>
-            Create
+          <DisButton disStyle="submit" onClick={handleEdit}>
+            Edit
           </DisButton>
         </DialogActions>
-        {/* {error && <Alert severity="error">{error}</Alert>} */}
+        {error && <Alert severity="error">{error}</Alert>}
       </Dialog>
     </div>
   );

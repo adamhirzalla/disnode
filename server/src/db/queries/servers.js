@@ -127,6 +127,29 @@ const createTags = (tagIds, serverId) => {
   return Promise.all(tagQueries);
 };
 
+const update = (data, serverId) => {
+  const { logo, title } = data;
+  const serverQuery = db
+    .query(
+      `
+  UPDATE servers
+  SET logo = $1,
+  title = $2
+  WHERE id = $3
+  RETURNING *
+  `,
+      [logo, title, serverId]
+    )
+    .then((res) => res.rows[0]);
+
+  return Promise.all([serverQuery, Tag.byServer(serverId)]).then(
+    ([server, tags]) => ({
+      ...server,
+      tags,
+    })
+  );
+};
+
 module.exports = {
   byUser,
   byTitle,
@@ -134,4 +157,5 @@ module.exports = {
   byID,
   create,
   createTags,
+  update,
 };

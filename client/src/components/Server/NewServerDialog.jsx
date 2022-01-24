@@ -31,6 +31,9 @@ export default function NewServerDialog(props) {
   const handleClose = () => {
     setOpen(false);
     setError(null);
+    setTitle("");
+    setTags([]);
+    setFile(null);
   };
 
   const handleChange = (e) => {
@@ -38,8 +41,9 @@ export default function NewServerDialog(props) {
   };
 
   const handleCreate = () => {
-    setOpen(false);
+    if (!tags.length) return setError("Please include at least one tag");
     createServer({ title, tags, file });
+    handleClose();
   };
   return (
     <div>

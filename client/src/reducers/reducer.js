@@ -17,6 +17,7 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   EDIT_CHANNEL,
+  EDIT_SERVER,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -204,6 +205,21 @@ export default function reducer(state, action) {
         channels,
         channel,
         messages: [],
+      };
+    }
+    case EDIT_SERVER: {
+      const { id, title, logo, tags } = server;
+      const servers = state.servers.map((s) => {
+        if (s.id === id) {
+          s.title = title;
+          s.logo = logo;
+        }
+        return s;
+      });
+      return {
+        ...state,
+        server: { ...state.server, title, logo, tags },
+        servers,
       };
     }
     default:

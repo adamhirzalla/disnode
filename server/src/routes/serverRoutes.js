@@ -3,6 +3,7 @@ const Server = require("../db/queries/servers");
 const Channel = require("../db/queries/channels");
 const Member = require("../db/queries/members");
 const Helpers = require("../helpers/dbHelpers");
+const Tag = require("../db/queries/tags");
 const uuid = require("uuid");
 
 // GET All user servers
@@ -68,6 +69,19 @@ router.post("/servers/:id", async (req, res) => {
     if (!server) return res.status(400).send("Server not found");
     const channels = Helpers.parseChannels(server.channels);
     res.status(200).send({ ...server, channels });
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// update server
+router.put("/servers/:serverId", async (req, res) => {
+  const serverId = req.params.serverId;
+  const { data } = req.body;
+  try {
+    await Tag.addMultiple(serverId, data.tags);
+    const server = await Server.update(data, serverId);
+    res.status(200).send(server);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
@@ -142,14 +156,15 @@ router.delete("/servers/:serverId/members/:memberId", async (req, res) => {
 });
 
 // adding tags to a server
-router.put("/servers/:id/tags", async (req, res) => {
+router.post("/servers/:id/tags", async (req, res) => {
   // for: error validation
   // const { error } = validateChannel(req.body);
   // if (error) return res.status(400).send(error.details[0].message);
   const userId = req.user.id;
   const serverId = req.params.id;
   const { tags } = req.body;
-  if (!tags) return res.status(400).send("At least 1 server tag is required");
+  if (!tags.length)
+    return res.status(400).send("At least 1 server tag is required");
   try {
     await Server.createTags(tags, serverId);
     res.status(200).send("Tags added successfully");

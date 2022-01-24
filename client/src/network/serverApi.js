@@ -40,7 +40,7 @@ export const createServer = async (title, logo) => {
 
 export const createTags = async (tags, serverId) => {
   try {
-    const res = await axios.put(`/api/servers/${serverId}/tags`, { tags });
+    const res = await axios.post(`/api/servers/${serverId}/tags`, { tags });
     const server = res.data;
     return server;
     // const sio = await import("../socket/index");
@@ -64,5 +64,16 @@ export const searchServers = async (server) => {
     if (server) return [server];
   } catch (e) {
     console.log("Failed to search server ", e);
+  }
+};
+
+// update server
+export const updateServer = async (serverId, data) => {
+  try {
+    const res = await axios.put(`/api/servers/${serverId}`, { data });
+    const server = res.data;
+    return server;
+  } catch (e) {
+    console.log("Failed to update server ", e);
   }
 };
