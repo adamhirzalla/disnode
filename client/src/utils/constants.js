@@ -10,6 +10,7 @@ export const SET_USER = "SET_USER";
 export const SET_TOKENS = "SET_TOKENS";
 export const SET_SOCKET = "SET_SOCKET";
 export const SET_LOADING = "LOADING_USER";
+export const SET_FRIENDS = "SET_FRIENDS";
 export const SET_ACTIVE_USERS = "SET_ACTIVE_USERS";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";

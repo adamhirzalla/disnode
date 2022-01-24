@@ -14,6 +14,7 @@ export const initialState = {
   tokens: null,
   error: null,
   activeUsers: [],
+  friends: [],
   socket: null,
 };
 

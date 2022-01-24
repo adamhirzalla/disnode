@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -25,9 +25,12 @@ import {
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import PeopleAlt from "@mui/icons-material/PeopleAlt";
-import { friends } from "../mock";
+// import { friends } from "../mock";
 import MessageIcon from "@mui/icons-material/Message";
 import Badge from "@mui/material/Badge";
+import { getFriends } from "../../../network/friendApi";
+import { SET_FRIENDS } from "../../../utils/constants";
+import AuthContext from "../../../contexts/AuthContext";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -192,6 +195,10 @@ const useStyles = makeStyles(() => ({
 
 export default function FriendsListDrawer(props) {
   const classes = useStyles();
+  const {
+    dispatch,
+    state: { friends },
+  } = useContext(AuthContext);
 
   const [state, setState] = useState({
     top: false,
@@ -201,7 +208,10 @@ export default function FriendsListDrawer(props) {
   });
   const [open, setOpen] = useState(false);
 
-  const toggleDrawer = () => {
+  // when toggle button is clicked, fetch friends
+  const toggleDrawer = async () => {
+    const friends = await getFriends();
+    dispatch({ type: SET_FRIENDS, friends });
     setOpen(!open);
     // if (
     //   event &&
@@ -232,7 +242,7 @@ export default function FriendsListDrawer(props) {
           Friends
         </Typography>
       </Toolbar>
-      <List className={classes.list}>
+      {/* <List className={classes.list}>
         {friends.map((friend, i) => (
           <ListItem button key={i} className={classes.topListItem}>
             <ListItemAvatar>
@@ -255,7 +265,7 @@ export default function FriendsListDrawer(props) {
             </ListItemIcon>
           </ListItem>
         ))}
-      </List>
+      </List> */}
       <Divider />
       <List className={classes.list}>
         {friends.map((friend, i) => (
@@ -269,7 +279,7 @@ export default function FriendsListDrawer(props) {
               >
                 <Avatar
                   alt={friend.full_name}
-                  src={"/images/avatar3.jpg"}
+                  src={friend.avatar}
                   className={classes.avatar}
                 />
               </StyledBadge>

@@ -19,6 +19,7 @@ import {
   EDIT_CHANNEL,
   EDIT_SERVER,
   DELETE_MESSAGE,
+  SET_FRIENDS,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -27,6 +28,7 @@ export default function reducer(state, action) {
     mode,
     user,
     tokens,
+    friends,
     server,
     servers,
     members,
@@ -62,6 +64,12 @@ export default function reducer(state, action) {
         ...state,
         activeUsers,
       };
+    case SET_FRIENDS: {
+      return {
+        ...state,
+        friends,
+      };
+    }
     case SET_MODE:
       return {
         ...state,
@@ -244,6 +252,7 @@ export default function reducer(state, action) {
         servers,
       };
     }
+
     default:
       return { ...state, error: `Unsupported action type: ${action.type}` };
   }
