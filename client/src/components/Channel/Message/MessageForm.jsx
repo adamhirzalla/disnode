@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   form: {
     display: "flex",
     justifyContent: "center",
-    // minHeight: "30%",
+    minHeight: "20%",
     width: "100%",
     // minWidth: "100%",
     borderTop: "1px solid rgb(4,11,12,0.4)",
@@ -92,7 +92,7 @@ export default function MessageForm() {
         onKeyDown={handleKeyDown}
         autoFocus
         type="text"
-        maxRows="4"
+        maxRows="5"
         variant="standard"
         placeholder={`Message #${channel?.title}`}
         multiline

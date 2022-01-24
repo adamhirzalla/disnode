@@ -15,6 +15,8 @@ const useStyles = makeStyles({
     minHeight: "58px",
     display: "flex",
     justifyContent: "center",
+    borderBottomLeftRadius: "7px",
+    borderBottomRightRadius: "7px",
   },
   title: {
     color: "white",
