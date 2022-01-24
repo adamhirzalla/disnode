@@ -29,16 +29,13 @@ const useStyles = makeStyles({
 export default function ChannelDeleteDialog({ open, setOpen }) {
   const classes = useStyles();
   const buttonClasses = useDisButtonStyles();
-  const {
-    app: { channel },
-    setChannels,
-    appDispatch,
-  } = useContext(ServerContext);
+  const { app, setChannels, appDispatch } = useContext(ServerContext);
+  const { channel } = app;
 
   const handleDelete = async () => {
     // const channels = await deleteChannel(server.id, channel.id);
     // setChannels(channels);
-    const channel = await deleteChannel(channel.id);
+    const channel = await deleteChannel(app.channel.id);
     appDispatch({
       type: DELETE_CHANNEL,
       channel,

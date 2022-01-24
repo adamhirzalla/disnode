@@ -35,7 +35,7 @@ export default function ChannelEditDialog(props) {
   const { open, setOpen, input, setInput } = props;
   const { app, setChannel, setChannels, appDispatch } =
     useContext(ServerContext);
-  const { server } = app;
+  const { server, channel } = app;
   const classes = useStyles();
   const buttonClasses = useDisButtonStyles();
 
@@ -90,7 +90,7 @@ export default function ChannelEditDialog(props) {
             src={server.logo}
             imgProps={{ id: "image-preview" }}
           />
-          <Typography variant="h6">{server.title}</Typography>
+          <Typography variant="h6">{channel.title}</Typography>
         </Box>
         <Grid container columnSpacing={12} rowSpacing={4}>
           <Grid item xs={12}>
