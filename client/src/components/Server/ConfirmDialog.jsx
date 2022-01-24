@@ -10,7 +10,12 @@ import AuthContext from "../../contexts/AuthContext";
 import ServerContext from "../../contexts/ServerContext";
 import { addMember } from "../../network/memberApi";
 import { getServer, getServers } from "../../network/serverApi";
-import { MEMBER_UPDATE, SERVER } from "../../utils/constants";
+import {
+  MEMBER_UPDATE,
+  SERVER,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 
@@ -33,6 +38,8 @@ export default function ConfirmDialog(props) {
       if (joinedServer && servers) {
         setOpenResult(false);
         setOpen(false);
+        socket.emit(SERVER_LEAVE, server.id);
+        socket.emit(SERVER_JOIN, joinedServer.id);
         setServers(servers);
         setServer(joinedServer);
         setMode(SERVER);

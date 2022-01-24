@@ -10,17 +10,21 @@ import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import {
   CHANNEL_MESSAGE,
+  HOME,
+  MEMBER_KICK,
   MEMBER_UPDATE,
   SERVER_JOIN,
   SERVER_LEAVE,
 } from "../utils/constants";
+import { getServers } from "../network/serverApi";
 
 const useStyles = makeStyles({
   messages: { justifyContent: "flex-end", width: "100%" },
 });
 export default function Server(props) {
   const classes = useStyles();
-  const { setMessages, setMembers, app } = useContext(ServerContext);
+  const { setMessages, setMembers, setServers, setMode, app } =
+    useContext(ServerContext);
   const { channel, server, messages, servers } = app;
   const {
     state: { user, socket, activeUsers, autheticated },
@@ -32,6 +36,7 @@ export default function Server(props) {
       socket.on(SERVER_LEAVE, serverLeft);
       socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
       socket.on(MEMBER_UPDATE, updateMembers);
+      socket.on(MEMBER_KICK, kickMember);
       console.log("listeners added");
     }
     return () => {
@@ -50,6 +55,16 @@ export default function Server(props) {
   };
   const updateMembers = (members) => {
     setMembers(members);
+  };
+  const kickMember = async (member) => {
+    if (member.user_id === user.id) {
+      console.log("member:", member);
+      console.log(member.user_id, user.id);
+      const servers = await getServers();
+      if (server.id) socket.emit(SERVER_LEAVE, server.id);
+      setServers(servers);
+      setMode(HOME);
+    }
   };
   return (
     <>

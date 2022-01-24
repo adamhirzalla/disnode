@@ -18,12 +18,13 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
-import { SERVER } from "../../utils/constants";
+import { SERVER, SERVER_JOIN, SERVER_LEAVE } from "../../utils/constants";
 
 // styles
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import { useContext } from "react";
 import ServerContext from "../../contexts/ServerContext";
+import AuthContext from "../../contexts/AuthContext";
 
 export default function NewServerDialog() {
   const classes = useServerDialogStyles();
@@ -32,7 +33,10 @@ export default function NewServerDialog() {
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
-  const { setServer, setServers, setMode } = useContext(ServerContext);
+  const { setServer, setServers, setMode, app } = useContext(ServerContext);
+  const {
+    state: { socket },
+  } = useContext(AuthContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,6 +74,8 @@ export default function NewServerDialog() {
       const server = await getServer(id);
       if (server && servers) {
         handleClose();
+        socket.emit(SERVER_JOIN, server.id);
+        if (app.server.id) socket.emit(SERVER_LEAVE, app.server.id);
         setServers(servers);
         setServer(server);
         setMode(SERVER);

@@ -46,18 +46,6 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     setUser,
   } = useContext(AuthContext);
   const { id, avatar, full_name, nickname, bio, socials } = user;
-  // const initialInput = {
-  //   avatar,
-  //   full_name,
-  //   nickname,
-  //   bio,
-  //   1: socials.find((social) => social.id === 1)?.url || "",
-  //   2: socials.find((social) => social.id === 2)?.url || "",
-  //   3: socials.find((social) => social.id === 3)?.url || "",
-  //   4: socials.find((social) => social.id === 4)?.url || "",
-  //   5: socials.find((social) => social.id === 5)?.url || "",
-  //   6: socials.find((social) => social.id === 6)?.url || "",
-  // };
 
   const initialInput = {
     avatar,
@@ -93,38 +81,6 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     // setInput({});
     // handleClose();
   };
-
-  // const handleSave = async () => {
-  //   for (let i = 1; i <= 6; i++) {
-  //     if (initialInput[i]?.url && initialInput[i]?.url === input[i]?.url) {
-  //       input[i] = null;
-  //     } else if (!initialInput[i]?.url && !input[i]?.url) {
-  //       input[i] = null;
-  //     } else if (!initialInput[i]?.url && input[i]?.url) {
-  //       input[i].status = "create";
-  //     } else if (initialInput[i]?.url && !input[i]?.url) {
-  //       input[i].status = "delete";
-  //     } else if (
-  //       initialInput[i]?.url &&
-  //       initialInput[i]?.url !== input[i]?.url
-  //     ) {
-  //       input[i].status = "edit";
-  //     }
-  //   }
-  //   await updateUser();
-  //   setInput(initialInput);
-  // };
-
-  // const updateUser = async () => {
-  //   const formData = new FormData();
-  //   formData.append("image", initialInput.file);
-  //   const [logo] = await uploadtoS3(formData);
-
-  //   const updatedUser = await updateProfile(input);
-  //   await setUser(updatedUser);
-  //   setInput({});
-  //   handleClose();
-  // };
 
   const handleUndo = () => {
     const preview = document.querySelector("#image-preview");
@@ -192,38 +148,6 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           setUrl={setUrl}
         />
         <Grid container className={classes.connections}>
-          {/* {icons.map((icon, i) => {
-            const { id } = icon;
-            return (
-              <Grid item xs={4} key={id}>
-                <IconButton
-                  onClick={() => handleDialog(id)}
-                  sx={
-                    input?.socials[id]?.url ? { opacity: 1 } : { opacity: 0.2 }
-                  }
-                >
-                  {id === 1 ? (
-                    <SteamSvg />
-                  ) : id === 2 ? (
-                    <TwitterSvg />
-                  ) : id === 3 ? (
-                    <RiotGamesSvg />
-                  ) : id === 4 ? (
-                    <EpicGamesSvg />
-                  ) : id === 5 ? (
-                    <TwitterSvg />
-                  ) : (
-                    <RiotGamesSvg />
-                  )}
-                </IconButton>
-              </Grid>
-            );
-          })} */}
-          {/* 
-{
-  socials: [{id:1,url:"asdsad"}]
-}
-*/}
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(1)}
