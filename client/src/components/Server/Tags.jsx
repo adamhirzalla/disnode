@@ -1,17 +1,25 @@
-import { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Checkbox from "@mui/material/Checkbox";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { useState } from "react";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function Tags({ setTags }) {
+export default function Tags({ setTags, serverTags }) {
+  const [tag, setTag] = useState(serverTags || []);
+
   const parseTags = (tags) => {
     setTags(tags.map((tag) => tag.id));
   };
+
+  const handleChange = (e, value) => {
+    setTag(value);
+    parseTags(value);
+  };
+
   return (
     <Autocomplete
       multiple
@@ -19,10 +27,13 @@ export default function Tags({ setTags }) {
       options={tags}
       disableCloseOnSelect
       getOptionLabel={(tag) => tag.name}
-      onChange={(e, value) => parseTags(value)}
+      value={tag}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
+      onChange={handleChange}
       renderOption={(props, tag, { selected }) => (
         <li {...props}>
           <Checkbox
+            required
             icon={icon}
             checkedIcon={checkedIcon}
             style={{ marginRight: 8 }}
@@ -32,8 +43,8 @@ export default function Tags({ setTags }) {
         </li>
       )}
       // style={{ width: "auto" }}
-      renderInput={(params) => (
-        <TextField {...params} label="Tags" placeholder="Server Tags" />
+      renderInput={(serverTags) => (
+        <TextField {...serverTags} label="Tags" placeholder="Server Tags" />
       )}
     />
   );

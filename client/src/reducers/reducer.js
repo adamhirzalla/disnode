@@ -17,6 +17,8 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   EDIT_CHANNEL,
+  EDIT_SERVER,
+  DELETE_MESSAGE,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -146,6 +148,20 @@ export default function reducer(state, action) {
         members,
       };
     }
+    case DELETE_MESSAGE: {
+      const messages = state.messages.filter((msg) => msg.id !== message.id);
+      // state.channels[message.channel_id].messages = messages;
+
+      return {
+        ...state,
+        channel: { ...state.channel, messages },
+        channels: {
+          ...state.channels,
+          [message.channel_id]: { ...state.channel, messages },
+        },
+        messages,
+      };
+    }
     case SET_CHANNELS: // dont use
       // retired (use NEW_CHANNEL instead)
       // const channels = []
@@ -211,6 +227,21 @@ export default function reducer(state, action) {
         channels,
         channel,
         messages: [],
+      };
+    }
+    case EDIT_SERVER: {
+      const { id, title, logo, tags } = server;
+      const servers = state.servers.map((s) => {
+        if (s.id === id) {
+          s.title = title;
+          s.logo = logo;
+        }
+        return s;
+      });
+      return {
+        ...state,
+        server: { ...state.server, title, logo, tags },
+        servers,
       };
     }
     default:

@@ -14,7 +14,7 @@ import ChannelDeleteDialog from "./ChannelDeleteDialog";
 
 export default function ChannelMenuListItem({ setAnchor }) {
   const {
-    app: { channel },
+    app: { channel, channels },
   } = useContext(ServerContext);
   const [open, setOpen] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -40,12 +40,14 @@ export default function ChannelMenuListItem({ setAnchor }) {
           </ListItemIcon>
           Edit Title
         </MenuItem>
-        <MenuItem onClick={handleDelete}>
-          <ListItemIcon>
-            <DeleteForeverIcon color="error" fontSize="small" />
-          </ListItemIcon>
-          Delete Channel
-        </MenuItem>
+        {Object.keys(channels).length > 1 && (
+          <MenuItem onClick={handleDelete}>
+            <ListItemIcon>
+              <DeleteForeverIcon color="error" fontSize="small" />
+            </ListItemIcon>
+            Delete Channel
+          </MenuItem>
+        )}
       </MenuList>
       <ChannelEditDialog
         open={open}

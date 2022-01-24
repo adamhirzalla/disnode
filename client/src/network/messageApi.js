@@ -14,6 +14,15 @@ export const sendMessage = async (channelId, message) => {
   }
 };
 
+export const deleteMessage = async (messageId) => {
+  try {
+    const res = await axios.delete(`/api/channels/messages/${messageId}`);
+    return res.data;
+  } catch (e) {
+    console.log("Failed to delete message", e);
+  }
+};
+
 // stretch - get other messages when user scroll up to the top
 export const getMessages = async () => {
   console.log("get old messages");

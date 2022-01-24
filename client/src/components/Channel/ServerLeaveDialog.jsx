@@ -8,7 +8,8 @@ import { removeMember } from "../../network/memberApi";
 import { getServers } from "../../network/serverApi";
 import { HOME } from "../../utils/constants";
 
-export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
+export default function ServerLeaveDialog(props) {
+  const { open, setOpen, role } = props;
   const classes = useNewChannelDialogStyles();
   const buttonClasses = useDisButtonStyles();
   const {
@@ -16,16 +17,9 @@ export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
     setServers,
     setMode,
   } = useContext(ServerContext);
-
   const {
     state: { user },
   } = useContext(AuthContext);
-
-  // close dialog
-  const handleClose = () => {
-    setOpen(false);
-    setOption(null);
-  };
 
   // click handler for confirm button
   const handleConfirm = async () => {
@@ -39,37 +33,32 @@ export default function ServerMenuDialog({ open, setOpen, option, setOption }) {
     const servers = await getServers();
     await setServers(servers);
     setOpen(false);
-    setOption(null);
     setMode(HOME);
   };
 
+  const confirmation =
+    role === "owner"
+      ? "Pass your ownership before leaving"
+      : "Would you like to leave server?";
+
   return (
-    <>
-      <Dialog
-        classes={{ paper: classes.dialogPaper }}
-        open={open}
-        onClose={handleClose}
-      >
-        {option === "Leave" ? (
-          <>
-            <DialogTitle>{`Would you like to leave server?`}</DialogTitle>
-            <DialogActions>
-              <Button className={buttonClasses.cancel} onClick={handleClose}>
-                Cancel
-              </Button>
-              <Button className={buttonClasses.submit} onClick={handleConfirm}>
-                Confirm
-              </Button>
-            </DialogActions>
-          </>
-        ) : (
-          <>
-            {/* <DialogTitle>Invite code</DialogTitle>
-            <DialogActions></DialogActions> */}
-          </>
+    <Dialog
+      classes={{ paper: classes.dialogPaper }}
+      open={open}
+      onClose={() => setOpen(false)}
+    >
+      <DialogTitle>{confirmation}</DialogTitle>
+      <DialogActions>
+        <Button className={buttonClasses.cancel} onClick={() => setOpen(false)}>
+          Cancel
+        </Button>
+        {role !== "owner" && (
+          <Button className={buttonClasses.submit} onClick={handleConfirm}>
+            Confirm
+          </Button>
         )}
-      </Dialog>
-    </>
+      </DialogActions>
+    </Dialog>
   );
 }
 

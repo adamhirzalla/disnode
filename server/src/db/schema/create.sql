@@ -122,5 +122,6 @@ CREATE TABLE socials (
 CREATE TABLE server_tags (
   "id" SERIAL PRIMARY KEY,
   "server_id" INT REFERENCES servers(id) ON DELETE CASCADE,
-  "tag_id" INT REFERENCES tags(id) ON DELETE CASCADE
+  "tag_id" INT REFERENCES tags(id) ON DELETE CASCADE,
+  UNIQUE ("server_id", "tag_id")
 );

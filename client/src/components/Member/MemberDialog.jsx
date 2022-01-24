@@ -21,14 +21,16 @@ import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
 import { DELETE_MEMBER } from "../../utils/constants";
+import AuthContext from "../../contexts/AuthContext";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
-const [PROFILE, ADD, ADMIN, DEMOTE, KICK] = [
+const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
   "PROFILE",
   "ADD",
   "ADMIN",
   "DEMOTE",
   "KICK",
+  "OWNERSHIP",
 ];
 
 const icons = [
@@ -47,32 +49,40 @@ const useStyles = makeStyles(() => ({
   icons: { opacity: "0.7", "&:hover": { opacity: 1 } },
 }));
 export default function MemberDialog(props) {
-  const { action, member, setOpen, setAction, open, user } = props;
+  const { action, member, setOpen, setAction, open } = props;
   const {
     setMembers,
     app: { server },
     appDispatch,
   } = useContext(ServerContext);
+  const {
+    state: { user },
+  } = useContext(AuthContext);
 
   const classes = useStyles();
 
+  const closeDialog = (members) => {
+    setOpen(false);
+    setAction(null);
+    setMembers(members);
+  };
+
   const handleAction = async () => {
     // console.log(`making a ${action} request on member: ${member.nickname}`);
-
     try {
       if (action === ADMIN) {
         // getting back an array of members with updated role
         const members = await updateRole(server.id, member.id, "admin");
-        setOpen(false);
-        setAction(null);
-        setMembers(members);
+        closeDialog(members);
       } else if (action === DEMOTE) {
         // getting back an array of members with updated role
         const members = await updateRole(server.id, member.id, "user");
-        setOpen(false);
-        setAction(null);
-        setMembers(members);
-      } else if (action === ADD) {
+        closeDialog(members);
+      } else if (action === OWNERSHIP) {
+        const getMembers = await updateRole(server.id, member.id, "owner");
+        const myMemeberId = getMembers.find((m) => m.user_id === user.id).id;
+        const members = await updateRole(server.id, myMemeberId, "admin");
+        closeDialog(members);
       } else if (action === KICK) {
         await removeMember(server.id, member.id);
         // const member = await getMembers(server.id);
@@ -125,6 +135,8 @@ export default function MemberDialog(props) {
           ? `Kick ${member.nickname} from the Server?`
           : action === DEMOTE
           ? `Demote ${member.nickname} to User?`
+          : action === OWNERSHIP
+          ? `Pass Ownership to ${member.nickname}`
           : ""}
       </DialogTitle>
 

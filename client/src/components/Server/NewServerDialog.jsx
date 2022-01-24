@@ -11,18 +11,28 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import uploadtoS3 from "../../utils/s3";
+import {
+  createServer,
+  createTags,
+  getServer,
+  getServers,
+} from "../../network/serverApi";
+import { SERVER } from "../../utils/constants";
 
 // styles
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
+import { useContext } from "react";
+import ServerContext from "../../contexts/ServerContext";
 
-export default function NewServerDialog(props) {
-  const { onClick: createServer } = props;
+export default function NewServerDialog() {
   const classes = useServerDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
   const [file, setFile] = useState(null);
+  const { setServer, setServers, setMode } = useContext(ServerContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,15 +41,42 @@ export default function NewServerDialog(props) {
   const handleClose = () => {
     setOpen(false);
     setError(null);
+    setTitle("");
+    setTags([]);
+    setFile(null);
   };
 
   const handleChange = (e) => {
     setTitle((prev) => e.target.value);
   };
 
-  const handleCreate = () => {
-    setOpen(false);
-    createServer({ title, tags, file });
+  const handleCreate = async () => {
+    if (!tags.length) return setError("Please include at least one tag");
+    // ({ title, tags, file });
+    // handleClose();
+    // setServer(server);
+
+    // const { title, tags, file } = input;
+    // we get back an array or urls (to support multiple file upload)
+    const formData = new FormData();
+    formData.append("image", file);
+    try {
+      let logo;
+      if (file) [logo] = await uploadtoS3(formData);
+      const data = file ? logo : "/images/Disnode-red.png";
+      const { id } = await createServer(title, data);
+      await createTags(tags, id);
+      const servers = await getServers();
+      const server = await getServer(id);
+      if (server && servers) {
+        handleClose();
+        setServers(servers);
+        setServer(server);
+        setMode(SERVER);
+      }
+    } catch (e) {
+      console.log("Could not create server");
+    }
   };
   return (
     <div>

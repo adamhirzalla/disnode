@@ -23,7 +23,7 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
-import { HOME } from "../../utils/constants";
+import { HOME, SERVER } from "../../utils/constants";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import ProfileMenu from "./ProfileMenu";
@@ -121,25 +121,28 @@ export default function ServerList(props) {
     setMode(HOME);
   };
 
-  const handleCreate = async (input) => {
-    const { title, tags, file } = input;
-    // we get back an array or urls (to support multiple file upload)
-    const formData = new FormData();
-    formData.append("image", file);
-    try {
-      const [logo] = await uploadtoS3(formData);
-      const { id } = await createServer(title, logo);
-      await createTags(tags, id);
-      const servers = await getServers();
-      const server = await getServer(id);
-      if (server && servers) {
-        setServers(servers);
-        setServer(server);
-      }
-    } catch (e) {
-      console.log("Could not create server");
-    }
-  };
+  // const handleCreate = async (input) => {
+  // const { title, tags, file } = input;
+  // // we get back an array or urls (to support multiple file upload)
+  // const formData = new FormData();
+  // formData.append("image", file);
+  // try {
+  //   let logo;
+  //   if (file) [logo] = await uploadtoS3(formData);
+  //   const data = file ? logo : "/images/Disnode-red.png";
+  //   const { id } = await createServer(title, data);
+  //   await createTags(tags, id);
+  //   const servers = await getServers();
+  //   const server = await getServer(id);
+  //   if (server && servers) {
+  //     setServers(servers);
+  //     setServer(server);
+  //     setMode(SERVER);
+  //   }
+  // } catch (e) {
+  //   console.log("Could not create server");
+  // }
+  // };
 
   // useEffect(() => {
   //   socket?.emit("connection", socket.id, user.nickname);
@@ -191,7 +194,7 @@ export default function ServerList(props) {
           <Box className={classes.navBot}>
             <DisDivider disStyle="nav-bot" />
             <ListItem className={classes.listItem}>
-              <NewServerDialog onClick={handleCreate} />
+              <NewServerDialog />
               <SearchServerDialog />
             </ListItem>
             <ListItem
