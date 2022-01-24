@@ -67,7 +67,7 @@ export default function DMListItem(props) {
       </ListItem> */}
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src={""} />
+          <Avatar alt="Remy Sharp" src={"/images/avatar.jpg"} />
         </ListItemAvatar>
         <ListItemText
           primary="Brunch this weekend?"

@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
   messages: {
     display: "flex",
     maxHeight: "100vh",
+    height: "auto",
     flexDirection: "column",
     marginTop: "auto",
     // justifyContent: "flex-end", // BUG

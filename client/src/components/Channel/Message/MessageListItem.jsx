@@ -23,13 +23,18 @@ const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
     justifyContent: "space-between",
+    "&:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.1)",
+    },
   },
   divider: { width: "100px", borderColor: "rgba(0, 0, 0, 0.2)" },
   name: {
-    fontWeight: "bold",
-    fontSize: "1em",
-    textTransform: "uppercase",
-    // "&.MuiTypography-root": { color: "green" },
+    "& p": {
+      fontWeight: "bold",
+      fontSize: "1em",
+      // textTransform: "uppercase",
+      // "&.MuiTypography-root": { color: "green" },
+    },
   },
   views: { alignSelf: "end" },
   stack: {
@@ -45,6 +50,14 @@ const useStyles = makeStyles(() => ({
   delete: {
     opacity: "0.4",
     "&:hover": { opacity: 1 },
+  },
+  body: {
+    "& span": {
+      fontSize: "0.95em",
+    },
+    "& p": {
+      fontSize: "0.75em",
+    },
   },
 }));
 export default function MessageListItem(props) {
@@ -80,7 +93,6 @@ export default function MessageListItem(props) {
     <>
       <Divider variant="inset" component="li" />
       <ListItem
-        className={classes.delete}
         // secondaryAction={
 
         // }
@@ -95,18 +107,18 @@ export default function MessageListItem(props) {
         </ListItemAvatar>
         <Stack className={classes.stack}>
           <ListItemText
-            title={moment(message.sent_at).format(
-              "dddd, MMMM Do YYYY, h:mm:ss a"
-            )}
-            primary={message.sender_nickname}
-            secondary={moment(message.sent_at).fromNow()}
+            // primary={message.sender_nickname}
+            secondary={message.sender_nickname}
             className={classes.name}
           />
           <Divider className={classes.divider} />
           <ListItemText
             // inset
+            title={moment(message.sent_at).format(
+              "dddd, MMMM Do YYYY, h:mm:ss a"
+            )}
             primary={message.body}
-            // secondary={moment(message.sent_at).fromNow()}
+            secondary={moment(message.sent_at).fromNow()}
             className={classes.body}
           />
         </Stack>
