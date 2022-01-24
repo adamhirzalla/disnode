@@ -25,7 +25,7 @@ export const initialState = {
   channels: [],
   messages: [],
   members: [],
-  mode: null,
+  mode: HOME,
   loading: true,
 };
 

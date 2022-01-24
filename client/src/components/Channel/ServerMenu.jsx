@@ -9,6 +9,7 @@ const useStyles = makeStyles({
   server: {
     height: "3.6em",
     backgroundColor: "rgb(4,11,12,1)",
+    borderBottomRightRadius: "5px",
   },
   header: { fontWeight: "bold", color: "white" },
   alert: {

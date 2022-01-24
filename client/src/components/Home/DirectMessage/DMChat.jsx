@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Avatar,
   Box,
@@ -18,6 +18,7 @@ import AuthContext from "../../../contexts/AuthContext";
 import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
+import DMChatItem from "./DMChatItem";
 
 const useStyles = makeStyles(() => ({
   // box: {
@@ -67,7 +68,27 @@ const useStyles = makeStyles(() => ({
   // chatPaper: {
   //   boxShadow: "0 0 0 0",
   // },
-  messages: { width: "75%" },
+  messages: {
+    display: "flex",
+    maxHeight: "100vh",
+    height: "100%",
+    flexDirection: "column",
+    marginTop: "auto",
+    // justifyContent: "flex-end", // BUG
+    paddingBottom: "0.5em",
+    overflowY: "scroll",
+    "&::-webkit-scrollbar": {
+      borderRadius: "30px",
+      width: "5px",
+    },
+    "&::-webkit-scrollbar-track": {
+      WebkitBoxShadow: "inset 0 0 3px rgb(0,0,0,0.1)",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "rgb(0,0,0,0.3)",
+      borderRadius: "30px",
+    },
+  },
   message: {},
   avatar: {},
   body: {},
@@ -79,7 +100,7 @@ export default function DMChat(props) {
   const { messages } = props;
 
   const {
-    state: { user: user_id },
+    state: { user },
   } = useContext(AuthContext);
 
   // const messageItems = messages.map((message, i) => {
@@ -114,28 +135,7 @@ export default function DMChat(props) {
   // });
 
   const messageItem = messages.map((message, i) => {
-    return (
-      <ListItem
-        key={i}
-        secondaryAction={
-          <IconButton edge="end" aria-label="delete" className={classes.action}>
-            <DeleteIcon />
-          </IconButton>
-        }
-        className={classes.message}
-      >
-        <ListItemAvatar className={classes.avatar}>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText
-          primary={message.body}
-          secondary={message.sent_at}
-          className={classes.body}
-        />
-      </ListItem>
-    );
+    return <DMChatItem key={i} message={message} />;
   });
   function Message(element) {
     return [0, 1, 2].map((value) =>
@@ -147,6 +147,13 @@ export default function DMChat(props) {
   const Demo = styled("div")(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
   }));
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    scrollRef.current.scrollIntoView();
+    // {behavior: "smooth"}
+  });
 
   return (
     // <Box className={classes.box}>
@@ -162,6 +169,8 @@ export default function DMChat(props) {
       {/* <Demo> */}
       <List dense={false} className={classes.messages}>
         {messageItem}
+
+        <div ref={scrollRef} />
       </List>
       {/* </Demo> */}
     </>

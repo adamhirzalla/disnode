@@ -15,7 +15,7 @@ module.exports = (io) => {
 
     console.log(`${user.username} connected`);
     socket.emit("login", online);
-    io.emit("connection", online);
+    socket.broadcast.emit("connection", online);
 
     socket.on("disconnect", async () => {
       const user = await User.setInactive(socket.userId);
@@ -28,10 +28,7 @@ module.exports = (io) => {
     // Test event (when client clicks home button)
     socket.on("home click", (socketId, username) => {
       console.log(`${socketId} -> ${username} clicked home button`);
-      socket.broadcast.emit(
-        "scare",
-        `Server says: look behind you ${username}`
-      );
+      socket.emit("scare", `Server says: look behind you ${username}`);
     });
 
     // Test event (when client requests online members)

@@ -27,6 +27,7 @@ import { HOME, SERVER } from "../../utils/constants";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import ProfileMenu from "./ProfileMenu";
+import AuthContext from "../../contexts/AuthContext";
 
 const useStyles = makeStyles(() => ({
   navHome: {
@@ -53,7 +54,7 @@ const useStyles = makeStyles(() => ({
     height: "56px",
   },
   navBot: {
-    position: "sticky",
+    position: "absolute",
     bottom: "0px",
     width: "100%",
     backgroundColor: "#040B0C",
@@ -72,6 +73,8 @@ const useStyles = makeStyles(() => ({
   list: {
     width: "100%",
     overflowY: "scroll",
+    minHeight: "100vh",
+    position: "relative",
     "&::-webkit-scrollbar": {
       borderRadius: "30px",
       width: "5px",
@@ -96,7 +99,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ServerList(props) {
-  const { socket, user, children } = props;
+  const { children } = props;
+  const {
+    state: { socket, user },
+  } = useContext(AuthContext);
   const {
     app: { servers, mode, loading },
     setServer,
@@ -109,9 +115,9 @@ export default function ServerList(props) {
     [iconClasses.selected]: mode === HOME,
   });
 
-  const handleHomeClick = (socket) => {
+  const handleHomeClick = () => {
     socket.emit("home click", socket.id, user.nickname);
-    navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
+    // navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
     setMode(HOME);
   };
 

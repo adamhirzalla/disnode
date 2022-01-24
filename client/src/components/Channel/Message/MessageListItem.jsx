@@ -1,12 +1,8 @@
 import moment from "moment";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   Avatar,
-  Typography,
-  Grid,
-  List,
-  ListItem,
   ListItemAvatar,
   ListItemText,
   Divider,
@@ -14,9 +10,8 @@ import {
   Stack,
   AvatarGroup,
   Tooltip,
+  ListItem,
 } from "@mui/material";
-import { useMessageListItemStyles } from "../../styles/useMessageListItemStyles";
-import FolderIcon from "@mui/icons-material/Folder";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { makeStyles } from "@mui/styles";
 import ServerContext from "../../../contexts/ServerContext";
@@ -27,13 +22,18 @@ const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
     justifyContent: "space-between",
+    "&:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.1)",
+    },
   },
   divider: { width: "100px", borderColor: "rgba(0, 0, 0, 0.2)" },
   name: {
-    fontWeight: "bold",
-    fontSize: "1em",
-    textTransform: "uppercase",
-    // "&.MuiTypography-root": { color: "green" },
+    "& p": {
+      fontWeight: "bold",
+      fontSize: "1em",
+      // textTransform: "uppercase",
+      // "&.MuiTypography-root": { color: "green" },
+    },
   },
   views: { alignSelf: "end" },
   stack: {
@@ -50,11 +50,20 @@ const useStyles = makeStyles(() => ({
     opacity: "0.4",
     "&:hover": { opacity: 1 },
   },
+  body: {
+    "& span": {
+      fontSize: "0.95em",
+    },
+    "& p": {
+      fontSize: "0.75em",
+    },
+  },
 }));
 export default function MessageListItem(props) {
   // const classes = useMessageListItemStyles();
   const classes = useStyles();
-  const { sender, body, sent_at, scrollRef, scrollToBottom, message } = props;
+  const { message, index, messages } = props;
+  const { views } = message;
   const {
     app: { members },
     appDispatch,
@@ -63,8 +72,6 @@ export default function MessageListItem(props) {
     state: { user },
   } = useContext(AuthContext);
   const [throttle, setThrottle] = useState(false);
-
-  const { views } = message;
   let tooltip;
   if (views.length === 1) tooltip = `seen by ${views[0].viewer_nickname}`;
   if (views.length > 3)
@@ -98,7 +105,6 @@ export default function MessageListItem(props) {
     <>
       <Divider variant="inset" component="li" />
       <ListItem
-        className={classes.delete}
         // secondaryAction={
 
         // }
@@ -113,18 +119,18 @@ export default function MessageListItem(props) {
         </ListItemAvatar>
         <Stack className={classes.stack}>
           <ListItemText
-            title={moment(message.sent_at).format(
-              "dddd, MMMM Do YYYY, h:mm:ss a"
-            )}
-            primary={message.sender_nickname}
-            secondary={moment(message.sent_at).fromNow()}
+            // primary={message.sender_nickname}
+            secondary={message.sender_nickname}
             className={classes.name}
           />
           <Divider className={classes.divider} />
           <ListItemText
             // inset
+            title={moment(message.sent_at).format(
+              "dddd, MMMM Do YYYY, h:mm:ss a"
+            )}
             primary={message.body}
-            // secondary={moment(message.sent_at).fromNow()}
+            secondary={moment(message.sent_at).fromNow()}
             className={classes.body}
           />
         </Stack>
@@ -141,35 +147,28 @@ export default function MessageListItem(props) {
           )}
           {views.length > 0 && (
             <Tooltip title={tooltip} arrow placement="bottom">
-              <AvatarGroup total={views.length} className={classes.views}>
-                {views[0] && (
-                  <Avatar
-                    alt={views[0]?.viewer_nickname}
-                    src={views[0]?.viewer_avatar}
-                    className={classes.viewers}
-                  />
-                )}
-                {views[1] && (
-                  <Avatar
-                    alt={views[1]?.viewer_nickname}
-                    src={views[1]?.viewer_avatar}
-                    className={classes.viewers}
-                  />
-                )}
-                {views[2] && (
-                  <Avatar
-                    alt={views[2]?.viewer_nickname}
-                    src={views[2]?.viewer_avatar}
-                    className={classes.viewers}
-                  />
-                )}
-                {views[3] && (
-                  <Avatar
-                    alt={views[3]?.viewer_nickname}
-                    src={views[3]?.viewer_avatar}
-                    className={classes.viewers}
-                  />
-                )}
+              <AvatarGroup max={4} className={classes.views}>
+                {views.map((viewer, i) => {
+                  return (
+                    (!messages
+                      .slice(index + 1)
+                      .map((message) => {
+                        return !message?.views.find(
+                          (e) => e.viewer_id === viewer?.viewer_id
+                        );
+                      })
+                      .includes(false) ||
+                      !messages[index + 1]) &&
+                    viewer && (
+                      <Avatar
+                        key={i}
+                        alt={viewer?.viewer_nickname}
+                        src={viewer?.viewer_avatar}
+                        className={classes.viewers}
+                      />
+                    )
+                  );
+                })}
               </AvatarGroup>
             </Tooltip>
           )}
@@ -178,76 +177,3 @@ export default function MessageListItem(props) {
     </>
   );
 }
-
-// <Grid container alignItems="center" className={classes.root}>
-//   <Grid xs={1.3} item sx={{ height: "auto" }}>
-//     <Box className={classes.avatar}>
-//       <Avatar
-//         alt={sender.name}
-//         src={sender.avatar}
-//         sx={{ width: 40, height: 40, mt: 0.3 }}
-//       />
-//       <Typography>{sender.name}</Typography>
-//     </Box>
-//   </Grid>
-//   <Grid xs={"auto"} item>
-//     <List
-//       ref={scrollRef}
-//       sx={{
-//         maxWidth: 700,
-//         ml: "0.2em",
-//         display: "flex",
-//         flexDirection: "column",
-//       }}
-//     >
-//       <Typography
-//         className={classes.messages}
-//         variant="body1"
-//         display="block"
-//       >
-//         {body}
-//       </Typography>
-//       <Typography
-//         title={moment(sent_at).format("dddd, MMMM Do YYYY, h:mm:ss a")}
-//         variant="caption"
-//         display="block"
-//         sx={{ ml: "1em" }}
-//       >
-//         {moment(sent_at).fromNow()}
-//       </Typography>
-//     </List>
-//   </Grid>
-// </Grid>
-
-// {
-/* <Typography
-  className={classes.messages}
-  variant="body1"
-  display="block"
->
-  {msg}
-</Typography> */
-// }
-
-// <Grid container alignItems="center" sx={{ height: 400 }}>
-// <Grid xs={1.2} item sx={{ height: "80%" }}>
-//   <ListItemText
-//     align={side}
-//     primary={
-//       <Box className={classes.avatar}>
-//         <Avatar
-//           alt={name}
-//           src={img}
-//           sx={{ width: 40, height: 40, mt: 1 }}
-//         />
-//         <Typography>{name}</Typography>
-//       </Box>
-//     }
-//   />
-// </Grid>
-// <Grid xs={"auto"} item>
-//   <List id="chat-windows-messages" sx={{ maxWidth: 900 }}>
-//     <ListItemText primary={msg} align={side}></ListItemText>
-//   </List>
-// </Grid>
-// </Grid>

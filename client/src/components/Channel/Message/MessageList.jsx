@@ -8,6 +8,7 @@ const useStyles = makeStyles(() => ({
   messages: {
     display: "flex",
     maxHeight: "100vh",
+    height: "auto",
     flexDirection: "column",
     marginTop: "auto",
     // justifyContent: "flex-end", // BUG
@@ -41,7 +42,14 @@ export default function MessageList({ children }) {
   });
 
   const parsedMessages = messages.map((message, i) => {
-    return <MessageListItem key={i} message={message} />;
+    return (
+      <MessageListItem
+        key={i}
+        message={message}
+        index={i}
+        messages={messages}
+      />
+    );
   });
 
   return (

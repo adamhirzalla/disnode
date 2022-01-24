@@ -63,6 +63,7 @@ const useStyles = makeStyles({
   },
   member: {
     justifyContent: "center",
+    cursor: "pointer",
     // borderBottom: "1px solid rgb(4,11,12,0.1)",
   },
 

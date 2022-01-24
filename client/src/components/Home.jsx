@@ -11,6 +11,10 @@ import { messages } from "./Home/mock";
 // styles
 import { useHomePageStyles } from "../components/styles/useHomePageStyles";
 import { useBoxStyles } from "./styles/useBoxStyles";
+import MessageForm from "./Channel/Message/MessageForm";
+import { Stack } from "@mui/material";
+import ChannelHeader from "./Channel/ChannelHeader";
+import DMHeader from "./Home/DirectMessage/DMHeader";
 
 const useStyles = makeStyles(() => ({
   // chatWrapper: {
@@ -18,6 +22,8 @@ const useStyles = makeStyles(() => ({
   //   width: "100vw",
   //   height: "100vh",
   // },
+  messages: { justifyContent: "flex-end", width: "75%" },
+  form: { justifyContent: "flex-end", width: "100%" },
 }));
 
 export default function Home() {
@@ -33,9 +39,13 @@ export default function Home() {
     <>
       {/* <Box className={boxClasses.homeWrapper}> */}
       {/* <Box className={boxClasses.root}> */}
-      {/* <FriendsListDrawer /> */}
+      <FriendsListDrawer />
       <DMList />
-      <DMChat messages={messages} />
+      <Stack className={classes.messages}>
+        <DMHeader />
+        <DMChat messages={messages} />
+        <MessageForm spacing={0} className={classes.form} />
+      </Stack>
       {/* <Box className={classes.chatWrapper}></Box> */}
       {/* </Box> */}
       {/* </Box> */}
