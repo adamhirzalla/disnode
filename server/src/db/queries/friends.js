@@ -24,4 +24,16 @@ const byUser = (userId) => {
     .then((friends) => friends.filter((f) => f.user_id !== userId));
 };
 
-module.exports = { byUser };
+const add = (userId, senderId) => {
+  const query = `
+  INSERT INTO friends (user1_id, user2_id)
+  VALUES ($1, $2)
+  ON CONFLICT (user1_id, user2_id)
+  DO NOTHING
+  RETURNING *
+  `;
+  const params = [userId, senderId];
+  return db.query(query, params).then((res) => res.rows[0]);
+};
+
+module.exports = { byUser, add };

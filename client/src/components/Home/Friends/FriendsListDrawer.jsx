@@ -28,9 +28,11 @@ import PeopleAlt from "@mui/icons-material/PeopleAlt";
 // import { friends } from "../mock";
 import MessageIcon from "@mui/icons-material/Message";
 import Badge from "@mui/material/Badge";
-import { getFriends } from "../../../network/friendApi";
-import { SET_FRIENDS } from "../../../utils/constants";
+import { getFriends, getRequests } from "../../../network/friendApi";
+import { SET_FRIENDS, SET_REQUESTS } from "../../../utils/constants";
 import AuthContext from "../../../contexts/AuthContext";
+import AddAlertIcon from "@mui/icons-material/AddAlert";
+import FriendRequestDialog from "./FriendRequestDialog";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -195,23 +197,24 @@ const useStyles = makeStyles(() => ({
 
 export default function FriendsListDrawer(props) {
   const classes = useStyles();
-  const {
-    dispatch,
-    state: { friends },
-  } = useContext(AuthContext);
+  const { dispatch, state } = useContext(AuthContext);
 
-  const [state, setState] = useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  // const [state, setState] = useState({
+  //   top: false,
+  //   left: false,
+  //   bottom: false,
+  //   right: false,
+  // });
+
   const [open, setOpen] = useState(false);
+  const [request, SetRequest] = useState(false);
 
   // when toggle button is clicked, fetch friends
   const toggleDrawer = async () => {
     const friends = await getFriends();
     dispatch({ type: SET_FRIENDS, friends });
+    const requests = await getRequests();
+    dispatch({ type: SET_REQUESTS, requests });
     setOpen(!open);
     // if (
     //   event &&
@@ -222,6 +225,12 @@ export default function FriendsListDrawer(props) {
     // }
 
     // setState({ ...state, [anchor]: open });
+  };
+
+  const handleClick = async () => {
+    // const requests = await getRequests();
+    // dispatch({ type: SET_REQUESTS, requests });
+    SetRequest(true);
   };
 
   const list = (anchor) => (
@@ -241,7 +250,14 @@ export default function FriendsListDrawer(props) {
         >
           Friends
         </Typography>
+        <AddAlertIcon
+          color="primary"
+          sx={{ paddingLeft: "20px", cursor: "pointer" }}
+          onClick={handleClick}
+        />
+        <FriendRequestDialog open={request} setOpen={SetRequest} />
       </Toolbar>
+
       {/* <List className={classes.list}>
         {friends.map((friend, i) => (
           <ListItem button key={i} className={classes.topListItem}>
@@ -268,7 +284,7 @@ export default function FriendsListDrawer(props) {
       </List> */}
       <Divider />
       <List className={classes.list}>
-        {friends.map((friend, i) => (
+        {state.friends.map((friend, i) => (
           <ListItem button key={i} className={classes.botListItem}>
             <ListItemAvatar>
               <StyledBadge

@@ -15,6 +15,7 @@ export const initialState = {
   error: null,
   activeUsers: [],
   friends: [],
+  requests: {},
   socket: null,
 };
 

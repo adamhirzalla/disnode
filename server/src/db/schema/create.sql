@@ -101,14 +101,16 @@ CREATE TABLE views (
 CREATE TABLE friends (
   "id" SERIAL PRIMARY KEY,
   "user1_id" INT REFERENCES users(id) ON DELETE CASCADE,
-  "user2_id" INT REFERENCES users(id) ON DELETE CASCADE
+  "user2_id" INT REFERENCES users(id) ON DELETE CASCADE,
+  UNIQUE ("user1_id", "user2_id")
 );
 
 CREATE TABLE requests (
   "id" SERIAL PRIMARY KEY,
   "sender_id" INT REFERENCES users(id) ON DELETE CASCADE,
   "receiver_id" INT REFERENCES users(id) ON DELETE CASCADE,
-  "pending" BOOLEAN DEFAULT TRUE
+  "pending" BOOLEAN DEFAULT TRUE,
+  UNIQUE ("sender_id", "receiver_id")
 );
 
 CREATE TABLE socials (

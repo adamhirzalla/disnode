@@ -5,13 +5,19 @@ const { auth } = require("../middleware/auth");
 const User = require("../db/queries/users");
 const Icon = require("../db/queries/icons");
 const Social = require("../db/queries/socials");
+const Friend = require("../db/queries/friends");
+const Request = require("../db/queries/requests");
 
 // Testing token
 router.get("/me", async (req, res) => {
   const userId = req.user.id;
   try {
-    const user = await User.byID(userId);
-    delete user.password;
+    const me = await User.byID(userId);
+    delete me.password;
+    const friends = await Friend.byUser(userId);
+    const received = await Request.received(userId);
+    const sent = await Request.sent(userId);
+    const user = { ...me, friends, requests: { received, sent } };
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send("Internal Server Error");
@@ -39,8 +45,12 @@ router.put("/users/:id", async (req, res) => {
   try {
     await User.update(data, userId);
     await Social.addMultiple(userId, data.socials);
-    const user = await User.byID(userId);
-
+    const me = await User.byID(userId);
+    delete me.password;
+    const friends = await Friend.byUser(userId);
+    const received = await Request.received(userId);
+    const sent = await Request.sent(userId);
+    const user = { ...me, friends, requests: { received, sent } };
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send("Internal Server Error");

@@ -4,6 +4,7 @@ import {
   SET_TOKENS,
   SET_UNAUTHENTICATED,
   TOKEN_KEY,
+  SET_REQUESTS,
 } from "../utils/constants";
 
 export const isAuth = (dispatch) => {
@@ -20,6 +21,10 @@ export const getMe = async (dispatch, tokens) => {
     dispatch({
       type: SET_USER,
       user,
+    });
+    dispatch({
+      type: SET_REQUESTS,
+      requests: user.requests,
     });
     // const sio = await import("../socket/index");
     // console.log("Started a socket:", sio);

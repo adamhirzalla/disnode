@@ -20,6 +20,9 @@ import {
   EDIT_SERVER,
   DELETE_MESSAGE,
   SET_FRIENDS,
+  SET_REQUESTS,
+  EDIT_RECEIVED,
+  EDIT_FRIENDS,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -40,6 +43,9 @@ export default function reducer(state, action) {
     socket,
     channelId,
     activeUsers,
+    requests,
+    rejected,
+    accepted,
   } = action;
   switch (action.type) {
     case SET_LOADING:
@@ -68,6 +74,31 @@ export default function reducer(state, action) {
       return {
         ...state,
         friends,
+      };
+    }
+    case EDIT_FRIENDS: {
+      const received = state.requests.received.filter(
+        (r) => r.sender_id !== accepted.accepted.user2_id
+      );
+      return {
+        ...state,
+        friends: accepted.friends,
+        requests: { ...state.requests, received },
+      };
+    }
+    case SET_REQUESTS: {
+      return {
+        ...state,
+        requests,
+      };
+    }
+    case EDIT_RECEIVED: {
+      const received = state.requests.received.filter(
+        (r) => r.id !== rejected.id
+      );
+      return {
+        ...state,
+        requests: { ...state.requests, received },
       };
     }
     case SET_MODE:

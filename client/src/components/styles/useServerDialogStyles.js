@@ -55,5 +55,19 @@ export const useServerDialogStyles = makeStyles((theme) =>
       padding: "10px",
       paddingBottom: 0,
     },
+    dialogPaperRequest: {
+      display: "flex",
+      height: "35%",
+      width: "30%",
+      maxHeight: "80%",
+      alignItems: "center",
+      borderRadius: "2em",
+      textAlign: "center",
+      padding: "40px",
+      paddingTop: "0px",
+      flexDirection: "column",
+      justifyContent: "space-evenly",
+      overflowY: "auto",
+    },
   })
 );

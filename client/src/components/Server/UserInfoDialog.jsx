@@ -21,6 +21,7 @@ import TwitterSvg from "../SvgIcons/TwitterSvg";
 import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import { updateProfile } from "../../network/userApi";
 import uploadtoS3 from "../../utils/s3";
+import { SET_REQUESTS } from "../../utils/constants";
 
 const useStyles = makeStyles({
   dialogPaper: {
@@ -44,6 +45,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
   const {
     state: { user },
     setUser,
+    dispatch,
   } = useContext(AuthContext);
   const { id, avatar, full_name, nickname, bio, socials } = user;
   // const initialInput = {
@@ -89,6 +91,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
     const data = file ? { ...input, avatar: logo } : input;
     const updatedUser = await updateProfile(data, user.id);
     await setUser(updatedUser);
+    dispatch({ type: SET_REQUESTS, requests: updatedUser.requests });
     setOpen(false);
     // setInput({});
     // handleClose();
