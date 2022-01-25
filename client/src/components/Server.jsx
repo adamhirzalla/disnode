@@ -12,6 +12,7 @@ import {
   CHANNEL_DELETE,
   CHANNEL_EDIT,
   CHANNEL_MESSAGE,
+  CHANNEL_NEW,
   DELETE_CHANNEL,
   EDIT_CHANNEL,
   EDIT_SERVER,
@@ -22,6 +23,7 @@ import {
   SERVER_EDIT,
   SERVER_JOIN,
   SERVER_LEAVE,
+  SET_NEW_CHANNEL,
 } from "../utils/constants";
 import { getServers } from "../network/serverApi";
 
@@ -48,6 +50,7 @@ export default function Server(props) {
       socket.on(SERVERS_UPDATE, updateServers);
       socket.on(CHANNEL_EDIT, editChannel);
       socket.on(CHANNEL_DELETE, deleteChanel);
+      socket.on(CHANNEL_NEW, newChannel);
       console.log("listeners added");
     }
     return () => {
@@ -91,6 +94,12 @@ export default function Server(props) {
   const deleteChanel = (channel) => {
     appDispatch({
       type: DELETE_CHANNEL,
+      channel,
+    });
+  };
+  const newChannel = (channel) => {
+    appDispatch({
+      type: SET_NEW_CHANNEL,
       channel,
     });
   };

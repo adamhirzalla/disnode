@@ -11,6 +11,7 @@ const {
   SERVERS_UPDATE,
   CHANNEL_EDIT,
   CHANNEL_DELETE,
+  CHANNEL_NEW,
 } = require("./helpers/constants");
 
 module.exports = (io) => {
@@ -50,6 +51,10 @@ module.exports = (io) => {
     const deleteChannel = (channel) => {
       socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_DELETE, channel);
     };
+    const newChannel = (channel) => {
+      socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_NEW, channel);
+    };
+
     const user = await User.setActive(socket.userId);
     // add this new user to online map
     Online.add(socket.id, user.id);
@@ -80,6 +85,7 @@ module.exports = (io) => {
     socket.on(SERVERS_UPDATE, updateServers);
     socket.on(CHANNEL_EDIT, editChannel);
     socket.on(CHANNEL_DELETE, deleteChannel);
+    socket.on(CHANNEL_NEW, newChannel);
   });
 };
 

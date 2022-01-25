@@ -227,6 +227,7 @@ export default function reducer(state, action) {
       // const channels = [...state.server.channels, channel];
       channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
+      if (state.channel.id !== channel.id) return { ...state, channels };
       return {
         ...state,
         channels,

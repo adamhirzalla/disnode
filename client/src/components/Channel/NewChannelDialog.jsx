@@ -12,6 +12,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 import DisTextField from "../Inputs/DisTextField";
+import AuthContext from "../../contexts/AuthContext";
+import { CHANNEL_NEW } from "../../utils/constants";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
@@ -21,6 +23,9 @@ export default function NewChannelDialog() {
     app: { server },
     setNewChannel,
   } = useContext(ServerContext);
+  const {
+    state: { socket },
+  } = useContext(AuthContext);
 
   const handleClickOpen = () => {
     setOpen((prev) => true);
@@ -47,6 +52,7 @@ export default function NewChannelDialog() {
     try {
       const serverId = server.id;
       const channel = await createChannel(serverId, { title });
+      socket.emit(CHANNEL_NEW, channel);
       if (channel) setNewChannel(channel);
       handleClose();
     } catch (e) {
