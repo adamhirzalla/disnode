@@ -3,11 +3,11 @@ const Friend = require("../db/queries/friends");
 const Request = require("../db/queries/requests");
 
 // accept friend request
-router.put("/friends/:id", async (req, res) => {
+router.post("/friends/:id", async (req, res) => {
   const userId = req.user.id;
   const senderId = req.params.id;
   try {
-    await Request.reject(userId, senderId);
+    await Request.remove(userId, senderId);
     const accepted = await Friend.add(userId, senderId);
     const friends = await Friend.byUser(userId);
     res.status(200).send({ friends, accepted });

@@ -3,7 +3,7 @@ import axios from "axios";
 // accept friend request
 export const acceptRequest = async (senderId) => {
   try {
-    const res = await axios.put(`/api/friends/${senderId}`);
+    const res = await axios.post(`/api/friends/${senderId}`);
     return res.data;
   } catch (e) {
     console.log("Failed to retreive requests data", e);
