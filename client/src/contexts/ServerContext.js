@@ -76,14 +76,6 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  // retired (use newChannel for creating new channels)
-  const setChannels = (channel) => {
-    appDispatch({
-      type: SET_CHANNELS,
-      channel,
-    });
-  };
-
   const setChannel = (channelId) => {
     appDispatch({
       type: SET_CHANNEL,
@@ -91,25 +83,19 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setMessages = (message) => {
+  const setMessages = (message, user) => {
     appDispatch({
       type: SET_MESSAGES,
       message,
+      user,
     });
   };
 
-  const setNewChannel = (channel) => {
+  const setNewChannel = (channel, user) => {
     appDispatch({
       type: SET_NEW_CHANNEL,
       channel,
-    });
-  };
-
-  // retired (used directly in authcontext)
-  const setActiveUsers = (activeUsers) => {
-    appDispatch({
-      type: SET_ACTIVE_USERS,
-      activeUsers,
+      user,
     });
   };
 
@@ -131,9 +117,7 @@ export const ServerProvider = ({ children }) => {
         setServers,
         setMembers,
         setMessages,
-        setChannels,
         setNewChannel,
-        setActiveUsers,
       }}
     >
       {children}

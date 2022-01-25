@@ -149,7 +149,8 @@ router.delete("/servers/:serverId/members/:memberId", async (req, res) => {
       return res.status(400).send("User does not have permission");
     }
     await Member.remove(memberId);
-    res.status(200).send(member);
+    const members = await Member.byServer(serverId);
+    res.status(200).json(members);
   } catch (e) {
     return res.status(500).send("Internal Server Error");
   }
@@ -201,8 +202,9 @@ router.get("/servers/:id/members", async (req, res) => {
 });
 
 // add a member into server
-router.post("/servers/:serverId/users/:userId", async (req, res) => {
-  const { serverId, userId } = req.params;
+router.post("/servers/:serverId/members", async (req, res) => {
+  const userId = req.user.id;
+  const { serverId } = req.params;
   const data = { serverId, userId, role: "user" };
   try {
     await Member.create(data);

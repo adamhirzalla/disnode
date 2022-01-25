@@ -8,54 +8,133 @@ import ChannelHeader from "./Channel/ChannelHeader";
 import { useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
+import {
+  CHANNEL_DELETE,
+  CHANNEL_EDIT,
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
+  CHANNEL_MESSAGE,
+  CHANNEL_NEW,
+  DELETE_CHANNEL,
+  DELETE_MESSAGE,
+  EDIT_CHANNEL,
+  EDIT_SERVER,
+  HOME,
+  MEMBER_KICK,
+  MEMBER_UPDATE,
+  MESSAGE_DELETE,
+  MESSAGE_VIEW,
+  SERVERS_UPDATE,
+  SERVER_EDIT,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+  SET_NEW_CHANNEL,
+  UPDATE_MESSAGES,
+} from "../utils/constants";
+import { getServers } from "../network/serverApi";
 
 const useStyles = makeStyles({
   messages: { justifyContent: "flex-end", width: "100%" },
 });
 export default function Server(props) {
   const classes = useStyles();
-  const { setMessages, appDispatch, setServer, app } =
+  const { setMessages, setMembers, setServers, setMode, app, appDispatch } =
     useContext(ServerContext);
   const { channel, server, messages, servers } = app;
   const {
     state: { user, socket, activeUsers, autheticated },
   } = useContext(AuthContext);
 
-  // useeffect responsbile for all server actions
   useEffect(() => {
     if (socket) {
-      socket.on("channel message", (message) => {
-        // const messages = await getMessages();
-        // if (channel.id !== message.channel_id) return;
-        // const channels = await getChannels(server.id);
-
-        // get back users online and add them in views
-        // do this only if user is sender
-        // can also only render views if message is last index
-        // on backend -> receive that emit and add users to
-        // views db and chip off the msg to clients w views filled
-
-        if (message.server_id !== server.id) return;
-
-        setMessages(message);
-        // setChannels(channels); // dont use
-        // setServer(server);
-      });
-      console.log("Channel Messages listener added:", new Date());
+      socket.on(SERVER_JOIN, serverJoined);
+      socket.on(SERVER_LEAVE, serverLeft);
+      socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
+      socket.on(MEMBER_UPDATE, updateMembers);
+      socket.on(MEMBER_KICK, kickMember);
+      socket.on(SERVER_EDIT, editServer);
+      socket.on(SERVERS_UPDATE, updateServers);
+      socket.on(CHANNEL_EDIT, editChannel);
+      socket.on(CHANNEL_DELETE, deleteChanel);
+      socket.on(CHANNEL_NEW, newChannel);
+      socket.on(MESSAGE_DELETE, deleteMessage);
+      socket.on(MESSAGE_VIEW, updateMessages);
+      console.log("listeners added");
     }
-
     return () => {
-      socket.removeAllListeners("channel message");
-      console.log("Channel Messages listener removed");
+      socket.removeAllListeners();
+      console.log("listeners removed");
     };
-
-    // setMembers(members);
   }, [socket, server]);
+  const serverJoined = (userId, serverId) => {
+    console.log(`User ${userId} has joined Server ${serverId}`);
+  };
+  const serverLeft = (userId, serverId) => {
+    console.log(`User ${userId} just left Server ${serverId}`);
+  };
+  const receiveChannelMSG = (message) => {
+    setMessages(message, user);
+  };
+  const updateMembers = (members) => {
+    setMembers(members);
+  };
+  const kickMember = async (member) => {
+    if (member.user_id === user.id) {
+      const servers = await getServers();
+      if (server.id) socket.emit(SERVER_LEAVE, server.id);
+      if (channel) socket.emit(CHANNEL_LEAVE, channel.id);
+      setServers(servers);
+      setMode(HOME);
+    }
+  };
+  const editServer = (server) => {
+    if (server.id === app.server.id) appDispatch({ type: EDIT_SERVER, server });
+  };
+  const updateServers = async () => {
+    const servers = await getServers();
+    setServers(servers);
+  };
+  const editChannel = (channel) => {
+    appDispatch({
+      type: EDIT_CHANNEL,
+      channel,
+    });
+  };
+  const deleteChanel = (channel) => {
+    socket.emit(CHANNEL_LEAVE, channel.id);
+    const channels = Object.values(server?.channels).filter(
+      (c) => c.id !== channel.id
+    );
+    socket.emit(CHANNEL_JOIN, {
+      id: channels[0]?.id,
+      server_id: server.id,
+    });
+    appDispatch({
+      type: DELETE_CHANNEL,
+      channel,
+    });
+  };
+  const newChannel = (channel, user) => {
+    appDispatch({
+      type: SET_NEW_CHANNEL,
+      channel,
+      user,
+    });
+  };
+  const deleteMessage = (message) => {
+    appDispatch({
+      type: DELETE_MESSAGE,
+      message,
+    });
+  };
+  const updateMessages = (messages, channelId) => {
+    appDispatch({
+      type: UPDATE_MESSAGES,
+      messages,
+      channelId,
+    });
+  };
 
-  // useEffect(() => {
-
-  //   console.log("server change");
-  // }, []);
   return (
     <>
       <ChannelList />

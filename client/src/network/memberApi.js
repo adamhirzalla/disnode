@@ -32,9 +32,9 @@ export const getMembers = async (serverId) => {
   }
 };
 
-export const addMember = async (serverId, userId) => {
+export const addMember = async (serverId) => {
   try {
-    const res = await axios.post(`/api/servers/${serverId}/users/${userId}`);
+    const res = await axios.post(`/api/servers/${serverId}/members`);
     return res.data;
   } catch (e) {
     console.log("Failed to retreive members", e);

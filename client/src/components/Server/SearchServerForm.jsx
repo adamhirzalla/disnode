@@ -17,15 +17,15 @@ export default function SearchServerForm(props) {
   const handleSearch = async () => {
     const { inviteCode, title } = search;
     if (!inviteCode && !title) {
-      return setError("Please fill in Invite Code or Server Title.");
+      return setError("Enter a server title or code to search for");
     } else if (inviteCode && title) {
-      return setError("Please fill in one field only.");
+      return setError("Only 1 field must be filled");
     }
 
     // make http request to find server
     // then open Server List dialog
     const servers = await searchServers(search);
-    if (!servers?.length) return setError("Can not find any server.");
+    if (!servers?.length) return setError("Could not find any servers");
     setError(null);
     setResult(servers);
     setOpenResult(true);
@@ -39,10 +39,10 @@ export default function SearchServerForm(props) {
           type="text"
           fullWidth
           variant="outlined"
-          placeholder="Invite Code"
+          placeholder="by Title..."
           onKeyDown={handleKeyDown}
           onChange={(e) => {
-            setSearch((prev) => ({ ...prev, inviteCode: e.target.value }));
+            setSearch((prev) => ({ ...prev, title: e.target.value }));
           }}
         />
         OR
@@ -50,10 +50,10 @@ export default function SearchServerForm(props) {
           type="text"
           fullWidth
           variant="outlined"
-          placeholder="Search Server Title"
+          placeholder="by Invite Code..."
           onKeyDown={handleKeyDown}
           onChange={(e) => {
-            setSearch((prev) => ({ ...prev, title: e.target.value }));
+            setSearch((prev) => ({ ...prev, inviteCode: e.target.value }));
           }}
         />
       </DialogContent>

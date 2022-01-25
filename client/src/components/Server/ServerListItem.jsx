@@ -6,7 +6,14 @@ import { useServerListItemStyles } from "../styles/useServerListItemStyles";
 import { Avatar, Tooltip } from "@mui/material";
 import { getServer } from "../../network/serverApi";
 import ServerContext from "../../contexts/ServerContext";
-import { SERVER } from "../../utils/constants";
+import AuthContext from "../../contexts/AuthContext";
+import {
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
+  SERVER,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -26,19 +33,46 @@ const useStyles = makeStyles({
 export default function ServerListItem(props) {
   const classes = useStyles();
   const { id, title, logo } = props;
+  const { app, setServer, setMode } = useContext(ServerContext);
   const {
-    app: { server, mode },
-    setServer,
-    setMode,
-  } = useContext(ServerContext);
+    state: { socket },
+  } = useContext(AuthContext);
+  const { server, mode } = app;
   const listItemClass = classNames(classes.default, {
     [classes.selected]: id === server?.id && mode === SERVER,
   });
 
+  // useEffect(() => {
+  //   if (socket) {
+  //     const receiveChannelMSG = (message) => {
+  //       setMessages(message)
+  //     };
+  //     socket.on("channel message", receiveChannelMSG);
+  //     // console.log("Channel Messages listener added:", new Date());
+  //   }
+  //   return () => {
+  //     // socket.removeAllListeners("channel message", receiveChannelMSG);
+  //     socket.off("channel message", receiveChannelMSG);
+  //     console.log("Channel Messages listener removed");
+  //   };
+  // }, [socket, server]);
+
   const handleServerClick = async () => {
-    const server = await getServer(id);
-    setServer(server);
-    setMode(SERVER);
+    try {
+      const server = await getServer(id);
+      if (app.server) socket.emit(SERVER_LEAVE, app.server.id);
+      if (app.channel) socket.emit(CHANNEL_LEAVE, app.channel.id);
+      const channels = Object.values(server?.channels);
+      socket.emit(SERVER_JOIN, server.id);
+      socket.emit(CHANNEL_JOIN, {
+        id: channels[0]?.id,
+        server_id: server.id,
+      });
+      setServer(server);
+      setMode(SERVER);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

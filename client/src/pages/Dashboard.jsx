@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     position: "absolute",
     left: "90px",
     top: "0",
+    overflowX: "hidden",
   },
   server: { display: "flex", height: "100vh" },
 });

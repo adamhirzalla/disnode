@@ -17,7 +17,8 @@ import { makeStyles } from "@mui/styles";
 import ServerContext from "../../../contexts/ServerContext";
 import AuthContext from "../../../contexts/AuthContext";
 import { deleteMessage } from "../../../network/messageApi";
-import { DELETE_MESSAGE } from "../../../utils/constants";
+import { DELETE_MESSAGE, MESSAGE_DELETE } from "../../../utils/constants";
+import classNames from "classnames";
 const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
@@ -35,22 +36,31 @@ const useStyles = makeStyles(() => ({
       // "&.MuiTypography-root": { color: "green" },
     },
   },
-  views: { alignSelf: "end" },
+  views: {
+    alignSelf: "end",
+    position: "absolute",
+    bottom: "5px",
+    right: "7px",
+  },
   stack: {
     flexGrow: 1,
   },
   viewers: { width: "25px", height: "25px" },
-  right: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    height: "100%",
-  },
+  // right: {
+  //   position: "relative",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   height: "100%",
+  // },
   delete: {
+    position: "absolute",
+    top: 0,
+    right: 0,
     opacity: "0.4",
     "&:hover": { opacity: 1 },
   },
   body: {
+    padding: "0 0.5em",
     "& span": {
       fontSize: "0.95em",
     },
@@ -58,6 +68,16 @@ const useStyles = makeStyles(() => ({
       fontSize: "0.75em",
     },
   },
+  mention: {
+    backgroundColor: "rgba(250,209,102, 0.3)",
+    borderRadius: 5,
+    borderLeft: "5px solid rgba(250,209,102, 1)",
+  },
+  // right: {
+  //   position: "relative",
+  //   display: "flex",
+  //   flexDirection: "column",
+  // },
 }));
 export default function MessageListItem(props) {
   // const classes = useMessageListItemStyles();
@@ -65,11 +85,11 @@ export default function MessageListItem(props) {
   const { message, index, messages } = props;
   const { views } = message;
   const {
-    app: { members },
+    app: { members, server },
     appDispatch,
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket },
   } = useContext(AuthContext);
   const [throttle, setThrottle] = useState(false);
   let tooltip;
@@ -87,6 +107,10 @@ export default function MessageListItem(props) {
   //   scrollToBottom();
   // }, []);
 
+  const messageClasses = classNames(classes.body, {
+    [classes.mention]: message.mention,
+  });
+
   const role = members.find((m) => m.user_id === user.id).role;
 
   const handleDelete = () => {
@@ -97,10 +121,12 @@ export default function MessageListItem(props) {
   const controlSpam = async () => {
     setThrottle(true);
     const deletedMessage = await deleteMessage(message.id);
-    setThrottle(false);
+    deletedMessage.server_id = server.id;
+    socket.emit(MESSAGE_DELETE, deletedMessage);
     appDispatch({ type: DELETE_MESSAGE, message: deletedMessage });
+    setThrottle(false);
   };
-
+  if (message.body.includes(`@${user.nickname}`)) message.mention = true;
   return (
     <>
       <Divider variant="inset" component="li" />
@@ -131,48 +157,49 @@ export default function MessageListItem(props) {
             )}
             primary={message.body}
             secondary={moment(message.sent_at).fromNow()}
-            className={classes.body}
+            className={messageClasses}
           />
         </Stack>
-        <Box className={classes.right}>
-          {(message.sender_id === user.id || role !== "user") && (
-            <IconButton
-              aria-label="delete"
-              className={classes.delete}
-              disableRipple
-              onClick={handleDelete}
-            >
-              <DeleteIcon />
-            </IconButton>
-          )}
-          {views.length > 0 && (
-            <Tooltip title={tooltip} arrow placement="bottom">
-              <AvatarGroup max={4} className={classes.views}>
-                {views.map((viewer, i) => {
-                  return (
-                    (!messages
-                      .slice(index + 1)
-                      .map((message) => {
-                        return !message?.views.find(
-                          (e) => e.viewer_id === viewer?.viewer_id
-                        );
-                      })
-                      .includes(false) ||
-                      !messages[index + 1]) &&
-                    viewer && (
-                      <Avatar
-                        key={i}
-                        alt={viewer?.viewer_nickname}
-                        src={viewer?.viewer_avatar}
-                        className={classes.viewers}
-                      />
-                    )
-                  );
-                })}
-              </AvatarGroup>
-            </Tooltip>
-          )}
-        </Box>
+        {/* <Box className={classes.right}> */}
+        {(message.sender_id === user.id || role !== "user") && (
+          <IconButton
+            aria-label="delete"
+            className={classes.delete}
+            disableRipple
+            onClick={handleDelete}
+          >
+            <DeleteIcon />
+          </IconButton>
+        )}
+        {views.length > 0 && (
+          <Tooltip title={tooltip} arrow placement="bottom">
+            <AvatarGroup max={4} className={classes.views}>
+              {views.map((viewer, i) => {
+                return (
+                  (!messages
+                    .slice(index + 1)
+                    .map((message) => {
+                      return !message?.views.find(
+                        (e) => e.viewer_id === viewer?.viewer_id
+                      );
+                    })
+                    .includes(false) ||
+                    !messages[index + 1]) &&
+                  viewer &&
+                  viewer.viewer_id !== user.id && (
+                    <Avatar
+                      key={i}
+                      alt={viewer?.viewer_nickname}
+                      src={viewer?.viewer_avatar}
+                      className={classes.viewers}
+                    />
+                  )
+                );
+              })}
+            </AvatarGroup>
+          </Tooltip>
+        )}
+        {/* </Box> */}
       </ListItem>
     </>
   );

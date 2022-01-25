@@ -20,7 +20,11 @@ import OriginSvg from "../SvgIcons/OriginSvg";
 import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
-import { DELETE_MEMBER } from "../../utils/constants";
+import {
+  DELETE_MEMBER,
+  MEMBER_KICK,
+  MEMBER_UPDATE,
+} from "../../utils/constants";
 import AuthContext from "../../contexts/AuthContext";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
@@ -56,7 +60,7 @@ export default function MemberDialog(props) {
     appDispatch,
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket },
   } = useContext(AuthContext);
 
   const classes = useStyles();
@@ -64,6 +68,7 @@ export default function MemberDialog(props) {
   const closeDialog = (members) => {
     setOpen(false);
     setAction(null);
+    socket.emit(MEMBER_UPDATE, members, server.id);
     setMembers(members);
   };
 
@@ -85,6 +90,7 @@ export default function MemberDialog(props) {
         closeDialog(members);
       } else if (action === KICK) {
         await removeMember(server.id, member.id);
+        socket.emit(MEMBER_KICK, member, server.id);
         // const member = await getMembers(server.id);
         setOpen(false);
         setAction(null);
