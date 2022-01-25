@@ -27,7 +27,11 @@ const useStyles = makeStyles(() => ({
 export default function MemberMenu(props) {
   const { anchor, setAnchor, member } = props;
   const {
-    state: { user },
+    state: {
+      user,
+      friends,
+      requests: { received, sent },
+    },
   } = useContext(AuthContext);
   const {
     app: { members },
@@ -46,6 +50,9 @@ export default function MemberMenu(props) {
   ];
 
   const role = members.find((m) => m.user_id === user.id).role;
+  const friend = friends.find((f) => f.user_id === member.user_id);
+  const receive = received.find((r) => r.sender_id === member.user_id);
+  const send = sent.find((s) => s.receiver_id === member.user_id);
 
   // tartget a member that user clicks
   const handleAnchor = (e) => {
@@ -93,7 +100,7 @@ export default function MemberMenu(props) {
             </ListItemIcon>
             Profile
           </MenuItem>
-          {member.user_id !== user.id && (
+          {member.user_id !== user.id && !friend && !receive && !send && (
             <MenuItem onClick={() => handleAction(ADD)}>
               <ListItemIcon>
                 <PersonAdd color="success" />

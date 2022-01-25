@@ -5,32 +5,39 @@ import {
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useServerDialogStyles } from "../../styles/useServerDialogStyles";
-import { acceptRequest, rejectRequest } from "../../../network/friendApi";
+import { acceptRequest, removeRequest } from "../../../network/friendApi";
 import { useContext } from "react";
 import AuthContext from "../../../contexts/AuthContext";
-import { EDIT_FRIENDS, EDIT_RECEIVED } from "../../../utils/constants";
+import { EDIT_FRIENDS, EDIT_REQEUSTS } from "../../../utils/constants";
 
 export default function FriendRecivedList(props) {
-  const { sender } = props;
-  const { sender_id, nickname, avatar, full_name, id } = sender;
+  const { sender, receiver, request } = props;
   const classes = useServerDialogStyles();
   const { dispatch } = useContext(AuthContext);
 
+  // accept friend request
   const handleAccept = async () => {
-    const accepted = await acceptRequest(sender_id);
+    const accepted = await acceptRequest(sender.sender_id);
     dispatch({ type: EDIT_FRIENDS, accepted });
   };
+
+  // reject friend request
   const handleReject = async () => {
-    const rejected = await rejectRequest(sender_id);
-    dispatch({ type: EDIT_RECEIVED, rejected });
+    const rejected = await removeRequest(sender.id);
+    dispatch({ type: EDIT_REQEUSTS, rejected });
+  };
+
+  // cancel friend request
+  const handleCancel = async () => {
+    const canceled = await removeRequest(receiver.id);
+    dispatch({ type: EDIT_REQEUSTS, canceled });
   };
 
   return (
     <Box
-      key={id}
       sx={{
         display: "flex",
         flexDirection: "column",
@@ -45,25 +52,40 @@ export default function FriendRecivedList(props) {
         }}
       >
         <ListItemAvatar>
-          <Avatar alt={nickname} src={avatar} className={classes.avatar} />
+          <Avatar
+            alt={request ? sender.nickname : receiver.nickname}
+            src={request ? sender.avatar : receiver.avatar}
+            className={classes.avatar}
+          />
         </ListItemAvatar>
         <ListItemText
           className={classes.text}
           sx={{ pl: "20px" }}
-          primary={full_name}
+          primary={request ? sender.full_name : receiver.full_name}
         />
-        <IconButton
-          onClick={handleAccept}
-          sx={{ color: "green", opacity: 0.3, "&:hover": { opacity: 1 } }}
-        >
-          <AddCircleOutlineIcon />
-        </IconButton>
-        <IconButton
-          onClick={handleReject}
-          sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
-        >
-          <HighlightOffIcon />
-        </IconButton>
+        {request ? (
+          <>
+            <IconButton
+              onClick={handleAccept}
+              sx={{ color: "green", opacity: 0.3, "&:hover": { opacity: 1 } }}
+            >
+              <CheckCircleOutlineIcon />
+            </IconButton>
+            <IconButton
+              onClick={handleReject}
+              sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
+            >
+              <HighlightOffIcon />
+            </IconButton>
+          </>
+        ) : (
+          <IconButton
+            onClick={handleCancel}
+            sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
+          >
+            <HighlightOffIcon />
+          </IconButton>
+        )}
       </Box>
     </Box>
   );

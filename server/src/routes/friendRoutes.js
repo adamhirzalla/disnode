@@ -2,23 +2,12 @@ const router = require("express").Router();
 const Friend = require("../db/queries/friends");
 const Request = require("../db/queries/requests");
 
-// get all friends of a user
-router.get("/friends", async (req, res) => {
-  const userId = req.user.id;
-  try {
-    const friends = await Friend.byUser(userId);
-    res.status(200).send(friends);
-  } catch (e) {
-    res.status(500).send("Internal Server Error");
-  }
-});
-
 // accept friend request
 router.put("/friends/:id", async (req, res) => {
   const userId = req.user.id;
   const senderId = req.params.id;
   try {
-    await Request.response(userId, senderId);
+    await Request.reject(userId, senderId);
     const accepted = await Friend.add(userId, senderId);
     const friends = await Friend.byUser(userId);
     res.status(200).send({ friends, accepted });
@@ -27,25 +16,24 @@ router.put("/friends/:id", async (req, res) => {
   }
 });
 
-// get all requests (recived/sent)
-router.get("/requests", async (req, res) => {
+// send friend request
+router.post("/requests/:id", async (req, res) => {
   const userId = req.user.id;
+  const receiverId = req.params.id;
   try {
-    const received = await Request.received(userId);
+    const test = await Request.send(userId, receiverId);
     const sent = await Request.sent(userId);
-    const requests = { received, sent };
-    res.status(200).send(requests);
+    res.status(200).send(sent);
   } catch (e) {
     res.status(500).send("Internal Server Error");
   }
 });
 
-// reject friend request
-router.put("/requests/:id", async (req, res) => {
-  const userId = req.user.id;
-  const senderId = req.params.id;
+// reject friend request / cancel friend request
+router.delete("/requests/:requestId", async (req, res) => {
+  const requestId = req.params.requestId;
   try {
-    const rejected = await Request.response(userId, senderId);
+    const rejected = await Request.remove(requestId);
     res.status(200).send(rejected);
   } catch (e) {
     res.status(500).send("Internal Server Error");

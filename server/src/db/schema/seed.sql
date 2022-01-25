@@ -98,7 +98,7 @@ INSERT INTO friends (user1_id, user2_id)
 VALUES (2, 3), (1, 2);
 
 INSERT INTO requests (sender_id, receiver_id, pending)
-VALUES (1, 2, true), (3, 4, false), (2, 4, true), (3, 1, true), (4, 1, true);
+VALUES (1, 2, false), (3, 4, false), (2, 4, true), (3, 1, true), (4, 1, true);
 
 INSERT INTO socials (user_id, icon_id, url)
 VALUES

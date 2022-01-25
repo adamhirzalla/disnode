@@ -211,10 +211,6 @@ export default function FriendsListDrawer(props) {
 
   // when toggle button is clicked, fetch friends
   const toggleDrawer = async () => {
-    const friends = await getFriends();
-    dispatch({ type: SET_FRIENDS, friends });
-    const requests = await getRequests();
-    dispatch({ type: SET_REQUESTS, requests });
     setOpen(!open);
     // if (
     //   event &&
@@ -228,8 +224,6 @@ export default function FriendsListDrawer(props) {
   };
 
   const handleClick = async () => {
-    // const requests = await getRequests();
-    // dispatch({ type: SET_REQUESTS, requests });
     SetRequest(true);
   };
 

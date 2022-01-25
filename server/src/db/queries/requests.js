@@ -23,7 +23,7 @@ const byUser = (userId) => {
     .then((friends) => friends.filter((f) => f.user_id !== userId));
 };
 
-const send = (userId, memberId) => {
+const send = (userId, receiverId) => {
   const query = `
   INSERT INTO requests (sender_id, receiver_id)
   VALUES ($1, $2)
@@ -31,7 +31,7 @@ const send = (userId, memberId) => {
   DO NOTHING
   RETURNING *
   `;
-  const params = [userId, memberId];
+  const params = [userId, receiverId];
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
@@ -73,16 +73,14 @@ const sent = (userId) => {
   return db.query(query, params).then((res) => res.rows);
 };
 
-const response = (userId, senderId) => {
+const remove = (requestId) => {
   const query = `
-  UPDATE requests
-  SET pending = FALSE
-  WHERE receiver_id = $1
-  AND sender_id = $2
+  DELETE FROM requests
+  WHERE id = $1
   RETURNING *
   `;
-  const params = [userId, senderId];
+  const params = [requestId];
   return db.query(query, params).then((res) => res.rows[0]);
 };
 
-module.exports = { byUser, send, received, sent, response };
+module.exports = { byUser, send, received, sent, remove };

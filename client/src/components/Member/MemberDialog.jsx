@@ -20,8 +20,9 @@ import OriginSvg from "../SvgIcons/OriginSvg";
 import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
-import { DELETE_MEMBER } from "../../utils/constants";
+import { DELETE_MEMBER, EDIT_REQEUSTS } from "../../utils/constants";
 import AuthContext from "../../contexts/AuthContext";
+import { sendRequest } from "../../network/friendApi";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
 const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
@@ -57,6 +58,7 @@ export default function MemberDialog(props) {
   } = useContext(ServerContext);
   const {
     state: { user },
+    dispatch,
   } = useContext(AuthContext);
 
   const classes = useStyles();
@@ -92,6 +94,11 @@ export default function MemberDialog(props) {
           type: DELETE_MEMBER,
           member,
         });
+      } else if (action === ADD) {
+        const sent = await sendRequest(member.user_id);
+        dispatch({ type: EDIT_REQEUSTS, sent });
+        setOpen(false);
+        setAction(null);
       }
     } catch (e) {}
   };

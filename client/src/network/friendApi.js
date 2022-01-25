@@ -1,25 +1,5 @@
 import axios from "axios";
 
-// get all friends
-export const getFriends = async () => {
-  try {
-    const res = await axios.get(`/api/friends`);
-    return res.data;
-  } catch (e) {
-    console.log("Failed to retreive friends data", e);
-  }
-};
-
-// get all friend requests
-export const getRequests = async () => {
-  try {
-    const res = await axios.get(`/api/requests`);
-    return res.data;
-  } catch (e) {
-    console.log("Failed to retreive requests data", e);
-  }
-};
-
 // accept friend request
 export const acceptRequest = async (senderId) => {
   try {
@@ -30,10 +10,20 @@ export const acceptRequest = async (senderId) => {
   }
 };
 
-// reject friend request
-export const rejectRequest = async (senderId) => {
+// send friend request
+export const sendRequest = async (receiverId) => {
   try {
-    const res = await axios.put(`/api/requests/${senderId}`);
+    const res = await axios.post(`/api/requests/${receiverId}`);
+    return res.data;
+  } catch (e) {
+    console.log("Failed to retreive requests data", e);
+  }
+};
+
+// reject friend request / cancel friend request
+export const removeRequest = async (requestId) => {
+  try {
+    const res = await axios.delete(`/api/requests/${requestId}`);
     return res.data;
   } catch (e) {
     console.log("Failed to retreive requests data", e);
