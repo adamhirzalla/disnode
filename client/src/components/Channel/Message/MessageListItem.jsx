@@ -36,18 +36,26 @@ const useStyles = makeStyles(() => ({
       // "&.MuiTypography-root": { color: "green" },
     },
   },
-  views: { alignSelf: "end" },
+  views: {
+    alignSelf: "end",
+    position: "absolute",
+    bottom: "5px",
+    right: "7px",
+  },
   stack: {
     flexGrow: 1,
   },
   viewers: { width: "25px", height: "25px" },
-  right: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    height: "100%",
-  },
+  // right: {
+  //   position: "relative",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   height: "100%",
+  // },
   delete: {
+    position: "absolute",
+    top: 0,
+    right: 0,
     opacity: "0.4",
     "&:hover": { opacity: 1 },
   },
@@ -65,6 +73,11 @@ const useStyles = makeStyles(() => ({
     borderRadius: 5,
     borderLeft: "5px solid rgba(250,209,102, 1)",
   },
+  // right: {
+  //   position: "relative",
+  //   display: "flex",
+  //   flexDirection: "column",
+  // },
 }));
 export default function MessageListItem(props) {
   // const classes = useMessageListItemStyles();
@@ -147,46 +160,46 @@ export default function MessageListItem(props) {
             className={messageClasses}
           />
         </Stack>
-        <Box className={classes.right}>
-          {views.length > 0 && (
-            <Tooltip title={tooltip} arrow placement="bottom">
-              <AvatarGroup max={4} className={classes.views}>
-                {views.map((viewer, i) => {
-                  return (
-                    (!messages
-                      .slice(index + 1)
-                      .map((message) => {
-                        return !message?.views.find(
-                          (e) => e.viewer_id === viewer?.viewer_id
-                        );
-                      })
-                      .includes(false) ||
-                      !messages[index + 1]) &&
-                    viewer &&
-                    viewer.viewer_id !== user.id && (
-                      <Avatar
-                        key={i}
-                        alt={viewer?.viewer_nickname}
-                        src={viewer?.viewer_avatar}
-                        className={classes.viewers}
-                      />
-                    )
-                  );
-                })}
-              </AvatarGroup>
-            </Tooltip>
-          )}
-          {(message.sender_id === user.id || role !== "user") && (
-            <IconButton
-              aria-label="delete"
-              className={classes.delete}
-              disableRipple
-              onClick={handleDelete}
-            >
-              <DeleteIcon />
-            </IconButton>
-          )}
-        </Box>
+        {/* <Box className={classes.right}> */}
+        {(message.sender_id === user.id || role !== "user") && (
+          <IconButton
+            aria-label="delete"
+            className={classes.delete}
+            disableRipple
+            onClick={handleDelete}
+          >
+            <DeleteIcon />
+          </IconButton>
+        )}
+        {views.length > 0 && (
+          <Tooltip title={tooltip} arrow placement="bottom">
+            <AvatarGroup max={4} className={classes.views}>
+              {views.map((viewer, i) => {
+                return (
+                  (!messages
+                    .slice(index + 1)
+                    .map((message) => {
+                      return !message?.views.find(
+                        (e) => e.viewer_id === viewer?.viewer_id
+                      );
+                    })
+                    .includes(false) ||
+                    !messages[index + 1]) &&
+                  viewer &&
+                  viewer.viewer_id !== user.id && (
+                    <Avatar
+                      key={i}
+                      alt={viewer?.viewer_nickname}
+                      src={viewer?.viewer_avatar}
+                      className={classes.viewers}
+                    />
+                  )
+                );
+              })}
+            </AvatarGroup>
+          </Tooltip>
+        )}
+        {/* </Box> */}
       </ListItem>
     </>
   );

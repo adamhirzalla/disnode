@@ -67,6 +67,8 @@ export default function MessageForm() {
     try {
       // We query for server channels so that our sent messages
       // that are handles on client side can persist on channel navigation
+      // BETTER TO IMPLEMENT THIS IN SOCKETS THEN BROADCAST MESSAGE
+      // Sender -> socket -> server -> DB -> socket -> Users
       const message = await sendMessage(channel.id, { body: input });
       // const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;

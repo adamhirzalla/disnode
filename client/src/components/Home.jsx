@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
   //   width: "100vw",
   //   height: "100vh",
   // },
-  messages: { justifyContent: "flex-end", width: "75%" },
+  messages: { justifyContent: "flex-end", flexGrow: 1 },
   form: { justifyContent: "flex-end", width: "100%" },
 }));
 

@@ -6,14 +6,19 @@ import { useDisButtonStyles } from "../styles/useDisButtonStyles";
 import { useNewChannelDialogStyles } from "../styles/useNewChannelDialogStyles";
 import { removeMember } from "../../network/memberApi";
 import { getServers } from "../../network/serverApi";
-import { HOME, MEMBER_UPDATE, SERVER_LEAVE } from "../../utils/constants";
+import {
+  CHANNEL_LEAVE,
+  HOME,
+  MEMBER_UPDATE,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 
 export default function ServerLeaveDialog(props) {
   const { open, setOpen, role } = props;
   const classes = useNewChannelDialogStyles();
   const buttonClasses = useDisButtonStyles();
   const {
-    app: { server },
+    app: { server, channel },
     setServers,
     setMode,
   } = useContext(ServerContext);
@@ -27,6 +32,7 @@ export default function ServerLeaveDialog(props) {
     const members = await removeMember(server.id, memberId);
     socket.emit(MEMBER_UPDATE, members, server.id);
     socket.emit(SERVER_LEAVE, server.id);
+    socket.emit(CHANNEL_LEAVE, channel.id);
     const servers = await getServers();
     await setServers(servers);
     setOpen(false);

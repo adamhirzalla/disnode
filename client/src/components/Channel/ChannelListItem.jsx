@@ -13,8 +13,10 @@ import classNames from "classnames";
 import { useChannelListStyles } from "../styles/useChannelListItemStyles";
 import { makeStyles } from "@mui/styles";
 import ServerContext from "../../contexts/ServerContext";
+import AuthContext from "../../contexts/AuthContext";
 import Notification from "@mui/icons-material/NotificationsActive";
 import Mention from "@mui/icons-material/PriorityHigh";
+import { CHANNEL_JOIN, CHANNEL_LEAVE } from "../../utils/constants";
 const useStyles = makeStyles({
   channel: {
     borderBottom: "1px solid rgb(4,11,12,0.2)",
@@ -35,6 +37,9 @@ const useStyles = makeStyles({
 export default function ChannelListItem(props) {
   // const classes = useChannelListStyles();
   const { app, setChannel } = useContext(ServerContext);
+  const {
+    state: { user, socket },
+  } = useContext(AuthContext);
 
   const classes = useStyles();
   const { id, channel } = props;
@@ -46,6 +51,13 @@ export default function ChannelListItem(props) {
   });
 
   const handleChannelClick = () => {
+    if (app.channel.id) {
+      socket.emit(CHANNEL_LEAVE, app.channel.id);
+    }
+    socket.emit(CHANNEL_JOIN, {
+      id: channel.id,
+      server_id: app.server.id,
+    });
     setChannel(id);
   };
 

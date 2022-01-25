@@ -91,10 +91,11 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setNewChannel = (channel) => {
+  const setNewChannel = (channel, user) => {
     appDispatch({
       type: SET_NEW_CHANNEL,
       channel,
+      user,
     });
   };
 

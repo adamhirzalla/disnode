@@ -11,6 +11,8 @@ import ServerContext from "../contexts/ServerContext";
 import {
   CHANNEL_DELETE,
   CHANNEL_EDIT,
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
   CHANNEL_MESSAGE,
   CHANNEL_NEW,
   DELETE_CHANNEL,
@@ -21,11 +23,13 @@ import {
   MEMBER_KICK,
   MEMBER_UPDATE,
   MESSAGE_DELETE,
+  MESSAGE_VIEW,
   SERVERS_UPDATE,
   SERVER_EDIT,
   SERVER_JOIN,
   SERVER_LEAVE,
   SET_NEW_CHANNEL,
+  UPDATE_MESSAGES,
 } from "../utils/constants";
 import { getServers } from "../network/serverApi";
 
@@ -54,6 +58,7 @@ export default function Server(props) {
       socket.on(CHANNEL_DELETE, deleteChanel);
       socket.on(CHANNEL_NEW, newChannel);
       socket.on(MESSAGE_DELETE, deleteMessage);
+      socket.on(MESSAGE_VIEW, updateMessages);
       console.log("listeners added");
     }
     return () => {
@@ -77,6 +82,7 @@ export default function Server(props) {
     if (member.user_id === user.id) {
       const servers = await getServers();
       if (server.id) socket.emit(SERVER_LEAVE, server.id);
+      if (channel) socket.emit(CHANNEL_LEAVE, channel.id);
       setServers(servers);
       setMode(HOME);
     }
@@ -95,6 +101,14 @@ export default function Server(props) {
     });
   };
   const deleteChanel = (channel) => {
+    socket.emit(CHANNEL_LEAVE, channel.id);
+    const channels = Object.values(server?.channels).filter(
+      (c) => c.id !== channel.id
+    );
+    socket.emit(CHANNEL_JOIN, {
+      id: channels[0]?.id,
+      server_id: server.id,
+    });
     appDispatch({
       type: DELETE_CHANNEL,
       channel,
@@ -112,6 +126,14 @@ export default function Server(props) {
       message,
     });
   };
+  const updateMessages = (messages, channelId) => {
+    appDispatch({
+      type: UPDATE_MESSAGES,
+      messages,
+      channelId,
+    });
+  };
+
   return (
     <>
       <ChannelList />

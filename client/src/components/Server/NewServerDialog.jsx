@@ -18,7 +18,13 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
-import { SERVER, SERVER_JOIN, SERVER_LEAVE } from "../../utils/constants";
+import {
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
+  SERVER,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 
 // styles
 import { useServerDialogStyles } from "../styles/useServerDialogStyles";
@@ -76,6 +82,12 @@ export default function NewServerDialog() {
         handleClose();
         socket.emit(SERVER_JOIN, server.id);
         if (app.server.id) socket.emit(SERVER_LEAVE, app.server.id);
+        if (app.channel) socket.emit(CHANNEL_LEAVE, app.channel.id);
+        const channels = Object.values(server?.channels);
+        socket.emit(CHANNEL_JOIN, {
+          id: channels[0]?.id,
+          server_id: server.id,
+        });
         setServers(servers);
         setServer(server);
         setMode(SERVER);

@@ -13,19 +13,21 @@ import {
 } from "@mui/material";
 import DisTextField from "../Inputs/DisTextField";
 import AuthContext from "../../contexts/AuthContext";
-import { CHANNEL_NEW } from "../../utils/constants";
+import {
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
+  CHANNEL_NEW,
+} from "../../utils/constants";
 
 export default function NewChannelDialog() {
   const classes = useNewChannelDialogStyles();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
+  const { app, setNewChannel } = useContext(ServerContext);
   const {
-    app: { server },
-    setNewChannel,
-  } = useContext(ServerContext);
-  const {
-    state: { socket },
+    state: { socket, user },
   } = useContext(AuthContext);
+  const { server } = app;
 
   const handleClickOpen = () => {
     setOpen((prev) => true);
@@ -53,7 +55,12 @@ export default function NewChannelDialog() {
       const serverId = server.id;
       const channel = await createChannel(serverId, { title });
       socket.emit(CHANNEL_NEW, channel);
-      if (channel) setNewChannel(channel);
+      if (app.channel) socket.emit(CHANNEL_LEAVE, app.channel.id);
+      setNewChannel(channel, user);
+      socket.emit(CHANNEL_JOIN, {
+        id: channel.id,
+        server_id: serverId,
+      });
       handleClose();
     } catch (e) {
       console.log("Failed to create channel");
@@ -62,7 +69,11 @@ export default function NewChannelDialog() {
 
   return (
     <div>
-      <Button className={classes.addButton} onClick={handleClickOpen}>
+      <Button
+        className={classes.addButton}
+        onClick={handleClickOpen}
+        disableRipple
+      >
         <AddCircleIcon fontSize="small" />
       </Button>
 

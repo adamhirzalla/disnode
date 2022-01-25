@@ -19,6 +19,7 @@ import {
   EDIT_CHANNEL,
   EDIT_SERVER,
   DELETE_MESSAGE,
+  UPDATE_MESSAGES,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -192,6 +193,24 @@ export default function reducer(state, action) {
         server: { ...state.server, channels },
         channels,
       };
+    case UPDATE_MESSAGES: {
+      const updatedChannel =
+        state.channel.id === channelId
+          ? { ...state.channel, messages }
+          : {
+              ...state.channels[channelId],
+              messages,
+            };
+
+      return {
+        ...state,
+        channels: {
+          ...state.channels,
+          [channelId]: updatedChannel,
+        },
+        messages: state.channel.id === channelId ? messages : state.messages,
+      };
+    }
     case SET_MESSAGES: {
       // const messages = [...app.messages, message];
       // const channelsData = Object.values(state.server?.channels);
@@ -254,7 +273,7 @@ export default function reducer(state, action) {
       // const channels = [...state.server.channels, channel];
       channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
-      if (state.channel.id !== channel.id) return { ...state, channels };
+      if (user.id !== channel.creator_id) return { ...state, channels };
       return {
         ...state,
         channels,

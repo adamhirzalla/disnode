@@ -1,6 +1,8 @@
 const Online = require("./helpers/online");
 const User = require("../db/queries/users");
 const Server = require("../db/queries/servers");
+const Message = require("../db/queries/messages");
+const View = require("../db/queries/views");
 const {
   CHANNEL_MESSAGE,
   SERVER_JOIN,
@@ -13,20 +15,23 @@ const {
   CHANNEL_DELETE,
   CHANNEL_NEW,
   MESSAGE_DELETE,
+  CHANNEL_JOIN,
+  MESSAGE_VIEW,
+  CHANNEL_LEAVE,
 } = require("./helpers/constants");
 
 module.exports = (io) => {
   io.on("connection", async (socket) => {
     /* socket object may be used to send specific messages to the new connected client */
     const join = (serverId) => {
-      console.log(`${socket.userId} joined ${serverId}`);
+      console.log(`${socket.userId} joined server ${serverId}`);
       socket.join(`SERVER_${serverId}`);
       socket
         .to(`SERVER_${serverId}`)
         .emit(SERVER_JOIN, socket.userId, serverId);
     };
     const leave = (oldId) => {
-      console.log(`${socket.userId} left ${oldId}`);
+      console.log(`${socket.userId} left server ${oldId}`);
       socket.leave(`SERVER_${oldId}`);
       socket.to(`SERVER_${oldId}`).emit(SERVER_LEAVE, socket.userId, oldId);
     };
@@ -57,6 +62,36 @@ module.exports = (io) => {
     };
     const deleteMessage = (message) => {
       socket.to(`SERVER_${message.server_id}`).emit(MESSAGE_DELETE, message);
+    };
+    const joinChannel = async (channel) => {
+      // console.log();
+      const userId = socket.userId;
+      socket.join(`CHANNEL_${channel.id}`);
+      Online.addToChannel(userId, channel.id);
+      console.log(`${socket.userId} joined channel ${channel.id}`);
+      const inChannel = Online.allInChannel(channel.id);
+      console.log("users in channel", inChannel);
+      const messages = await Message.byChannel(channel.id);
+
+      const viewsQueries = messages.map((message) =>
+        View.byMessage(message, userId)
+      );
+      const views = await Promise.all(viewsQueries);
+      messages.forEach((message, i) => {
+        message.views = views[i];
+      });
+      socket
+        .to(`SERVER_${channel.server_id}`)
+        .emit(MESSAGE_VIEW, messages, channel.id);
+    };
+
+    const leaveChannel = (oldId) => {
+      const userId = socket.userId;
+      Online.removeFromChannel(userId, oldId);
+      console.log(`${socket.userId} left channel ${oldId}`);
+      const inChannel = Online.allInChannel(oldId);
+      console.log("users in channel", inChannel);
+      socket.leave(`CHANNEL_${oldId}`);
     };
 
     const user = await User.setActive(socket.userId);
@@ -91,6 +126,8 @@ module.exports = (io) => {
     socket.on(CHANNEL_DELETE, deleteChannel);
     socket.on(CHANNEL_NEW, newChannel);
     socket.on(MESSAGE_DELETE, deleteMessage);
+    socket.on(CHANNEL_JOIN, joinChannel);
+    socket.on(CHANNEL_LEAVE, leaveChannel);
   });
 };
 

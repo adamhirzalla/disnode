@@ -1,5 +1,5 @@
 const onlineUsers = new Map(); // App-wide
-const activeMembers = new Map(); // Per-server
+const channels = new Map(); // Per-server
 
 const add = (socketId, userId) => {
   // TODO: uncomment this for multi-device compatibility
@@ -24,24 +24,32 @@ const remove = (socketId, userId) => {
 
 const all = () => [...onlineUsers.keys()];
 
-// const addToServer = (socketId, userId) => {
+const addToChannel = (userId, channelId) => {
+  if (channels.has(channelId)) {
+    channels.get(channelId).add(userId);
+  } else {
+    channels.set(channelId, new Set([userId]));
+  }
+};
 
-//   if (onlineUsers.has(userId)) {
-//     onlineUsers.get(userId).add(socketId);
-//   } else {
-//     onlineUsers.set(userId, new Set([socketId]));
-//   }
-// };
+const removeFromChannel = (userId, channelId) => {
+  if (channels.has(channelId)) {
+    let members = channels.get(channelId);
+    members.delete(userId);
 
-// const removeFromServer = (socketId, userId) => {
-//   if (onlineUsers.has(userId)) {
-//     let userSocketIds = onlineUsers.get(userId);
-//     userSocketIds.delete(socketId);
+    if (members.size === 0) channels.delete(channelId);
+  }
+};
 
-//     if (userSocketIds.size === 0) onlineUsers.delete(userId);
-//   }
-// };
+const allInChannel = (channelId) => {
+  if (channels.has(channelId)) return [...channels.get(channelId)];
+};
 
-// const allInServer = () => [...onlineUsers.keys()];
-
-module.exports = { add, remove, all };
+module.exports = {
+  add,
+  remove,
+  all,
+  addToChannel,
+  removeFromChannel,
+  allInChannel,
+};

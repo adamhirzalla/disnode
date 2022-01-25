@@ -7,7 +7,13 @@ import { Avatar, Tooltip } from "@mui/material";
 import { getServer } from "../../network/serverApi";
 import ServerContext from "../../contexts/ServerContext";
 import AuthContext from "../../contexts/AuthContext";
-import { SERVER, SERVER_JOIN, SERVER_LEAVE } from "../../utils/constants";
+import {
+  CHANNEL_JOIN,
+  CHANNEL_LEAVE,
+  SERVER,
+  SERVER_JOIN,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -52,11 +58,21 @@ export default function ServerListItem(props) {
   // }, [socket, server]);
 
   const handleServerClick = async () => {
-    const server = await getServer(id);
-    app.server.id && socket.emit(SERVER_LEAVE, app.server.id);
-    socket.emit(SERVER_JOIN, server.id);
-    setServer(server);
-    setMode(SERVER);
+    try {
+      const server = await getServer(id);
+      if (app.server) socket.emit(SERVER_LEAVE, app.server.id);
+      if (app.channel) socket.emit(CHANNEL_LEAVE, app.channel.id);
+      const channels = Object.values(server?.channels);
+      socket.emit(SERVER_JOIN, server.id);
+      socket.emit(CHANNEL_JOIN, {
+        id: channels[0]?.id,
+        server_id: server.id,
+      });
+      setServer(server);
+      setMode(SERVER);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
