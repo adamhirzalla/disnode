@@ -114,10 +114,11 @@ export default function Server(props) {
       channel,
     });
   };
-  const newChannel = (channel) => {
+  const newChannel = (channel, user) => {
     appDispatch({
       type: SET_NEW_CHANNEL,
       channel,
+      user,
     });
   };
   const deleteMessage = (message) => {

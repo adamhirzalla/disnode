@@ -36,8 +36,18 @@ module.exports = (io) => {
       socket.to(`SERVER_${oldId}`).emit(SERVER_LEAVE, socket.userId, oldId);
     };
 
-    const messageServer = (message) => {
-      socket.to(`SERVER_${message.server_id}`).emit(CHANNEL_MESSAGE, message);
+    const messageServer = async (message) => {
+      const inChannel = Online.allInChannel(message.channel_id);
+      const userId = socket.userId;
+      if (inChannel?.length) {
+        const viewsQueries = inChannel.map((userId) => {
+          View.add(message, userId);
+        });
+        await Promise.all(viewsQueries);
+        const views = await View.byMessage(message, userId);
+        message.views = views;
+      }
+      io.to(`SERVER_${message.server_id}`).emit(CHANNEL_MESSAGE, message);
     };
     const updateMembers = (members, serverId) => {
       socket.to(`SERVER_${serverId}`).emit(MEMBER_UPDATE, members);
@@ -58,6 +68,7 @@ module.exports = (io) => {
       socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_DELETE, channel);
     };
     const newChannel = (channel) => {
+      console.log(channel);
       socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_NEW, channel);
     };
     const deleteMessage = (message) => {

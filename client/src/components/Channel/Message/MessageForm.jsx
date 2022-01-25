@@ -80,7 +80,7 @@ export default function MessageForm() {
       // console.log(activeUsers);
       socket.emit(CHANNEL_MESSAGE, message);
       setInput("");
-      setMessages(message);
+      // setMessages(message);
     } catch (e) {
       console.log("Failed to send message");
     }

@@ -136,14 +136,19 @@ export default function reducer(state, action) {
       };
     }
     case DELETE_CHANNEL: {
-      delete state?.channels[channel.id];
-      const channelsData = Object.values(state?.channels);
+      // delete state?.channels[channel.id];
+      const { [channel.id]: deleted, ...channels } = state.channels;
+      const channelsData = Object.values(channels).filter(
+        (c) => c.id !== channel.id
+      );
+      // const channels = {...state.channels}
       // const channel = { ...channels.find((c) => c.id === channelId) };
-      if (state.channel.id !== channel.id) return { ...state };
+      if (state.channel.id !== channel.id) return { ...state, channels };
       return {
         ...state,
-        channel: channelsData[0] || { messages: [] },
-        messages: channelsData[0].messages || [],
+        channels,
+        channel: channelsData[0],
+        messages: channelsData[0].messages,
       };
     }
     case DELETE_MEMBER: {
@@ -273,7 +278,7 @@ export default function reducer(state, action) {
       // const channels = [...state.server.channels, channel];
       channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
-      if (user.id !== channel.creator_id) return { ...state, channels };
+      if (!user) return { ...state, channels };
       return {
         ...state,
         channels,
