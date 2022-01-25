@@ -73,7 +73,7 @@ VALUES
 (6, 7, 'Welcome'), 
 (3, 14, 'General'), (2, 14, 'Memes Only'), (2, 14, 'Misc'),
 (3, 4, 'Welcome'), (3, 4, 'General'), (2, 4, 'LFG Ranked'), (2, 4, 'Tips & Tricks'),
-(3, 8, 'Welcome'), (3, 8, 'To'), (2, 8, 'Server 1'),
+(3, 8, 'Welcome'), (3, 8, 'General'), (2, 8, 'How to lose 101'),
 (2, 2, 'Welcome'),
 (2, 9, 'Welcome'), 
 (2, 10, 'Welcome'), 
