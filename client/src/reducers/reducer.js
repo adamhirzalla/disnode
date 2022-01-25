@@ -104,10 +104,15 @@ export default function reducer(state, action) {
       };
     case SET_CHANNEL: {
       const channels = Object.values(state?.channels);
-      const channel = { ...channels.find((c) => c.id === channelId) };
+      const channel = {
+        ...channels.find((c) => c.id === channelId),
+        notification: false,
+        mention: false,
+      };
       return {
         ...state,
         channel,
+        channels: { ...state.channels, [channelId]: channel },
         messages: channel.messages || [],
       };
     }
@@ -203,6 +208,8 @@ export default function reducer(state, action) {
       // };
 
       const messages = [...channel.messages, message];
+      // let mention = false;
+      // const mention = message.body.includes(`@${user.nickname}`);
 
       // const updatedChannel = { ...channel, messages };
 
@@ -211,7 +218,15 @@ export default function reducer(state, action) {
       //   updatedChannel,
       //   ...channels.filter((ch) => ch.id !== message.channel_id),
       // ];
-      const updatedChannel = { ...channel, messages };
+      const updatedChannel =
+        state.channel.id === message.channel_id
+          ? { ...channel, messages }
+          : {
+              ...channel,
+              messages,
+              notification: true,
+              mention: message.body.includes(`@${user.nickname}`),
+            };
       // state.server.channels[message.channel_id] = updatedChannel;
       // reformatChannel(channels)
       // [0:{},1:{},2:{}]

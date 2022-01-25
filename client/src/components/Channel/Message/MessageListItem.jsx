@@ -18,6 +18,7 @@ import ServerContext from "../../../contexts/ServerContext";
 import AuthContext from "../../../contexts/AuthContext";
 import { deleteMessage } from "../../../network/messageApi";
 import { DELETE_MESSAGE, MESSAGE_DELETE } from "../../../utils/constants";
+import classNames from "classnames";
 const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
@@ -51,12 +52,18 @@ const useStyles = makeStyles(() => ({
     "&:hover": { opacity: 1 },
   },
   body: {
+    padding: "0 0.5em",
     "& span": {
       fontSize: "0.95em",
     },
     "& p": {
       fontSize: "0.75em",
     },
+  },
+  mention: {
+    backgroundColor: "rgba(250,209,102, 0.3)",
+    borderRadius: 5,
+    borderLeft: "5px solid rgba(250,209,102, 1)",
   },
 }));
 export default function MessageListItem(props) {
@@ -87,6 +94,10 @@ export default function MessageListItem(props) {
   //   scrollToBottom();
   // }, []);
 
+  const messageClasses = classNames(classes.body, {
+    [classes.mention]: message.mention,
+  });
+
   const role = members.find((m) => m.user_id === user.id).role;
 
   const handleDelete = () => {
@@ -102,7 +113,7 @@ export default function MessageListItem(props) {
     appDispatch({ type: DELETE_MESSAGE, message: deletedMessage });
     setThrottle(false);
   };
-
+  if (message.body.includes(`@${user.nickname}`)) message.mention = true;
   return (
     <>
       <Divider variant="inset" component="li" />
@@ -133,7 +144,7 @@ export default function MessageListItem(props) {
             )}
             primary={message.body}
             secondary={moment(message.sent_at).fromNow()}
-            className={classes.body}
+            className={messageClasses}
           />
         </Stack>
         <Box className={classes.right}>

@@ -83,10 +83,11 @@ export const ServerProvider = ({ children }) => {
     });
   };
 
-  const setMessages = (message) => {
+  const setMessages = (message, user) => {
     appDispatch({
       type: SET_MESSAGES,
       message,
+      user,
     });
   };
 

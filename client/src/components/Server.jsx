@@ -68,7 +68,7 @@ export default function Server(props) {
     console.log(`User ${userId} just left Server ${serverId}`);
   };
   const receiveChannelMSG = (message) => {
-    setMessages(message);
+    setMessages(message, user);
   };
   const updateMembers = (members) => {
     setMembers(members);
