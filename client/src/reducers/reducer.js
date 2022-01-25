@@ -154,9 +154,21 @@ export default function reducer(state, action) {
       };
     }
     case DELETE_MESSAGE: {
-      const messages = state.messages.filter((msg) => msg.id !== message.id);
       // state.channels[message.channel_id].messages = messages;
-
+      if (state.channel.id !== message.channel_id)
+        return {
+          ...state,
+          channels: {
+            ...state.channels,
+            [message.channel_id]: {
+              ...state.channels[message.channel_id],
+              messages: state.channels[message.channel_id].messages.filter(
+                (msg) => msg.id !== message.id
+              ),
+            },
+          },
+        };
+      const messages = state.messages.filter((msg) => msg.id !== message.id);
       return {
         ...state,
         channel: { ...state.channel, messages },

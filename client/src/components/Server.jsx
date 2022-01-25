@@ -14,11 +14,13 @@ import {
   CHANNEL_MESSAGE,
   CHANNEL_NEW,
   DELETE_CHANNEL,
+  DELETE_MESSAGE,
   EDIT_CHANNEL,
   EDIT_SERVER,
   HOME,
   MEMBER_KICK,
   MEMBER_UPDATE,
+  MESSAGE_DELETE,
   SERVERS_UPDATE,
   SERVER_EDIT,
   SERVER_JOIN,
@@ -51,6 +53,7 @@ export default function Server(props) {
       socket.on(CHANNEL_EDIT, editChannel);
       socket.on(CHANNEL_DELETE, deleteChanel);
       socket.on(CHANNEL_NEW, newChannel);
+      socket.on(MESSAGE_DELETE, deleteMessage);
       console.log("listeners added");
     }
     return () => {
@@ -101,6 +104,12 @@ export default function Server(props) {
     appDispatch({
       type: SET_NEW_CHANNEL,
       channel,
+    });
+  };
+  const deleteMessage = (message) => {
+    appDispatch({
+      type: DELETE_MESSAGE,
+      message,
     });
   };
   return (

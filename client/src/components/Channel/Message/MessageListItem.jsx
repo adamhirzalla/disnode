@@ -17,7 +17,7 @@ import { makeStyles } from "@mui/styles";
 import ServerContext from "../../../contexts/ServerContext";
 import AuthContext from "../../../contexts/AuthContext";
 import { deleteMessage } from "../../../network/messageApi";
-import { DELETE_MESSAGE } from "../../../utils/constants";
+import { DELETE_MESSAGE, MESSAGE_DELETE } from "../../../utils/constants";
 const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
@@ -65,11 +65,11 @@ export default function MessageListItem(props) {
   const { message, index, messages } = props;
   const { views } = message;
   const {
-    app: { members },
+    app: { members, server },
     appDispatch,
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket },
   } = useContext(AuthContext);
   const [throttle, setThrottle] = useState(false);
   let tooltip;
@@ -97,8 +97,10 @@ export default function MessageListItem(props) {
   const controlSpam = async () => {
     setThrottle(true);
     const deletedMessage = await deleteMessage(message.id);
-    setThrottle(false);
+    deletedMessage.server_id = server.id;
+    socket.emit(MESSAGE_DELETE, deletedMessage);
     appDispatch({ type: DELETE_MESSAGE, message: deletedMessage });
+    setThrottle(false);
   };
 
   return (
