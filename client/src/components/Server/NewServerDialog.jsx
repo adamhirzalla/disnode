@@ -3,7 +3,7 @@ import { useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import SelectButton from "./SelectButton";
 import Avatar from "@mui/material/Avatar";
-import { Alert, Tooltip } from "@mui/material";
+import { Alert, Button, Tooltip } from "@mui/material";
 import { IconButton } from "@mui/material";
 import DisButton from "../Button/DisButton";
 import DisTextField from "../Inputs/DisTextField";
@@ -139,12 +139,29 @@ export default function NewServerDialog() {
           <Tags setTags={setTags} />
         </DialogContent>
         <DialogActions>
-          <DisButton disStyle="cancel" onClick={handleClose}>
+          <Button
+            variant="outlined"
+            disableRipple
+            color="primary"
+            onClick={handleClose}
+            sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+          >
             Cancel
-          </DisButton>
-          <DisButton disStyle="submit" onClick={handleCreate}>
+          </Button>
+          <Button
+            variant="contained"
+            disableRipple
+            onClick={handleCreate}
+            sx={{
+              color: "white",
+              opacity: 0.8,
+              "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+              backgroundColor: "rgb(199, 58, 58,0.8)",
+            }}
+            // startIcon={<DoNotDisturbIcon />}
+          >
             Create
-          </DisButton>
+          </Button>
         </DialogActions>
         {error && <Alert severity="error">{error}</Alert>}
       </Dialog>

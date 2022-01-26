@@ -35,7 +35,11 @@ import {
 import { getServers } from "../network/serverApi";
 
 const useStyles = makeStyles({
-  messages: { justifyContent: "flex-end", width: "100%" },
+  messages: {
+    justifyContent: "flex-end",
+    width: "100%",
+    backgroundColor: "rgb(173, 169, 168,0.3)",
+  },
 });
 export default function Server(props) {
   const classes = useStyles();

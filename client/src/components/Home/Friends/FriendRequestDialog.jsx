@@ -8,21 +8,26 @@ import Outgoing from "@mui/icons-material/CallMissedOutgoing";
 import Incoming from "@mui/icons-material/CallReceived";
 
 const useStyles = makeStyles(() => ({
-  dialogPaper: {
-    display: "flex",
-    flexDirection: "column",
-    width: "30%",
-    minHeight: "45%",
-    alignItems: "center",
-    borderRadius: "2em",
-    textAlign: "center",
-    padding: "40px",
-    justifyContent: "start",
+  // dialogPaper: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   width: "30%",
+  //   minHeight: "200px",
+  //   alignItems: "center",
+  //   borderRadius: "2em",
+  //   textAlign: "center",
+  //   padding: "40px",
+  //   justifyContent: "start",
+  // },
+  dialog: {
+    // backgroundColor: "green",
   },
   listItem: {
     overflowY: "auto",
+    minHeight: "350px",
+    minWidth: "500px",
     "& .MuiListItemButton-root": {
-      borderRadius: "2em",
+      borderRadius: "0.5em",
     },
     flexDirection: "column",
   },
@@ -85,15 +90,15 @@ export default function FriendRequestDialog(props) {
       : null;
 
   return (
-    <Dialog className={classes.dialogPaper} open={open} onClose={handleClose}>
+    <Dialog className={classes.dialog} open={open} onClose={handleClose}>
       {view === SENT && (
         <Incoming
           color="info"
-          fontSize="large"
+          fontSize="medium"
           sx={{
             position: "absolute",
-            top: "25px",
-            right: "25px",
+            top: "10px",
+            right: "10px",
             cursor: "pointer",
           }}
           onClick={toggleView}
@@ -102,24 +107,24 @@ export default function FriendRequestDialog(props) {
       {view === RECEIVED && (
         <Outgoing
           color="info"
-          fontSize="large"
+          fontSize="medium"
           sx={{
             position: "absolute",
-            top: "25px",
-            right: "25px",
+            top: "10px",
+            right: "10px",
             cursor: "pointer",
           }}
           onClick={toggleView}
         />
       )}
 
-      <DialogTitle style={{ fontSize: "1.3em", margin: "20px 0" }}>
+      <DialogTitle
+        style={{ fontSize: "1.3em", margin: "20px 20px", textAlign: "center" }}
+      >
         {header}
       </DialogTitle>
 
-      <ListItem className={classes.listItem} disablePadding>
-        {parsedRequests}
-      </ListItem>
+      <ListItem className={classes.listItem}>{parsedRequests}</ListItem>
     </Dialog>
   );
 }

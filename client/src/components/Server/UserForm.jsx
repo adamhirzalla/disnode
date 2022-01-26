@@ -41,7 +41,7 @@ export default function UserForm(props) {
           type="text"
           variant="outlined"
           label="Bio"
-          value={input.bio}
+          value={input.bio ? input.bio : ""}
           placeholder={bio}
           onChange={(e) =>
             setInput((prev) => ({ ...prev, bio: e.target.value }))

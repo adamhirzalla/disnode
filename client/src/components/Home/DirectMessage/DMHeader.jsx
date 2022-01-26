@@ -34,7 +34,7 @@ export default function DMHeader() {
     <ListItem className={classes.header} alignItems="center">
       <Box className={classes.channel}>
         <Typography className={classes.title} component="span">
-          # {"dm1"}
+          # {"DMs coming soon!"}
         </Typography>
         {/* {participants.some((p) => p.creator_id === user.id) && ( */}
         <IconButton

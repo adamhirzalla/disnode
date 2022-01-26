@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  Button,
   IconButton,
   ListItemAvatar,
   ListItemText,
@@ -8,6 +9,7 @@ import {
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useServerDialogStyles } from "../../styles/useServerDialogStyles";
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import {
   acceptRequest,
   answerRequest,
@@ -83,25 +85,31 @@ export default function RequestListItem(props) {
         {received ? (
           <>
             <IconButton
+              disableRipple
               onClick={() => handleAnswer(user.request_id, true)}
-              sx={{ color: "green", opacity: 0.3, "&:hover": { opacity: 1 } }}
+              sx={{ color: "green", opacity: 0.6, "&:hover": { opacity: 1 } }}
             >
               <CheckCircleOutlineIcon />
             </IconButton>
             <IconButton
+              disableRipple
               onClick={() => handleAnswer(user.request_id, false)}
-              sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
+              sx={{ color: "red", opacity: 0.6, "&:hover": { opacity: 1 } }}
             >
               <HighlightOffIcon />
             </IconButton>
           </>
         ) : sent ? (
-          <IconButton
+          <Button
+            variant="outlined"
+            disableRipple
+            color="error"
             onClick={() => handleAnswer(user.request_id, false)}
-            sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
+            sx={{ color: "red", opacity: 0.8, "&:hover": { opacity: 1 } }}
+            // startIcon={<DoNotDisturbIcon />}
           >
-            <HighlightOffIcon />
-          </IconButton>
+            Cancel Request
+          </Button>
         ) : null}
       </Box>
     </Box>

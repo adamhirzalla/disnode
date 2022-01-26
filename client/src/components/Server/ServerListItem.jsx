@@ -22,11 +22,12 @@ const useStyles = makeStyles({
     "&:hover": { opacity: "1" },
   },
   selected: {
-    boxShadow: "inset 0px 0px 0px 2px white",
+    boxShadow: "inset 0px 0px 0px 2px gray",
     opacity: "1",
   },
   center: {
     justifyContent: "center",
+    // padding: "0px auto",
   },
 });
 

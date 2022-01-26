@@ -9,11 +9,13 @@ import {
   Stack,
   Chip,
   Box,
+  Divider,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { useContext, useState } from "react";
 import ConfirmDialog from "./ConfirmDialog";
 import AuthContext from "../../contexts/AuthContext";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function SearchServerListDialog(props) {
   const { server, openResult, setOpenResult, setOpen } = props;
@@ -45,11 +47,13 @@ export default function SearchServerListDialog(props) {
         <>
           <ListItem
             sx={{
-              "& .MuiListItemButton-root": {
-                borderRadius: "2em",
-              },
+              borderRadius: "0.5em",
+              border: "1px solid gray",
+              margin: "10px 0",
+
+              "& .MuiListItemButton-root": {},
             }}
-            disablePadding
+            // disablePadding
           >
             {/* <ListItemButton className={classes.list}> */}
             <Box
@@ -70,17 +74,21 @@ export default function SearchServerListDialog(props) {
                   <Avatar
                     alt={title}
                     src={logo}
-                    sx={{ height: "50px", width: "50px" }}
+                    sx={{ height: "70px", width: "70px" }}
                   />
                 </ListItemAvatar>
                 <ListItemText sx={{ pl: "20px" }} primary={server.title} />
               </Box>
-              <Stack direction="row" spacing={0.5}>
+              <Stack
+                direction="row"
+                spacing={1}
+                // sx={{ justifyContent: "center" }}
+              >
                 {parsedTags}
               </Stack>
             </Box>
 
-            <AvatarGroup total={members.length} sx={{ pr: "80px" }}>
+            <AvatarGroup total={members.length} sx={{ pr: "auto" }}>
               <Tooltip title={members[0].nickname} arrow placement="top">
                 <Avatar alt={members[0].nickname} src={members[0].avatar} />
               </Tooltip>
@@ -95,13 +103,18 @@ export default function SearchServerListDialog(props) {
                 </Tooltip>
               )}
             </AvatarGroup>
-            {!members.find((m) => m.user_id === user.id) && (
+            {!members.find((m) => m.user_id === user.id) ? (
               <IconButton
                 onClick={handleJoin}
                 sx={{ color: "green", opacity: 0.6 }}
               >
-                <AddCircleOutlineIcon />
+                <AddCircleOutlineIcon fontSize="medium" />
               </IconButton>
+            ) : (
+              <CheckCircleIcon
+                fontSize="medium"
+                sx={{ color: "green", opacity: 0.6, padding: "0 10px" }}
+              />
             )}
             {/* </ListItemButton> */}
           </ListItem>

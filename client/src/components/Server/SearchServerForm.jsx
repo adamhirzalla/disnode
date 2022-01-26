@@ -16,18 +16,18 @@ const useStyles = makeStyles(() => ({
   },
   submit: {
     color: "white",
-    borderRadius: ".8em",
+    borderRadius: ".3em",
     backgroundColor: "#7a211b",
     "&:hover": {
       backgroundColor: "#635c5b",
     },
   },
   cancel: {
-    color: "#7a211b",
-    borderRadius: ".8em",
+    color: "white",
+    borderRadius: ".3em",
     border: "1px solid #7a211b",
     "&:hover": {
-      color: "#635c5b",
+      color: "#7a211b",
       border: "1px solid #635c5b",
     },
   },
@@ -46,7 +46,7 @@ export default function SearchServerForm(props) {
   const handleSearch = async () => {
     const { inviteCode, title } = search;
     if (!inviteCode && !title && !tags.length) {
-      return setError("Enter a server title or code to search for");
+      return setError("Fill out a field to search by");
     } else if (
       (inviteCode && title) ||
       (inviteCode && tags.length) ||
@@ -67,7 +67,7 @@ export default function SearchServerForm(props) {
   return (
     <>
       <DialogContent className={classes.content}>
-        By Title
+        Title
         <TextField
           autoFocus
           type="text"
@@ -79,7 +79,7 @@ export default function SearchServerForm(props) {
             setSearch((prev) => ({ ...prev, title: e.target.value }));
           }}
         />
-        By Invite Code
+        Invite Code
         <TextField
           type="text"
           fullWidth
@@ -90,15 +90,33 @@ export default function SearchServerForm(props) {
             setSearch((prev) => ({ ...prev, inviteCode: e.target.value }));
           }}
         />
-        By Tags
+        Tags
         <Tags setTags={setTags} setSearch={setSearch} search={search} />
       </DialogContent>
       <DialogActions>
-        <Button className={classes.cancel} onClick={handleClose}>
+        <Button
+          variant="outlined"
+          disableRipple
+          color="primary"
+          onClick={handleClose}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+        >
           Cancel
         </Button>
-        <Button className={classes.submit} type="submit" onClick={handleSearch}>
-          SEARCH
+        <Button
+          variant="contained"
+          disableRipple
+          onClick={handleSearch}
+          type="submit"
+          sx={{
+            color: "white",
+            opacity: 0.8,
+            "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+            backgroundColor: "rgb(199, 58, 58,0.8)",
+          }}
+          // startIcon={<DoNotDisturbIcon />}
+        >
+          Search
         </Button>
       </DialogActions>
     </>

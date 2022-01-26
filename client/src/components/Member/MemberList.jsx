@@ -131,7 +131,11 @@ export default function MemberList(props) {
         </ListItem>
         {owner.length > 0 && (
           <>
-            <Typography className={classes.role} variant="button">
+            <Typography
+              className={classes.role}
+              variant="button"
+              sx={{ color: "rgb(199, 58, 58,1)" }}
+            >
               owner
             </Typography>
             <Divider component="li" className={classes.divider} />
@@ -140,7 +144,11 @@ export default function MemberList(props) {
         {owner}
         {admins.length > 0 && (
           <>
-            <Typography className={classes.role} variant="button">
+            <Typography
+              className={classes.role}
+              variant="button"
+              sx={{ color: "orange" }}
+            >
               admins
             </Typography>
             <Divider component="li" className={classes.divider} />
@@ -149,7 +157,11 @@ export default function MemberList(props) {
         {admins}
         {users.length > 0 && (
           <>
-            <Typography className={classes.role} variant="button">
+            <Typography
+              className={classes.role}
+              variant="button"
+              sx={{ color: "green" }}
+            >
               users
             </Typography>
             <Divider component="li" className={classes.divider} />

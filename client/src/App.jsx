@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import { useState } from "react";
 
 function App() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useState(true);
   return (
     <div className="App">
       <StyledEngineProvider injectFirst>

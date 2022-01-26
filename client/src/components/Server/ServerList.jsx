@@ -59,15 +59,19 @@ const useStyles = makeStyles(() => ({
     height: "56px",
   },
   navBot: {
-    position: "absolute",
+    position: "sticky",
     bottom: "0px",
-    width: "100%",
+    left: "0px",
+    marginTop: "auto",
+    width: "90px",
     backgroundColor: "#040B0C",
   },
   nav: {
     // position: "relative",
     height: "100vh",
     overflowY: "scroll",
+    display: "flex",
+    flexDirection: "column",
     "& .MuiPaper-root": {
       width: "90px",
       backgroundColor: "#040B0C",
@@ -80,9 +84,13 @@ const useStyles = makeStyles(() => ({
     overflowY: "scroll",
     minHeight: "100vh",
     position: "relative",
+    padding: "0 0",
+    display: "flex",
+    flexDirection: "column",
+    // justifyContent: "space-between",
     "&::-webkit-scrollbar": {
       borderRadius: "30px",
-      width: "5px",
+      width: "0em",
     },
     "&::-webkit-scrollbar-track": {
       WebkitBoxShadow: "inset 0 0 3px rgb(0,0,0,0.1)",
@@ -121,6 +129,7 @@ export default function ServerList(props) {
   });
 
   const handleHomeClick = () => {
+    if (!user) return alert("Please login first");
     socket.emit("home click", socket.id, user.nickname);
     // navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
     if (server.id && socket) socket.emit(SERVER_LEAVE, server.id);
@@ -182,6 +191,7 @@ export default function ServerList(props) {
             <IconButton
               className={homeIconClass}
               onClick={() => handleHomeClick(socket)}
+              disableRipple
             >
               <Avatar
                 style={{
@@ -197,7 +207,7 @@ export default function ServerList(props) {
 
         {parsedServers}
 
-        {!loading && (
+        {!loading && user && (
           <Box className={classes.navBot}>
             <DisDivider disStyle="nav-bot" />
             <ListItem className={classes.listItem}>

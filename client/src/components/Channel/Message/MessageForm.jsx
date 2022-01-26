@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     // minWidth: "100%",
     borderTop: "1px solid rgb(4,11,12,0.4)",
+    // backgroundColor: "rgb(173, 169, 168,0.7)",
   },
   textField: {
     // width: "80%",
@@ -25,9 +26,18 @@ const useStyles = makeStyles(() => ({
   },
   input: {
     // width: "100%",
+    backgroundColor: "rgb(16,16,16,0.2)",
+    color: "black",
+    border: "2px solid black",
   },
   send: {
-    margin: "3em 2em",
+    margin: "auto 2em",
+    backgroundColor: "rgb(199, 58, 58,1)",
+    opacity: "0.9",
+    "&:hover": {
+      backgroundColor: "rgb(199, 58, 58,1)",
+      opacity: "1",
+    },
   },
 }));
 
@@ -95,8 +105,9 @@ export default function MessageForm() {
         onKeyDown={handleKeyDown}
         autoFocus
         type="text"
+        // color="info"
         maxRows="5"
-        variant="standard"
+        variant="outlined"
         placeholder={`Message #${channel?.title}`}
         multiline
         required

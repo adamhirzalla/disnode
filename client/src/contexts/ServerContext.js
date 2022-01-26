@@ -11,6 +11,7 @@ import {
   SET_MESSAGES,
   SET_NEW_CHANNEL,
   SET_ACTIVE_USERS,
+  SERVER,
 } from "../utils/constants";
 import { getServers } from "../network/serverApi";
 import AuthContext from "./AuthContext";
@@ -25,7 +26,7 @@ export const initialState = {
   channels: [],
   messages: [],
   members: [],
-  mode: HOME,
+  mode: "LOGIN",
   loading: true,
 };
 

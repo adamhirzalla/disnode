@@ -52,11 +52,28 @@ export default function ServerLeaveDialog(props) {
     >
       <DialogTitle>{confirmation}</DialogTitle>
       <DialogActions>
-        <Button className={buttonClasses.cancel} onClick={() => setOpen(false)}>
+        <Button
+          variant="outlined"
+          disableRipple
+          color="primary"
+          onClick={() => setOpen(false)}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+        >
           Cancel
         </Button>
         {role !== "owner" && (
-          <Button className={buttonClasses.submit} onClick={handleConfirm}>
+          <Button
+            variant="contained"
+            disableRipple
+            onClick={handleConfirm}
+            sx={{
+              color: "white",
+              opacity: 0.8,
+              "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+              backgroundColor: "rgb(199, 58, 58,0.8)",
+            }}
+            // startIcon={<DoNotDisturbIcon />}
+          >
             Confirm
           </Button>
         )}

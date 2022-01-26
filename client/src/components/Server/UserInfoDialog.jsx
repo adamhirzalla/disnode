@@ -126,7 +126,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
               height: "70px",
               marginBottom: "20px",
             }}
-            src={avatar}
+            src={avatar ? avatar : "/images/Disnode-red.png"}
             imgProps={{ id: "image-preview" }}
           />
           <SelectButton setFile={setFile} />
@@ -155,6 +155,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(1)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 1)?.url
                   ? { opacity: 1 }
@@ -167,6 +168,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(2)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 2)?.url
                   ? { opacity: 1 }
@@ -179,6 +181,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(3)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 3)?.url
                   ? { opacity: 1 }
@@ -191,6 +194,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(4)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 4)?.url
                   ? { opacity: 1 }
@@ -203,6 +207,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(5)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 5)?.url
                   ? { opacity: 1 }
@@ -215,6 +220,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
           <Grid item xs={4}>
             <IconButton
               onClick={() => handleDialog(6)}
+              disableRipple
               sx={
                 input.socials.find((e) => e.id == 6)?.url
                   ? { opacity: 1 }
@@ -227,10 +233,27 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" color="error" onClick={handleClose}>
+        <Button
+          variant="outlined"
+          disableRipple
+          color="primary"
+          onClick={handleClose}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+        >
           Cancel
         </Button>
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          disableRipple
+          onClick={handleSubmit}
+          sx={{
+            color: "white",
+            opacity: 0.8,
+            "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+            backgroundColor: "rgb(199, 58, 58,0.8)",
+          }}
+          // startIcon={<DoNotDisturbIcon />}
+        >
           Save
         </Button>
       </DialogActions>

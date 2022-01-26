@@ -101,16 +101,29 @@ export default function NewChannelDialog() {
           />
         </DialogContent>
         <DialogActions>
-          <DisButton
-            // variant="text "
-            disStyle="cancel"
+          <Button
+            variant="outlined"
+            disableRipple
+            color="primary"
             onClick={handleClose}
+            sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
           >
             Cancel
-          </DisButton>
-          <DisButton disStyle="submit" onClick={handleSubmit}>
-            Create
-          </DisButton>
+          </Button>
+          <Button
+            variant="contained"
+            disableRipple
+            onClick={handleSubmit}
+            sx={{
+              color: "white",
+              opacity: 0.8,
+              "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+              backgroundColor: "rgb(199, 58, 58,0.8)",
+            }}
+            // startIcon={<DoNotDisturbIcon />}
+          >
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

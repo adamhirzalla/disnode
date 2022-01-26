@@ -23,6 +23,7 @@ const {
 module.exports = (io) => {
   io.on("connection", async (socket) => {
     /* socket object may be used to send specific messages to the new connected client */
+    if (!socket.userId) return;
     const join = (serverId) => {
       console.log(`${socket.userId} joined server ${serverId}`);
       socket.join(`SERVER_${serverId}`);
@@ -106,7 +107,7 @@ module.exports = (io) => {
 
     const user = await User.setActive(socket.userId);
     // add this new user to online map
-    Online.add(socket.id, user.id);
+    Online.add(socket.id, user?.id);
     // get all online users (app-wide)
     const online = Online.all();
 
@@ -119,7 +120,7 @@ module.exports = (io) => {
     // Disconnection
     socket.on("disconnect", async () => {
       const user = await User.setInactive(socket.userId);
-      Online.remove(socket.id, user.id);
+      Online.remove(socket.id, user?.id);
       console.log(`${user.username} disconnected`);
       const online = Online.all();
       io.emit("disconnection", online);

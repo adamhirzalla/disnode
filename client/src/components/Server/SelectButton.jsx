@@ -37,9 +37,16 @@ export default function SelectButton(props) {
       <Button
         variant="contained"
         component="span"
-        name="Select File"
-        className={classes.contained}
+        disableRipple
         size="small"
+        name="Select File"
+        sx={{
+          color: "white",
+          opacity: 0.8,
+          "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+          backgroundColor: "rgb(199, 58, 58,0.8)",
+        }}
+        // startIcon={<DoNotDisturbIcon />}
       >
         Select File
       </Button>

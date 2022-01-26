@@ -168,12 +168,28 @@ export default function MemberDialog(props) {
           <>
             <Button
               variant="outlined"
-              color="error"
+              disableRipple
+              color="primary"
               onClick={() => setOpen(false)}
+              sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
             >
               Cancel
             </Button>
-            <Button variant="contained" color="info" onClick={handleAction}>
+            <Button
+              variant="contained"
+              disableRipple
+              onClick={handleAction}
+              sx={{
+                color: "white",
+                opacity: 0.8,
+                "&:hover": {
+                  opacity: 1,
+                  backgroundColor: "rgb(199, 58, 58,1)",
+                },
+                backgroundColor: "rgb(199, 58, 58,0.8)",
+              }}
+              // startIcon={<DoNotDisturbIcon />}
+            >
               Confirm
             </Button>
           </>
