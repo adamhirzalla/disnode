@@ -20,7 +20,13 @@ import OriginSvg from "../SvgIcons/OriginSvg";
 import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
-import { DELETE_MEMBER, EDIT_REQEUSTS } from "../../utils/constants";
+import {
+  DELETE_MEMBER,
+  MEMBER_KICK,
+  MEMBER_UPDATE,
+  EDIT_REQEUSTS,
+  UPDATE_REQUESTS,
+} from "../../utils/constants";
 import AuthContext from "../../contexts/AuthContext";
 import { sendRequest } from "../../network/friendApi";
 // import Blizzard from "../SvgIcons/blizzard.svg";
@@ -57,7 +63,7 @@ export default function MemberDialog(props) {
     appDispatch,
   } = useContext(ServerContext);
   const {
-    state: { user },
+    state: { user, socket },
     dispatch,
   } = useContext(AuthContext);
 
@@ -66,6 +72,7 @@ export default function MemberDialog(props) {
   const closeDialog = (members) => {
     setOpen(false);
     setAction(null);
+    socket.emit(MEMBER_UPDATE, members, server.id);
     setMembers(members);
   };
 
@@ -87,6 +94,7 @@ export default function MemberDialog(props) {
         closeDialog(members);
       } else if (action === KICK) {
         await removeMember(server.id, member.id);
+        socket.emit(MEMBER_KICK, member, server.id);
         // const member = await getMembers(server.id);
         setOpen(false);
         setAction(null);
@@ -95,8 +103,8 @@ export default function MemberDialog(props) {
           member,
         });
       } else if (action === ADD) {
-        const sent = await sendRequest(member.user_id);
-        dispatch({ type: EDIT_REQEUSTS, sent });
+        const requests = await sendRequest(member.user_id);
+        dispatch({ type: UPDATE_REQUESTS, requests });
         setOpen(false);
         setAction(null);
       }

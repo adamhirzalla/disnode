@@ -33,6 +33,7 @@ import { SET_FRIENDS, SET_REQUESTS } from "../../../utils/constants";
 import AuthContext from "../../../contexts/AuthContext";
 import AddAlertIcon from "@mui/icons-material/AddAlert";
 import FriendRequestDialog from "./FriendRequestDialog";
+import Request from "@mui/icons-material/GroupAdd";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -63,76 +64,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   },
 }));
-
-// const drawerWidth = "25%";
-
-// // styles
-// const useStyles = makeStyles(() => ({
-//   drawerWrapper: {
-//     display: "flex",
-//     flexDirection: "column",
-//     padding: "0 0",
-//     // width: "25%",
-//     // height: "100%",
-//   },
-//   friendListWrapper: {
-//     display: "flex",
-//     justifyContent: "space-evenly",
-//     height: "100%",
-//     padding: "1em",
-//   },
-//   friendListOpenIcon: {
-//     // marginTop: ".75em",
-//     // marginLeft: ".8em",
-//     position: "fixed",
-//     top: ".685em",
-//     height: "2em",
-//     width: "2em",
-//     zIndex: 3,
-//     color: "#FFF",
-//     opacity: "0.8",
-//     "&:hover": {
-//       // color: "rgb(204, 180, 180, 1)",
-//       // backgroundColor: "inherit",
-//       opacity: "1",
-//     },
-//   },
-//   friendListCloseIcon: {
-//     position: "fixed",
-//     left: "27em",
-//     top: "20px",
-//     width: "2em",
-//     height: "2em",
-//     backgroundColor: "rgb(150, 5, 5, 1)",
-//     color: "#FFF",
-
-//     "&:hover": {
-//       color: "#01040D",
-//     },
-//   },
-//   peopleAltIcon: {
-//     height: "1.3em",
-//     width: "1.3em",
-//   },
-// }));
-
-// const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-//   ({ theme, open }) => ({
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create("margin", {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: `-${drawerWidth}px`,
-//     ...(open && {
-//       transition: theme.transitions.create("margin", {
-//         easing: theme.transitions.easing.easeOut,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//     }),
-//   })
-// );
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -197,44 +128,25 @@ const useStyles = makeStyles(() => ({
 
 export default function FriendsListDrawer(props) {
   const classes = useStyles();
-  const { dispatch, state } = useContext(AuthContext);
-
-  // const [state, setState] = useState({
-  //   top: false,
-  //   left: false,
-  //   bottom: false,
-  //   right: false,
-  // });
+  const {
+    dispatch,
+    state: { user },
+  } = useContext(AuthContext);
 
   const [open, setOpen] = useState(false);
-  const [request, SetRequest] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   // when toggle button is clicked, fetch friends
   const toggleDrawer = async () => {
     setOpen(!open);
-    // if (
-    //   event &&
-    //   event.type === "keydown" &&
-    //   (event.key === "Tab" || event.key === "Shift")
-    // ) {
-    //   return;
-    // }
-
-    // setState({ ...state, [anchor]: open });
   };
 
   const handleClick = async () => {
-    SetRequest(true);
+    setToggle(true);
   };
 
   const list = (anchor) => (
-    <Box
-      // sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      // role="presentation"
-      // onClick={() => setOpen(false)}
-      // onKeyDown={() => setOpen(false)}
-      className={classes.listBox}
-    >
+    <Box className={classes.listBox}>
       <Toolbar className={classes.toolbar}>
         <Typography
           variant="h6"
@@ -244,42 +156,22 @@ export default function FriendsListDrawer(props) {
         >
           Friends
         </Typography>
-        <AddAlertIcon
+        <Request
           color="primary"
           sx={{ paddingLeft: "20px", cursor: "pointer" }}
           onClick={handleClick}
         />
-        <FriendRequestDialog open={request} setOpen={SetRequest} />
+        <FriendRequestDialog open={toggle} setOpen={setToggle} />
       </Toolbar>
 
-      {/* <List className={classes.list}>
-        {friends.map((friend, i) => (
-          <ListItem button key={i} className={classes.topListItem}>
-            <ListItemAvatar>
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-                variant={friend.is_active ? "dot" : "standard"}
-                // onClick={handleAnchor}
-              >
-                <Avatar
-                  alt={friend.full_name}
-                  src={"/images/avatar2.jpg"}
-                  className={classes.avatar}
-                />
-              </StyledBadge>
-            </ListItemAvatar>
-            <ListItemText primary={friend.full_name} />
-            <ListItemIcon>
-              <MessageIcon />
-            </ListItemIcon>
-          </ListItem>
-        ))}
-      </List> */}
       <Divider />
       <List className={classes.list}>
-        {state.friends.map((friend, i) => (
-          <ListItem button key={i} className={classes.botListItem}>
+        {user.friends.map((friend) => (
+          <ListItem
+            button
+            key={friend.friend_id}
+            className={classes.botListItem}
+          >
             <ListItemAvatar>
               <StyledBadge
                 overlap="circular"
@@ -335,73 +227,3 @@ export default function FriendsListDrawer(props) {
     </div>
   );
 }
-// return (
-// <Box className={classes.drawerWrapper}>
-//   <CssBaseline />
-//   <IconButton
-//     className={classes.friendListOpenIcon}
-//     disableFocusRipple
-//     color="inherit"
-//     aria-label="open drawer"
-//     onClick={open ? handleDrawerClose : handleDrawerOpen}
-//     edge="start"
-//     sx={{ ml: 1 }}
-//   >
-//     <PeopleAltIcon sx={{ fontSize: 30 }} />
-//     {open ? <ChevronLeft /> : <ChevronRight />}
-//     {/* <PeopleAltIcon className={classes.peopleAltIcon} />
-//     <ChevronRight /> */}
-//   </IconButton>
-
-//   <Drawer
-//     sx={{
-//       // width: drawerWidth,
-//       flexShrink: 0,
-//       zIndex: 2,
-
-//       "& .MuiDrawer-paper": {
-//         width: drawerWidth,
-//         overflowX: "hidden",
-//         boxSizing: "border-box",
-//         left: "122px",
-//         "&::-webkit-scrollbar": {
-//           width: "0em",
-//           borderRadius: "30px",
-//         },
-//         "&::-webkit-scrollbar-track": {
-//           WebkitBoxShadow: "inset 0 0 6px rgb(0,0,0,0)",
-//         },
-//         "&::-webkit-scrollbar-thumb": {
-//           backgroundColor: "rgb(0,0,0,0)",
-//           // outline: "1px solid black",
-//           borderRadius: "30px",
-//         },
-//       },
-//     }}
-//     variant="persistent"
-//     anchor="left"
-//     open={open}
-//   >
-//     <Box
-//       component="div"
-//       sx={{
-//         display: "flex",
-//         justifyContent: "flex-start",
-//         height: "100%",
-//         padding: "5em 0em",
-//       }}
-//     >
-//       {/* <IconButton
-//         className={classes.friendListCloseIcon}
-//         onClick={handleDrawerClose}
-//         disableFocusRipple
-//       >
-//         <ChevronLeftIcon />
-//       </IconButton> */}
-//       <FriendList />
-//     </Box>
-//   </Drawer>
-
-//   <Main open={open}> {props.children}</Main>
-// </Box>
-// );

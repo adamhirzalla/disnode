@@ -7,12 +7,18 @@ export const TOKEN_KEY = "DisnodeTokens";
 
 // Reducer constants for dispatch
 export const SET_USER = "SET_USER";
+export const UPDATE_USER = "UPDATE_USER";
 export const SET_TOKENS = "SET_TOKENS";
 export const SET_SOCKET = "SET_SOCKET";
 export const SET_LOADING = "LOADING_USER";
+export const UPDATE_FRIENDS = "UPDATE_FRIENDS";
+export const REMOVE_REQUEST = "REMOVE_REQUEST";
+export const UPDATE_REQUESTS = "UPDATE_REQUESTS";
+
 export const EDIT_FRIENDS = "EDIT_FRIENDS";
 export const SET_REQUESTS = "SET_REQUESTS";
 export const EDIT_REQEUSTS = "EDIT_REQEUSTS";
+
 export const SET_ACTIVE_USERS = "SET_ACTIVE_USERS";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";
@@ -33,11 +39,18 @@ export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const SET_NEW_CHANNEL = "SET_NEW_CHANNEL";
 
 // Sockets
-export const SocketScare = "scare";
-export const SocketGetOnline = "get online";
-export const SocketMessage = "message";
-export const SocketConnection = "connection";
-export const SocketDisconnection = "disconnection";
-export const SocketHomeClient = "home client";
-export const SocketChannelMessage = "channel message";
-export const SocketHomeClick = "home click";
+export const SERVER_LEAVE = "SERVER_LEAVE";
+export const SERVER_JOIN = "SERVER_JOIN";
+export const CHANNEL_MESSAGE = "CHANNEL_MESSAGE";
+export const MEMBER_UPDATE = "MEMBER_UPDATE";
+export const MEMBER_KICK = "MEMBER_KICK";
+export const SERVER_EDIT = "SERVER_EDIT";
+export const SERVERS_UPDATE = "SERVERS_UPDATE";
+export const CHANNEL_EDIT = "CHANNEL_EDIT";
+export const CHANNEL_DELETE = "CHANNEL_DELETE";
+export const CHANNEL_NEW = "CHANNEL_NEW";
+export const MESSAGE_DELETE = "MESSAGE_DELETE";
+export const CHANNEL_JOIN = "CHANNEL_JOIN";
+export const CHANNEL_LEAVE = "CHANNEL_LEAVE";
+export const MESSAGE_VIEW = "MESSAGE_VIEW";
+export const UPDATE_MESSAGES = "UPDATE_MESSAGES";

@@ -8,33 +8,50 @@ import {
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useServerDialogStyles } from "../../styles/useServerDialogStyles";
-import { acceptRequest, removeRequest } from "../../../network/friendApi";
+import {
+  acceptRequest,
+  answerRequest,
+  removeRequest,
+} from "../../../network/friendApi";
 import { useContext } from "react";
 import AuthContext from "../../../contexts/AuthContext";
-import { EDIT_FRIENDS, EDIT_REQEUSTS } from "../../../utils/constants";
-
-export default function FriendRecivedList(props) {
-  const { sender, receiver, request } = props;
+import {
+  ADD_FRIEND,
+  EDIT_FRIENDS,
+  EDIT_REQEUSTS,
+  REMOVE_REQUEST,
+  UPDATE_FRIENDS,
+} from "../../../utils/constants";
+const [RECEIVED, SENT] = ["RECEIVED", "SENT"];
+export default function RequestListItem(props) {
+  const { user, view, received, sent } = props;
   const classes = useServerDialogStyles();
   const { dispatch } = useContext(AuthContext);
 
   // accept friend request
-  const handleAccept = async () => {
-    const accepted = await acceptRequest(sender.sender_id);
-    dispatch({ type: EDIT_FRIENDS, accepted });
+  const handleAnswer = async (requestId, answer) => {
+    const { friends, request } = await answerRequest(requestId, answer);
+    if (request) dispatch({ type: REMOVE_REQUEST, request });
+    if (friends) dispatch({ type: UPDATE_FRIENDS, friends });
+
+    // const accepted = await acceptRequest(sender.sender_id);
+    // dispatch({ type: EDIT_FRIENDS, accepted });
   };
 
   // reject friend request
-  const handleReject = async () => {
-    const rejected = await removeRequest(sender.id);
-    dispatch({ type: EDIT_REQEUSTS, rejected });
-  };
+  // const handleReject = async () => {
+  //   const requests = await answerRequest(requestId, false)
+  //   // const rejected = await removeRequest(sender.id);
+  //   // dispatch({ type: EDIT_REQEUSTS, rejected });
+  // };
 
-  // cancel friend request
-  const handleCancel = async () => {
-    const canceled = await removeRequest(receiver.id);
-    dispatch({ type: EDIT_REQEUSTS, canceled });
-  };
+  // // cancel friend request
+  // const handleCancel = async () => {
+  //   const requests = await answerRequest(requestId, false)
+  //   dispatch({ type: UPDATED_REQUESTS, requests });
+  //   // const canceled = await removeRequest(receiver.id);
+  //   // dispatch({ type: EDIT_REQEUSTS, canceled });
+  // };
 
   return (
     <Box
@@ -53,39 +70,39 @@ export default function FriendRecivedList(props) {
       >
         <ListItemAvatar>
           <Avatar
-            alt={request ? sender.nickname : receiver.nickname}
-            src={request ? sender.avatar : receiver.avatar}
+            alt={user.nickname}
+            src={user.avatar}
             className={classes.avatar}
           />
         </ListItemAvatar>
         <ListItemText
           className={classes.text}
           sx={{ pl: "20px" }}
-          primary={request ? sender.full_name : receiver.full_name}
+          primary={user.nickname}
         />
-        {request ? (
+        {received ? (
           <>
             <IconButton
-              onClick={handleAccept}
+              onClick={() => handleAnswer(user.request_id, true)}
               sx={{ color: "green", opacity: 0.3, "&:hover": { opacity: 1 } }}
             >
               <CheckCircleOutlineIcon />
             </IconButton>
             <IconButton
-              onClick={handleReject}
+              onClick={() => handleAnswer(user.request_id, false)}
               sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
             >
               <HighlightOffIcon />
             </IconButton>
           </>
-        ) : (
+        ) : sent ? (
           <IconButton
-            onClick={handleCancel}
+            onClick={() => handleAnswer(user.request_id, false)}
             sx={{ color: "red", opacity: 0.3, "&:hover": { opacity: 1 } }}
           >
             <HighlightOffIcon />
           </IconButton>
-        )}
+        ) : null}
       </Box>
     </Box>
   );

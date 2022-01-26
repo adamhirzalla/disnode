@@ -22,6 +22,11 @@ import {
   SET_REQUESTS,
   EDIT_REQEUSTS,
   EDIT_FRIENDS,
+  UPDATE_MESSAGES,
+  UPDATE_USER,
+  REMOVE_REQUEST,
+  UPDATE_FRIENDS,
+  UPDATE_REQUESTS,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -37,10 +42,12 @@ export default function reducer(state, action) {
     channels,
     member,
     messages,
+    friends,
     message,
     socket,
     channelId,
     activeUsers,
+    request,
     requests,
     rejected,
     sent,
@@ -59,9 +66,53 @@ export default function reducer(state, action) {
         loading: false,
         authenticated: true,
         user,
-        friends: [...user.friends],
-        requests: { ...user.requests },
+        // friends: [...user.friends],
+        // requests: { ...user.requests },
       };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: { ...state.user, ...user },
+        // friends: [...user.friends],
+        // requests: { ...user.requests },
+      };
+    case UPDATE_FRIENDS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          friends,
+        },
+      };
+    case UPDATE_REQUESTS: {
+      const sent = [...state.user.requests.sent, request];
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          requests,
+        },
+      };
+    }
+    case REMOVE_REQUEST: {
+      const sent = [
+        ...state.user.requests.sent.filter(
+          (r) => r.request_id !== request.request_id
+        ),
+      ];
+      const received = [
+        ...state.user.requests.received.filter(
+          (r) => r.request_id !== request.request_id
+        ),
+      ];
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          requests: { received, sent },
+        },
+      };
+    }
     case SET_TOKENS:
       return {
         ...state,
@@ -82,12 +133,12 @@ export default function reducer(state, action) {
         requests: { ...state.requests, received },
       };
     }
-    case SET_REQUESTS: {
-      return {
-        ...state,
-        requests,
-      };
-    }
+    // case SET_REQUESTS: {
+    //   return {
+    //     ...state,
+    //     requests,
+    //   };
+    // }
     case EDIT_REQEUSTS: {
       if (rejected) {
         const received = state.requests.received.filter(
@@ -134,8 +185,7 @@ export default function reducer(state, action) {
       };
     case SET_SERVER: {
       const channels = Object.values(server?.channels);
-      console.log("Old Reducer Server:", state.server.id);
-      console.log("Reducer server:", server.id);
+      console.log("Server", state.server.id, "->", server.id);
       return {
         ...state,
         server,
@@ -153,34 +203,50 @@ export default function reducer(state, action) {
       };
     case SET_CHANNEL: {
       const channels = Object.values(state?.channels);
-      const channel = { ...channels.find((c) => c.id === channelId) };
+      const channel = {
+        ...channels.find((c) => c.id === channelId),
+        notification: false,
+        mention: false,
+      };
       return {
         ...state,
         channel,
+        channels: { ...state.channels, [channelId]: channel },
         messages: channel.messages || [],
       };
     }
     case EDIT_CHANNEL: {
       // const channelsData = Object.values(state?.channels);
       const updatedChannel = { ...state.channel, ...channel };
-      state.channels[channel.id] = updatedChannel;
+      // state.channels[channel.id] = updatedChannel;
       // const channel = { ...channels.find((c) => c.id === channelId) };
       return {
         ...state,
-        // channels,
-        channel: updatedChannel,
+        channels: {
+          ...state.channels,
+          [channel.id]: { ...state.channels[channel.id], ...channel },
+        },
+        channel:
+          state.channel.id === channel.id
+            ? updatedChannel
+            : { ...state.channel },
         // messages: channelsData[0].messages || [],
       };
     }
     case DELETE_CHANNEL: {
-      delete state?.channels[channel.id];
-      const channelsData = Object.values(state?.channels);
+      // delete state?.channels[channel.id];
+      const { [channel.id]: deleted, ...channels } = state.channels;
+      const channelsData = Object.values(channels).filter(
+        (c) => c.id !== channel.id
+      );
+      // const channels = {...state.channels}
       // const channel = { ...channels.find((c) => c.id === channelId) };
+      if (state.channel.id !== channel.id) return { ...state, channels };
       return {
         ...state,
-        // channels,
-        channel: channelsData[0] || {},
-        messages: channelsData[0].messages || [],
+        channels,
+        channel: channelsData[0],
+        messages: channelsData[0].messages,
       };
     }
     case DELETE_MEMBER: {
@@ -197,9 +263,21 @@ export default function reducer(state, action) {
       };
     }
     case DELETE_MESSAGE: {
-      const messages = state.messages.filter((msg) => msg.id !== message.id);
       // state.channels[message.channel_id].messages = messages;
-
+      if (state.channel.id !== message.channel_id)
+        return {
+          ...state,
+          channels: {
+            ...state.channels,
+            [message.channel_id]: {
+              ...state.channels[message.channel_id],
+              messages: state.channels[message.channel_id].messages.filter(
+                (msg) => msg.id !== message.id
+              ),
+            },
+          },
+        };
+      const messages = state.messages.filter((msg) => msg.id !== message.id);
       return {
         ...state,
         channel: { ...state.channel, messages },
@@ -218,6 +296,24 @@ export default function reducer(state, action) {
         server: { ...state.server, channels },
         channels,
       };
+    case UPDATE_MESSAGES: {
+      const updatedChannel =
+        state.channel.id === channelId
+          ? { ...state.channel, messages }
+          : {
+              ...state.channels[channelId],
+              messages,
+            };
+
+      return {
+        ...state,
+        channels: {
+          ...state.channels,
+          [channelId]: updatedChannel,
+        },
+        messages: state.channel.id === channelId ? messages : state.messages,
+      };
+    }
     case SET_MESSAGES: {
       // const messages = [...app.messages, message];
       // const channelsData = Object.values(state.server?.channels);
@@ -234,6 +330,8 @@ export default function reducer(state, action) {
       // };
 
       const messages = [...channel.messages, message];
+      // let mention = false;
+      // const mention = message.body.includes(`@${user.nickname}`);
 
       // const updatedChannel = { ...channel, messages };
 
@@ -242,7 +340,15 @@ export default function reducer(state, action) {
       //   updatedChannel,
       //   ...channels.filter((ch) => ch.id !== message.channel_id),
       // ];
-      const updatedChannel = { ...channel, messages };
+      const updatedChannel =
+        state.channel.id === message.channel_id
+          ? { ...channel, messages }
+          : {
+              ...channel,
+              messages,
+              notification: true,
+              mention: message.body.includes(`@${user.nickname}`),
+            };
       // state.server.channels[message.channel_id] = updatedChannel;
       // reformatChannel(channels)
       // [0:{},1:{},2:{}]
@@ -270,6 +376,7 @@ export default function reducer(state, action) {
       // const channels = [...state.server.channels, channel];
       channel.messages = [];
       const channels = { ...state.channels, [channel.id]: channel };
+      if (!user) return { ...state, channels };
       return {
         ...state,
         channels,
@@ -283,6 +390,7 @@ export default function reducer(state, action) {
         if (s.id === id) {
           s.title = title;
           s.logo = logo;
+          s.tags = tags;
         }
         return s;
       });

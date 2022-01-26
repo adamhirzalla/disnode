@@ -6,7 +6,7 @@ import { getMessages, sendMessage } from "../../../network/messageApi";
 import ServerContext from "../../../contexts/ServerContext";
 import { getChannels } from "../../../network/channelApi";
 import { makeStyles } from "@mui/styles";
-import { SET_MESSAGES } from "../../../utils/constants";
+import { CHANNEL_MESSAGE, SET_MESSAGES } from "../../../utils/constants";
 
 const useStyles = makeStyles(() => ({
   form: {
@@ -63,10 +63,12 @@ export default function MessageForm() {
   // Sending a message to a server channel
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInput((prev) => "");
+    if (!input) return;
     try {
       // We query for server channels so that our sent messages
       // that are handles on client side can persist on channel navigation
+      // BETTER TO IMPLEMENT THIS IN SOCKETS THEN BROADCAST MESSAGE
+      // Sender -> socket -> server -> DB -> socket -> Users
       const message = await sendMessage(channel.id, { body: input });
       // const channels = await getChannels(server.id);
       message.sender_avatar = user.avatar;
@@ -76,8 +78,9 @@ export default function MessageForm() {
       // setChannels(channels); // dont use
       // console.log(message);
       // console.log(activeUsers);
-      socket.emit("channel message", message);
-      setMessages(message);
+      socket.emit(CHANNEL_MESSAGE, message);
+      setInput("");
+      // setMessages(message);
     } catch (e) {
       console.log("Failed to send message");
     }

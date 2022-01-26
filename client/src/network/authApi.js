@@ -22,10 +22,10 @@ export const getMe = async (dispatch, tokens) => {
       type: SET_USER,
       user,
     });
-    dispatch({
-      type: SET_REQUESTS,
-      requests: user.requests,
-    });
+    // dispatch({
+    //   type: SET_REQUESTS,
+    //   requests: user.requests,
+    // });
     // const sio = await import("../socket/index");
     // console.log("Started a socket:", sio);
   } catch (e) {

@@ -10,12 +10,12 @@ export default AuthContext;
 export const initialState = {
   loading: true,
   authenticated: false,
-  user: {},
+  user: null,
   tokens: null,
   error: null,
   activeUsers: [],
-  friends: [],
-  requests: { received: [], sent: [] },
+  // friends: [],
+  // requests: { received: [], sent: [] },
   socket: null,
 };
 
