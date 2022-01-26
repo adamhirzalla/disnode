@@ -145,6 +145,38 @@ const byCode = (code) => {
     });
 };
 
+const byTags = (tags) => {
+  const query = `
+  SELECT DISTINCT  
+    servers.id,
+    title,
+    logo,
+    creator_id AS owner_id
+  FROM servers
+  JOIN server_tags ON servers.id = server_id
+  JOIN tags ON tags.id = tag_id
+  WHERE tag_id = ANY(ARRAY[${tags}])
+  `;
+  return db
+    .query(query)
+    .then((res) => res.rows)
+    .then((servers) => {
+      const membersQueries = servers.map((server) =>
+        Member.byServer(server.id)
+      );
+      const tagsQueries = servers.map((server) => Tag.byServer(server.id));
+      return Promise.all(membersQueries).then((members) => {
+        return Promise.all(tagsQueries).then((tags) => {
+          servers.forEach((server, i) => {
+            server.members = members[i];
+            server.tags = tags[i];
+          });
+          return servers;
+        });
+      });
+    });
+};
+
 const createTags = (tagIds, serverId) => {
   const tagQueries = tagIds.map((tagId) => {
     return db
@@ -189,6 +221,35 @@ const update = (data, serverId) => {
   );
 };
 
+const all = () => {
+  const queries = `
+  SELECT 
+  id,
+  title,
+  logo,
+  creator_id AS owner_id
+  FROM servers
+`;
+  return db
+    .query(queries)
+    .then((res) => res.rows)
+    .then((servers) => {
+      const membersQueries = servers.map((server) =>
+        Member.byServer(server.id)
+      );
+      const tagsQueries = servers.map((server) => Tag.byServer(server.id));
+      return Promise.all(membersQueries).then((members) => {
+        return Promise.all(tagsQueries).then((tags) => {
+          servers.forEach((server, i) => {
+            server.members = members[i];
+            server.tags = tags[i];
+          });
+          return servers;
+        });
+      });
+    });
+};
+
 module.exports = {
   byUser,
   byTitle,
@@ -198,4 +259,6 @@ module.exports = {
   create,
   createTags,
   update,
+  all,
+  byTags,
 };

@@ -1,24 +1,57 @@
 import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
 import { searchServers } from "../../network/serverApi";
-import { useDisButtonStyles } from "../styles/useDisButtonStyles";
-import { useServerDialogStyles } from "../styles/useServerDialogStyles";
+import Tags from "./Tags";
+import { makeStyles } from "@mui/styles";
+import { useState } from "react";
+
+const useStyles = makeStyles(() => ({
+  content: {
+    width: "90%",
+    // paddingBottom: "42px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    // alignItems: "center",
+    overflow: "hidden",
+  },
+  submit: {
+    color: "white",
+    borderRadius: ".8em",
+    backgroundColor: "#7a211b",
+    "&:hover": {
+      backgroundColor: "#635c5b",
+    },
+  },
+  cancel: {
+    color: "#7a211b",
+    borderRadius: ".8em",
+    border: "1px solid #7a211b",
+    "&:hover": {
+      color: "#635c5b",
+      border: "1px solid #635c5b",
+    },
+  },
+}));
 
 export default function SearchServerForm(props) {
   const { setSearch, handleClose, setError, search, setResult, setOpenResult } =
     props;
-  const classes = useServerDialogStyles();
-  const buttonClasses = useDisButtonStyles();
+  const classes = useStyles();
+  const [tags, setTags] = useState([]);
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSearch();
   };
-
-  // Search a server with invite code or title
+  // Search a server with invite code, title or tags
   const handleSearch = async () => {
     const { inviteCode, title } = search;
-    if (!inviteCode && !title) {
+    if (!inviteCode && !title && !tags.length) {
       return setError("Enter a server title or code to search for");
-    } else if (inviteCode && title) {
+    } else if (
+      (inviteCode && title) ||
+      (inviteCode && tags.length) ||
+      (title && tags.length)
+    ) {
       return setError("Only 1 field must be filled");
     }
 
@@ -34,6 +67,7 @@ export default function SearchServerForm(props) {
   return (
     <>
       <DialogContent className={classes.content}>
+        By Title
         <TextField
           autoFocus
           type="text"
@@ -45,7 +79,7 @@ export default function SearchServerForm(props) {
             setSearch((prev) => ({ ...prev, title: e.target.value }));
           }}
         />
-        OR
+        By Invite Code
         <TextField
           type="text"
           fullWidth
@@ -56,16 +90,14 @@ export default function SearchServerForm(props) {
             setSearch((prev) => ({ ...prev, inviteCode: e.target.value }));
           }}
         />
+        By Tags
+        <Tags setTags={setTags} setSearch={setSearch} search={search} />
       </DialogContent>
       <DialogActions>
-        <Button className={buttonClasses.cancel} onClick={handleClose}>
+        <Button className={classes.cancel} onClick={handleClose}>
           Cancel
         </Button>
-        <Button
-          className={buttonClasses.submit}
-          type="submit"
-          onClick={handleSearch}
-        >
+        <Button className={classes.submit} type="submit" onClick={handleSearch}>
           SEARCH
         </Button>
       </DialogActions>

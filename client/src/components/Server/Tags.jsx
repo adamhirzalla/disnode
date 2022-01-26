@@ -8,11 +8,17 @@ import { useState } from "react";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export default function Tags({ setTags, serverTags }) {
+export default function Tags({ setTags, serverTags, setSearch, search }) {
+  // serverTags for editing server || [] for creating server
   const [tag, setTag] = useState(serverTags || []);
 
   const parseTags = (tags) => {
     setTags(tags.map((tag) => tag.id));
+
+    // for searching servers by tags
+    if (search) {
+      setSearch((prev) => ({ ...prev, tags: tags.map((tag) => tag.id) }));
+    }
   };
 
   const handleChange = (e, value) => {
