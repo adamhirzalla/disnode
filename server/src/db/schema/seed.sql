@@ -214,7 +214,7 @@ VALUES
 (22, 14, 'Good explanation on tapstrafe tapstrafe.', '2022-01-23T23:29:38.909Z'),
 (3, 8, 'Hey guys, this app is so much better than discord lets use this.', '2022-01-01T23:29:38.909Z'),
 (15, 8, 'Whats up guys!', '2021-12-28T23:29:38.909Z'),
-(2, 8, 'Hard agree, can you make a memes channel and stuff?', '2022-01-02T23:29:38.909Z'),
+(2, 8, '@Learth Hard agree, can you make a memes channel and stuff?', '2022-01-02T23:29:38.909Z'),
 (20, 8, 'Done, want a miscellaneous channel too?', '2022-01-02T23:29:38.909Z'),
 (1, 8, 'Yup yup', '2022-01-03T23:29:38.909Z'),
 (19, 8, 'Hey hey hey!', '2022-01-10T23:29:38.909Z'),
