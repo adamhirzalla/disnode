@@ -9,22 +9,64 @@ import {
 } from "@mui/material/";
 import { Search } from "@mui/icons-material";
 import SearchServerListDialog from "./SearchServerListDialog";
-import { useServerDialogStyles } from "../styles/useServerDialogStyles";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchServerForm from "./SearchServerForm";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles(() => ({
+  dialogPaper: {
+    display: "flex",
+    flexDirection: "column",
+    width: "30%",
+    minHeight: "60%",
+    alignItems: "center",
+    borderRadius: "2em",
+    textAlign: "center",
+    padding: "40px",
+    justifyContent: "start",
+    overflowY: "auto",
+    overflowX: "hidden",
+  },
+  listItem: {
+    overflowY: "auto",
+    "& .MuiListItemButton-root": {
+      borderRadius: "2em",
+    },
+    flexDirection: "column",
+  },
+  addButton: {
+    marginTop: "0.2em",
+    color: "#FFFFFF",
+    opacity: "0.8",
+    "&:hover": {
+      opacity: "1",
+    },
+  },
+  serverListpaper: {
+    display: "flex",
+    width: "100%",
+    maxHeight: "50%",
+    minHeight: "80%",
+    borderRadius: "2em",
+    textAlign: "center",
+    padding: "30px",
+  },
+}));
+
+const initialInput = { inviteCode: "", title: "", tags: [] };
 
 export default function SearchServerDialog() {
-  const classes = useServerDialogStyles();
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [error, setError] = useState(null);
-  const [search, setSearch] = useState({ inviteCode: "", title: "" });
+  const [search, setSearch] = useState(initialInput);
   const [result, setResult] = useState([]);
   const [openResult, setOpenResult] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
     setError(null);
-    setSearch({ inviteCode: "", title: "" });
+    setSearch(initialInput);
     setResult([]);
   };
 

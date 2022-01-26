@@ -9,7 +9,7 @@ const uuid = require("uuid");
 // GET All user servers
 router.get("/servers", async (req, res) => {
   const userId = req.user.id;
-  const { title, invite_code } = req.query;
+  const { title, invite_code, tags } = req.query;
   try {
     if (title) {
       // querying by title
@@ -21,10 +21,23 @@ router.get("/servers", async (req, res) => {
       const server = await Server.byCode(invite_code);
       if (!server) return res.status(400).send("Invalid invite code!");
       return res.status(200).send(server);
+    } else if (tags) {
+      const parsedTags = tags.map((t) => parseInt(t));
+      // const servers = await Server.byTag(parsedTags);
+      // return res.status(200).send(severs);
     }
     // no query, return servers joined by user
     const servers = await Server.byUser(userId);
     if (!servers) return res.status(400).send("No servers joined");
+    res.status(200).send(servers);
+  } catch (e) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+router.get("/servers/all", async (req, res) => {
+  try {
+    const servers = await Server.all();
     res.status(200).send(servers);
   } catch (e) {
     res.status(500).send("Internal Server Error");
