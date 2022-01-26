@@ -67,12 +67,26 @@ export default function ConfirmDialog(props) {
       <DialogContentText>{`Are you sure you want to Join?`}</DialogContentText>
       <DialogActions>
         <Button
-          className={buttonClasses.cancel}
+          variant="outlined"
+          disableRipple
+          color="primary"
           onClick={() => setConfirm(false)}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
         >
           Cancel
         </Button>
-        <Button className={buttonClasses.submit} onClick={handleConfirm}>
+        <Button
+          variant="contained"
+          disableRipple
+          onClick={handleConfirm}
+          sx={{
+            color: "white",
+            opacity: 0.8,
+            "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+            backgroundColor: "rgb(199, 58, 58,0.8)",
+          }}
+          // startIcon={<DoNotDisturbIcon />}
+        >
           Confirm
         </Button>
       </DialogActions>

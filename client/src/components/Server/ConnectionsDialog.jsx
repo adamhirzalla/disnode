@@ -60,10 +60,10 @@ export default function ConnectionsDialog(props) {
 
   return (
     <Dialog className={classes.asd} open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Enter a URL! {iconId}</DialogTitle>
+      <DialogTitle>Enter a URL to share!</DialogTitle>
       <DialogContent>
         <DialogContentText color="error">
-          Note: This will be public to your friends and mutual server members.
+          Note: This will be visible to your friends and mutual server members.
         </DialogContentText>
         <TextField
           autoFocus
@@ -79,11 +79,28 @@ export default function ConnectionsDialog(props) {
       </DialogContent>
 
       <DialogActions className={classes.actions}>
-        <Button variant="outlined" color="error" onClick={handleCancel}>
+        <Button
+          variant="outlined"
+          disableRipple
+          color="primary"
+          onClick={handleCancel}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+        >
           Cancel
         </Button>
-        <Button variant="contained" color="info" onClick={handleAction}>
-          Save
+        <Button
+          variant="contained"
+          disableRipple
+          onClick={handleAction}
+          sx={{
+            color: "white",
+            opacity: 0.8,
+            "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+            backgroundColor: "rgb(199, 58, 58,0.8)",
+          }}
+          // startIcon={<DoNotDisturbIcon />}
+        >
+          Submit
         </Button>
       </DialogActions>
     </Dialog>

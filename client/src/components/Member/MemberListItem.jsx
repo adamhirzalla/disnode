@@ -111,7 +111,7 @@ export default function MemberListItem(props) {
           >
             <Avatar
               alt={member.nickname}
-              src={member.avatar}
+              src={member.avatar ? member.avatar : "/images/Disnode-red.png"}
               className={avatarClasses}
             />
           </StyledBadge>

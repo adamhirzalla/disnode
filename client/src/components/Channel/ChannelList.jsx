@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     // minWidth: "20em",
     width: "30%",
     maxWidth: "17em",
+    backgroundColor: "rgb(173, 169, 168,0.9)",
   },
   add: {
     justifyContent: "center",

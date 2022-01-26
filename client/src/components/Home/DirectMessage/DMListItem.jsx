@@ -70,23 +70,23 @@ export default function DMListItem(props) {
           <Avatar alt="Remy Sharp" src={"/images/avatar.jpg"} />
         </ListItemAvatar>
         <ListItemText
-          primary="Brunch this weekend?"
+          primary="Buddies"
           secondary={
             <>
               <Typography
-                sx={{ display: "inline" }}
+                sx={{ display: "inline", color: "black" }}
                 component="span"
                 variant="body2"
-                color="text.primary"
+                // color="text.primary"
               >
-                Ali Connors
+                Disnode!
               </Typography>
-              {" — I'll be in your neighborhood doing errands this…"}
+              {" Under construction..."}
             </>
           }
         />
       </ListItem>
-      <Divider />
+      <Divider sx={{ backgroundColor: "rgb(16,16,16,0.3)" }} />
     </>
   );
 }

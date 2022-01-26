@@ -24,7 +24,7 @@ const useStyles = makeStyles(() => ({
     width: "30%",
     minHeight: "60%",
     alignItems: "center",
-    borderRadius: "2em",
+    borderRadius: "0.5em",
     textAlign: "center",
     padding: "40px",
     justifyContent: "start",
@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
   listItem: {
     overflowY: "auto",
     "& .MuiListItemButton-root": {
-      borderRadius: "2em",
+      borderRadius: "0.5em",
     },
     flexDirection: "column",
   },
@@ -51,7 +51,7 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     maxHeight: "50%",
     minHeight: "80%",
-    borderRadius: "2em",
+    borderRadius: "0.5em",
     textAlign: "center",
     padding: "30px",
   },
@@ -120,7 +120,7 @@ export default function SearchServerDialog() {
             <Tooltip title="All Servers" placement="right">
               <FormatListBulletedIcon
                 onClick={handleExplore}
-                color="success"
+                color="info"
                 sx={{
                   opacity: 0.5,
                   cursor: "pointer",
@@ -158,7 +158,23 @@ export default function SearchServerDialog() {
             <DialogTitle style={{ fontSize: "1.55em" }}>
               Search Result
             </DialogTitle>
-            <DialogContent dividers sx={{ p: 0 }}>
+            <DialogContent
+              dividers
+              sx={{
+                p: "20px",
+                "&::-webkit-scrollbar": {
+                  borderRadius: "30px",
+                  width: "2px",
+                },
+                "&::-webkit-scrollbar-track": {
+                  WebkitBoxShadow: "inset 0 0 3px rgb(0,0,0,0.1)",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: "rgb(0,0,0,0.3)",
+                  borderRadius: "30px",
+                },
+              }}
+            >
               {parsedServers}
             </DialogContent>
           </Dialog>

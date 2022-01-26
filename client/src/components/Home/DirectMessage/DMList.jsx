@@ -106,7 +106,9 @@ const useStyles = makeStyles(() => ({
     // width: "100%",
     // height: "100%",
     margin: "0",
-    borderTopRightRadius: "20px",
+    borderTopRightRadius: "10px",
+    backgroundColor: "rgb(173, 169, 168,0.9)",
+    border: "1px solid rgb(16,16,16,0.3)",
     overflowY: "scroll",
     overflowX: "hidden",
     "&::-webkit-scrollbar": {

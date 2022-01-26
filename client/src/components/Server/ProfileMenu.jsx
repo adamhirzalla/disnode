@@ -8,8 +8,8 @@ const useStyles = makeStyles({
   profile: {
     boxShadow: "inset 0px 0px 0px 5px #B13737",
     opacity: "0.8",
-    width: "50px",
-    height: "50px",
+    width: "55px",
+    height: "55px",
     "&:hover": { opacity: "1" },
   },
 });
@@ -39,7 +39,10 @@ export default function ProfileMenu() {
         className={classes.navHome}
       >
         <IconButton onClick={handleClick}>
-          <Avatar className={classes.profile} src={user.avatar} />
+          <Avatar
+            className={classes.profile}
+            src={user.avatar ? user.avatar : "/images/Disnode-red.png"}
+          />
         </IconButton>
       </Tooltip>
       <Menu

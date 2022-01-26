@@ -96,7 +96,18 @@ export default function ServerEditDialog(props) {
               src={server.logo}
             />
             <SelectButton setFile={setFile} />
-            <Button color="error" onClick={handleUndo}>
+            <Button
+              // variant="outlined"
+              disableRipple
+              color="error"
+              onClick={handleUndo}
+              sx={{
+                mt: "5px",
+                color: "rgb(199, 58, 58,1)",
+                opacity: 1,
+                "&:hover": { opacity: 1 },
+              }}
+            >
               Undo
             </Button>
           </Box>
@@ -115,12 +126,29 @@ export default function ServerEditDialog(props) {
           <Tags setTags={setTags} serverTags={server.tags} />
         </DialogContent>
         <DialogActions>
-          <DisButton disStyle="cancel" onClick={handleCancel}>
+          <Button
+            variant="outlined"
+            disableRipple
+            color="primary"
+            onClick={handleCancel}
+            sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+          >
             Cancel
-          </DisButton>
-          <DisButton disStyle="submit" onClick={handleEdit}>
+          </Button>
+          <Button
+            variant="contained"
+            disableRipple
+            onClick={handleEdit}
+            sx={{
+              color: "white",
+              opacity: 0.8,
+              "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+              backgroundColor: "rgb(199, 58, 58,0.8)",
+            }}
+            // startIcon={<DoNotDisturbIcon />}
+          >
             Edit
-          </DisButton>
+          </Button>
         </DialogActions>
         {error && <Alert severity="error">{error}</Alert>}
       </Dialog>

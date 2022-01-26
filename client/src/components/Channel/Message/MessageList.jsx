@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
     maxHeight: "100vh",
     height: "auto",
     flexDirection: "column",
+    // backgroundColor: "rgb(125, 116, 115,0.1)",
     marginTop: "auto",
     // justifyContent: "flex-end", // BUG
     paddingBottom: "0.5em",

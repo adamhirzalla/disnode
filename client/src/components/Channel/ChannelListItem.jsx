@@ -25,10 +25,10 @@ const useStyles = makeStyles({
     opacity: 0.7,
     "&:hover": {
       opacity: 1,
-      background: "rgb(182, 185, 181, 0.3)",
+      background: "rgb(16, 16, 16, 0.7)",
     },
   },
-  selected: { background: "rgb(182, 185, 181, 1)", opacity: 1 },
+  selected: { background: "rgb(16, 16, 16, 0.4)", opacity: 1 },
   notification: { opacity: 1 },
   mention: { opacity: 1 },
   title: {},
@@ -71,11 +71,15 @@ export default function ChannelListItem(props) {
         onClick={handleChannelClick}
       >
         <ListItemIcon className={classes.icon}>
-          <TagIcon />
+          <TagIcon fontSize="medium" sx={{ color: "rgb(199, 58, 58,1)" }} />
         </ListItemIcon>
         <ListItemText primary={channel.title} className={classes.title} />
-        {channel.notification && <Notification fontSize="small" />}
-        {channel.mention && <Mention fontSize="small" />}
+        {channel.notification && (
+          <Notification fontSize="small" sx={{ color: "rgb(232, 229, 35)" }} />
+        )}
+        {channel.mention && (
+          <Mention fontSize="small" sx={{ color: "rgb(199, 58, 58,1)" }} />
+        )}
       </ListItem>
       <Divider />
     </Box>

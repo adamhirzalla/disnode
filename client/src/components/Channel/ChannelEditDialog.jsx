@@ -25,7 +25,8 @@ import AuthContext from "../../contexts/AuthContext";
 const useStyles = makeStyles({
   dialogPaper: {
     display: "flex",
-    width: "18%",
+    width: "25%",
+    // minWidth: "500px",
     alignItems: "center",
     borderRadius: "1em",
     textAlign: "center",
@@ -33,6 +34,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "space-evenly",
     overflowY: "auto",
+    overflowX: "hidden",
   },
 });
 
@@ -87,18 +89,19 @@ export default function ChannelEditDialog(props) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+            width: "auto",
             height: "auto",
             marginBottom: "40px",
           }}
         >
-          <Avatar
+          {/* <Avatar
             style={{
               width: "70px",
               height: "70px",
             }}
             src={server.logo}
             imgProps={{ id: "image-preview" }}
-          />
+          /> */}
           <Typography variant="h6">{app.channel?.title}</Typography>
         </Box>
         <Grid container columnSpacing={12} rowSpacing={4}>
@@ -115,12 +118,29 @@ export default function ChannelEditDialog(props) {
           </Grid>
         </Grid>
       </DialogContent>
-      <DialogActions>
-        <Button className={buttonClasses.cancel} onClick={handleClose}>
+      <DialogActions sx={{ padding: "20px 20px", paddingBottom: "0" }}>
+        <Button
+          variant="outlined"
+          disableRipple
+          color="primary"
+          onClick={handleClose}
+          sx={{ color: "white", opacity: 0.8, "&:hover": { opacity: 1 } }}
+        >
           Cancel
         </Button>
-        <Button className={buttonClasses.submit} onClick={handleSave}>
-          Save
+        <Button
+          variant="contained"
+          disableRipple
+          onClick={handleSave}
+          sx={{
+            color: "white",
+            opacity: 0.8,
+            "&:hover": { opacity: 1, backgroundColor: "rgb(199, 58, 58,1)" },
+            backgroundColor: "rgb(199, 58, 58,0.8)",
+          }}
+          // startIcon={<DoNotDisturbIcon />}
+        >
+          Confirm
         </Button>
       </DialogActions>
     </Dialog>

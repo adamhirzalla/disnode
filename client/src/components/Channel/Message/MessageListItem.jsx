@@ -18,11 +18,15 @@ import ServerContext from "../../../contexts/ServerContext";
 import AuthContext from "../../../contexts/AuthContext";
 import { deleteMessage } from "../../../network/messageApi";
 import { DELETE_MESSAGE, MESSAGE_DELETE } from "../../../utils/constants";
+import { faCrown } from "@fortawesome/free-solid-svg-icons/faCrown";
+import StarIcon from "@mui/icons-material/Star";
 import classNames from "classnames";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const useStyles = makeStyles(() => ({
   message: {
     alignItems: "flex-start",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    fontSize: "17px",
     "&:hover": {
       backgroundColor: "rgba(0, 0, 0, 0.1)",
     },
@@ -31,9 +35,25 @@ const useStyles = makeStyles(() => ({
   name: {
     "& p": {
       fontWeight: "bold",
-      fontSize: "1em",
+      fontSize: "1.1em",
+      color: "rgb(199, 58, 58,1)",
       // textTransform: "uppercase",
       // "&.MuiTypography-root": { color: "green" },
+    },
+  },
+  owner: {
+    "& p": {
+      color: "rgb(199, 58, 58,1)",
+    },
+  },
+  admin: {
+    "& p": {
+      color: "rgb(230, 128, 39,1)",
+    },
+  },
+  user: {
+    "& p": {
+      color: "rgb(52, 138, 17)",
     },
   },
   views: {
@@ -41,11 +61,25 @@ const useStyles = makeStyles(() => ({
     position: "absolute",
     bottom: "5px",
     right: "7px",
+    "& .MuiAvatar-root": {
+      width: "30px",
+      height: "30px",
+      fontSize: "15px",
+    },
   },
   stack: {
     flexGrow: 1,
+    maxWidth: "840px",
   },
-  viewers: { width: "25px", height: "25px" },
+  viewers: { width: "30px", height: "30px" },
+  icon: {
+    position: "absolute",
+    top: "8px",
+    left: "10px",
+    color: "yellow",
+
+    fontSize: "medium",
+  },
   // right: {
   //   position: "relative",
   //   display: "flex",
@@ -57,6 +91,7 @@ const useStyles = makeStyles(() => ({
     top: 0,
     right: 0,
     opacity: "0.4",
+
     "&:hover": { opacity: 1 },
   },
   body: {
@@ -66,6 +101,7 @@ const useStyles = makeStyles(() => ({
     },
     "& p": {
       fontSize: "0.75em",
+      color: "black",
     },
   },
   mention: {
@@ -92,6 +128,14 @@ export default function MessageListItem(props) {
     state: { user, socket },
   } = useContext(AuthContext);
   const [throttle, setThrottle] = useState(false);
+  const nameClasses = classNames(classes.name, {
+    [classes.owner]:
+      members.find((m) => m.user_id === message.sender_id)?.role === "owner",
+    [classes.admin]:
+      members.find((m) => m.user_id === message.sender_id)?.role === "admin",
+    [classes.user]:
+      members.find((m) => m.user_id === message.sender_id)?.role === "user",
+  });
   let tooltip;
   if (views.length === 1) tooltip = `seen by ${views[0].viewer_nickname}`;
   if (views.length > 3)
@@ -129,7 +173,11 @@ export default function MessageListItem(props) {
   if (message.body.includes(`@${user.nickname}`)) message.mention = true;
   return (
     <>
-      <Divider variant="inset" component="li" />
+      <Divider
+        variant="inset"
+        component="li"
+        sx={{ backgroundColor: "rgb(16, 16, 16,0.4)" }}
+      />
       <ListItem
         // secondaryAction={
 
@@ -140,14 +188,24 @@ export default function MessageListItem(props) {
           <Avatar
             alt={message.sender_nickname}
             src={message.sender_avatar}
-            sx={{ width: 55, height: 55, mt: 0.3, mr: "0.5em" }}
+            sx={{
+              width: 60,
+              height: 60,
+              mt: 0.3,
+              mr: "0.5em",
+              border: "2px solid",
+            }}
           />
         </ListItemAvatar>
+        {members.find((m) => m.user_id === message.sender_id)?.role ===
+          "owner" && (
+          <FontAwesomeIcon icon={faCrown} className={classes.icon} />
+        )}
         <Stack className={classes.stack}>
           <ListItemText
             // primary={message.sender_nickname}
             secondary={message.sender_nickname}
-            className={classes.name}
+            className={nameClasses}
           />
           <Divider className={classes.divider} />
           <ListItemText
@@ -168,7 +226,7 @@ export default function MessageListItem(props) {
             disableRipple
             onClick={handleDelete}
           >
-            <DeleteIcon />
+            <DeleteIcon sx={{ color: "rgb(199, 58, 58,1)" }} />
           </IconButton>
         )}
         {views.length > 0 && (

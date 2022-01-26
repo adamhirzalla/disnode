@@ -158,7 +158,11 @@ export default function FriendsListDrawer(props) {
         </Typography>
         <Request
           color="primary"
-          sx={{ paddingLeft: "20px", cursor: "pointer" }}
+          sx={{
+            cursor: "pointer",
+            position: "absolute",
+            right: "1em",
+          }}
           onClick={handleClick}
         />
         <FriendRequestDialog open={toggle} setOpen={setToggle} />

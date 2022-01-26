@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
         activeUsers,
       });
     };
-    if (state.authenticated) {
+    if (state.authenticated && state.user) {
       sio.current = socket;
 
       dispatch({
