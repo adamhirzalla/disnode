@@ -60,7 +60,7 @@ VALUES
 (11, 'Hearthstone', 'https://disnode.s3.amazonaws.com/1643103551903','6JZOOsCQIFNGfSry4P1I'),
 (12, 'Teamfight Tactics', 'https://disnode.s3.amazonaws.com/1643104012001','2NpXZbZOz0oKBID5TKU1'),
 (13, 'Twitch Friends', 'https://disnode.s3.amazonaws.com/1643104099930','wIKJR7cB4l9PGSP6P5JM'),
-(14, 'MoshiMosh', 'https://disnode.s3.amazonaws.com/1643106673983','wIKJR7cB4l9PGSP6P5JM');
+(14, 'MoshiMosh', 'https://disnode.s3.amazonaws.com/1643106673983','adKJC7cB459PGPP6P5JK');
 
 
 INSERT INTO channels (creator_id, server_id, title)
