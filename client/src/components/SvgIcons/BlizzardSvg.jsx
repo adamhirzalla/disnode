@@ -19,8 +19,8 @@ export default function TwitterSvg() {
         // xmlns:xlink="http://www.w3.org/1999/xlink"
         aria-hidden="true"
         role="img"
-        width="15em"
-        height="15em"
+        // width="15em"
+        // height="15em"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 512 512"
       >

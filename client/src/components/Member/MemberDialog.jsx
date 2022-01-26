@@ -13,13 +13,14 @@ import { makeStyles } from "@mui/styles";
 import MemberProfile from "./MemberProfile";
 import SteamSvg from "../SvgIcons/SteamSvg";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
-import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
-import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
-import DiscordSvg from "../SvgIcons/DiscordSvg";
-import OriginSvg from "../SvgIcons/OriginSvg";
-import BlizzardSvg from "../SvgIcons/BlizzardSvg";
 import { getMembers, removeMember, updateRole } from "../../network/memberApi";
 import ServerContext from "../../contexts/ServerContext";
+import AuthContext from "../../contexts/AuthContext";
+import { sendRequest } from "../../network/friendApi";
+import TwitchSvg from "../SvgIcons/TwitchSvg";
+import SpotifySvg from "../SvgIcons/SpotifySvg";
+import YoutubeSvg from "../SvgIcons/YoutubeSvg";
+import RedditSvg from "../SvgIcons/RedditSvg";
 import {
   DELETE_MEMBER,
   MEMBER_KICK,
@@ -27,8 +28,6 @@ import {
   EDIT_REQEUSTS,
   UPDATE_REQUESTS,
 } from "../../utils/constants";
-import AuthContext from "../../contexts/AuthContext";
-import { sendRequest } from "../../network/friendApi";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
 const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
@@ -42,11 +41,11 @@ const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
 
 const icons = [
   <SteamSvg />,
-  <EpicGamesSvg />,
-  <BlizzardSvg />,
-  <DiscordSvg />,
-  <RiotGamesSvg />,
-  <OriginSvg />,
+  <TwitchSvg />,
+  <SpotifySvg />,
+  <YoutubeSvg />,
+  <TwitterSvg />,
+  <RedditSvg />,
 ];
 
 const useStyles = makeStyles(() => ({

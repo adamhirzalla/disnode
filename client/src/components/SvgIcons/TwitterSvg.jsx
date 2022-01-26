@@ -12,7 +12,7 @@ export default function TwitterSvg() {
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
-      sx={{ width: "50px", height: "50px" }}
+      sx={{ color: "#1DA1F2", width: "50px", height: "50px" }}
     >
       <path
         fill="currentColor"

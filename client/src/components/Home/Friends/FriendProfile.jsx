@@ -1,9 +1,12 @@
 import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
+import { useDisIconButtonStyles } from "../../styles/useDisIconButtonStyles";
 import SteamSvg from "../../SvgIcons/SteamSvg";
 import TwitterSvg from "../../SvgIcons/TwitterSvg";
-import RiotGamesSvg from "../../SvgIcons/RiotGamesSvg";
-import EpicGamesSvg from "../../SvgIcons/EpicGamesSvg";
+import TwitchSvg from "../../SvgIcons/TwitchSvg";
+import SpotifySvg from "../../SvgIcons/SpotifySvg";
+import YoutubeSvg from "../../SvgIcons/YoutubeSvg";
+import RedditSvg from "../../SvgIcons/RedditSvg";
 import {
   Avatar,
   CardActions,
@@ -12,7 +15,6 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { useDisIconButtonStyles } from "../../styles/useDisIconButtonStyles";
 
 // const useStyles = makeStyles(() => ({
 //   cardAction: {
@@ -66,9 +68,11 @@ const useStyles = makeStyles(() => ({
 }));
 const connectionsIcons = [
   <SteamSvg />,
+  <TwitchSvg />,
+  <SpotifySvg />,
+  <YoutubeSvg />,
   <TwitterSvg />,
-  <RiotGamesSvg />,
-  <EpicGamesSvg />,
+  <RedditSvg />,
 ];
 
 export default function FriendProfile(props) {

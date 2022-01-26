@@ -16,8 +16,8 @@ export default function EpicGamesSvg() {
         // xmlns:xlink="http://www.w3.org/1999/xlink"
         aria-hidden="true"
         role="img"
-        width="8em"
-        height="8em"
+        // width="8em"
+        // height="8em"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 32 32"
       >

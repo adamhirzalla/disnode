@@ -12,15 +12,15 @@ export default function SteamSvg() {
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 496 512"
-      sx={{ width: "35px", height: "35px" }}
+      sx={{ width: "50px", height: "50px" }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         // xmlns:xlink="http://www.w3.org/1999/xlink"
         aria-hidden="true"
         role="img"
-        width="20em"
-        height="20em"
+        // width="20em"
+        // height="20em"
         preserveAspectRatio="xMidYMid meet"
         viewBox="0 0 256 259"
       >

@@ -17,7 +17,7 @@ VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslI
 ('Bruce Bandana', 'Sulk', 'bbandana555', 'bbandana555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643086813333', 'Got pfizer yesterday, I was not pfine, very not pfine', '2021-12-28T23:22:15.072Z', false),
 ('Natasha Ramenoff', 'DarkWindow', 'NRamen555', 'nramen555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643108029399', 'Is there supposed to be a rope when bungee jumping? Asking for a friend.', '2021-12-28T23:22:15.072Z', false),
 ('Peter Gardener', 'SpiderBoy', 'pgardener555', 'pgardener555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643106996451', 'I hate spiders!', '2021-12-28T23:22:15.072Z', false),
-('Flint Baton', 'BirdClaw', 'fbaton555', 'fbaton555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643107982913', 'You can find my archery tutorials at https://www.youtube.com/channel/UCJZ94qp4dtCw0Q5UQqAkg7w!', '2021-12-28T23:22:15.072Z', false),
+('Flint Baton', 'BirdClaw', 'fbaton555', 'fbaton555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643107982913', 'Subscribe to my youtube channel!', '2021-12-28T23:22:15.072Z', false),
 ('Steven Telus', 'Captin Canada', 'stelus555', 'stelus555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643106353164', 'How about those polar bears, ey?', '2021-12-28T23:22:15.072Z', false),
 ('Naruto Uchiha', 'The21stHokage', 'naruto555', 'naruto555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643104196690', 'Believe it!', '2021-12-28T23:22:15.072Z', false),
 ('Boruto Uchiha', 'SleepyJutsu', 'boruto555', 'boruto555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643106869481', 'Believe it!', '2021-12-28T23:22:15.072Z', false),
@@ -28,12 +28,12 @@ VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslI
 ('Mastiff OP', 'jyroma', 'jyroma555', 'jyroma555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109426609', 'apex...!', '2021-12-28T23:22:15.072Z', false),
 ('Mastiff OP', 'mask', 'mask555', 'mask555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109555366', 'mask on... mask on...', '2021-12-28T23:22:15.072Z', false),
 ('Mastiff OP', 'littleAngelo', 'littleAngelo555', 'littleAngelo555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109702261', 'Not big, little angelo. Catchphrase.', '2021-12-28T23:22:15.072Z', false),
-('saint cyn', 'saintcyn', 'saintcyn555', 'saintcyn555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643116672916', 'Not big, little angelo. Catchphrase.', '2021-12-28T23:22:15.072Z', false);
-
+('saint cyn', 'saintcyn', 'saintcyn555', 'saintcyn555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643116672916', 'internet darling, occasional writer 🧃
+', '2021-12-28T23:22:15.072Z', false);
 
 
 WITH icons(icon) AS (
-  VALUES ('STEAM'), ('EPIC_GAMES'), ('BLIZZARD'), ('DISCORD'), ('RIOT_GAMES'), ('ORIGIN')
+  VALUES ('STEAM'), ('TWITCH'), ('SPOTIFY'), ('YOUTUBE'), ('TWITTER'), ('REDDIT')
 )
 INSERT INTO icons (name)
 SELECT icon FROM icons;
@@ -56,11 +56,11 @@ VALUES
 (7, 'Rocket League', 'https://disnode.s3.amazonaws.com/1643103892831','dna6Gq7fEJ4q32so8Frb'),
 (8, 'League of Legends', 'https://disnode.s3.amazonaws.com/1643103963411','jesEgwbzeT46BCT50mvs'),
 (9, 'Minecraft', 'https://disnode.s3.amazonaws.com/1643105093492','Kph6JCuJdYgKoYcFEGan'),
-(10, 'Call of Duty: Warzone', 'https://disnode.s3.amazonaws.com/1643089516072','SF7aalyDSOB2Qk3Nqi4J'),
+(10, 'Call of Duty: Warzone', 'https://disnode.s3.amazonaws.com/1643176365565','SF7aalyDSOB2Qk3Nqi4J'),
 (11, 'Hearthstone', 'https://disnode.s3.amazonaws.com/1643103551903','6JZOOsCQIFNGfSry4P1I'),
 (12, 'Teamfight Tactics', 'https://disnode.s3.amazonaws.com/1643104012001','2NpXZbZOz0oKBID5TKU1'),
 (13, 'Twitch Friends', 'https://disnode.s3.amazonaws.com/1643104099930','wIKJR7cB4l9PGSP6P5JM'),
-(14, 'MoshiMosh', 'https://disnode.s3.amazonaws.com/1643106673983','wIKJR7cB4l9PGSP6P5JM');
+(14, 'MoshiMosh', 'https://disnode.s3.amazonaws.com/1643106673983','adKJC7cB459PGPP6P5JK');
 
 
 INSERT INTO channels (creator_id, server_id, title)
@@ -114,7 +114,11 @@ VALUES
 (4, 26, 'user'),
 (4, 27, 'user'),
 (4, 28, 'user'),
-(5, 2, 'user'),
+(5, 2, 'owner'),
+(5, 3, 'user'),
+(5, 12, 'user'),
+(5, 19, 'user'),
+(5, 11, 'user'),
 (6, 2, 'user'),
 (6, 6, 'owner'),
 (7, 3, 'owner'),
@@ -210,7 +214,7 @@ VALUES
 (22, 14, 'Good explanation on tapstrafe tapstrafe.', '2022-01-23T23:29:38.909Z'),
 (3, 8, 'Hey guys, this app is so much better than discord lets use this.', '2022-01-01T23:29:38.909Z'),
 (15, 8, 'Whats up guys!', '2021-12-28T23:29:38.909Z'),
-(2, 8, 'Hard agree, can you make a memes channel and stuff?', '2022-01-02T23:29:38.909Z'),
+(2, 8, '@Learth Hard agree, can you make a memes channel and stuff?', '2022-01-02T23:29:38.909Z'),
 (20, 8, 'Done, want a miscellaneous channel too?', '2022-01-02T23:29:38.909Z'),
 (1, 8, 'Yup yup', '2022-01-03T23:29:38.909Z'),
 (19, 8, 'Hey hey hey!', '2022-01-10T23:29:38.909Z'),
@@ -313,12 +317,16 @@ VALUES (1, 2, false), (3, 4, false), (2, 4, true), (3, 1, true), (4, 1, true);
 INSERT INTO socials (user_id, icon_id, url)
 VALUES
 (1, 1, 'https://steam.ca'),
-(2, 3, 'https://blizzard.ca'),
+(2, 1, 'https://steamcommunity.com/id/ominousuper'),
+(2, 2, 'https://twitch.tv/ominousu'),
+(29, 2, 'https://www.twitch.tv/saintcyn'),
+(29, 4, 'https://www.youtube.com/channel/UC2s4_TaPSjkkyENjF6uxP5A'),
+(29, 5, 'https://twitter.com/eggdrop'),
+(18, 4, 'https://www.youtube.com/channel/UCJZ94qp4dtCw0Q5UQqAkg7w'),
 (2, 5, 'https://riotgames.com'),
 (3, 2, 'https://epicgames.com'),
 (1, 2, 'https://epicgames.com'),
 (1, 3, 'https://blizzard.com'),
-(2, 2, 'https://epicgames.com'),
 (3, 6, 'https://origin.com');
 
 INSERT INTO server_tags
