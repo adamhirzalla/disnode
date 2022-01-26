@@ -14,7 +14,6 @@ import AuthContext from "../../contexts/AuthContext";
 import SelectButton from "./SelectButton";
 import { makeStyles } from "@mui/styles";
 import UserForm from "./UserForm";
-import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
 import ConnectionsDialog from "./ConnectionsDialog";
 import SteamSvg from "../SvgIcons/SteamSvg";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
@@ -22,6 +21,10 @@ import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
 import { updateProfile } from "../../network/userApi";
 import uploadtoS3 from "../../utils/s3";
 import { SET_REQUESTS, UPDATE_USER } from "../../utils/constants";
+import TwitchSvg from "../SvgIcons/TwitchSvg";
+import YoutubeSvg from "../SvgIcons/YoutubeSvg";
+import RedditSvg from "../SvgIcons/RedditSvg";
+import SpotifySvg from "../SvgIcons/SpotifySvg";
 
 const useStyles = makeStyles({
   dialogPaper: {
@@ -173,7 +176,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
                   : { opacity: 0.2 }
               }
             >
-              <TwitterSvg />
+              <TwitchSvg />
             </IconButton>
           </Grid>
           <Grid item xs={4}>
@@ -185,7 +188,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
                   : { opacity: 0.2 }
               }
             >
-              <RiotGamesSvg />
+              <SpotifySvg />
             </IconButton>
           </Grid>
           <Grid item xs={4}>
@@ -197,7 +200,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
                   : { opacity: 0.2 }
               }
             >
-              <EpicGamesSvg />
+              <YoutubeSvg />
             </IconButton>
           </Grid>
           <Grid item xs={4}>
@@ -221,7 +224,7 @@ export default function UserInfoDialog({ open, setOpen, icons }) {
                   : { opacity: 0.2 }
               }
             >
-              <RiotGamesSvg />
+              <RedditSvg />
             </IconButton>
           </Grid>
         </Grid>

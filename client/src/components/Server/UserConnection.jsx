@@ -8,8 +8,8 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
-import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
-import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
+import YoutubeSvg from "../SvgIcons/YoutubeSvg";
+import TwitchSvg from "../SvgIcons/TwitcnSvg";
 import SteamSvg from "../SvgIcons/SteamSvg";
 import TwitterSvg from "../SvgIcons/TwitterSvg";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -58,16 +58,28 @@ export default function UserConnection() {
             }}
             sx={{ marginTop: "5px" }}
           >
-            <MenuItem value={"Steam"} sx={{ justifyContent: "center" }}>
+            <MenuItem
+              value={"Steam"}
+              sx={{ justifyContent: "center", height: "50px", width: "50px" }}
+            >
               <SteamSvg />
             </MenuItem>
-            <MenuItem value={"RiotGames"} sx={{ justifyContent: "center" }}>
-              <RiotGamesSvg />
+            <MenuItem
+              value={"Twitch"}
+              sx={{ justifyContent: "center", height: "50px", width: "50px" }}
+            >
+              <TwitchSvg />
             </MenuItem>
-            <MenuItem value={"EpicGames"} sx={{ justifyContent: "center" }}>
-              <EpicGamesSvg />
+            <MenuItem
+              value={"Youtube"}
+              sx={{ justifyContent: "center", height: "50px", width: "50px" }}
+            >
+              <YoutubeSvg />
             </MenuItem>
-            <MenuItem value={"Twitter"} sx={{ justifyContent: "center" }}>
+            <MenuItem
+              value={"Twitter"}
+              sx={{ justifyContent: "center", height: "50px", width: "50px" }}
+            >
               <TwitterSvg />
             </MenuItem>
           </Select>

@@ -11,10 +11,6 @@ import {
   TextField,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import SteamSvg from "../SvgIcons/SteamSvg";
-import TwitterSvg from "../SvgIcons/TwitterSvg";
-import RiotGamesSvg from "../SvgIcons/RiotGamesSvg";
-import EpicGamesSvg from "../SvgIcons/EpicGamesSvg";
 
 // const parsedConnections = [
 //   <SteamSvg />,
