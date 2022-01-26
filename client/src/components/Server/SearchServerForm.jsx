@@ -1,15 +1,8 @@
-import {
-  Button,
-  DialogActions,
-  DialogContent,
-  TextField,
-  Tooltip,
-} from "@mui/material";
-import { getAllServers, searchServers } from "../../network/serverApi";
+import { Button, DialogActions, DialogContent, TextField } from "@mui/material";
+import { searchServers } from "../../network/serverApi";
 import Tags from "./Tags";
 import { makeStyles } from "@mui/styles";
 import { useState } from "react";
-import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
 const useStyles = makeStyles(() => ({
   content: {
@@ -71,30 +64,9 @@ export default function SearchServerForm(props) {
     setOpenResult(true);
   };
 
-  // make http request to find all the servers
-  const handleExplore = async () => {
-    const servers = await getAllServers();
-    setError(null);
-    setResult(servers);
-    setOpenResult(true);
-  };
-
   return (
     <>
       <DialogContent className={classes.content}>
-        <DialogActions sx={{ display: "flex", justifyContent: "start" }}>
-          <Tooltip title="All Servers" placement="right">
-            <FormatListBulletedIcon
-              onClick={handleExplore}
-              color="success"
-              sx={{
-                opacity: 0.5,
-                cursor: "pointer",
-                "&:hover": { opacity: 1 },
-              }}
-            />
-          </Tooltip>
-        </DialogActions>
         By Title
         <TextField
           autoFocus

@@ -21,10 +21,12 @@ router.get("/servers", async (req, res) => {
       const server = await Server.byCode(invite_code);
       if (!server) return res.status(400).send("Invalid invite code!");
       return res.status(200).send(server);
-    } else if (tags) {
+    }
+    if (tags) {
+      // querying by tags
       const parsedTags = tags.map((t) => parseInt(t));
-      // const servers = await Server.byTag(parsedTags);
-      // return res.status(200).send(severs);
+      const servers = await Server.byTags(parsedTags);
+      return res.status(200).send(servers);
     }
     // no query, return servers joined by user
     const servers = await Server.byUser(userId);

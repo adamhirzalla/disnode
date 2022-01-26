@@ -6,12 +6,16 @@ import {
   DialogTitle,
   DialogContent,
   Tooltip,
+  DialogActions,
+  Box,
 } from "@mui/material/";
 import { Search } from "@mui/icons-material";
 import SearchServerListDialog from "./SearchServerListDialog";
 import CloseIcon from "@mui/icons-material/Close";
 import SearchServerForm from "./SearchServerForm";
 import { makeStyles } from "@mui/styles";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import { getAllServers } from "../../network/serverApi";
 
 const useStyles = makeStyles(() => ({
   dialogPaper: {
@@ -70,6 +74,14 @@ export default function SearchServerDialog() {
     setResult([]);
   };
 
+  // make http request to find all the servers
+  const handleExplore = async () => {
+    const servers = await getAllServers();
+    setError(null);
+    setResult(servers);
+    setOpenResult(true);
+  };
+
   const parsedServers = result.map((server) => {
     return (
       <SearchServerListDialog
@@ -94,7 +106,30 @@ export default function SearchServerDialog() {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle style={{ fontSize: "1.55em" }}>Search Server</DialogTitle>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <DialogTitle style={{ fontSize: "1.55em" }}>
+            Search Server
+          </DialogTitle>
+          <DialogActions>
+            <Tooltip title="All Servers" placement="right">
+              <FormatListBulletedIcon
+                onClick={handleExplore}
+                color="success"
+                sx={{
+                  opacity: 0.5,
+                  cursor: "pointer",
+                  "&:hover": { opacity: 1 },
+                }}
+              />
+            </Tooltip>
+          </DialogActions>
+        </Box>
         {error && <Alert severity="error">{error}</Alert>}
 
         {/* search server form */}
