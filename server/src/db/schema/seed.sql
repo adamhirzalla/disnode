@@ -31,7 +31,6 @@ VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslI
 ('saint cyn', 'saintcyn', 'saintcyn555', 'saintcyn555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643116672916', 'Not big, little angelo. Catchphrase.', '2021-12-28T23:22:15.072Z', false);
 
 
-
 WITH icons(icon) AS (
   VALUES ('STEAM'), ('EPIC_GAMES'), ('BLIZZARD'), ('DISCORD'), ('RIOT_GAMES'), ('ORIGIN')
 )
@@ -313,6 +312,7 @@ VALUES (1, 2, true), (3, 4, false), (2, 4, true);
 INSERT INTO socials (user_id, icon_id, url)
 VALUES
 (1, 1, 'https://steam.ca'),
+(2, 1, 'https://steamcommunity.com/id/ominousuper'),
 (2, 3, 'https://blizzard.ca'),
 (2, 5, 'https://riotgames.com'),
 (3, 2, 'https://epicgames.com'),
