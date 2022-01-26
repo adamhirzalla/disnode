@@ -46,20 +46,32 @@ export default function MemberMenu(props) {
   ];
 
   const role = members.find((m) => m.user_id === user.id).role;
+  // const friend = friends.find((f) => f.user_id === member.user_id);
+  // const receive = received.find((r) => r.sender_id === member.user_id);
+  // const send = sent.find((s) => s.receiver_id === member.user_id);
 
   // tartget a member that user clicks
-  const handleAnchor = (e) => {
-    setAnchor(e.currentTarget);
-  };
+  // const handleAnchor = (e) => {
+  //   setAnchor(e.currentTarget);
+  // };
 
-  const handleAnchorClose = (e) => {
-    setAnchor(false);
-  };
+  // const handleAnchorClose = (e) => {
+  //   setAnchor(false);
+  // };
 
   const handleAction = (action) => {
     setOpen(true);
     setAnchor(false);
     setAction(action);
+  };
+  const isNotFriend = (memberId) => {
+    return !user.friends.some((f) => f.user_id === memberId);
+  };
+  const isNotPending = (memberId) => {
+    return (
+      !user.requests.received.some((f) => f.user_id === memberId) &&
+      !user.requests.sent.some((f) => f.user_id === memberId)
+    );
   };
 
   return (
@@ -93,14 +105,16 @@ export default function MemberMenu(props) {
             </ListItemIcon>
             Profile
           </MenuItem>
-          {member.user_id !== user.id && (
-            <MenuItem onClick={() => handleAction(ADD)}>
-              <ListItemIcon>
-                <PersonAdd color="success" />
-              </ListItemIcon>
-              Add Friend
-            </MenuItem>
-          )}
+          {member.user_id !== user.id &&
+            isNotFriend(member.user_id) &&
+            isNotPending(member.user_id) && (
+              <MenuItem onClick={() => handleAction(ADD)}>
+                <ListItemIcon>
+                  <PersonAdd color="success" />
+                </ListItemIcon>
+                Add Friend
+              </MenuItem>
+            )}
           {role === "owner" &&
             member.user_id !== user.id &&
             member.role === "admin" && (
@@ -132,9 +146,8 @@ export default function MemberMenu(props) {
                 Demote To User
               </MenuItem>
             )}
-          {(role === "owner" || role === "admin") &&
-            member.user_id !== user.id &&
-            member.role === "user" && (
+          {(role === "owner" || (role === "admin" && member.role === "user")) &&
+            member.user_id !== user.id && (
               <MenuItem onClick={() => handleAction(KICK)}>
                 <ListItemIcon>
                   <Logout color="error" />

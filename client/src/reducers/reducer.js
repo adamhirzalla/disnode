@@ -19,7 +19,14 @@ import {
   EDIT_CHANNEL,
   EDIT_SERVER,
   DELETE_MESSAGE,
+  SET_REQUESTS,
+  EDIT_REQEUSTS,
+  EDIT_FRIENDS,
   UPDATE_MESSAGES,
+  UPDATE_USER,
+  REMOVE_REQUEST,
+  UPDATE_FRIENDS,
+  UPDATE_REQUESTS,
 } from "../utils/constants";
 import { initialState } from "../contexts/AuthContext";
 
@@ -35,10 +42,17 @@ export default function reducer(state, action) {
     channels,
     member,
     messages,
+    friends,
     message,
     socket,
     channelId,
     activeUsers,
+    request,
+    requests,
+    rejected,
+    sent,
+    accepted,
+    canceled,
   } = action;
   switch (action.type) {
     case SET_LOADING:
@@ -52,7 +66,53 @@ export default function reducer(state, action) {
         loading: false,
         authenticated: true,
         user,
+        // friends: [...user.friends],
+        // requests: { ...user.requests },
       };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: { ...state.user, ...user },
+        // friends: [...user.friends],
+        // requests: { ...user.requests },
+      };
+    case UPDATE_FRIENDS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          friends,
+        },
+      };
+    case UPDATE_REQUESTS: {
+      const sent = [...state.user.requests.sent, request];
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          requests,
+        },
+      };
+    }
+    case REMOVE_REQUEST: {
+      const sent = [
+        ...state.user.requests.sent.filter(
+          (r) => r.request_id !== request.request_id
+        ),
+      ];
+      const received = [
+        ...state.user.requests.received.filter(
+          (r) => r.request_id !== request.request_id
+        ),
+      ];
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          requests: { received, sent },
+        },
+      };
+    }
     case SET_TOKENS:
       return {
         ...state,
@@ -63,6 +123,44 @@ export default function reducer(state, action) {
         ...state,
         activeUsers,
       };
+    case EDIT_FRIENDS: {
+      const received = state.requests.received.filter(
+        (r) => r.sender_id !== accepted.accepted.user2_id
+      );
+      return {
+        ...state,
+        friends: accepted.friends,
+        requests: { ...state.requests, received },
+      };
+    }
+    // case SET_REQUESTS: {
+    //   return {
+    //     ...state,
+    //     requests,
+    //   };
+    // }
+    case EDIT_REQEUSTS: {
+      if (rejected) {
+        const received = state.requests.received.filter(
+          (r) => r.id !== rejected.id
+        );
+        return {
+          ...state,
+          requests: { ...state.requests, received },
+        };
+      } else if (sent) {
+        return {
+          ...state,
+          requests: { ...state.requests, sent },
+        };
+      } else if (canceled) {
+        const sent = state.requests.sent.filter((s) => s.id !== canceled.id);
+        return {
+          ...state,
+          requests: { ...state.requests, sent },
+        };
+      }
+    }
     case SET_MODE:
       return {
         ...state,
@@ -302,6 +400,7 @@ export default function reducer(state, action) {
         servers,
       };
     }
+
     default:
       return { ...state, error: `Unsupported action type: ${action.type}` };
   }

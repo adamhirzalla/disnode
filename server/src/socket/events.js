@@ -68,7 +68,6 @@ module.exports = (io) => {
       socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_DELETE, channel);
     };
     const newChannel = (channel) => {
-      console.log(channel);
       socket.to(`SERVER_${channel.server_id}`).emit(CHANNEL_NEW, channel);
     };
     const deleteMessage = (message) => {

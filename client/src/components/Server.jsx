@@ -16,6 +16,7 @@ import {
   CHANNEL_MESSAGE,
   CHANNEL_NEW,
   DELETE_CHANNEL,
+  DELETE_MEMBER,
   DELETE_MESSAGE,
   EDIT_CHANNEL,
   EDIT_SERVER,
@@ -85,6 +86,11 @@ export default function Server(props) {
       if (channel) socket.emit(CHANNEL_LEAVE, channel.id);
       setServers(servers);
       setMode(HOME);
+    } else {
+      appDispatch({
+        type: DELETE_MEMBER,
+        member,
+      });
     }
   };
   const editServer = (server) => {

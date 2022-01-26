@@ -22,7 +22,10 @@ const useStyles = makeStyles({
   server: { display: "flex", height: "100vh" },
 });
 export default function Dashboard() {
-  const { state, dispatch } = useContext(AuthContext);
+  const {
+    state: { loading, user },
+    dispatch,
+  } = useContext(AuthContext);
   const {
     app: { mode },
     setMessages,
@@ -67,10 +70,12 @@ export default function Dashboard() {
   return (
     <>
       <ServerList />
-      <Box className={classes.main}>
-        {mode === HOME && <Home />}
-        {mode === SERVER && <Server className={classes.server} />}
-      </Box>
+      {!loading && user && (
+        <Box className={classes.main}>
+          {mode === HOME && <Home />}
+          {mode === SERVER && <Server className={classes.server} />}
+        </Box>
+      )}
     </>
   );
 }

@@ -23,7 +23,12 @@ import {
   getServer,
   getServers,
 } from "../../network/serverApi";
-import { HOME, SERVER, SERVER_LEAVE } from "../../utils/constants";
+import {
+  CHANNEL_LEAVE,
+  HOME,
+  SERVER,
+  SERVER_LEAVE,
+} from "../../utils/constants";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import ProfileMenu from "./ProfileMenu";
@@ -104,7 +109,7 @@ export default function ServerList(props) {
     state: { socket, user },
   } = useContext(AuthContext);
   const {
-    app: { servers, mode, loading, server },
+    app: { servers, mode, loading, server, channel },
     setServer,
     setServers,
     setMode,
@@ -119,6 +124,7 @@ export default function ServerList(props) {
     socket.emit("home click", socket.id, user.nickname);
     // navigator.clipboard.writeText(`${user.nickname} is stoooopid`);
     if (server.id && socket) socket.emit(SERVER_LEAVE, server.id);
+    if (channel) socket.emit(CHANNEL_LEAVE, channel.id);
     setMode(HOME);
   };
 

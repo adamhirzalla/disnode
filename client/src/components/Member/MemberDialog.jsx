@@ -24,8 +24,11 @@ import {
   DELETE_MEMBER,
   MEMBER_KICK,
   MEMBER_UPDATE,
+  EDIT_REQEUSTS,
+  UPDATE_REQUESTS,
 } from "../../utils/constants";
 import AuthContext from "../../contexts/AuthContext";
+import { sendRequest } from "../../network/friendApi";
 // import Blizzard from "../SvgIcons/blizzard.svg";
 
 const [PROFILE, ADD, ADMIN, DEMOTE, KICK, OWNERSHIP] = [
@@ -61,6 +64,7 @@ export default function MemberDialog(props) {
   } = useContext(ServerContext);
   const {
     state: { user, socket },
+    dispatch,
   } = useContext(AuthContext);
 
   const classes = useStyles();
@@ -98,6 +102,11 @@ export default function MemberDialog(props) {
           type: DELETE_MEMBER,
           member,
         });
+      } else if (action === ADD) {
+        const requests = await sendRequest(member.user_id);
+        dispatch({ type: UPDATE_REQUESTS, requests });
+        setOpen(false);
+        setAction(null);
       }
     } catch (e) {}
   };

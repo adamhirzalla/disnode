@@ -7,9 +7,18 @@ export const TOKEN_KEY = "DisnodeTokens";
 
 // Reducer constants for dispatch
 export const SET_USER = "SET_USER";
+export const UPDATE_USER = "UPDATE_USER";
 export const SET_TOKENS = "SET_TOKENS";
 export const SET_SOCKET = "SET_SOCKET";
 export const SET_LOADING = "LOADING_USER";
+export const UPDATE_FRIENDS = "UPDATE_FRIENDS";
+export const REMOVE_REQUEST = "REMOVE_REQUEST";
+export const UPDATE_REQUESTS = "UPDATE_REQUESTS";
+
+export const EDIT_FRIENDS = "EDIT_FRIENDS";
+export const SET_REQUESTS = "SET_REQUESTS";
+export const EDIT_REQEUSTS = "EDIT_REQEUSTS";
+
 export const SET_ACTIVE_USERS = "SET_ACTIVE_USERS";
 export const SET_AUTHENTICATED = "SET_AUTHENTICATED";
 export const SET_UNAUTHENTICATED = "SET_UNAUTHENTICATED";

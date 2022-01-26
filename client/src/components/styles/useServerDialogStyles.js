@@ -37,7 +37,6 @@ export const useServerDialogStyles = makeStyles((theme) =>
       maxHeight: "80%",
       alignItems: "center",
       borderRadius: "2em",
-
       textAlign: "center",
       padding: "40px",
       flexDirection: "column",
