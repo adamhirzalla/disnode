@@ -13,6 +13,15 @@ export const getServers = async () => {
   }
 };
 
+export const getAllServers = async () => {
+  try {
+    const res = await axios.get("/api/servers/all");
+    return res.data;
+  } catch (e) {
+    console.log("Failed to retreive servers data", e);
+  }
+};
+
 // get all of the data for a server
 export const getServer = async (serverId) => {
   try {
@@ -52,16 +61,22 @@ export const createTags = async (tags, serverId) => {
 
 // search server/servers with inviteCode or title
 export const searchServers = async (server) => {
-  const { title, inviteCode } = server;
+  const { title, inviteCode, tags } = server;
   try {
     if (title) {
       const res = await axios.get(`/api/servers?title=${title}`);
       const servers = res.data;
       return servers;
+    } else if (inviteCode) {
+      const res = await axios.get(`/api/servers?invite_code=${inviteCode}`);
+      const server = res.data;
+      return [server];
+    } else if (tags.length) {
+      const tagsParams = tags.map((t) => "tags=" + t).join("&");
+      const res = await axios.get(`/api/servers?${tagsParams}`);
+      const servers = res.data;
+      return servers;
     }
-    const res = await axios.get(`/api/servers?invite_code=${inviteCode}`);
-    const server = res.data;
-    if (server) return [server];
   } catch (e) {
     console.log("Failed to search server ", e);
   }

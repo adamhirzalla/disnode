@@ -15,7 +15,12 @@ import { makeStyles } from "@mui/styles";
 import ServerContext from "../../contexts/ServerContext";
 import { editChannel } from "../../network/channelApi";
 import { useDisButtonStyles } from "../styles/useDisButtonStyles";
-import { DELETE_CHANNEL, EDIT_CHANNEL } from "../../utils/constants";
+import {
+  CHANNEL_EDIT,
+  DELETE_CHANNEL,
+  EDIT_CHANNEL,
+} from "../../utils/constants";
+import AuthContext from "../../contexts/AuthContext";
 
 const useStyles = makeStyles({
   dialogPaper: {
@@ -36,6 +41,9 @@ export default function ChannelEditDialog(props) {
   const { app, setChannel, setChannels, appDispatch } =
     useContext(ServerContext);
   const { server, channel } = app;
+  const {
+    state: { socket },
+  } = useContext(AuthContext);
   const classes = useStyles();
   const buttonClasses = useDisButtonStyles();
 
@@ -57,6 +65,7 @@ export default function ChannelEditDialog(props) {
       const channel = await editChannel(app.channel.id, input);
       // const channels = await editChannel(server.id, channel.id, input);
       // setChannels(channels);
+      socket.emit(CHANNEL_EDIT, channel);
       appDispatch({
         type: EDIT_CHANNEL,
         channel,

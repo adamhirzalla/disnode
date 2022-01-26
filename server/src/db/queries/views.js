@@ -19,6 +19,7 @@ const byMessage = (message, userId) => {
 };
 
 const add = (message, userId) => {
+  if (userId === message.sender_id) return;
   const query = `
   INSERT INTO views (message_id, user_id)
   VALUES ($1, $2) 
@@ -31,4 +32,5 @@ const add = (message, userId) => {
 
 module.exports = {
   byMessage,
+  add,
 };
