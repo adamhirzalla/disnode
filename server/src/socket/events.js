@@ -107,21 +107,21 @@ module.exports = (io) => {
 
     const user = await User.setActive(socket.userId);
     // add this new user to online map
-    Online.add(socket.id, user?.id);
+    Online.add(socket.id, socket.userId);
     // get all online users (app-wide)
     const online = Online.all();
 
-    console.log(`${user.username} connected`);
+    console.log(`${user?.username} connected`);
     socket.emit("login", online);
 
     // Notifying everyone on server (adds user to activeUsers)
-    socket.broadcast.emit("connection", online);
+    io.emit("connection", online);
 
     // Disconnection
     socket.on("disconnect", async () => {
       const user = await User.setInactive(socket.userId);
-      Online.remove(socket.id, user?.id);
-      console.log(`${user.username} disconnected`);
+      Online.remove(socket.id, socket.userId);
+      console.log(`${user?.username} disconnected`);
       const online = Online.all();
       io.emit("disconnection", online);
     });

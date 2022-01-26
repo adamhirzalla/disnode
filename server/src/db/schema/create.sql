@@ -28,7 +28,7 @@ CREATE TABLE users (
   "username" VARCHAR(255) UNIQUE,
   "email" VARCHAR(255) UNIQUE,
   "password" VARCHAR(255),
-  "avatar" VARCHAR(255),
+  "avatar" VARCHAR(255) DEFAULT '/images/Disnode-red.png',
   "bio" TEXT,
   "created_at" TIMESTAMP DEFAULT NOW(),
   "is_active" BOOLEAN DEFAULT true
