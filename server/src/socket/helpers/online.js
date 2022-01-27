@@ -44,6 +44,7 @@ const removeFromChannel = (userId, channelId) => {
 const allInChannel = (channelId) => {
   if (channels.has(channelId)) return [...channels.get(channelId)];
 };
+const allChannels = () => [...channels.keys()];
 
 module.exports = {
   add,
@@ -52,4 +53,5 @@ module.exports = {
   addToChannel,
   removeFromChannel,
   allInChannel,
+  allChannels,
 };

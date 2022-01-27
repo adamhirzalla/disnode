@@ -98,11 +98,11 @@ module.exports = (io) => {
 
     const leaveChannel = (oldId) => {
       const userId = socket.userId;
+      socket.leave(`CHANNEL_${oldId}`);
       Online.removeFromChannel(userId, oldId);
       console.log(`${socket.userId} left channel ${oldId}`);
       const inChannel = Online.allInChannel(oldId);
       console.log("users in channel", inChannel);
-      socket.leave(`CHANNEL_${oldId}`);
     };
 
     const user = await User.setActive(socket.userId);
@@ -122,7 +122,14 @@ module.exports = (io) => {
       const user = await User.setInactive(socket.userId);
       Online.remove(socket.id, socket.userId);
       console.log(`${user?.username} disconnected`);
+      socket.rooms.forEach(function (room) {
+        // io.in(room).emit('user:disconnect', {id: socket.id});
+        socket.leave(room);
+      });
+      const inChannel = Online.allChannels();
       const online = Online.all();
+      console.log(`${online} in app`);
+      console.log(`${inChannel} in channel`);
       io.emit("disconnection", online);
     });
 
