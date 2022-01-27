@@ -4,7 +4,7 @@
   "description": "LHL Final Project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "node index.js",
     "local": "./node_modules/.bin/nodemon",
     "db:reset": "PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/create.sql && PGPASSWORD=labber psql -U labber -d disnode < ./src/db/schema/seed.sql",
     "test": "jest",
