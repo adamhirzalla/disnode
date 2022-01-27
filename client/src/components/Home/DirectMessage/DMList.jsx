@@ -81,6 +81,7 @@ const useStyles = makeStyles(() => ({
     // position: "fixed",
     // left: "122px",
     backgroundColor: "rgb(189,189,189,0.7)",
+    borderRight: "1px solid rgb(16,16,16,0.3)",
     // minWidth: "25%",
     // width: "30%",
     maxWidth: "365.141px",
@@ -155,7 +156,7 @@ export default function DMList({ children }) {
           component="div"
           className={classes.header}
         >
-          Direct Messages
+          Chat List
         </Typography>
       </Toolbar>
       <List className={classes.list}>{parsedDMs}</List>

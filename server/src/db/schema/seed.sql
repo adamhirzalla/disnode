@@ -30,7 +30,7 @@ VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslI
 ('Mastiff OP', 'littleAngelo', 'littleAngelo555', 'littleAngelo555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109702261', 'Not big, little angelo. Catchphrase.', '2021-12-28T23:22:15.072Z', false),
 ('saint cyn', 'saintcyn', 'saintcyn555', 'saintcyn555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643116672916', 'internet darling, occasional writer 🧃
 ', '2021-12-28T23:22:15.072Z', false),
-('Jono Su', 'Jonathan', 'jsu555', 'jsu555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg', '', '2021-12-28T23:22:15.072Z', false);
+('Jono Su', 'Jonathan', 'jsu555', 'jsu5552@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg', ' ', '2021-12-28T23:22:15.072Z', false);
 
 
 WITH icons(icon) AS (

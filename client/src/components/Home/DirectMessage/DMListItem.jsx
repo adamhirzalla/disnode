@@ -67,10 +67,10 @@ export default function DMListItem(props) {
       </ListItem> */}
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src={"/images/avatar.jpg"} />
+          <Avatar alt="Disnode" src={user.img} />
         </ListItemAvatar>
         <ListItemText
-          primary="Buddies"
+          primary={user.full_name}
           secondary={
             <>
               <Typography
@@ -79,9 +79,9 @@ export default function DMListItem(props) {
                 variant="body2"
                 // color="text.primary"
               >
-                Disnode!
+                {/* Disnode! */}
               </Typography>
-              {" Under construction..."}
+              {user.bio}
             </>
           }
         />

@@ -44,7 +44,7 @@ export default function Dashboard() {
         {mode === "REGISTER" && <Register />}
         {user && (
           <>
-            {mode === "LOGIN" && <Home />}
+            {user?.id === 30 && mode === HOME && <Home />}
             {mode === SERVER && <Server className={classes.server} />}
           </>
         )}

@@ -109,7 +109,7 @@ export default function MessageForm() {
         // color="info"
         maxRows="5"
         variant="outlined"
-        placeholder={`Message #${channel?.title}`}
+        placeholder={`Message #${"Disnode"}`}
         multiline
         required
         InputProps={{ className: classes.input }}
