@@ -23,6 +23,7 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     flexGrow: 1,
     marginLeft: "3em",
+    outline: "none",
   },
   input: {
     // width: "100%",
