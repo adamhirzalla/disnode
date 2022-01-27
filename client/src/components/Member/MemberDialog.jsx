@@ -50,9 +50,24 @@ const icons = [
 
 const useStyles = makeStyles(() => ({
   root: { backgroundColor: "white" },
-  actions: { display: "flex", justifyContent: "center" },
-  content: { paddingBottom: 0 },
+  actions: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexWrap: "wrap",
+    width: "60%",
+  },
+  content: { paddingBottom: 0, display: "flex", justifyContent: "center" },
   icons: { opacity: "0.7", "&:hover": { opacity: 1 } },
+  dialog: {
+    "& .MuiPaper-root": {
+      maxWidth: "375px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  },
 }));
 export default function MemberDialog(props) {
   const { action, member, setOpen, setAction, open } = props;
@@ -118,6 +133,7 @@ export default function MemberDialog(props) {
           disableRipple
           className={classes.icons}
           key={social.id}
+          sx={{ "& svg": { minWidth: "50px" } }}
           onClick={() => window.open(social.url, "_blank")}
         >
           {social.id === 1
@@ -138,7 +154,11 @@ export default function MemberDialog(props) {
     });
 
   return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
+    <Dialog
+      open={open}
+      onClose={() => setOpen(false)}
+      className={classes.dialog}
+    >
       <DialogTitle>
         {action !== PROFILE && "Are you sure you want to "}
         {action === ADD

@@ -87,11 +87,11 @@ export default function MemberMenu(props) {
         anchorEl={anchor}
         anchorOrigin={{
           vertical: "top",
-          horizontal: "right",
+          horizontal: "left",
         }}
         keepMounted
         transformOrigin={{
-          vertical: "top",
+          vertical: "bottom",
           horizontal: "right",
         }}
         open={Boolean(anchor)}

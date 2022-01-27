@@ -9,7 +9,7 @@ export default function YoutubeSvg() {
         focusable="false"
         data-prefix="fab"
         data-icon="youtube"
-        class="svg-inline--fa fa-youtube fa-w-18"
+        className="svg-inline--fa fa-youtube fa-w-18"
         role="img"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512"

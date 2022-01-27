@@ -46,9 +46,9 @@ export const AuthProvider = ({ children }) => {
       socket.on("disconnection", updateActive);
     }
     return () => {
-      socket && socket.removeAllListeners();
+      // socket && socket.removeAllListeners();
     };
-  }, [state.authenticated, socket]);
+  }, [state.authenticated, state.activeUsers]);
 
   useEffect(() => {
     isAuth(dispatch);

@@ -71,7 +71,7 @@ const tags = [
   },
   {
     id: 4,
-    name: "RTT",
+    name: "Casual",
   },
   {
     id: 5,
@@ -83,6 +83,6 @@ const tags = [
   },
   {
     id: 7,
-    name: "RTS",
+    name: "Anime",
   },
 ];

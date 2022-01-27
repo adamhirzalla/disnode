@@ -9,7 +9,7 @@ export default function SpotifySvg() {
         focusable="false"
         data-prefix="fab"
         data-icon="spotify"
-        class="svg-inline--fa fa-spotify fa-w-16"
+        className="svg-inline--fa fa-spotify fa-w-16"
         role="img"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 496 512"

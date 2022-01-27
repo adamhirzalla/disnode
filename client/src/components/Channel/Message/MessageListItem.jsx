@@ -41,6 +41,11 @@ const useStyles = makeStyles(() => ({
       // "&.MuiTypography-root": { color: "green" },
     },
   },
+  none: {
+    "& p": {
+      color: "gray",
+    },
+  },
   owner: {
     "& p": {
       color: "rgb(199, 58, 58,1)",
@@ -56,6 +61,7 @@ const useStyles = makeStyles(() => ({
       color: "rgb(52, 138, 17)",
     },
   },
+
   views: {
     alignSelf: "end",
     position: "absolute",
@@ -69,7 +75,7 @@ const useStyles = makeStyles(() => ({
   },
   stack: {
     flexGrow: 1,
-    maxWidth: "840px",
+    maxWidth: "75%",
   },
   viewers: { width: "30px", height: "30px" },
   icon: {
@@ -104,6 +110,7 @@ const useStyles = makeStyles(() => ({
       color: "black",
     },
   },
+
   mention: {
     backgroundColor: "rgba(250,209,102, 0.3)",
     borderRadius: 5,
@@ -135,7 +142,9 @@ export default function MessageListItem(props) {
       members.find((m) => m.user_id === message.sender_id)?.role === "admin",
     [classes.user]:
       members.find((m) => m.user_id === message.sender_id)?.role === "user",
+    [classes.none]: !members.some((m) => m.user_id === members.sender_id),
   });
+
   let tooltip;
   if (views.length === 1) tooltip = `seen by ${views[0].viewer_nickname}`;
   if (views.length > 3)
@@ -170,7 +179,11 @@ export default function MessageListItem(props) {
     appDispatch({ type: DELETE_MESSAGE, message: deletedMessage });
     setThrottle(false);
   };
-  if (message.body.includes(`@${user.nickname}`)) message.mention = true;
+  if (
+    message.body.includes(`@${user.nickname}`) ||
+    message.body.includes(`@everyone`)
+  )
+    message.mention = true;
   return (
     <>
       <Divider

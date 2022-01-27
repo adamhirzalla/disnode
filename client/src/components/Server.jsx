@@ -29,6 +29,7 @@ import {
   SERVER_EDIT,
   SERVER_JOIN,
   SERVER_LEAVE,
+  SET_ACTIVE_USERS,
   SET_NEW_CHANNEL,
   UPDATE_MESSAGES,
 } from "../utils/constants";
@@ -48,10 +49,14 @@ export default function Server(props) {
   const { channel, server, messages, servers } = app;
   const {
     state: { user, socket, activeUsers, autheticated },
+    dispatch,
   } = useContext(AuthContext);
 
   useEffect(() => {
     if (socket) {
+      socket.on("connection", updateActive);
+
+      socket.on("disconnection", updateActive);
       socket.on(SERVER_JOIN, serverJoined);
       socket.on(SERVER_LEAVE, serverLeft);
       socket.on(CHANNEL_MESSAGE, receiveChannelMSG);
@@ -71,6 +76,12 @@ export default function Server(props) {
       console.log("listeners removed");
     };
   }, [socket, server]);
+  const updateActive = (activeUsers) => {
+    dispatch({
+      type: SET_ACTIVE_USERS,
+      activeUsers,
+    });
+  };
   const serverJoined = (userId, serverId) => {
     console.log(`User ${userId} has joined Server ${serverId}`);
   };

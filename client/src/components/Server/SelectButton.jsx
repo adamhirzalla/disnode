@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // mui imports
 import { styled } from "@mui/material/styles";
@@ -15,6 +15,9 @@ const Input = styled("input")({
 export default function SelectButton(props) {
   const { setFile } = props;
   const classes = useDisButtonStyles();
+  useEffect(() => {
+    setFile(null);
+  }, []);
 
   const handleChange = (e) => {
     const preview = document.querySelector("#image-preview");

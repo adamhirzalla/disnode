@@ -16,6 +16,7 @@ import { useLoginStyles } from "../components/styles/useLoginStyles";
 import AuthContext from "../contexts/AuthContext";
 import ServerContext from "../contexts/ServerContext";
 import { register } from "../network/authApi";
+import { HOME } from "../utils/constants";
 
 const initialInput = {
   full_name: "",
@@ -66,12 +67,12 @@ const Register = () => {
     const success = await register(input);
     if (!success) return;
     alert("Registration successful, please login");
-    setMode("LOGIN");
+    setMode(HOME);
     // navigate("/login");
   };
 
   const login = () => {
-    setMode("LOGIN");
+    setMode(HOME);
   };
   return (
     <Stack className={classes.login}>

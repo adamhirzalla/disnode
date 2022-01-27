@@ -40,11 +40,11 @@ export default function Dashboard() {
     <>
       <ServerList />
       <Box className={classes.main}>
-        {!user && mode === "LOGIN" && <Login />}
+        {!user && mode === HOME && <Login />}
         {mode === "REGISTER" && <Register />}
-        {!loading && user && (
+        {user && (
           <>
-            {mode === HOME && <Home />}
+            {mode === "LOGIN" && <Home />}
             {mode === SERVER && <Server className={classes.server} />}
           </>
         )}

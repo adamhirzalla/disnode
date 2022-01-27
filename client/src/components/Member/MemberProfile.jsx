@@ -5,8 +5,10 @@ import { Avatar, Box, CardContent, Divider, Typography } from "@mui/material";
 const useStyles = makeStyles(() => ({
   card: {
     minWidth: 250,
-    maxWidth: 300,
-    minHeight: 250,
+    // maxWidth: 350,
+    minHeight: 200,
+    width: "90%",
+    paddingTop: "20px",
     // maxHeight: 300,
     display: "flex",
     flexDirection: "column",
