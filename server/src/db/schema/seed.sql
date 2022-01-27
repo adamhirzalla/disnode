@@ -29,7 +29,8 @@ VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslI
 ('Mastiff OP', 'mask', 'mask555', 'mask555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109555366', 'mask on... mask on...', '2021-12-28T23:22:15.072Z', false),
 ('Mastiff OP', 'littleAngelo', 'littleAngelo555', 'littleAngelo555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643109702261', 'Not big, little angelo. Catchphrase.', '2021-12-28T23:22:15.072Z', false),
 ('saint cyn', 'saintcyn', 'saintcyn555', 'saintcyn555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643116672916', 'internet darling, occasional writer 🧃
-', '2021-12-28T23:22:15.072Z', false);
+', '2021-12-28T23:22:15.072Z', false),
+('Jono Su', 'Jonathan', 'jsu555', 'jsu555@gmail.com', 'R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg', '', '2021-12-28T23:22:15.072Z', false);
 
 
 WITH icons(icon) AS (
@@ -39,7 +40,7 @@ INSERT INTO icons (name)
 SELECT icon FROM icons;
 
 WITH tags(tag) AS (
-  VALUES ('FPS'), ('MOBA'), ('MMORPG'), ('RTT'), ('RPG'), ('Indie'), ('RTS')
+  VALUES ('FPS'), ('MOBA'), ('MMORPG'), ('Casual'), ('RPG'), ('Indie'), ('Anime')
 )
 INSERT INTO tags (name)
 SELECT tag FROM tags;
@@ -100,10 +101,10 @@ VALUES
 (3, 12, 'admin'),
 (3, 1, 'admin'),
 (3, 14, 'user'),
-(4, 22, 'owner'),
+(4, 22, 'admin'),
 (4, 5, 'admin'),
 (4, 2, 'user'),
-(4, 3, 'admin'),
+(4, 3, 'owner'),
 (4, 6, 'user'),
 (4, 1, 'user'),
 (4, 11, 'user'),
@@ -158,7 +159,7 @@ VALUES
 (13, 10, 'user'),
 (13, 2, 'user'),
 (14, 3, 'owner'),
-(14, 2, 'admin'),
+(14, 2, 'user'),
 (14, 29, 'admin'),
 (14, 1, 'admin'),
 (14, 21, 'admin'),
@@ -332,7 +333,7 @@ VALUES
 INSERT INTO server_tags
 (server_id, tag_id)
 VALUES
-(1, 3), (1, 4), (2, 5), (2, 6), (3, 1), (4, 1), (4, 5), (5, 2), (6, 1), (7, 6), (8, 2), (8, 5), (9, 5), (9, 6), (10, 1), (11, 7), (12, 4);
+(1, 3), (1, 4), (2, 5), (2, 6), (3, 1), (4, 1), (4, 5), (5, 2), (6, 1), (7, 6), (8, 2), (8, 5), (9, 5), (9, 6), (10, 1), (11, 7), (12, 4), (14, 6), (14, 4);
 
 
 -- 1 - 3 4 

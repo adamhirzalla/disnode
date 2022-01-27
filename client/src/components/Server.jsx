@@ -90,6 +90,7 @@ export default function Server(props) {
   };
   const receiveChannelMSG = (message) => {
     setMessages(message, user);
+    console.log(message);
   };
   const updateMembers = (members) => {
     setMembers(members);
