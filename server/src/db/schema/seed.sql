@@ -1,8 +1,9 @@
 INSERT INTO users 
 (full_name, nickname, username, email, password, avatar, bio, created_at, is_active) 
-VALUES ('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643108220986', 'This is Eavan', '2021-12-28T23:21:50.702Z', false),
+VALUES 
+('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643106035142', 'This is Adam, certified gamer 🎮 11/10 would recommend Disnode', '2021-12-28T23:22:15.072Z', false),
+('Eavan Kim', 'EavanK', 'eavan555', 'eavan.hsk@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643108220986', 'This is Eavan', '2021-12-28T23:21:50.702Z', false),
 ('Jonathan Su', 'smart lad', 'hjonsu555', 'hjonsu555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643108137752', 'This is Jonathan', '2021-12-28T23:22:08.022Z', false),
-('Adam Hirzalla', 'Learth', 'adam555', 'adam555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643106035142', 'This is Adam', '2021-12-28T23:22:15.072Z', false),
 ('Jeremy Toast', 'Hidden Toast', 'htoast555', 'htoast555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643098427774', 'This is Toast, I have IQ higher than you can count.', '2021-12-28T23:22:15.072Z', false),
 ('Valky Ray', 'ValkiRay', 'vray555', 'vray555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643088553892', 'Hey, I''m ValkiRay! Add me to join my Among us lobbies!.', '2021-12-28T23:22:15.072Z', false),
 ('Penny Wisdom', 'VentLurker', 'vlurk555', 'vlurk555@gmail.com', '$2b$10$R1UslIDbKmIvZ7WI66GBcukgSPo2mU3b1Y2QWFcoJDb1w8dVIamXq', 'https://disnode.s3.amazonaws.com/1643088227866', 'Be careful near the vents...', '2021-12-28T23:22:15.072Z', false),
@@ -51,7 +52,7 @@ VALUES
 (1, 'Marvel''s Avengers', 'https://disnode.s3.amazonaws.com/1643104752877','uWAn6xGEJYw47aO1tc0I'),
 (2, 'Among Us', 'https://disnode.s3.amazonaws.com/1643102770797','yaYkXCyWdp4shDuXu0II'),
 (3, 'Valorant', 'https://disnode.s3.amazonaws.com/1643104650234','PbZxWQgltGvL25VHZoAn'),
-(4, 'Apex Legends', 'https://disnode.s3.amazonaws.com/1643104597812','Pz4CmYCve3DOKCiRdXkJ'),
+(4, 'Apex Legends', 'https://disnode.s3.amazonaws.com/1643104597812','d7fc3185-8e92-4081-ab11-eb3825ed7ef2'),
 (5, 'Dota 2', 'https://disnode.s3.amazonaws.com/1643104413736','Ldxx4zebNXfAcXxKl9s5'),
 (6, 'CS:GO', 'https://disnode.s3.amazonaws.com/1643104966439','Q3iXKk96BfxlUjevUAG9'),
 (7, 'Rocket League', 'https://disnode.s3.amazonaws.com/1643103892831','dna6Gq7fEJ4q32so8Frb'),
