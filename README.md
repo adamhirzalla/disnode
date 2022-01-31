@@ -127,6 +127,7 @@ The project is live
 <img src="./docs/images/seen.png" alt="seen" />
 <img src="./docs/images/notification.png" alt="notification" />
 <img src="./docs/images/mentions.png" alt="mentions" />
+<img src="./docs/images/profile.png" alt="profile" />
 <img src="./docs/images/roles.png" alt="roles" />
 <img src="./docs/images/search-form.png" alt="search-form" />
 <img src="./docs/images/search-result.png" alt="search-result" />
